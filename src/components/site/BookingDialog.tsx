@@ -22,16 +22,30 @@ const schema = z.object({
     .min(6, "Enter a valid number")
     .max(32)
     .regex(/^[+0-9\s\-()]+$/, "Digits only"),
-  time: z.string().min(1, "Pick a time"),
+  date: z.string().min(1, "Pick a date"),
+  slot: z.string().min(1, "Pick a slot"),
+  timezone: z.string().min(1),
 });
 
-const timeSlots = [
-  "Today · afternoon",
-  "Tomorrow · morning",
-  "Tomorrow · afternoon",
-  "This week",
-  "Next week",
-];
+const slots = ["09:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
+
+function nextBusinessDays(count: number) {
+  const out: { value: string; label: string }[] = [];
+  const d = new Date();
+  while (out.length < count) {
+    d.setDate(d.getDate() + 1);
+    const day = d.getDay();
+    if (day === 0 || day === 6) continue;
+    const value = d.toISOString().slice(0, 10);
+    const label = d.toLocaleDateString(undefined, {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+    });
+    out.push({ value, label });
+  }
+  return out;
+}
 
 export function BookingDialog({
   open,
