@@ -188,8 +188,23 @@ export function BookingDialog({
                 </div>
               </Field>
 
-              <Button type="submit" size="lg" variant="brand" className="w-full mt-2">
-                Request call
+              {submitError && (
+                <div
+                  role="alert"
+                  className="rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2 text-xs text-destructive"
+                >
+                  {submitError}
+                </div>
+              )}
+
+              <Button
+                type="submit"
+                size="lg"
+                variant="brand"
+                className="w-full mt-2"
+                disabled={submitting}
+              >
+                {submitting ? "Sending…" : "Request call"}
               </Button>
               <p className="text-[11px] text-muted-foreground text-center">
                 By submitting you agree to be contacted about Leadline AI.
