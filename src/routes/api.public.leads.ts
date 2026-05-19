@@ -11,7 +11,9 @@ const schema = z.object({
     .min(6)
     .max(32)
     .regex(/^[+0-9\s\-()]+$/),
-  time: z.string().trim().min(1).max(60),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  slot: z.string().regex(/^\d{2}:\d{2}$/),
+  timezone: z.string().trim().min(1).max(80),
 });
 
 const CORS = {
