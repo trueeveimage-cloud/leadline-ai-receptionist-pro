@@ -43,13 +43,16 @@ export function BookingDialog({
   const [form, setForm] = useState({ name: "", company: "", phone: "", time: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const update = (k: keyof typeof form, v: string) => {
     setForm((f) => ({ ...f, [k]: v }));
     if (errors[k]) setErrors((e) => ({ ...e, [k]: "" }));
+    if (submitError) setSubmitError(null);
   };
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     const parsed = schema.safeParse(form);
     if (!parsed.success) {
@@ -60,13 +63,34 @@ export function BookingDialog({
       setErrors(errs);
       return;
     }
-    setSubmitted(true);
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      const res = await fetch("/api/public/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(parsed.data),
+      });
+      if (!res.ok) {
+        const data = (await res.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(data?.error || `Request failed (${res.status})`);
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitError(
+        err instanceof Error ? err.message : "Couldn't send your request. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const reset = () => {
     setForm({ name: "", company: "", phone: "", time: "" });
     setErrors({});
     setSubmitted(false);
+    setSubmitting(false);
+    setSubmitError(null);
   };
 
   return (
@@ -164,8 +188,23 @@ export function BookingDialog({
                 </div>
               </Field>
 
-              <Button type="submit" size="lg" variant="brand" className="w-full mt-2">
-                Request call
+              {submitError && (
+                <div
+                  role="alert"
+                  className="rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2 text-xs text-destructive"
+                >
+                  {submitError}
+                </div>
+              )}
+
+              <Button
+                type="submit"
+                size="lg"
+                variant="brand"
+                className="w-full mt-2"
+                disabled={submitting}
+              >
+                {submitting ? "Sending…" : "Request call"}
               </Button>
               <p className="text-[11px] text-muted-foreground text-center">
                 By submitting you agree to be contacted about Leadline AI.
