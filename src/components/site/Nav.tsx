@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useDialogs } from "./DialogsProvider";
 
 const links = [
   { href: "#how", label: "How it works" },
@@ -11,6 +13,9 @@ const links = [
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const { openBooking } = useDialogs();
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
@@ -18,37 +23,112 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
-    <motion.header
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "backdrop-blur-xl bg-background/80 border-b border-border/60"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
-        <a href="#top" className="flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-brand" />
-          <span className="font-semibold tracking-tight">Leadline AI</span>
-        </a>
-        <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="hover:text-foreground transition-colors"
+    <>
+      <motion.header
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+          scrolled || open
+            ? "backdrop-blur-xl bg-background/80 border-b border-border/60"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
+          <a href="#top" className="flex items-center gap-2" onClick={() => setOpen(false)}>
+            <span className="h-2 w-2 rounded-full bg-brand" />
+            <span className="font-semibold tracking-tight">Leadline AI</span>
+          </a>
+
+          <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
+            {links.map((l) => (
+              <a key={l.href} href={l.href} className="hover:text-foreground transition-colors">
+                {l.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <Button
+              size="sm"
+              variant="brand"
+              className="hidden md:inline-flex rounded-full px-5"
+              onClick={openBooking}
             >
-              {l.label}
-            </a>
-          ))}
-        </nav>
-        <Button asChild size="sm" variant="brand" className="rounded-full px-5">
-          <a href="#demo">Book demo</a>
+              Book demo
+            </Button>
+            <button
+              aria-label={open ? "Close menu" : "Open menu"}
+              onClick={() => setOpen((v) => !v)}
+              className="md:hidden h-10 w-10 grid place-items-center rounded-full border border-border bg-background"
+            >
+              {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            </button>
+          </div>
+        </div>
+      </motion.header>
+
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {open && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-40 bg-background/60 backdrop-blur-sm md:hidden"
+              onClick={() => setOpen(false)}
+            />
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed top-16 inset-x-0 z-40 md:hidden bg-background border-b border-border"
+            >
+              <nav className="px-6 py-6 flex flex-col">
+                {links.map((l, i) => (
+                  <motion.a
+                    key={l.href}
+                    href={l.href}
+                    onClick={() => setOpen(false)}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.05 + i * 0.04 }}
+                    className="py-4 text-xl font-medium tracking-tight border-b border-border/60 last:border-0"
+                  >
+                    {l.label}
+                  </motion.a>
+                ))}
+              </nav>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile sticky CTA */}
+      <div className="md:hidden fixed bottom-0 inset-x-0 z-40 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 bg-gradient-to-t from-background via-background/90 to-transparent">
+        <Button
+          variant="brand"
+          size="lg"
+          className="w-full rounded-full shadow-[0_8px_30px_-8px_rgba(0,0,0,0.25)]"
+          onClick={() => {
+            setOpen(false);
+            openBooking();
+          }}
+        >
+          Book demo
         </Button>
       </div>
-    </motion.header>
+    </>
   );
 }

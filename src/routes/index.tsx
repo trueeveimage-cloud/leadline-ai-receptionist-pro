@@ -7,6 +7,7 @@ import { Industries } from "@/components/site/Industries";
 import { Demo } from "@/components/site/Demo";
 import { Pricing } from "@/components/site/Pricing";
 import { FinalCTA, Footer } from "@/components/site/Footer";
+import { DialogsProvider } from "@/components/site/DialogsProvider";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,18 +30,20 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Nav />
-      <main>
-        <Hero />
-        <Problem />
-        <Solution />
-        <Industries />
-        <Demo />
-        <Pricing />
-        <FinalCTA />
-      </main>
-      <Footer />
-    </div>
+    <DialogsProvider>
+      <div className="min-h-screen bg-background text-foreground pb-24 md:pb-0">
+        <Nav />
+        <main>
+          <Hero />
+          <Problem />
+          <Solution />
+          <Industries />
+          <Demo />
+          <Pricing />
+          <FinalCTA />
+        </main>
+        <Footer />
+      </div>
+    </DialogsProvider>
   );
 }

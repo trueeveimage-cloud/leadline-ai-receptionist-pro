@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import { useDialogs } from "./DialogsProvider";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Demo() {
+  const { openCallDemo, openBooking } = useDialogs();
   return (
     <section id="demo" className="py-24 md:py-32 bg-surface">
       <div className="mx-auto max-w-4xl px-6 text-center">
@@ -42,11 +44,11 @@ export function Demo() {
           transition={{ duration: 0.7, ease, delay: 0.2 }}
           className="mt-10 flex flex-wrap justify-center gap-3"
         >
-          <Button asChild size="lg" variant="brand">
-            <a href="tel:+4500000000">Call demo</a>
+          <Button size="lg" variant="brand" onClick={openCallDemo}>
+            Call demo AI
           </Button>
-          <Button asChild size="lg" variant="soft">
-            <a href="#contact">Book setup call</a>
+          <Button size="lg" variant="soft" onClick={openBooking}>
+            Book setup call
           </Button>
         </motion.div>
         <div className="mt-10 flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm text-muted-foreground">
