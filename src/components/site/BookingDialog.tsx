@@ -54,7 +54,19 @@ export function BookingDialog({
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) {
-  const [form, setForm] = useState({ name: "", company: "", phone: "", time: "" });
+  const tz =
+    typeof Intl !== "undefined"
+      ? Intl.DateTimeFormat().resolvedOptions().timeZone
+      : "UTC";
+  const dates = nextBusinessDays(6);
+  const [form, setForm] = useState({
+    name: "",
+    company: "",
+    phone: "",
+    date: dates[0]?.value ?? "",
+    slot: "",
+    timezone: tz,
+  });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -100,7 +112,14 @@ export function BookingDialog({
   };
 
   const reset = () => {
-    setForm({ name: "", company: "", phone: "", time: "" });
+    setForm({
+      name: "",
+      company: "",
+      phone: "",
+      date: dates[0]?.value ?? "",
+      slot: "",
+      timezone: tz,
+    });
     setErrors({});
     setSubmitted(false);
     setSubmitting(false);
@@ -180,22 +199,46 @@ export function BookingDialog({
                   className="h-11 rounded-lg"
                 />
               </Field>
-              <Field label="Preferred time" error={errors.time}>
-                <div className="flex flex-wrap gap-2">
-                  {timeSlots.map((t) => {
-                    const active = form.time === t;
+              <Field label="Date" error={errors.date}>
+                <div className="flex gap-2 overflow-x-auto -mx-1 px-1 pb-1 snap-x">
+                  {dates.map((d) => {
+                    const active = form.date === d.value;
                     return (
                       <button
-                        key={t}
+                        key={d.value}
                         type="button"
-                        onClick={() => update("time", t)}
-                        className={`px-3.5 h-9 rounded-full text-xs border transition-colors ${
+                        onClick={() => update("date", d.value)}
+                        className={`shrink-0 snap-start min-w-[78px] px-3 py-2.5 rounded-xl text-xs border transition-colors text-left ${
                           active
                             ? "bg-foreground text-background border-foreground"
                             : "bg-background text-foreground border-border hover:border-foreground/40"
                         }`}
                       >
-                        {t}
+                        <span className="block font-medium">{d.label.split(",")[0]}</span>
+                        <span className="block opacity-70 mt-0.5">
+                          {d.label.split(",")[1]?.trim()}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </Field>
+              <Field label={`Time · ${tz}`} error={errors.slot}>
+                <div className="grid grid-cols-4 gap-2">
+                  {slots.map((s) => {
+                    const active = form.slot === s;
+                    return (
+                      <button
+                        key={s}
+                        type="button"
+                        onClick={() => update("slot", s)}
+                        className={`h-10 rounded-lg text-xs font-medium border transition-colors tabular-nums ${
+                          active
+                            ? "bg-foreground text-background border-foreground"
+                            : "bg-background text-foreground border-border hover:border-foreground/40"
+                        }`}
+                      >
+                        {s}
                       </button>
                     );
                   })}

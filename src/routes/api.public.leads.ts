@@ -48,7 +48,7 @@ export const Route = createFileRoute("/api/public/leads")({
               name: parsed.data.name,
               company: parsed.data.company,
               phone: parsed.data.phone,
-              preferred_time: parsed.data.time,
+              preferred_time: `${parsed.data.date} ${parsed.data.slot} (${parsed.data.timezone})`,
               user_agent: request.headers.get("user-agent") ?? null,
             });
 
