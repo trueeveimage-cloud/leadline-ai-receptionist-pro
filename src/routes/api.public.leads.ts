@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 const schema = z.object({
   name: z.string().trim().min(1).max(100),
@@ -39,13 +40,23 @@ export const Route = createFileRoute("/api/public/leads")({
             );
           }
 
-          // Log the lead (visible in server-function-logs).
-          // Hook this up to an email/CRM later.
-          console.log("[leadline] new lead", {
-            ...parsed.data,
-            ua: request.headers.get("user-agent") ?? "",
-            at: new Date().toISOString(),
-          });
+          const { error: insertError } = await supabaseAdmin
+            .from("leads")
+            .insert({
+              name: parsed.data.name,
+              company: parsed.data.company,
+              phone: parsed.data.phone,
+              preferred_time: parsed.data.time,
+              user_agent: request.headers.get("user-agent") ?? null,
+            });
+
+          if (insertError) {
+            console.error("[leadline] insert failed", insertError);
+            return new Response(
+              JSON.stringify({ ok: false, error: "Server error." }),
+              { status: 500, headers: { "Content-Type": "application/json", ...CORS } },
+            );
+          }
 
           return new Response(JSON.stringify({ ok: true }), {
             status: 200,
