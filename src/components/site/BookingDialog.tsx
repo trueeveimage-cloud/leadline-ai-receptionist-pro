@@ -22,16 +22,30 @@ const schema = z.object({
     .min(6, "Enter a valid number")
     .max(32)
     .regex(/^[+0-9\s\-()]+$/, "Digits only"),
-  time: z.string().min(1, "Pick a time"),
+  date: z.string().min(1, "Pick a date"),
+  slot: z.string().min(1, "Pick a slot"),
+  timezone: z.string().min(1),
 });
 
-const timeSlots = [
-  "Today · afternoon",
-  "Tomorrow · morning",
-  "Tomorrow · afternoon",
-  "This week",
-  "Next week",
-];
+const slots = ["09:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
+
+function nextBusinessDays(count: number) {
+  const out: { value: string; label: string }[] = [];
+  const d = new Date();
+  while (out.length < count) {
+    d.setDate(d.getDate() + 1);
+    const day = d.getDay();
+    if (day === 0 || day === 6) continue;
+    const value = d.toISOString().slice(0, 10);
+    const label = d.toLocaleDateString(undefined, {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+    });
+    out.push({ value, label });
+  }
+  return out;
+}
 
 export function BookingDialog({
   open,
@@ -40,7 +54,19 @@ export function BookingDialog({
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) {
-  const [form, setForm] = useState({ name: "", company: "", phone: "", time: "" });
+  const tz =
+    typeof Intl !== "undefined"
+      ? Intl.DateTimeFormat().resolvedOptions().timeZone
+      : "UTC";
+  const dates = nextBusinessDays(6);
+  const [form, setForm] = useState({
+    name: "",
+    company: "",
+    phone: "",
+    date: dates[0]?.value ?? "",
+    slot: "",
+    timezone: tz,
+  });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -86,7 +112,14 @@ export function BookingDialog({
   };
 
   const reset = () => {
-    setForm({ name: "", company: "", phone: "", time: "" });
+    setForm({
+      name: "",
+      company: "",
+      phone: "",
+      date: dates[0]?.value ?? "",
+      slot: "",
+      timezone: tz,
+    });
     setErrors({});
     setSubmitted(false);
     setSubmitting(false);
@@ -166,22 +199,46 @@ export function BookingDialog({
                   className="h-11 rounded-lg"
                 />
               </Field>
-              <Field label="Preferred time" error={errors.time}>
-                <div className="flex flex-wrap gap-2">
-                  {timeSlots.map((t) => {
-                    const active = form.time === t;
+              <Field label="Date" error={errors.date}>
+                <div className="flex gap-2 overflow-x-auto -mx-1 px-1 pb-1 snap-x">
+                  {dates.map((d) => {
+                    const active = form.date === d.value;
                     return (
                       <button
-                        key={t}
+                        key={d.value}
                         type="button"
-                        onClick={() => update("time", t)}
-                        className={`px-3.5 h-9 rounded-full text-xs border transition-colors ${
+                        onClick={() => update("date", d.value)}
+                        className={`shrink-0 snap-start min-w-[78px] px-3 py-2.5 rounded-xl text-xs border transition-colors text-left ${
                           active
                             ? "bg-foreground text-background border-foreground"
                             : "bg-background text-foreground border-border hover:border-foreground/40"
                         }`}
                       >
-                        {t}
+                        <span className="block font-medium">{d.label.split(",")[0]}</span>
+                        <span className="block opacity-70 mt-0.5">
+                          {d.label.split(",")[1]?.trim()}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </Field>
+              <Field label={`Time · ${tz}`} error={errors.slot}>
+                <div className="grid grid-cols-4 gap-2">
+                  {slots.map((s) => {
+                    const active = form.slot === s;
+                    return (
+                      <button
+                        key={s}
+                        type="button"
+                        onClick={() => update("slot", s)}
+                        className={`h-10 rounded-lg text-xs font-medium border transition-colors tabular-nums ${
+                          active
+                            ? "bg-foreground text-background border-foreground"
+                            : "bg-background text-foreground border-border hover:border-foreground/40"
+                        }`}
+                      >
+                        {s}
                       </button>
                     );
                   })}
