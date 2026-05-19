@@ -149,7 +149,7 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
-    font-feature-settings: "cv11", "ss01", "ss03";
+    font-feature-settings: "ss01", "ss02", "cv11";
   }
 
   body {
