@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useDialogs } from "./DialogsProvider";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function FinalCTA() {
+  const { openBooking } = useDialogs();
   return (
     <section className="py-28 md:py-40">
       <div className="mx-auto max-w-5xl px-6">
@@ -21,8 +23,13 @@ export function FinalCTA() {
             Turn missed calls into booked customers.
           </h2>
           <div className="relative mt-10 flex justify-center">
-            <Button asChild size="lg" variant="soft" className="bg-background text-foreground hover:bg-background/90">
-              <a href="#demo">Book demo</a>
+            <Button
+              size="lg"
+              variant="soft"
+              className="bg-background text-foreground hover:bg-background/90"
+              onClick={openBooking}
+            >
+              Book demo
             </Button>
           </div>
         </motion.div>

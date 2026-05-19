@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Phone, CheckCircle2, CalendarCheck, Mail, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useDialogs } from "./DialogsProvider";
 
 const steps = [
   { icon: Phone, label: "Incoming call", meta: "+45 •• 21 47 08" },
@@ -13,6 +14,7 @@ const steps = [
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
+  const { openCallDemo, openBooking } = useDialogs();
   return (
     <section id="top" className="relative pt-36 pb-24 md:pt-44 md:pb-32 overflow-hidden">
       <div className="absolute inset-x-0 top-0 h-[600px] bg-gradient-to-b from-surface to-transparent -z-10" />
@@ -53,11 +55,11 @@ export function Hero() {
             transition={{ duration: 0.8, ease, delay: 0.25 }}
             className="mt-10 flex flex-wrap gap-3"
           >
-            <Button asChild size="lg" variant="brand">
-              <a href="#demo">Book demo</a>
+            <Button size="lg" variant="brand" onClick={openBooking}>
+              Book demo
             </Button>
-            <Button asChild size="lg" variant="soft">
-              <a href="#demo">Call demo AI</a>
+            <Button size="lg" variant="soft" onClick={openCallDemo}>
+              Call demo AI
             </Button>
           </motion.div>
         </div>
