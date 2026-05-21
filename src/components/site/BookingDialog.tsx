@@ -114,9 +114,9 @@ export function BookingDialog({
 
   const goNext = () => {
     if (!validateStep(step)) return;
-    setStep((s) => Math.min(2, (s + 1) as Step));
+    setStep((s) => (Math.min(2, s + 1) as Step));
   };
-  const goBack = () => setStep((s) => Math.max(0, (s - 1) as Step));
+  const goBack = () => setStep((s) => (Math.max(0, s - 1) as Step));
 
   const submit = async () => {
     const parsed = schema.safeParse(form);
