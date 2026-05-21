@@ -256,3 +256,40 @@ function LanguagePicker({
     </div>
   );
 }
+
+function StageTracker({ current }: { current: number }) {
+  return (
+    <div className="px-4 pt-3 pb-3 border-b border-border/60 bg-background/50">
+      <div className="flex items-center justify-between gap-1">
+        {stages.map((s, i) => {
+          const active = i <= current;
+          const isCurrent = i === current;
+          const Icon = s.icon;
+          return (
+            <div key={s.key} className="flex-1 flex flex-col items-center gap-1.5">
+              <motion.div
+                animate={{
+                  scale: isCurrent ? 1.05 : 1,
+                  backgroundColor: active ? "var(--foreground)" : "transparent",
+                  color: active ? "var(--background)" : "var(--muted-foreground)",
+                  borderColor: active ? "var(--foreground)" : "var(--border)",
+                }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="h-6 w-6 rounded-full grid place-items-center border"
+              >
+                <Icon className="h-3 w-3" />
+              </motion.div>
+              <span
+                className={`text-[9.5px] uppercase tracking-[0.12em] font-medium transition-colors ${
+                  active ? "text-foreground" : "text-muted-foreground/70"
+                }`}
+              >
+                {s.label}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
