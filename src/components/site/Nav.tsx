@@ -9,7 +9,7 @@ import { useI18n } from "@/lib/i18n";
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const { openBooking } = useDialogs();
+  const { openBooking, openContact } = useDialogs();
   const { t } = useI18n();
   const links = [
     { href: "#how", label: t("nav.how") },
@@ -64,6 +64,14 @@ export function Nav() {
 
           <div className="flex items-center gap-2">
             <LanguageSwitcher className="hidden sm:inline-flex" />
+            <Button
+              size="sm"
+              variant="ghost"
+              className="hidden md:inline-flex rounded-full px-4 text-muted-foreground hover:text-foreground"
+              onClick={openContact}
+            >
+              Contact
+            </Button>
             <Button
               size="sm"
               variant="brand"
