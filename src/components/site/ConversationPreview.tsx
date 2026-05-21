@@ -116,6 +116,7 @@ export function ConversationPreview() {
   }, [step, script]);
 
   const visible = script.turns.slice(0, step);
+  const currentStage = step === 0 ? 0 : turnStage[Math.min(step - 1, turnStage.length - 1)];
 
   return (
     <motion.div
@@ -140,6 +141,8 @@ export function ConversationPreview() {
           </div>
           <LanguagePicker value={langCode} onChange={setLangCode} />
         </div>
+        {/* Stage tracker */}
+        <StageTracker current={currentStage} />
 
         {/* Conversation */}
         <div className="px-4 py-4 h-[340px] overflow-hidden bg-surface/40 flex flex-col justify-end">
