@@ -44,7 +44,7 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-14 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
         <div>
           <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-none bg-brand" />
+            <span className="h-2 w-2 rounded-full bg-brand" />
             <span className="font-semibold tracking-tight">Leadline AI</span>
           </div>
           <p className="mt-3 text-sm text-muted-foreground max-w-xs">
