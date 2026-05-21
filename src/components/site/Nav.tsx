@@ -8,6 +8,7 @@ const links = [
   { href: "#how", label: "How it works" },
   { href: "#industries", label: "Industries" },
   { href: "#pricing", label: "Pricing" },
+  { href: "#faq", label: "FAQ" },
   { href: "#demo", label: "Demo" },
 ];
 
@@ -48,9 +49,13 @@ export function Nav() {
             <span className="font-semibold tracking-tight">Leadline AI</span>
           </a>
 
-          <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
+          <nav className="hidden md:flex items-center gap-1 text-[13px] font-medium text-muted-foreground">
             {links.map((l) => (
-              <a key={l.href} href={l.href} className="hover:text-foreground transition-colors">
+              <a
+                key={l.href}
+                href={l.href}
+                className="px-3.5 py-2 rounded-full tracking-tight hover:text-foreground hover:bg-secondary/70 transition-colors"
+              >
                 {l.label}
               </a>
             ))}

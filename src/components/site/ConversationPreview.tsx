@@ -1,6 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Phone, Sparkles, CheckCircle2, CalendarCheck, Mail } from "lucide-react";
+import { Phone, Sparkles, CheckCircle2, CalendarCheck, Mail, PhoneIncoming } from "lucide-react";
+
+const stages = [
+  { key: "incoming", label: "Incoming", icon: PhoneIncoming },
+  { key: "answered", label: "Answered", icon: Phone },
+  { key: "qualifying", label: "Qualifying", icon: Sparkles },
+  { key: "booking", label: "Booking", icon: CalendarCheck },
+  { key: "summary", label: "Summary", icon: Mail },
+] as const;
+
+// Map each conversation turn index to a stage index (0..4)
+const turnStage = [1, 1, 2, 2, 2, 3, 3, 4];
 
 type Turn = {
   who: "ai" | "caller";
@@ -105,6 +116,7 @@ export function ConversationPreview() {
   }, [step, script]);
 
   const visible = script.turns.slice(0, step);
+  const currentStage = step === 0 ? 0 : turnStage[Math.min(step - 1, turnStage.length - 1)];
 
   return (
     <motion.div
@@ -129,6 +141,8 @@ export function ConversationPreview() {
           </div>
           <LanguagePicker value={langCode} onChange={setLangCode} />
         </div>
+        {/* Stage tracker */}
+        <StageTracker current={currentStage} />
 
         {/* Conversation */}
         <div className="px-4 py-4 h-[340px] overflow-hidden bg-surface/40 flex flex-col justify-end">
@@ -239,6 +253,43 @@ function LanguagePicker({
           </button>
         );
       })}
+    </div>
+  );
+}
+
+function StageTracker({ current }: { current: number }) {
+  return (
+    <div className="px-4 pt-3 pb-3 border-b border-border/60 bg-background/50">
+      <div className="flex items-center justify-between gap-1">
+        {stages.map((s, i) => {
+          const active = i <= current;
+          const isCurrent = i === current;
+          const Icon = s.icon;
+          return (
+            <div key={s.key} className="flex-1 flex flex-col items-center gap-1.5">
+              <motion.div
+                animate={{
+                  scale: isCurrent ? 1.05 : 1,
+                  backgroundColor: active ? "var(--foreground)" : "transparent",
+                  color: active ? "var(--background)" : "var(--muted-foreground)",
+                  borderColor: active ? "var(--foreground)" : "var(--border)",
+                }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="h-6 w-6 rounded-full grid place-items-center border"
+              >
+                <Icon className="h-3 w-3" />
+              </motion.div>
+              <span
+                className={`text-[9.5px] uppercase tracking-[0.12em] font-medium transition-colors ${
+                  active ? "text-foreground" : "text-muted-foreground/70"
+                }`}
+              >
+                {s.label}
+              </span>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
