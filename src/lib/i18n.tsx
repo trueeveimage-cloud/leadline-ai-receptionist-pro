@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
-export type Lang = "en" | "da" | "es";
+export type Lang = "en" | "sv" | "es";
 
 const dict = {
   en: {
@@ -40,42 +40,42 @@ const dict = {
 
     "lang.label": "Language",
   },
-  da: {
-    "nav.how": "Sådan virker det",
-    "nav.industries": "Brancher",
+  sv: {
+    "nav.how": "Så fungerar det",
+    "nav.industries": "Branscher",
     "nav.pricing": "Priser",
     "nav.faq": "FAQ",
-    "nav.bookDemo": "Book demo",
-    "nav.openMenu": "Åbn menu",
-    "nav.closeMenu": "Luk menu",
+    "nav.bookDemo": "Boka demo",
+    "nav.openMenu": "Öppna meny",
+    "nav.closeMenu": "Stäng meny",
 
-    "hero.badge": "AI-receptionister til premium virksomheder",
-    "hero.title.l1": "Mist aldrig et",
-    "hero.title.l2": "vigtigt opkald",
+    "hero.badge": "AI-receptionister för premiumföretag",
+    "hero.title.l1": "Missa aldrig ett",
+    "hero.title.l2": "viktigt samtal",
     "hero.title.l3": "igen.",
-    "hero.subtitle": "AI-receptionister der svarer, kvalificerer, booker og notificerer — 24/7.",
-    "hero.cta.book": "Book demo",
-    "hero.cta.how": "Sådan virker det",
+    "hero.subtitle": "AI-receptionister som svarar, kvalificerar, bokar och meddelar — 24/7.",
+    "hero.cta.book": "Boka demo",
+    "hero.cta.how": "Så fungerar det",
 
-    "booking.title": "Book et opsætningsmøde",
-    "booking.subtitle": "15 minutter. Ingen forberedelse.",
-    "booking.name": "Navn",
-    "booking.company": "Virksomhed",
+    "booking.title": "Boka ett uppstartsmöte",
+    "booking.subtitle": "15 minuter. Ingen förberedelse.",
+    "booking.name": "Namn",
+    "booking.company": "Företag",
     "booking.phone": "Telefon",
-    "booking.date": "Dato",
-    "booking.time": "Tidspunkt",
-    "booking.submit": "Anmod om opkald",
-    "booking.sending": "Sender…",
-    "booking.done": "Færdig",
-    "booking.success.title": "Anmodning modtaget.",
-    "booking.success.body": "Vi ringer til {name} inden for én arbejdstime.",
-    "booking.legal": "Ved at indsende accepterer du vores",
-    "booking.terms": "Vilkår",
-    "booking.and": "og",
-    "booking.privacy": "Privatlivspolitik",
-    "booking.error.generic": "Kunne ikke sende din anmodning. Prøv igen.",
+    "booking.date": "Datum",
+    "booking.time": "Tid",
+    "booking.submit": "Begär samtal",
+    "booking.sending": "Skickar…",
+    "booking.done": "Klar",
+    "booking.success.title": "Förfrågan mottagen.",
+    "booking.success.body": "Vi ringer {name} inom en arbetstimme.",
+    "booking.legal": "Genom att skicka godkänner du våra",
+    "booking.terms": "Villkor",
+    "booking.and": "och",
+    "booking.privacy": "Integritetspolicy",
+    "booking.error.generic": "Kunde inte skicka din förfrågan. Försök igen.",
 
-    "lang.label": "Sprog",
+    "lang.label": "Språk",
   },
   es: {
     "nav.how": "Cómo funciona",
@@ -131,7 +131,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const stored = (typeof window !== "undefined" && localStorage.getItem("lang")) as Lang | null;
-    if (stored && ["en", "da", "es"].includes(stored)) setLangState(stored);
+    if (stored && ["en", "sv", "es"].includes(stored)) setLangState(stored);
   }, []);
 
   const setLang = (l: Lang) => {
@@ -158,8 +158,8 @@ export function useI18n() {
   return ctx;
 }
 
-export const LANGS: { code: Lang; label: string; flag: string }[] = [
-  { code: "en", label: "English", flag: "🇬🇧" },
-  { code: "da", label: "Dansk", flag: "🇩🇰" },
-  { code: "es", label: "Español", flag: "🇪🇸" },
+export const LANGS: { code: Lang; label: string; country: string }[] = [
+  { code: "en", label: "English", country: "gb" },
+  { code: "sv", label: "Svenska", country: "se" },
+  { code: "es", label: "Español", country: "es" },
 ];

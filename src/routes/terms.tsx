@@ -53,9 +53,19 @@ function TermsPage() {
           </Section>
 
           <Section title="4. Pricing and billing">
-            Plans are billed monthly in advance. Pilot pricing and setup fees apply as
-            quoted. You may cancel month-to-month after any initial pilot period — no
-            penalties, no long contracts.
+            Prices listed are starting prices and may vary depending on call volume,
+            setup needs and integrations. Setup is included for selected partners during
+            the pilot period. Minimum term is 1 month. You can cancel anytime after the
+            first month with 30 days notice. Payment is monthly in advance. Extra call
+            volume, custom integrations or advanced workflows may cost extra.
+          </Section>
+
+          <Section title="5. Calendar bookings & client information">
+            Calendar bookings are only confirmed if the connected calendar availability
+            is correct. The client is responsible for providing correct business
+            information, prices, opening hours and availability. Leadline AI is not
+            responsible for missed calls caused by wrong setup information, third-party
+            outages, phone provider issues or calendar errors.
           </Section>
 
           <Section title="5. Data and privacy">
@@ -68,30 +78,42 @@ function TermsPage() {
             for the details.
           </Section>
 
-          <Section title="6. Acceptable use">
+          <Section title="6. Data and privacy">
+            Call summaries and customer details are handled only for business follow-up
+            purposes. All customer data is handled according to GDPR. Calls, transcripts
+            and contact details are stored within the EU and encrypted at rest. We sign
+            Data Processing Agreements on request and never train public models on your
+            conversations. See our{" "}
+            <Link to="/privacy" className="underline hover:text-foreground">
+              Privacy Policy
+            </Link>{" "}
+            for the details.
+          </Section>
+
+          <Section title="7. Acceptable use">
             You may not use the service for unlawful activity, harassment, fraud, spam,
             or to impersonate a person without authority. We may suspend accounts that
             violate these rules.
           </Section>
 
-          <Section title="7. Availability">
+          <Section title="8. Availability">
             We work hard to keep the service running 24/7 but make no uptime guarantees
             beyond those in a signed enterprise agreement. Scheduled maintenance is
             communicated in advance where possible.
           </Section>
 
-          <Section title="8. Liability">
+          <Section title="9. Liability">
             To the maximum extent permitted by law, our liability is limited to the
             amount you paid us in the three months preceding the claim. We are not liable
             for indirect or consequential losses.
           </Section>
 
-          <Section title="9. Changes">
+          <Section title="10. Changes">
             We may update these terms from time to time. Material changes will be
             communicated by email or in-product before they take effect.
           </Section>
 
-          <Section title="10. Contact">
+          <Section title="11. Contact">
             Questions? Email{" "}
             <a href="mailto:hello@leadline.ai" className="underline hover:text-foreground">
               hello@leadline.ai
