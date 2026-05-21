@@ -53,7 +53,7 @@ const dict = {
     "hero.title.l1": "Missa aldrig ett",
     "hero.title.l2": "viktigt samtal",
     "hero.title.l3": "igen.",
-    "hero.subtitle": "AI-receptionister som svarar, kvalificerar, bokar och meddelar — 24/7.",
+    "hero.subtitle": "Svarar. Kvalificerar. Bokar. 24/7.",
     "hero.cta.book": "Boka demo",
     "hero.cta.how": "Så fungerar det",
 
