@@ -19,9 +19,9 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease }}
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs text-muted-foreground"
+            className="inline-flex items-center gap-2 rounded-none border border-border bg-background px-3 py-1 text-xs text-muted-foreground"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+            <span className="h-1.5 w-1.5 rounded-none bg-brand" />
             {t("hero.badge")}
           </motion.div>
 

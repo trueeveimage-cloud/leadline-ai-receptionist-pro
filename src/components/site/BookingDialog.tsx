@@ -141,7 +141,7 @@ export function BookingDialog({
             animate={{ opacity: 1, y: 0 }}
             className="px-6 sm:px-8 py-12 text-center"
           >
-            <div className="mx-auto h-12 w-12 rounded-full bg-brand text-brand-foreground grid place-items-center">
+            <div className="mx-auto h-12 w-12 rounded-none bg-brand text-brand-foreground grid place-items-center">
               <Check className="h-5 w-5" />
             </div>
             <DialogTitle className="mt-5 text-xl font-semibold tracking-tight">
