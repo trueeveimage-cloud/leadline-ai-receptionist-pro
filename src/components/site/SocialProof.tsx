@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import { Section } from "./Section";
 
 const stats = [
-  { value: "87%", label: "Of high-value callers won't leave a voicemail" },
-  { value: "<1s", label: "Average pickup time on the AI receptionist" },
-  { value: "24/7", label: "Coverage — nights, weekends, holidays" },
-  { value: "7 days", label: "From signed contract to live on your number" },
+  { value: "87%", label: "Callers won't leave voicemail" },
+  { value: "<1s", label: "Pickup time" },
+  { value: "24/7", label: "Coverage" },
+  { value: "7 days", label: "To go live" },
 ];
 
 export function Stats() {

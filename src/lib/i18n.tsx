@@ -16,7 +16,7 @@ const dict = {
     "hero.title.l1": "Never miss a",
     "hero.title.l2": "high-value call",
     "hero.title.l3": "again.",
-    "hero.subtitle": "AI receptionists that answer, qualify, book and notify — 24/7.",
+    "hero.subtitle": "Answer. Qualify. Book. 24/7.",
     "hero.cta.book": "Book demo",
     "hero.cta.how": "How it works",
 
@@ -53,7 +53,7 @@ const dict = {
     "hero.title.l1": "Missa aldrig ett",
     "hero.title.l2": "viktigt samtal",
     "hero.title.l3": "igen.",
-    "hero.subtitle": "AI-receptionister som svarar, kvalificerar, bokar och meddelar — 24/7.",
+    "hero.subtitle": "Svarar. Kvalificerar. Bokar. 24/7.",
     "hero.cta.book": "Boka demo",
     "hero.cta.how": "Så fungerar det",
 
@@ -90,7 +90,7 @@ const dict = {
     "hero.title.l1": "Nunca pierdas una",
     "hero.title.l2": "llamada importante",
     "hero.title.l3": "más.",
-    "hero.subtitle": "Recepcionistas de IA que contestan, califican, agendan y notifican — 24/7.",
+    "hero.subtitle": "Contesta. Califica. Agenda. 24/7.",
     "hero.cta.book": "Reservar demo",
     "hero.cta.how": "Cómo funciona",
 
