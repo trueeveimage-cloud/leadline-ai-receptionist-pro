@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
-export type Lang = "en" | "da" | "es";
+export type Lang = "en" | "sv" | "es";
 
 const dict = {
   en: {
@@ -131,7 +131,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const stored = (typeof window !== "undefined" && localStorage.getItem("lang")) as Lang | null;
-    if (stored && ["en", "da", "es"].includes(stored)) setLangState(stored);
+    if (stored && ["en", "sv", "es"].includes(stored)) setLangState(stored);
   }, []);
 
   const setLang = (l: Lang) => {
@@ -158,8 +158,8 @@ export function useI18n() {
   return ctx;
 }
 
-export const LANGS: { code: Lang; label: string; flag: string }[] = [
-  { code: "en", label: "English", flag: "🇬🇧" },
-  { code: "da", label: "Dansk", flag: "🇩🇰" },
-  { code: "es", label: "Español", flag: "🇪🇸" },
+export const LANGS: { code: Lang; label: string; country: string }[] = [
+  { code: "en", label: "English", country: "gb" },
+  { code: "sv", label: "Svenska", country: "se" },
+  { code: "es", label: "Español", country: "es" },
 ];
