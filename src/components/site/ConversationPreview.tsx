@@ -1,6 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Phone, Sparkles, CheckCircle2, CalendarCheck, Mail } from "lucide-react";
+import { Phone, Sparkles, CheckCircle2, CalendarCheck, Mail, PhoneIncoming } from "lucide-react";
+
+const stages = [
+  { key: "incoming", label: "Incoming", icon: PhoneIncoming },
+  { key: "answered", label: "Answered", icon: Phone },
+  { key: "qualifying", label: "Qualifying", icon: Sparkles },
+  { key: "booking", label: "Booking", icon: CalendarCheck },
+  { key: "summary", label: "Summary", icon: Mail },
+] as const;
+
+// Map each conversation turn index to a stage index (0..4)
+const turnStage = [1, 1, 2, 2, 2, 3, 3, 4];
 
 type Turn = {
   who: "ai" | "caller";
