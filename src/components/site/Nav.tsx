@@ -124,6 +124,15 @@ export function Nav() {
                     {l.label}
                   </motion.a>
                 ))}
+                <button
+                  onClick={() => {
+                    setOpen(false);
+                    openContact();
+                  }}
+                  className="py-4 text-xl font-medium tracking-tight border-b border-border/60 text-left text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Contact
+                </button>
                 <div className="pt-5">
                   <LanguageSwitcher />
                 </div>
