@@ -2,12 +2,14 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useDialogs } from "./DialogsProvider";
 import { ConversationPreview } from "./ConversationPreview";
+import { useI18n } from "@/lib/i18n";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
   const { openBooking } = useDialogs();
   const reduce = useReducedMotion();
+  const { t } = useI18n();
   return (
     <section id="top" className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
       <div className="absolute inset-x-0 top-0 h-[600px] bg-gradient-to-b from-surface to-transparent -z-10" />
@@ -20,7 +22,7 @@ export function Hero() {
             className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs text-muted-foreground"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-            AI receptionists for high-value businesses
+            {t("hero.badge")}
           </motion.div>
 
           <motion.h1
@@ -29,8 +31,8 @@ export function Hero() {
             transition={{ duration: 0.8, ease, delay: 0.05 }}
             className="mt-6 text-[40px] leading-[1.05] md:text-6xl md:leading-[1.02] font-semibold tracking-tight"
           >
-            Never miss a<br />
-            <span className="text-brand">high-value call</span> again.
+            {t("hero.title.l1")}<br />
+            <span className="text-brand">{t("hero.title.l2")}</span> {t("hero.title.l3")}
           </motion.h1>
 
           <motion.p
@@ -39,7 +41,7 @@ export function Hero() {
             transition={{ duration: 0.8, ease, delay: 0.15 }}
             className="mt-6 text-lg text-muted-foreground max-w-md"
           >
-            AI receptionists that answer, qualify, book and notify — 24/7.
+            {t("hero.subtitle")}
           </motion.p>
 
           <motion.div
@@ -49,10 +51,10 @@ export function Hero() {
             className="mt-10 flex flex-wrap gap-3"
           >
             <Button size="lg" variant="brand" onClick={openBooking}>
-              Book demo
+              {t("hero.cta.book")}
             </Button>
             <Button asChild size="lg" variant="soft">
-              <a href="#how">How it works</a>
+              <a href="#how">{t("hero.cta.how")}</a>
             </Button>
           </motion.div>
         </div>
