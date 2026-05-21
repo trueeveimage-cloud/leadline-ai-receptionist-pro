@@ -90,7 +90,7 @@ const dict = {
     "hero.title.l1": "Nunca pierdas una",
     "hero.title.l2": "llamada importante",
     "hero.title.l3": "más.",
-    "hero.subtitle": "Recepcionistas de IA que contestan, califican, agendan y notifican — 24/7.",
+    "hero.subtitle": "Contesta. Califica. Agenda. 24/7.",
     "hero.cta.book": "Reservar demo",
     "hero.cta.how": "Cómo funciona",
 
