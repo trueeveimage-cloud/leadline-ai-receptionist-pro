@@ -9,7 +9,7 @@ import { useI18n } from "@/lib/i18n";
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const { openBooking } = useDialogs();
+  const { openBooking, openContact } = useDialogs();
   const { t } = useI18n();
   const links = [
     { href: "#how", label: t("nav.how") },
@@ -46,7 +46,7 @@ export function Nav() {
       >
         <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
           <a href="#top" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-            <span className="h-2 w-2 rounded-none bg-brand" />
+            <span className="h-2 w-2 rounded-full bg-brand" />
             <span className="font-semibold tracking-tight">Leadline AI</span>
           </a>
 
@@ -55,7 +55,7 @@ export function Nav() {
               <a
                 key={l.href}
                 href={l.href}
-                className="px-3.5 py-2 rounded-none tracking-tight hover:text-foreground hover:bg-secondary/70 transition-colors"
+                className="px-3.5 py-2 rounded-full tracking-tight hover:text-foreground hover:bg-secondary/70 transition-colors"
               >
                 {l.label}
               </a>
@@ -66,8 +66,16 @@ export function Nav() {
             <LanguageSwitcher className="hidden sm:inline-flex" />
             <Button
               size="sm"
+              variant="ghost"
+              className="hidden md:inline-flex rounded-full px-4 text-muted-foreground hover:text-foreground"
+              onClick={openContact}
+            >
+              Contact
+            </Button>
+            <Button
+              size="sm"
               variant="brand"
-              className="hidden md:inline-flex rounded-none px-5"
+              className="hidden md:inline-flex rounded-full px-5"
               onClick={openBooking}
             >
               {t("nav.bookDemo")}
@@ -75,7 +83,7 @@ export function Nav() {
             <button
               aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
               onClick={() => setOpen((v) => !v)}
-              className="md:hidden h-10 w-10 grid place-items-center rounded-none border border-border bg-background"
+              className="md:hidden h-10 w-10 grid place-items-center rounded-full border border-border bg-background"
             >
               {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>
@@ -116,6 +124,15 @@ export function Nav() {
                     {l.label}
                   </motion.a>
                 ))}
+                <button
+                  onClick={() => {
+                    setOpen(false);
+                    openContact();
+                  }}
+                  className="py-4 text-xl font-medium tracking-tight border-b border-border/60 text-left text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Contact
+                </button>
                 <div className="pt-5">
                   <LanguageSwitcher />
                 </div>
@@ -130,7 +147,7 @@ export function Nav() {
         <Button
           variant="brand"
           size="lg"
-          className="w-full rounded-none shadow-[0_8px_30px_-8px_rgba(0,0,0,0.25)]"
+          className="w-full rounded-full shadow-[0_8px_30px_-8px_rgba(0,0,0,0.25)]"
           onClick={() => {
             setOpen(false);
             openBooking();

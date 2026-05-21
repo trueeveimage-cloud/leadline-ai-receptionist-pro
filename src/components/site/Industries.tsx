@@ -20,7 +20,7 @@ export function Industries() {
             className="rounded-2xl border border-border bg-card px-6 py-7 flex items-center justify-between hover:border-foreground/30 transition-colors"
           >
             <span className="text-base font-medium">{name}</span>
-            <span className="h-1.5 w-1.5 rounded-none bg-brand" />
+            <span className="h-1.5 w-1.5 rounded-full bg-brand" />
           </motion.div>
         ))}
       </motion.div>

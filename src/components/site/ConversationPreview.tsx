@@ -102,9 +102,9 @@ export function ConversationPreview() {
         {/* Header */}
         <div className="px-5 pt-5 pb-4 flex items-center justify-between border-b border-border/60">
           <div className="flex items-center gap-3">
-            <div className="relative h-9 w-9 rounded-none bg-foreground text-background grid place-items-center">
+            <div className="relative h-9 w-9 rounded-full bg-foreground text-background grid place-items-center">
               <Phone className="h-4 w-4" />
-              <span className="absolute -inset-1 rounded-none border border-brand/40 animate-ping" />
+              <span className="absolute -inset-1 rounded-full border border-brand/40 animate-ping" />
             </div>
             <div>
               <p className="text-sm font-medium">Live call</p>
@@ -176,7 +176,7 @@ export function ConversationPreview() {
         <div className="px-5 py-3.5 border-t border-border/60 flex items-center justify-between bg-surface/60">
           <span className="text-[11px] text-muted-foreground">Simulated demo · loops automatically</span>
           <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-brand">
-            <span className="h-1.5 w-1.5 rounded-none bg-brand" /> Live
+            <span className="h-1.5 w-1.5 rounded-full bg-brand" /> Live
           </span>
         </div>
       </div>
@@ -187,7 +187,7 @@ export function ConversationPreview() {
 function Dot({ delay, dark }: { delay: number; dark?: boolean }) {
   return (
     <motion.span
-      className={`h-1.5 w-1.5 rounded-none ${dark ? "bg-background/70" : "bg-muted-foreground/60"}`}
+      className={`h-1.5 w-1.5 rounded-full ${dark ? "bg-background/70" : "bg-muted-foreground/60"}`}
       animate={{ y: [0, -3, 0], opacity: [0.4, 1, 0.4] }}
       transition={{ duration: 0.9, repeat: Infinity, delay }}
     />
@@ -205,7 +205,7 @@ function LanguagePicker({
     <div
       role="tablist"
       aria-label="Language"
-      className="flex items-center gap-0.5 rounded-none bg-surface border border-border p-0.5"
+      className="flex items-center gap-0.5 rounded-full bg-surface border border-border p-0.5"
     >
       {scripts.map((s) => {
         const active = s.code === value;
@@ -215,7 +215,7 @@ function LanguagePicker({
             role="tab"
             aria-selected={active}
             onClick={() => onChange(s.code)}
-            className={`px-2.5 h-7 rounded-none text-[11px] font-medium tracking-wide transition-colors ${
+            className={`px-2.5 h-7 rounded-full text-[11px] font-medium tracking-wide transition-colors ${
               active
                 ? "bg-foreground text-background"
                 : "text-muted-foreground hover:text-foreground"
@@ -247,7 +247,7 @@ function StageTracker({ current }: { current: number }) {
                   borderColor: active ? "var(--foreground)" : "var(--border)",
                 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="h-6 w-6 rounded-none grid place-items-center border"
+                className="h-6 w-6 rounded-full grid place-items-center border"
               >
                 <Icon className="h-3 w-3" />
               </motion.div>
