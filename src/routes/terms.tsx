@@ -102,18 +102,18 @@ function TermsPage() {
             communicated in advance where possible.
           </Section>
 
-          <Section title="8. Liability">
+          <Section title="9. Liability">
             To the maximum extent permitted by law, our liability is limited to the
             amount you paid us in the three months preceding the claim. We are not liable
             for indirect or consequential losses.
           </Section>
 
-          <Section title="9. Changes">
+          <Section title="10. Changes">
             We may update these terms from time to time. Material changes will be
             communicated by email or in-product before they take effect.
           </Section>
 
-          <Section title="10. Contact">
+          <Section title="11. Contact">
             Questions? Email{" "}
             <a href="mailto:hello@leadline.ai" className="underline hover:text-foreground">
               hello@leadline.ai
