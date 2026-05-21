@@ -46,7 +46,7 @@ export function Nav() {
       >
         <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
           <a href="#top" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-            <span className="h-2 w-2 rounded-full bg-brand" />
+            <span className="h-2 w-2 rounded-none bg-brand" />
             <span className="font-semibold tracking-tight">Leadline AI</span>
           </a>
 
@@ -55,7 +55,7 @@ export function Nav() {
               <a
                 key={l.href}
                 href={l.href}
-                className="px-3.5 py-2 rounded-full tracking-tight hover:text-foreground hover:bg-secondary/70 transition-colors"
+                className="px-3.5 py-2 rounded-none tracking-tight hover:text-foreground hover:bg-secondary/70 transition-colors"
               >
                 {l.label}
               </a>
@@ -67,7 +67,7 @@ export function Nav() {
             <Button
               size="sm"
               variant="brand"
-              className="hidden md:inline-flex rounded-full px-5"
+              className="hidden md:inline-flex rounded-none px-5"
               onClick={openBooking}
             >
               {t("nav.bookDemo")}
@@ -75,7 +75,7 @@ export function Nav() {
             <button
               aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
               onClick={() => setOpen((v) => !v)}
-              className="md:hidden h-10 w-10 grid place-items-center rounded-full border border-border bg-background"
+              className="md:hidden h-10 w-10 grid place-items-center rounded-none border border-border bg-background"
             >
               {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>
@@ -130,7 +130,7 @@ export function Nav() {
         <Button
           variant="brand"
           size="lg"
-          className="w-full rounded-full shadow-[0_8px_30px_-8px_rgba(0,0,0,0.25)]"
+          className="w-full rounded-none shadow-[0_8px_30px_-8px_rgba(0,0,0,0.25)]"
           onClick={() => {
             setOpen(false);
             openBooking();

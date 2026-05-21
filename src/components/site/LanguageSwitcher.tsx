@@ -29,7 +29,7 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
     <DropdownMenu>
       <DropdownMenuTrigger
         aria-label={t("lang.label")}
-        className={`inline-flex items-center gap-1.5 h-9 px-3 rounded-full border border-border bg-background text-[12px] font-medium tracking-tight hover:border-foreground/40 transition-colors ${className}`}
+        className={`inline-flex items-center gap-1.5 h-9 px-3 rounded-none border border-border bg-background text-[12px] font-medium tracking-tight hover:border-foreground/40 transition-colors ${className}`}
       >
         <Languages className="h-3.5 w-3.5 opacity-70" />
         <span className="uppercase">{current.code}</span>

@@ -134,14 +134,14 @@ export function BookingDialog({
         if (!v) setTimeout(reset, 250);
       }}
     >
-      <DialogContent className="w-[calc(100vw-2rem)] sm:max-w-md p-0 gap-0 rounded-2xl border-border max-h-[90vh] overflow-y-auto overflow-x-hidden">
+      <DialogContent className="w-[calc(100vw-2rem)] sm:max-w-md p-0 gap-0 rounded-none border-border max-h-[90vh] overflow-y-auto overflow-x-hidden">
         {submitted ? (
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             className="px-6 sm:px-8 py-12 text-center"
           >
-            <div className="mx-auto h-12 w-12 rounded-full bg-brand text-brand-foreground grid place-items-center">
+            <div className="mx-auto h-12 w-12 rounded-none bg-brand text-brand-foreground grid place-items-center">
               <Check className="h-5 w-5" />
             </div>
             <DialogTitle className="mt-5 text-xl font-semibold tracking-tight">
@@ -161,7 +161,7 @@ export function BookingDialog({
           </motion.div>
         ) : (
           <>
-            <DialogHeader className="px-5 sm:px-7 pt-6 pb-2 text-left">
+            <DialogHeader className="px-5 sm:px-7 pt-6 pb-2 pr-12 text-left space-y-1.5">
               <DialogTitle className="text-xl font-semibold tracking-tight">
                 {t("booking.title")}
               </DialogTitle>
