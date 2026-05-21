@@ -37,20 +37,6 @@ const scripts: Script[] = [
     ],
   },
   {
-    code: "da",
-    label: "DA",
-    turns: [
-      { who: "ai", text: "Tak fordi du ringer til Aurora Klinik. Det er Ada — hvordan kan jeg hjælpe?", meta: { icon: Sparkles, label: "Besvaret · 0,4s" } },
-      { who: "caller", text: "Hej, jeg vil gerne booke en konsultation i denne uge." },
-      { who: "ai", text: "Selvfølgelig. Hvad er du interesseret i?" },
-      { who: "caller", text: "Premium hudpakken." },
-      { who: "ai", text: "Skønt. Tirsdag 10:30 eller torsdag 14:00?", meta: { icon: CheckCircle2, label: "Kvalificeret" } },
-      { who: "caller", text: "Tirsdag passer fint." },
-      { who: "ai", text: "Booket. Bekræftelse sendt på SMS.", meta: { icon: CalendarCheck, label: "Booket · tir 10:30" } },
-      { who: "ai", text: "Resumé sendt til ejeren. Hav en dejlig dag.", meta: { icon: Mail, label: "Resumé leveret" } },
-    ],
-  },
-  {
     code: "sv",
     label: "SV",
     turns: [
@@ -62,20 +48,6 @@ const scripts: Script[] = [
       { who: "caller", text: "Tisdag funkar." },
       { who: "ai", text: "Bokat. Bekräftelse skickad via SMS.", meta: { icon: CalendarCheck, label: "Bokat · tis 10:30" } },
       { who: "ai", text: "Sammanfattning skickad till ägaren. Ha en fin dag.", meta: { icon: Mail, label: "Sammanfattning skickad" } },
-    ],
-  },
-  {
-    code: "de",
-    label: "DE",
-    turns: [
-      { who: "ai", text: "Danke für Ihren Anruf bei Aurora Clinic. Hier ist Ada — wie kann ich helfen?", meta: { icon: Sparkles, label: "Beantwortet · 0,4s" } },
-      { who: "caller", text: "Hallo, ich möchte diese Woche einen Termin buchen." },
-      { who: "ai", text: "Gerne. Wofür interessieren Sie sich?" },
-      { who: "caller", text: "Das Premium-Hautpaket." },
-      { who: "ai", text: "Wunderbar. Dienstag 10:30 oder Donnerstag 14:00?", meta: { icon: CheckCircle2, label: "Qualifiziert" } },
-      { who: "caller", text: "Dienstag passt." },
-      { who: "ai", text: "Gebucht. Bestätigung per SMS unterwegs.", meta: { icon: CalendarCheck, label: "Gebucht · Di 10:30" } },
-      { who: "ai", text: "Zusammenfassung an den Inhaber gesendet. Schönen Tag.", meta: { icon: Mail, label: "Zusammenfassung versandt" } },
     ],
   },
   {

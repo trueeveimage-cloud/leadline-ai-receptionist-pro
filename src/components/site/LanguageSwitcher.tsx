@@ -7,6 +7,20 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LANGS, useI18n } from "@/lib/i18n";
 
+function Flag({ country, className = "" }: { country: string; className?: string }) {
+  return (
+    <img
+      src={`https://flagcdn.com/w40/${country}.png`}
+      srcSet={`https://flagcdn.com/w80/${country}.png 2x`}
+      width={20}
+      height={15}
+      alt=""
+      aria-hidden
+      className={`inline-block rounded-[2px] object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.06)] ${className}`}
+    />
+  );
+}
+
 export function LanguageSwitcher({ className = "" }: { className?: string }) {
   const { lang, setLang, t } = useI18n();
   const current = LANGS.find((l) => l.code === lang) ?? LANGS[0];
@@ -20,14 +34,14 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
         <Languages className="h-3.5 w-3.5 opacity-70" />
         <span className="uppercase">{current.code}</span>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="min-w-[140px]">
+      <DropdownMenuContent align="end" className="min-w-[160px]">
         {LANGS.map((l) => (
           <DropdownMenuItem
             key={l.code}
             onClick={() => setLang(l.code)}
-            className={`gap-2 cursor-pointer ${l.code === lang ? "font-semibold" : ""}`}
+            className={`gap-2.5 cursor-pointer ${l.code === lang ? "font-semibold" : ""}`}
           >
-            <span>{l.flag}</span>
+            <Flag country={l.country} />
             <span>{l.label}</span>
           </DropdownMenuItem>
         ))}

@@ -53,7 +53,7 @@ export function BookingDialog({
   onOpenChange: (v: boolean) => void;
 }) {
   const { t, lang } = useI18n();
-  const locale = lang === "da" ? "da-DK" : lang === "es" ? "es-ES" : "en-US";
+  const locale = lang === "sv" ? "sv-SE" : lang === "es" ? "es-ES" : "en-US";
   const tz =
     typeof Intl !== "undefined"
       ? Intl.DateTimeFormat().resolvedOptions().timeZone
