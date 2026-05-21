@@ -51,8 +51,16 @@ export function Footer() {
             AI receptionists for high-value businesses.
           </p>
         </div>
-        <div className="text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Leadline AI
+        <div className="flex flex-col md:items-end gap-3 text-xs text-muted-foreground">
+          <div className="flex items-center gap-5">
+            <a href="/terms" className="hover:text-foreground transition-colors">
+              Terms &amp; Conditions
+            </a>
+            <a href="/privacy" className="hover:text-foreground transition-colors">
+              Privacy
+            </a>
+          </div>
+          <div>© {new Date().getFullYear()} Leadline AI</div>
         </div>
       </div>
     </footer>

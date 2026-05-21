@@ -134,7 +134,7 @@ export function BookingDialog({
         if (!v) setTimeout(reset, 250);
       }}
     >
-      <DialogContent className="sm:max-w-md p-0 gap-0 rounded-2xl overflow-hidden border-border">
+      <DialogContent className="sm:max-w-md p-0 gap-0 rounded-2xl overflow-hidden border-border max-h-[92vh] overflow-y-auto">
         {submitted ? (
           <motion.div
             initial={{ opacity: 0, y: 8 }}
@@ -161,7 +161,7 @@ export function BookingDialog({
           </motion.div>
         ) : (
           <>
-            <DialogHeader className="px-8 pt-8 pb-2 text-left">
+            <DialogHeader className="px-6 sm:px-8 pt-6 sm:pt-8 pb-2 text-left">
               <DialogTitle className="text-xl font-semibold tracking-tight">
                 Book a setup call
               </DialogTitle>
@@ -170,7 +170,7 @@ export function BookingDialog({
               </DialogDescription>
             </DialogHeader>
 
-            <form onSubmit={submit} className="px-8 py-6 space-y-5">
+            <form onSubmit={submit} className="px-6 sm:px-8 py-6 space-y-5">
               <Field label="Name" error={errors.name}>
                 <Input
                   value={form.name}
@@ -200,7 +200,7 @@ export function BookingDialog({
                 />
               </Field>
               <Field label="Date" error={errors.date}>
-                <div className="flex gap-2 overflow-x-auto -mx-1 px-1 pb-1 snap-x">
+                <div className="flex gap-2 overflow-x-auto -mx-1 px-1 pb-1 snap-x [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                   {dates.map((d) => {
                     const active = form.date === d.value;
                     return (
@@ -208,7 +208,7 @@ export function BookingDialog({
                         key={d.value}
                         type="button"
                         onClick={() => update("date", d.value)}
-                        className={`shrink-0 snap-start min-w-[78px] px-3 py-2.5 rounded-xl text-xs border transition-colors text-left ${
+                        className={`shrink-0 snap-start min-w-[72px] px-3 py-2.5 rounded-xl text-xs border transition-colors text-left ${
                           active
                             ? "bg-foreground text-background border-foreground"
                             : "bg-background text-foreground border-border hover:border-foreground/40"
@@ -224,7 +224,7 @@ export function BookingDialog({
                 </div>
               </Field>
               <Field label={`Time · ${tz}`} error={errors.slot}>
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                   {slots.map((s) => {
                     const active = form.slot === s;
                     return (
@@ -263,8 +263,16 @@ export function BookingDialog({
               >
                 {submitting ? "Sending…" : "Request call"}
               </Button>
-              <p className="text-[11px] text-muted-foreground text-center">
-                By submitting you agree to be contacted about Leadline AI.
+              <p className="text-[11px] text-muted-foreground text-center leading-relaxed">
+                By submitting you agree to our{" "}
+                <a href="/terms" className="underline hover:text-foreground">
+                  Terms
+                </a>{" "}
+                and{" "}
+                <a href="/privacy" className="underline hover:text-foreground">
+                  Privacy Policy
+                </a>
+                .
               </p>
             </form>
           </>

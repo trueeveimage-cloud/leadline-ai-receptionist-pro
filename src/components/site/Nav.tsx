@@ -9,7 +9,6 @@ const links = [
   { href: "#industries", label: "Industries" },
   { href: "#pricing", label: "Pricing" },
   { href: "#faq", label: "FAQ" },
-  { href: "#demo", label: "Demo" },
 ];
 
 export function Nav() {
