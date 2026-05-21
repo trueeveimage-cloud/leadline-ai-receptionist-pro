@@ -39,14 +39,8 @@ function Index() {
         <main>
           <Hero />
           <Stats />
-          <Problem />
-          <Solution />
           <Process />
-          <Industries />
-          <Demo />
-          <Testimonials />
           <Pricing />
-          <FAQ />
           <FinalCTA />
         </main>
         <Footer />
