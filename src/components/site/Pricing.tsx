@@ -6,15 +6,15 @@ import { Section, stagger, item } from "./Section";
 const plans = [
   {
     name: "Pilot Partner",
-    price: "2,900–4,900 kr",
-    cadence: "/month",
-    tagline: "Setup included · limited to first 5 clients.",
-    features: ["AI receptionist", "Setup included", "Call summaries", "Email handoff"],
+    price: "4,900 kr",
+    cadence: "/month + 2,000 kr setup",
+    tagline: "",
+    features: ["AI receptionist", "Call summaries", "Email handoff", "Standard voice"],
     variant: "soft" as const,
   },
   {
     name: "Premium",
-    price: "7,900–9,900 kr",
+    price: "7,900 kr",
     cadence: "/month",
     tagline: "Full stack — booking, summaries, custom voice.",
     features: ["Calendar booking", "Call summaries", "Priority transfer", "Custom voice"],
