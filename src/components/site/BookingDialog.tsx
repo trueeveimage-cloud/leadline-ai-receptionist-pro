@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useI18n } from "@/lib/i18n";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Required").max(100),
@@ -29,20 +30,17 @@ const schema = z.object({
 
 const slots = ["09:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
 
-function nextBusinessDays(count: number) {
-  const out: { value: string; label: string }[] = [];
+function nextBusinessDays(count: number, locale: string) {
+  const out: { value: string; weekday: string; daymonth: string }[] = [];
   const d = new Date();
   while (out.length < count) {
     d.setDate(d.getDate() + 1);
     const day = d.getDay();
     if (day === 0 || day === 6) continue;
     const value = d.toISOString().slice(0, 10);
-    const label = d.toLocaleDateString(undefined, {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-    });
-    out.push({ value, label });
+    const weekday = d.toLocaleDateString(locale, { weekday: "short" });
+    const daymonth = d.toLocaleDateString(locale, { month: "short", day: "numeric" });
+    out.push({ value, weekday, daymonth });
   }
   return out;
 }
@@ -54,11 +52,13 @@ export function BookingDialog({
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) {
+  const { t, lang } = useI18n();
+  const locale = lang === "da" ? "da-DK" : lang === "es" ? "es-ES" : "en-US";
   const tz =
     typeof Intl !== "undefined"
       ? Intl.DateTimeFormat().resolvedOptions().timeZone
       : "UTC";
-  const dates = nextBusinessDays(6);
+  const dates = nextBusinessDays(6, locale);
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -104,7 +104,7 @@ export function BookingDialog({
       setSubmitted(true);
     } catch (err) {
       setSubmitError(
-        err instanceof Error ? err.message : "Couldn't send your request. Please try again.",
+        err instanceof Error ? err.message : t("booking.error.generic"),
       );
     } finally {
       setSubmitting(false);
@@ -134,21 +134,21 @@ export function BookingDialog({
         if (!v) setTimeout(reset, 250);
       }}
     >
-      <DialogContent className="sm:max-w-md p-0 gap-0 rounded-2xl overflow-hidden border-border max-h-[92vh] overflow-y-auto">
+      <DialogContent className="w-[calc(100vw-2rem)] sm:max-w-md p-0 gap-0 rounded-2xl border-border max-h-[90vh] overflow-y-auto overflow-x-hidden">
         {submitted ? (
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            className="px-8 py-12 text-center"
+            className="px-6 sm:px-8 py-12 text-center"
           >
             <div className="mx-auto h-12 w-12 rounded-full bg-brand text-brand-foreground grid place-items-center">
               <Check className="h-5 w-5" />
             </div>
             <DialogTitle className="mt-5 text-xl font-semibold tracking-tight">
-              Request received.
+              {t("booking.success.title")}
             </DialogTitle>
             <DialogDescription className="mt-2 text-sm text-muted-foreground">
-              We'll call {form.name.split(" ")[0]} within one business hour.
+              {t("booking.success.body", { name: form.name.split(" ")[0] || "" })}
             </DialogDescription>
             <Button
               variant="brand"
@@ -156,22 +156,22 @@ export function BookingDialog({
               className="mt-8"
               onClick={() => onOpenChange(false)}
             >
-              Done
+              {t("booking.done")}
             </Button>
           </motion.div>
         ) : (
           <>
-            <DialogHeader className="px-6 sm:px-8 pt-6 sm:pt-8 pb-2 text-left">
+            <DialogHeader className="px-5 sm:px-7 pt-6 pb-2 text-left">
               <DialogTitle className="text-xl font-semibold tracking-tight">
-                Book a setup call
+                {t("booking.title")}
               </DialogTitle>
               <DialogDescription className="text-sm text-muted-foreground">
-                15 minutes. No prep needed.
+                {t("booking.subtitle")}
               </DialogDescription>
             </DialogHeader>
 
-            <form onSubmit={submit} className="px-6 sm:px-8 py-6 space-y-5">
-              <Field label="Name" error={errors.name}>
+            <form onSubmit={submit} className="px-5 sm:px-7 py-5 space-y-5">
+              <Field label={t("booking.name")} error={errors.name}>
                 <Input
                   value={form.name}
                   onChange={(e) => update("name", e.target.value)}
@@ -180,7 +180,7 @@ export function BookingDialog({
                   className="h-11 rounded-lg"
                 />
               </Field>
-              <Field label="Company" error={errors.company}>
+              <Field label={t("booking.company")} error={errors.company}>
                 <Input
                   value={form.company}
                   onChange={(e) => update("company", e.target.value)}
@@ -189,7 +189,7 @@ export function BookingDialog({
                   className="h-11 rounded-lg"
                 />
               </Field>
-              <Field label="Phone" error={errors.phone}>
+              <Field label={t("booking.phone")} error={errors.phone}>
                 <Input
                   value={form.phone}
                   onChange={(e) => update("phone", e.target.value)}
@@ -199,8 +199,8 @@ export function BookingDialog({
                   className="h-11 rounded-lg"
                 />
               </Field>
-              <Field label="Date" error={errors.date}>
-                <div className="flex gap-2 overflow-x-auto -mx-1 px-1 pb-1 snap-x [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <Field label={t("booking.date")} error={errors.date}>
+                <div className="flex gap-2 overflow-x-auto pb-1 snap-x [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                   {dates.map((d) => {
                     const active = form.date === d.value;
                     return (
@@ -208,23 +208,21 @@ export function BookingDialog({
                         key={d.value}
                         type="button"
                         onClick={() => update("date", d.value)}
-                        className={`shrink-0 snap-start min-w-[72px] px-3 py-2.5 rounded-xl text-xs border transition-colors text-left ${
+                        className={`shrink-0 snap-start min-w-[68px] px-3 py-2.5 rounded-xl text-xs border transition-colors text-left ${
                           active
                             ? "bg-foreground text-background border-foreground"
                             : "bg-background text-foreground border-border hover:border-foreground/40"
                         }`}
                       >
-                        <span className="block font-medium">{d.label.split(",")[0]}</span>
-                        <span className="block opacity-70 mt-0.5">
-                          {d.label.split(",")[1]?.trim()}
-                        </span>
+                        <span className="block font-medium capitalize">{d.weekday}</span>
+                        <span className="block opacity-70 mt-0.5">{d.daymonth}</span>
                       </button>
                     );
                   })}
                 </div>
               </Field>
-              <Field label={`Time · ${tz}`} error={errors.slot}>
-                <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+              <Field label={`${t("booking.time")} · ${tz}`} error={errors.slot}>
+                <div className="grid grid-cols-4 gap-2">
                   {slots.map((s) => {
                     const active = form.slot === s;
                     return (
@@ -261,16 +259,16 @@ export function BookingDialog({
                 className="w-full mt-2"
                 disabled={submitting}
               >
-                {submitting ? "Sending…" : "Request call"}
+                {submitting ? t("booking.sending") : t("booking.submit")}
               </Button>
               <p className="text-[11px] text-muted-foreground text-center leading-relaxed">
-                By submitting you agree to our{" "}
+                {t("booking.legal")}{" "}
                 <a href="/terms" className="underline hover:text-foreground">
-                  Terms
+                  {t("booking.terms")}
                 </a>{" "}
-                and{" "}
+                {t("booking.and")}{" "}
                 <a href="/privacy" className="underline hover:text-foreground">
-                  Privacy Policy
+                  {t("booking.privacy")}
                 </a>
                 .
               </p>

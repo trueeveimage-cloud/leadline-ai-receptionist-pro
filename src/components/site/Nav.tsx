@@ -3,18 +3,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDialogs } from "./DialogsProvider";
-
-const links = [
-  { href: "#how", label: "How it works" },
-  { href: "#industries", label: "Industries" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#faq", label: "FAQ" },
-];
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useI18n } from "@/lib/i18n";
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { openBooking } = useDialogs();
+  const { t } = useI18n();
+  const links = [
+    { href: "#how", label: t("nav.how") },
+    { href: "#industries", label: t("nav.industries") },
+    { href: "#pricing", label: t("nav.pricing") },
+    { href: "#faq", label: t("nav.faq") },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -61,16 +63,17 @@ export function Nav() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <LanguageSwitcher className="hidden sm:inline-flex" />
             <Button
               size="sm"
               variant="brand"
               className="hidden md:inline-flex rounded-full px-5"
               onClick={openBooking}
             >
-              Book demo
+              {t("nav.bookDemo")}
             </Button>
             <button
-              aria-label={open ? "Close menu" : "Open menu"}
+              aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
               onClick={() => setOpen((v) => !v)}
               className="md:hidden h-10 w-10 grid place-items-center rounded-full border border-border bg-background"
             >
@@ -108,11 +111,14 @@ export function Nav() {
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 0.05 + i * 0.04 }}
-                    className="py-4 text-xl font-medium tracking-tight border-b border-border/60 last:border-0"
+                    className="py-4 text-xl font-medium tracking-tight border-b border-border/60"
                   >
                     {l.label}
                   </motion.a>
                 ))}
+                <div className="pt-5">
+                  <LanguageSwitcher />
+                </div>
               </nav>
             </motion.div>
           </>
@@ -130,7 +136,7 @@ export function Nav() {
             openBooking();
           }}
         >
-          Book demo
+          {t("nav.bookDemo")}
         </Button>
       </div>
     </>
