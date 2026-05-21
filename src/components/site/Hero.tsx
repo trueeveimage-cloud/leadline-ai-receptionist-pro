@@ -19,27 +19,29 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease }}
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs text-muted-foreground"
+            className="flex items-center gap-3"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-            {t("hero.badge")}
+            <span className="h-px w-8 bg-foreground/30" />
+            <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-medium">
+              01 / {t("hero.badge")}
+            </span>
           </motion.div>
 
           <motion.h1
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease, delay: 0.05 }}
-            className="mt-6 text-[40px] leading-[1.05] md:text-6xl md:leading-[1.02] font-semibold tracking-tight"
+            className="mt-6 text-5xl leading-[0.95] md:text-7xl font-light tracking-tight"
           >
             {t("hero.title.l1")}<br />
-            <span className="text-brand">{t("hero.title.l2")}</span> {t("hero.title.l3")}
+            <span className="italic font-extralight text-foreground/40">{t("hero.title.l2")}</span> {t("hero.title.l3")}
           </motion.h1>
 
           <motion.p
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease, delay: 0.15 }}
-            className="mt-6 text-lg text-muted-foreground max-w-md"
+            className="mt-8 text-base md:text-lg font-light text-muted-foreground max-w-md leading-relaxed"
           >
             {t("hero.subtitle")}
           </motion.p>
@@ -48,14 +50,15 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease, delay: 0.25 }}
-            className="mt-10 flex flex-wrap gap-3"
+            className="mt-10 flex flex-wrap items-center gap-8"
           >
-            <Button size="lg" variant="brand" onClick={openBooking}>
+            <Button size="lg" variant="brand" onClick={openBooking} className="rounded-none uppercase tracking-[0.2em] text-[11px] font-semibold px-8">
               {t("hero.cta.book")}
             </Button>
-            <Button asChild size="lg" variant="soft">
-              <a href="#how">{t("hero.cta.how")}</a>
-            </Button>
+            <a href="#how" className="group inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] font-medium text-muted-foreground hover:text-foreground transition-colors">
+              <span>{t("hero.cta.how")}</span>
+              <span className="h-px w-5 bg-foreground/20 group-hover:w-8 group-hover:bg-foreground transition-all duration-500" />
+            </a>
           </motion.div>
         </div>
 
