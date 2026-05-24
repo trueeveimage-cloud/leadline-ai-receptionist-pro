@@ -1,76 +1,49 @@
 import { motion } from "framer-motion";
-import { PhoneIncoming, Brain, CalendarCheck, Send } from "lucide-react";
-import { Section, stagger, item } from "./Section";
+import { useI18n } from "@/lib/i18n";
 
-const steps = [
-  {
-    icon: PhoneIncoming,
-    title: "Caller dials your number",
-    body: "We forward unanswered or after-hours calls to the AI receptionist. Your number, your branding — no caller ID surprises.",
-    time: "Ring 1",
-  },
-  {
-    icon: Brain,
-    title: "AI qualifies in real time",
-    body: "Trained on your services, prices and FAQs. Detects intent in under two seconds and adapts the script to the caller.",
-    time: "0–15 sec",
-  },
-  {
-    icon: CalendarCheck,
-    title: "Booking written to your calendar",
-    body: "Reads availability from Google/Outlook/Calendly and locks the slot. Sends the caller a confirmation SMS.",
-    time: "During call",
-  },
-  {
-    icon: Send,
-    title: "Summary in your inbox",
-    body: "A clean transcript, intent, and next step lands in your team's inbox + CRM the moment the call ends.",
-    time: "+30 sec",
-  },
-];
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Process() {
+  const { t } = useI18n();
+
+  const steps = [
+    { num: "01", title: t("step.1"), desc: t("step.1.desc") },
+    { num: "02", title: t("step.2"), desc: t("step.2.desc") },
+    { num: "03", title: t("step.3"), desc: t("step.3.desc") },
+  ];
+
   return (
-    <Section
-      id="process"
-      eyebrow="The 4-step flow"
-      title="What happens between the ring and your inbox."
-    >
-      <motion.ol
-        variants={stagger}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-80px" }}
-        className="relative space-y-4 md:space-y-0 md:grid md:grid-cols-4 md:gap-5"
-      >
-        <div className="hidden md:block absolute top-12 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-        {steps.map((s, i) => {
-          const Icon = s.icon;
-          return (
-            <motion.li
-              key={s.title}
-              variants={item}
-              className="relative rounded-3xl border border-border bg-card p-6 md:p-7"
+    <section id="how" className="border-y border-border/60">
+      <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, ease }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-y-10 md:gap-y-0"
+        >
+          {steps.map((s, i) => (
+            <div
+              key={s.num}
+              className={`relative flex flex-col items-start ${
+                i < steps.length - 1
+                  ? "md:border-r md:border-border/40 md:pr-8"
+                  : ""
+              } ${i > 0 ? "md:pl-8" : ""}`}
             >
-              <div className="flex items-center justify-between">
-                <div className="h-11 w-11 rounded-2xl bg-foreground text-background grid place-items-center">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                  {s.time}
-                </span>
-              </div>
-              <div className="mt-5 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                Step {i + 1}
-              </div>
-              <h3 className="mt-1 text-base font-semibold tracking-tight leading-snug">
+              <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-medium">
+                {s.num}
+              </span>
+              <h3 className="mt-3 text-xl md:text-2xl font-light tracking-tight">
                 {s.title}
               </h3>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.body}</p>
-            </motion.li>
-          );
-        })}
-      </motion.ol>
-    </Section>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed max-w-xs">
+                {s.desc}
+              </p>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
   );
 }
