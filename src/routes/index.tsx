@@ -5,6 +5,7 @@ import { Stats } from "@/components/site/SocialProof";
 import { Process } from "@/components/site/Process";
 import { Pricing } from "@/components/site/Pricing";
 import { FinalCTA, Footer } from "@/components/site/Footer";
+import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { DialogsProvider } from "@/components/site/DialogsProvider";
 
 export const Route = createFileRoute("/")({
@@ -30,6 +31,7 @@ function Index() {
   return (
     <DialogsProvider>
       <div className="min-h-screen bg-background text-foreground pb-24 md:pb-0">
+        <ScrollProgress />
         <Nav />
         <main>
           <Hero />
