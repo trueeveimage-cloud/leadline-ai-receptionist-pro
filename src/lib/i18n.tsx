@@ -20,6 +20,13 @@ const dict = {
     "hero.cta.book": "Book demo",
     "hero.cta.how": "How it works",
 
+    "step.1": "Answer",
+    "step.2": "Qualify",
+    "step.3": "Book",
+    "step.1.desc": "Every call picked up in under one second.",
+    "step.2.desc": "Trained on your services and pricing.",
+    "step.3.desc": "Written to your calendar instantly.",
+
     "booking.title": "Book a setup call",
     "booking.subtitle": "15 minutes. No prep needed.",
     "booking.name": "Name",
@@ -57,6 +64,13 @@ const dict = {
     "hero.cta.book": "Boka demo",
     "hero.cta.how": "Så fungerar det",
 
+    "step.1": "Svarar",
+    "step.2": "Kvalificerar",
+    "step.3": "Bokar",
+    "step.1.desc": "Varje samtal besvarat på under en sekund.",
+    "step.2.desc": "Tränad på dina tjänster och priser.",
+    "step.3.desc": "Skrivet till din kalender direkt.",
+
     "booking.title": "Boka ett uppstartsmöte",
     "booking.subtitle": "15 minuter. Ingen förberedelse.",
     "booking.name": "Namn",
@@ -93,6 +107,13 @@ const dict = {
     "hero.subtitle": "Contesta. Califica. Agenda. 24/7.",
     "hero.cta.book": "Reservar demo",
     "hero.cta.how": "Cómo funciona",
+
+    "step.1": "Contesta",
+    "step.2": "Califica",
+    "step.3": "Agenda",
+    "step.1.desc": "Cada llamada contestada en menos de un segundo.",
+    "step.2.desc": "Entrenada en tus servicios y precios.",
+    "step.3.desc": "Escrito a tu calendario al instante.",
 
     "booking.title": "Reservar una llamada",
     "booking.subtitle": "15 minutos. Sin preparación.",
