@@ -8,7 +8,7 @@ export function Process() {
   const { t } = useI18n();
   const reduce = useReducedMotion();
   const [active, setActive] = useState(0);
-  const refs = useRef<Array<HTMLDivElement | null>>([]);
+  const refs = useRef<Array<HTMLLIElement | null>>([]);
 
   const steps = [
     { num: "01", title: t("step.1"), desc: t("step.1.desc") },
@@ -73,7 +73,9 @@ export function Process() {
               <li
                 key={s.num}
                 data-idx={i}
-                ref={(el) => (refs.current[i] = el)}
+                ref={(el) => {
+                  refs.current[i] = el;
+                }}
                 className={`group relative md:px-8 first:md:pl-0 last:md:pr-0 py-8 md:py-2 ${
                   i < steps.length - 1
                     ? "border-b border-border/40 md:border-b-0"
