@@ -172,7 +172,10 @@ export function Pricing() {
         }}
       />
 
-      <div className="relative mx-auto max-w-5xl px-6">
+      <motion.div
+        style={reduce ? undefined : { y: enterY, opacity: enterOpacity, scale: enterScale }}
+        className="relative mx-auto max-w-5xl px-6"
+      >
         <motion.div
           style={reduce ? undefined : { y: labelY, opacity: labelOpacity }}
           className="flex items-center gap-3 mb-10 md:mb-14"
