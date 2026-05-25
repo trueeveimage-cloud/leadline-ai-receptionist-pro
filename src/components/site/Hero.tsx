@@ -60,6 +60,24 @@ export function Hero() {
               <span className="h-px w-5 bg-foreground/20 group-hover:w-8 group-hover:bg-foreground transition-all duration-500" />
             </a>
           </motion.div>
+
+          <motion.ul
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease, delay: 0.35 }}
+            className="mt-10 flex flex-col gap-3 text-[12px] md:text-[13px] font-light text-muted-foreground"
+          >
+            {[
+              "Swedish-speaking AI receptionist",
+              "Setup live in 7 days",
+              "Cancel anytime after first month",
+            ].map((point) => (
+              <li key={point} className="flex items-center gap-3">
+                <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+                <span>{point}</span>
+              </li>
+            ))}
+          </motion.ul>
         </div>
 
         <ConversationPreview />

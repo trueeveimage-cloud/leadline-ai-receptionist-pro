@@ -3,7 +3,9 @@ import { Nav } from "@/components/site/Nav";
 import { Hero } from "@/components/site/Hero";
 import { Stats } from "@/components/site/SocialProof";
 import { Process } from "@/components/site/Process";
+import { Pain } from "@/components/site/Pain";
 import { Pricing } from "@/components/site/Pricing";
+import { FAQ } from "@/components/site/FAQ";
 import { FinalCTA, Footer } from "@/components/site/Footer";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { CursorSpotlight } from "@/components/site/CursorSpotlight";
@@ -41,7 +43,9 @@ function Index() {
           <Stats />
           <Marquee />
           <Process />
+          <Pain />
           <Pricing />
+          <FAQ />
           <FinalCTA />
         </main>
         <Footer />
