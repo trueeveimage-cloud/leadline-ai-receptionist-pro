@@ -6,6 +6,8 @@ import { Process } from "@/components/site/Process";
 import { Pricing } from "@/components/site/Pricing";
 import { FinalCTA, Footer } from "@/components/site/Footer";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
+import { CursorSpotlight } from "@/components/site/CursorSpotlight";
+import { Marquee } from "@/components/site/Marquee";
 import { DialogsProvider } from "@/components/site/DialogsProvider";
 
 export const Route = createFileRoute("/")({
