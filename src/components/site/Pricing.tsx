@@ -53,8 +53,13 @@ function TiltCard({
   const y = useMotionValue(0);
   const rx = useSpring(useTransform(y, [-0.5, 0.5], [6, -6]), { stiffness: 150, damping: 18 });
   const ry = useSpring(useTransform(x, [-0.5, 0.5], [-6, 6]), { stiffness: 150, damping: 18 });
-  const gx = useTransform(x, [-0.5, 0.5], ["0%", "100%"]);
-  const gy = useTransform(y, [-0.5, 0.5], ["0%", "100%"]);
+  const glareX = useTransform(x, [-0.5, 0.5], ["20%", "80%"]);
+  const glareY = useTransform(y, [-0.5, 0.5], ["20%", "80%"]);
+  const glareBg = useTransform(
+    [glareX, glareY],
+    ([gx, gy]) =>
+      `radial-gradient(40% 40% at ${gx} ${gy}, rgba(255,255,255,0.35), transparent 70%)`,
+  );
 
   return (
     <motion.div
