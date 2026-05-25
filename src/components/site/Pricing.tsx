@@ -296,7 +296,7 @@ export function Pricing() {
         >
           Cancel anytime · Live in 7 days
         </motion.p>
-      </div>
+      </motion.div>
     </section>
   );
 }
