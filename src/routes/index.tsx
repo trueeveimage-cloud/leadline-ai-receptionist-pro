@@ -34,10 +34,12 @@ function Index() {
     <DialogsProvider>
       <div className="min-h-screen bg-background text-foreground pb-24 md:pb-0">
         <ScrollProgress />
+        <CursorSpotlight />
         <Nav />
         <main>
           <Hero />
           <Stats />
+          <Marquee />
           <Process />
           <Pricing />
           <FinalCTA />
