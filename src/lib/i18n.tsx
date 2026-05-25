@@ -67,9 +67,9 @@ const dict = {
     "step.1": "Svarar",
     "step.2": "Kvalificerar",
     "step.3": "Bokar",
-    "step.1.desc": "Varje samtal besvarat på under en sekund.",
-    "step.2.desc": "Tränad på dina tjänster och priser.",
-    "step.3.desc": "Skrivet till din kalender direkt.",
+    "step.1.desc": "Din AI-receptionist svarar på varje samtal på under en sekund — dygnet runt, ingen röstbrevlåda, inga missade intäkter.",
+    "step.2.desc": "Den ställer rätt frågor i din ton, kvalificerar leadet mot dina tjänster och priser, och sållar bort tidstjuvar.",
+    "step.3.desc": "Kvalificerade kunder bokas direkt i din kalender, med full transkription och sammanfattning till din inkorg.",
 
     "booking.title": "Boka ett uppstartsmöte",
     "booking.subtitle": "15 minuter. Ingen förberedelse.",
