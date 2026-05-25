@@ -86,13 +86,7 @@ function TiltCard({
         <motion.div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-40 mix-blend-overlay"
-          style={{
-            background: useTransform(
-              [gx, gy] as never,
-              ([px, py]: string[]) =>
-                `radial-gradient(40% 40% at ${px} ${py}, rgba(255,255,255,0.35), transparent 70%)`,
-            ),
-          }}
+          style={{ background: glareBg }}
         />
       )}
       {children}
