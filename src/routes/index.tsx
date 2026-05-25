@@ -6,6 +6,8 @@ import { Process } from "@/components/site/Process";
 import { Pricing } from "@/components/site/Pricing";
 import { FinalCTA, Footer } from "@/components/site/Footer";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
+import { CursorSpotlight } from "@/components/site/CursorSpotlight";
+import { Marquee } from "@/components/site/Marquee";
 import { DialogsProvider } from "@/components/site/DialogsProvider";
 
 export const Route = createFileRoute("/")({
@@ -32,10 +34,12 @@ function Index() {
     <DialogsProvider>
       <div className="min-h-screen bg-background text-foreground pb-24 md:pb-0">
         <ScrollProgress />
+        <CursorSpotlight />
         <Nav />
         <main>
           <Hero />
           <Stats />
+          <Marquee />
           <Process />
           <Pricing />
           <FinalCTA />

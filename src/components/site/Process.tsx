@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useI18n } from "@/lib/i18n";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -8,6 +8,7 @@ export function Process() {
   const { t } = useI18n();
   const reduce = useReducedMotion();
   const [active, setActive] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
   const refs = useRef<Array<HTMLLIElement | null>>([]);
 
   const steps = [
@@ -16,10 +17,16 @@ export function Process() {
     { num: "03", title: t("step.3"), desc: t("step.3.desc") },
   ];
 
+  // Section-level scroll progress drives a sweeping highlight bar on desktop
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start 70%", "end 30%"],
+  });
+  const sweepX = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
   useEffect(() => {
     const io = new IntersectionObserver(
       (entries) => {
-        // pick the most-visible entry
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
@@ -28,22 +35,30 @@ export function Process() {
           setActive(idx);
         }
       },
-      {
-        // trigger when step is roughly centered
-        rootMargin: "-40% 0px -40% 0px",
-        threshold: [0, 0.25, 0.5, 0.75, 1],
-      },
+      { rootMargin: "-40% 0px -40% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] },
     );
     refs.current.forEach((el) => el && io.observe(el));
     return () => io.disconnect();
   }, []);
 
+  // Desktop: progress-driven active step (more responsive than IO alone)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const unsub = scrollYProgress.on("change", (v) => {
+      if (window.innerWidth < 768) return;
+      const idx = Math.min(steps.length - 1, Math.max(0, Math.floor(v * steps.length)));
+      setActive(idx);
+    });
+    return () => unsub();
+  }, [scrollYProgress, steps.length]);
+
   return (
     <section
       id="how"
+      ref={sectionRef}
       className="relative border-y border-border/60 overflow-hidden"
     >
-      {/* ambient parallax glow */}
+      {/* ambient glow */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.05]"
@@ -52,6 +67,7 @@ export function Process() {
             "radial-gradient(60% 60% at 50% 40%, var(--foreground) 0%, transparent 70%)",
         }}
       />
+
       <div className="relative mx-auto max-w-6xl px-6 py-20 md:py-28">
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 12 }}
@@ -66,9 +82,33 @@ export function Process() {
           </span>
         </motion.div>
 
+        {/* Desktop top progress rail */}
+        <div className="hidden md:block relative mb-10">
+          <div className="h-px w-full bg-border/60" />
+          {!reduce && (
+            <motion.div
+              aria-hidden
+              style={{ width: sweepX }}
+              className="absolute left-0 top-0 h-px bg-foreground origin-left"
+            />
+          )}
+          <div className="absolute inset-x-0 -top-1 grid grid-cols-3">
+            {steps.map((_, i) => (
+              <div key={i} className="flex justify-start">
+                <span
+                  className={`block h-2 w-2 rounded-full -translate-x-1/2 transition-all duration-500 ${
+                    active >= i ? "bg-foreground scale-100" : "bg-border scale-75"
+                  }`}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
         <ol className="grid grid-cols-1 md:grid-cols-3 md:divide-x md:divide-border/40">
           {steps.map((s, i) => {
             const isActive = active === i;
+            const isPast = active > i;
             return (
               <li
                 key={s.num}
@@ -76,31 +116,36 @@ export function Process() {
                 ref={(el) => {
                   refs.current[i] = el;
                 }}
-                className={`group relative md:px-8 first:md:pl-0 last:md:pr-0 py-8 md:py-2 ${
+                className={`group relative md:px-8 first:md:pl-0 last:md:pr-0 py-8 md:py-6 ${
                   i < steps.length - 1
                     ? "border-b border-border/40 md:border-b-0"
                     : ""
                 }`}
               >
-                {/* active rail – left on mobile, top on desktop */}
+                {/* mobile left rail */}
                 <span
                   aria-hidden
-                  className={`absolute left-0 top-0 h-full w-px bg-foreground md:hidden transition-all duration-700 ease-out ${
+                  className={`absolute left-0 top-0 h-full w-px bg-foreground md:hidden transition-opacity duration-700 ${
                     isActive ? "opacity-100" : "opacity-0"
                   }`}
                 />
+                {/* desktop card wash on active */}
                 <span
                   aria-hidden
-                  className={`hidden md:block absolute left-0 -top-px h-px bg-foreground transition-all duration-700 ease-out ${
-                    isActive ? "w-12 opacity-100" : "w-0 opacity-0"
+                  className={`hidden md:block absolute inset-0 -mx-2 rounded-2xl transition-all duration-700 ease-out ${
+                    isActive
+                      ? "bg-foreground/[0.035] scale-100 opacity-100"
+                      : "bg-transparent scale-95 opacity-0"
                   }`}
                 />
 
                 <div
-                  className={`pl-5 md:pl-0 transition-all duration-700 ease-out ${
+                  className={`relative pl-5 md:pl-0 transition-all duration-700 ease-out ${
                     isActive
-                      ? "opacity-100 translate-x-0"
-                      : "opacity-60 md:opacity-40"
+                      ? "opacity-100 md:-translate-y-0.5"
+                      : isPast
+                        ? "opacity-70"
+                        : "opacity-60 md:opacity-35"
                   }`}
                 >
                   <div className="flex items-baseline gap-3">
@@ -114,12 +159,18 @@ export function Process() {
                     <span
                       className={`h-px transition-all duration-700 ease-out ${
                         isActive
-                          ? "w-10 bg-foreground/60"
-                          : "w-4 bg-foreground/20"
+                          ? "w-14 bg-foreground"
+                          : isPast
+                            ? "w-8 bg-foreground/40"
+                            : "w-4 bg-foreground/20"
                       }`}
                     />
                   </div>
-                  <h3 className="mt-5 text-3xl md:text-4xl font-extralight tracking-tight">
+                  <h3
+                    className={`mt-5 text-3xl md:text-4xl font-extralight tracking-tight transition-colors duration-500 ${
+                      isActive ? "text-foreground" : "text-foreground/70"
+                    }`}
+                  >
                     {s.title}
                   </h3>
                   <p className="mt-3 text-[13px] md:text-sm text-muted-foreground leading-relaxed max-w-[28ch]">
