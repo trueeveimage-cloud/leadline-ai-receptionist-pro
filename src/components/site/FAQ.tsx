@@ -33,6 +33,18 @@ const faqs = [
     q: "Can I cancel anytime?",
     a: "Yes — month-to-month after the initial pilot. No long contracts, no penalties.",
   },
+  {
+    q: "Does it confirm bookings automatically?",
+    a: "In the pilot, it collects qualified booking requests and sends them to you for confirmation. Full calendar booking can be added later.",
+  },
+  {
+    q: "Do we need to change phone system?",
+    a: "No, we help set it up with your current number or a forwarding number.",
+  },
+  {
+    q: "Who is this best for?",
+    a: "Businesses that get valuable calls but are often busy, driving, with customers, or closed.",
+  },
 ];
 
 export function FAQ() {

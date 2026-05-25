@@ -15,7 +15,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 const plans = [
   {
     name: "Pilot",
-    price: "4,900",
+    price: "2,900",
     currency: "kr",
     cadence: "/ month",
     note: "+ 2,000 kr setup",
@@ -24,12 +24,12 @@ const plans = [
   },
   {
     name: "Premium",
-    price: "7,900",
+    price: "4,900",
     currency: "kr",
     cadence: "/ month",
     note: "Setup included",
     features: [
-      "Calendar booking",
+      "Booking requests",
       "Call summaries",
       "Priority transfer",
       "Custom voice",
