@@ -23,9 +23,9 @@ const dict = {
     "step.1": "Answer",
     "step.2": "Qualify",
     "step.3": "Book",
-    "step.1.desc": "Every call picked up in under one second.",
-    "step.2.desc": "Trained on your services and pricing.",
-    "step.3.desc": "Written to your calendar instantly.",
+    "step.1.desc": "Your AI receptionist picks up every incoming call in under one second — 24/7, no voicemail, no missed revenue.",
+    "step.2.desc": "It asks the right questions in your tone, qualifies the lead against your services and pricing, and filters out time-wasters.",
+    "step.3.desc": "Qualified callers are booked straight into your calendar, with a full transcript and summary sent to your inbox.",
 
     "booking.title": "Book a setup call",
     "booking.subtitle": "15 minutes. No prep needed.",
