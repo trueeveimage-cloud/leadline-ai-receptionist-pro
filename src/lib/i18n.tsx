@@ -111,9 +111,9 @@ const dict = {
     "step.1": "Contesta",
     "step.2": "Califica",
     "step.3": "Agenda",
-    "step.1.desc": "Cada llamada contestada en menos de un segundo.",
-    "step.2.desc": "Entrenada en tus servicios y precios.",
-    "step.3.desc": "Escrito a tu calendario al instante.",
+    "step.1.desc": "Tu recepcionista de IA contesta cada llamada en menos de un segundo — 24/7, sin buzón, sin ingresos perdidos.",
+    "step.2.desc": "Hace las preguntas correctas en tu tono, califica al cliente según tus servicios y precios, y filtra a quienes hacen perder el tiempo.",
+    "step.3.desc": "Los clientes calificados se agendan directo en tu calendario, con transcripción completa y resumen en tu correo.",
 
     "booking.title": "Reservar una llamada",
     "booking.subtitle": "15 minutos. Sin preparación.",
