@@ -118,6 +118,11 @@ export function Pricing() {
   const pilotY = useTransform(scrollYProgress, [0, 1], [-20, 20]);
   const footerY = useTransform(scrollYProgress, [0, 1], [30, -10]);
 
+  // Smooth parallax entrance — section glides up and fades in as it enters viewport
+  const enterY = useTransform(scrollYProgress, [0, 0.25], [120, 0]);
+  const enterOpacity = useTransform(scrollYProgress, [0, 0.15, 0.25], [0, 0.4, 1]);
+  const enterScale = useTransform(scrollYProgress, [0, 0.25], [0.96, 1]);
+
   return (
     <section
       id="pricing"
