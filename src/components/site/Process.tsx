@@ -9,7 +9,6 @@ export function Process() {
   const reduce = useReducedMotion();
   const [active, setActive] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-  const refs = useRef<Array<HTMLLIElement | null>>([]);
 
   const steps = [
     { num: "01", title: t("step.1"), desc: t("step.1.desc") },
@@ -17,40 +16,24 @@ export function Process() {
     { num: "03", title: t("step.3"), desc: t("step.3.desc") },
   ];
 
-  // Section-level scroll progress drives a sweeping highlight bar on desktop
+  // Map scroll progress through the section to active step.
+  // start of section reaches viewport center => progress 0
+  // end of section reaches viewport center => progress 1
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 70%", "end 30%"],
+    offset: ["start 60%", "end 40%"],
   });
   const sweepX = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   useEffect(() => {
-    const io = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) {
-          const idx = Number((visible.target as HTMLElement).dataset.idx);
-          setActive(idx);
-        }
-      },
-      { rootMargin: "-40% 0px -40% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] },
-    );
-    refs.current.forEach((el) => el && io.observe(el));
-    return () => io.disconnect();
-  }, []);
-
-  // Desktop: progress-driven active step (more responsive than IO alone)
-  useEffect(() => {
-    if (typeof window === "undefined") return;
     const unsub = scrollYProgress.on("change", (v) => {
-      if (window.innerWidth < 768) return;
-      const idx = Math.min(steps.length - 1, Math.max(0, Math.floor(v * steps.length)));
+      // 0 - 0.33 => step 0, 0.33 - 0.66 => step 1, 0.66 - 1 => step 2
+      const idx = v < 0.34 ? 0 : v < 0.67 ? 1 : 2;
       setActive(idx);
     });
     return () => unsub();
-  }, [scrollYProgress, steps.length]);
+  }, [scrollYProgress]);
+
 
   return (
     <section
@@ -113,9 +96,6 @@ export function Process() {
               <li
                 key={s.num}
                 data-idx={i}
-                ref={(el) => {
-                  refs.current[i] = el;
-                }}
                 className={`group relative md:px-8 first:md:pl-0 last:md:pr-0 py-8 md:py-6 ${
                   i < steps.length - 1
                     ? "border-b border-border/40 md:border-b-0"
