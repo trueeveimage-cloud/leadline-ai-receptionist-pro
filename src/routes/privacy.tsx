@@ -4,7 +4,9 @@ export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
       { title: "Privacy Policy — Leadmap AI" },
-      { name: "description", content: "How Leadmap AI collects, stores and protects your data." },
+      { name: "description", content: "How Leadmap AI collects, stores and protects call recordings, transcripts and contact details under GDPR." },
+      { property: "og:title", content: "Privacy Policy — Leadmap AI" },
+      { property: "og:description", content: "How Leadmap AI handles your data: EU storage, encryption, GDPR rights and subprocessors." },
     ],
   }),
   component: PrivacyPage,
