@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useDialogs } from "./DialogsProvider";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -97,6 +98,8 @@ function TiltCard({
 export function Pricing() {
   const { openBooking } = useDialogs();
   const reduce = useReducedMotion();
+  const isMobile = useIsMobile();
+  const noParallax = reduce || isMobile;
   const sectionRef = useRef<HTMLElement>(null);
   const [hoverDesktop, setHoverDesktop] = useState(false);
 
