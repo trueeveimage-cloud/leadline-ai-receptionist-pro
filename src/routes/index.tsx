@@ -27,6 +27,56 @@ export const Route = createFileRoute("/")({
         content: "Answers. Books. Sends the summary. Live in 7 days.",
       },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              name: "Leadmap AI",
+              url: "https://www.leadmap.se",
+              email: "hello@leadmap.se",
+            },
+            {
+              "@type": "WebSite",
+              name: "Leadmap AI",
+              url: "https://www.leadmap.se",
+            },
+            {
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "Does it confirm bookings automatically?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "In the pilot, it collects qualified booking requests and sends them to you for confirmation. Full calendar booking can be added later.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Do we need to change phone system?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "No, we help set it up with your current number or a forwarding number.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Who is this best for?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Businesses that get valuable calls but are often busy, driving, with customers, or closed.",
+                  },
+                },
+              ],
+            },
+          ],
+        }),
+      },
+    ],
   }),
   component: Index,
 });
