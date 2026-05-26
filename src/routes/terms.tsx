@@ -3,8 +3,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms & Conditions — Leadline AI" },
-      { name: "description", content: "Leadline AI terms of service and privacy policy." },
+      { title: "Terms & Conditions — Leadmap AI" },
+      { name: "description", content: "Leadmap AI terms of service and privacy policy." },
     ],
   }),
   component: TermsPage,
@@ -17,7 +17,7 @@ function TermsPage() {
         <div className="mx-auto max-w-3xl px-6 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-brand" />
-            <span className="font-semibold tracking-tight">Leadline AI</span>
+            <span className="font-semibold tracking-tight">Leadmap AI</span>
           </Link>
           <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">
             ← Back
@@ -36,12 +36,12 @@ function TermsPage() {
 
         <div className="prose prose-neutral mt-12 max-w-none space-y-10 text-[15px] leading-relaxed text-foreground/90">
           <Section title="1. Agreement">
-            By booking a demo or using Leadline AI ("we", "us", "the service"), you agree
+            By booking a demo or using Leadmap AI ("we", "us", "the service"), you agree
             to these terms. If you don't agree, please don't use the service.
           </Section>
 
           <Section title="2. The service">
-            Leadline AI provides AI-powered phone receptionists that answer, qualify, book
+            Leadmap AI provides AI-powered phone receptionists that answer, qualify, book
             and send call summaries on your behalf. Availability and feature scope is
             described on this website and may evolve over time.
           </Section>
@@ -63,7 +63,7 @@ function TermsPage() {
           <Section title="5. Calendar bookings & client information">
             Calendar bookings are only confirmed if the connected calendar availability
             is correct. The client is responsible for providing correct business
-            information, prices, opening hours and availability. Leadline AI is not
+            information, prices, opening hours and availability. Leadmap AI is not
             responsible for missed calls caused by wrong setup information, third-party
             outages, phone provider issues or calendar errors.
           </Section>
@@ -115,8 +115,8 @@ function TermsPage() {
 
           <Section title="11. Contact">
             Questions? Email{" "}
-            <a href="mailto:hello@leadline.ai" className="underline hover:text-foreground">
-              hello@leadline.ai
+            <a href="mailto:hello@leadmap.se" className="underline hover:text-foreground">
+              hello@leadmap.se
             </a>
             .
           </Section>
@@ -125,7 +125,7 @@ function TermsPage() {
 
       <footer className="border-t border-border">
         <div className="mx-auto max-w-3xl px-6 py-10 text-xs text-muted-foreground flex items-center justify-between">
-          <span>© {new Date().getFullYear()} Leadline AI</span>
+          <span>© {new Date().getFullYear()} Leadmap AI</span>
           <Link to="/privacy" className="hover:text-foreground">
             Privacy Policy
           </Link>

@@ -14,6 +14,7 @@ export function Nav() {
   const links = [
     { href: "#how", label: t("nav.how") },
     { href: "#pricing", label: t("nav.pricing") },
+    { href: "#faq", label: "FAQ" },
   ];
 
   useEffect(() => {
@@ -45,7 +46,7 @@ export function Nav() {
         <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
           <a href="#top" className="flex items-center gap-2" onClick={() => setOpen(false)}>
             <span className="h-2 w-2 rounded-full bg-brand" />
-            <span className="font-semibold tracking-tight">Leadline AI</span>
+            <span className="font-semibold tracking-tight">Leadmap AI</span>
           </a>
 
           <nav className="hidden md:flex items-center gap-1 text-[13px] font-medium text-muted-foreground">

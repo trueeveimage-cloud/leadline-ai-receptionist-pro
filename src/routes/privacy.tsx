@@ -3,8 +3,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy — Leadline AI" },
-      { name: "description", content: "How Leadline AI collects, stores and protects your data." },
+      { title: "Privacy Policy — Leadmap AI" },
+      { name: "description", content: "How Leadmap AI collects, stores and protects your data." },
     ],
   }),
   component: PrivacyPage,
@@ -17,7 +17,7 @@ function PrivacyPage() {
         <div className="mx-auto max-w-3xl px-6 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-brand" />
-            <span className="font-semibold tracking-tight">Leadline AI</span>
+            <span className="font-semibold tracking-tight">Leadmap AI</span>
           </Link>
           <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">
             ← Back
@@ -82,7 +82,7 @@ function PrivacyPage() {
 
       <footer className="border-t border-border">
         <div className="mx-auto max-w-3xl px-6 py-10 text-xs text-muted-foreground flex items-center justify-between">
-          <span>© {new Date().getFullYear()} Leadline AI</span>
+          <span>© {new Date().getFullYear()} Leadmap AI</span>
           <Link to="/terms" className="hover:text-foreground">
             Terms &amp; Conditions
           </Link>
