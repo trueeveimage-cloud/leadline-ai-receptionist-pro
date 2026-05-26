@@ -1,0 +1,9 @@
+# Leadmap AI
+
+> Leadmap AI is a Swedish-speaking AI receptionist that answers calls, qualifies leads, and sends qualified booking requests to high-value service businesses (plumbers, roofers, dentists, clinics, car detailers).
+
+## Pages
+
+- [Home](/): What Leadmap AI is, how it works, pricing, and FAQ.
+- [Privacy Policy](/privacy): How Leadmap AI handles call recordings, transcripts and contact details under GDPR.
+- [Terms & Conditions](/terms): Terms governing use of Leadmap AI services and the pilot program.
