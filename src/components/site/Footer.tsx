@@ -28,7 +28,7 @@ export function FinalCTA() {
             Ready when you are
           </p>
           <h2 className="relative mt-4 text-3xl md:text-5xl font-semibold tracking-tight max-w-2xl mx-auto">
-            Turn missed calls into booked customers.
+            Turn missed calls into qualified booking requests.
           </h2>
           <p className="relative mt-5 text-background/70 max-w-xl mx-auto leading-relaxed">
             Live on your number in 7 days. Cancel any time after the first month.
@@ -68,7 +68,7 @@ export function Footer() {
         <div>
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-brand" />
-            <span className="font-semibold tracking-tight">Leadline AI</span>
+            <span className="font-semibold tracking-tight">Leadmap AI</span>
           </div>
           <p className="mt-3 text-sm text-muted-foreground max-w-xs leading-relaxed">
             AI receptionists for high-value businesses. Built in Sweden, live in 7 days.
@@ -99,7 +99,7 @@ export function Footer() {
             Contact us
           </button>
           <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-            hello@leadline.ai<br />
+            hello@leadmap.se<br />
             Replies within 1 business day
           </p>
         </div>
@@ -107,7 +107,21 @@ export function Footer() {
 
       <div className="border-t border-border/60">
         <div className="mx-auto max-w-6xl px-6 py-6 flex flex-col-reverse sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
-          <div>© {new Date().getFullYear()} Leadline AI · All rights reserved</div>
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+            <span>© {new Date().getFullYear()} Leadmap AI · All rights reserved</span>
+            <span className="hidden sm:inline opacity-40">·</span>
+            <span>
+              Partners with{" "}
+              <a
+                href="https://nomia.se"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-4 hover:text-foreground transition-colors"
+              >
+                Nomia.se
+              </a>
+            </span>
+          </div>
           <div className="flex items-center gap-5">
             <a href="/terms" className="hover:text-foreground transition-colors">
               Terms &amp; Conditions

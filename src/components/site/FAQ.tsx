@@ -10,30 +10,6 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 const faqs = [
   {
-    q: "How quickly can we go live?",
-    a: "Most clients are live within 7 days. We handle voice training, knowledge ingestion and calendar integration so your team can stay focused on the work.",
-  },
-  {
-    q: "What happens to a call when the AI can't help?",
-    a: "It transfers warmly to a real person on your team, or captures the lead with full context and sends a summary by email — your choice, per scenario.",
-  },
-  {
-    q: "Does it sound like a robot?",
-    a: "No. Voices are natural, calm and on-brand. You can keep our premium default voice or clone one specifically for your business.",
-  },
-  {
-    q: "Which languages are supported?",
-    a: "English, Danish, Swedish, German and Spanish out of the box. Other European languages are available on request.",
-  },
-  {
-    q: "Where does my data live?",
-    a: "Calls and transcripts are stored in the EU with encryption at rest. We sign DPAs and never train public models on your conversations.",
-  },
-  {
-    q: "Can I cancel anytime?",
-    a: "Yes — month-to-month after the initial pilot. No long contracts, no penalties.",
-  },
-  {
     q: "Does it confirm bookings automatically?",
     a: "In the pilot, it collects qualified booking requests and sends them to you for confirmation. Full calendar booking can be added later.",
   },

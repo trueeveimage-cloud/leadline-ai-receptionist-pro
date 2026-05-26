@@ -51,7 +51,7 @@ export function ContactDialog({
     const subject = encodeURIComponent(`Contact from ${form.name}`);
     const body = encodeURIComponent(`${form.message}\n\n— ${form.name} (${form.email})`);
     setTimeout(() => {
-      window.location.href = `mailto:hello@leadline.ai?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:hello@leadmap.se?subject=${subject}&body=${body}`;
       setSent(true);
       setSending(false);
     }, 400);
@@ -146,11 +146,11 @@ export function ContactDialog({
 
               <div className="flex flex-col-reverse sm:flex-row gap-3 pt-2">
                 <a
-                  href="mailto:hello@leadline.ai"
+                  href="mailto:hello@leadmap.se"
                   className="flex-1 inline-flex items-center justify-center gap-2 h-12 rounded-full border border-border text-sm font-medium hover:border-foreground/40 transition-colors"
                 >
                   <Mail className="h-4 w-4" />
-                  hello@leadline.ai
+                  hello@leadmap.se
                 </a>
                 <Button type="submit" size="lg" variant="brand" className="flex-1" disabled={sending}>
                   {sending ? "Opening…" : (
@@ -163,7 +163,7 @@ export function ContactDialog({
               </div>
 
               <div className="grid grid-cols-2 gap-3 pt-3 border-t border-border/60">
-                <ContactPill icon={Mail} label="Email" value="hello@leadline.ai" />
+                <ContactPill icon={Mail} label="Email" value="hello@leadmap.se" />
                 <ContactPill icon={Phone} label="Phone" value="+46 8 123 456" />
               </div>
             </form>

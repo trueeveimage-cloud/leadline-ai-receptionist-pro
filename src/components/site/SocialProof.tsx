@@ -38,7 +38,7 @@ export function Stats() {
 const quotes = [
   {
     quote:
-      "We were losing two consults a week to voicemail. Within a month of going live, Leadline booked 11 new patients we would have missed.",
+      "We were losing two consults a week to voicemail. Within a month of going live, Leadmap captured 11 qualified booking requests we would have missed.",
     name: "Dr. Lina Holm",
     role: "Founder, Aurora Dental",
   },

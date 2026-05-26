@@ -108,7 +108,7 @@ export function ConversationPreview() {
             </div>
             <div>
               <p className="text-sm font-medium">Live call</p>
-              <p className="text-xs text-muted-foreground">Leadline AI · Receptionist</p>
+              <p className="text-xs text-muted-foreground">Leadmap AI · Receptionist</p>
             </div>
           </div>
           <LanguagePicker value={langCode} onChange={setLangCode} />

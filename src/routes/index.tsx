@@ -15,13 +15,13 @@ import { DialogsProvider } from "@/components/site/DialogsProvider";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Leadline AI — Never miss a high-value call again" },
+      { title: "Leadmap AI — Never miss a high-value call again" },
       {
         name: "description",
         content:
           "AI receptionists that answer, qualify, book and notify — 24/7. Built for premium service businesses.",
       },
-      { property: "og:title", content: "Leadline AI — AI receptionists for high-value businesses" },
+      { property: "og:title", content: "Leadmap AI — AI receptionists for high-value businesses" },
       {
         property: "og:description",
         content: "Answers. Books. Sends the summary. Live in 7 days.",

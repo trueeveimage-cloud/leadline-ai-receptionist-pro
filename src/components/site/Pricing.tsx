@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useDialogs } from "./DialogsProvider";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -97,6 +98,8 @@ function TiltCard({
 export function Pricing() {
   const { openBooking } = useDialogs();
   const reduce = useReducedMotion();
+  const isMobile = useIsMobile();
+  const noParallax = reduce || isMobile;
   const sectionRef = useRef<HTMLElement>(null);
   const [hoverDesktop, setHoverDesktop] = useState(false);
 
@@ -132,7 +135,7 @@ export function Pricing() {
       className="relative py-28 md:py-40 overflow-hidden"
     >
       {/* Layer 1 — gigantic ghost numerals drifting behind everything */}
-      {!reduce && (
+      {!noParallax && (
         <motion.div
           aria-hidden
           style={{ y: ghostY, x: ghostX, rotate: ghostRot, scale: ghostScale }}
@@ -145,7 +148,7 @@ export function Pricing() {
       )}
 
       {/* Layer 2 — drifting hairline grid */}
-      {!reduce && (
+      {!noParallax && (
         <motion.div
           aria-hidden
           style={{ y: gridY }}
@@ -173,11 +176,11 @@ export function Pricing() {
       />
 
       <motion.div
-        style={reduce ? undefined : { y: enterY, opacity: enterOpacity, scale: enterScale }}
+        style={noParallax ? undefined : { y: enterY, opacity: enterOpacity, scale: enterScale }}
         className="relative mx-auto max-w-5xl px-6"
       >
         <motion.div
-          style={reduce ? undefined : { y: labelY, opacity: labelOpacity }}
+          style={noParallax ? undefined : { y: labelY, opacity: labelOpacity }}
           className="flex items-center gap-3 mb-10 md:mb-14"
         >
           <span className="h-px w-8 bg-foreground/30" />
@@ -187,7 +190,7 @@ export function Pricing() {
         </motion.div>
 
         <motion.h2
-          style={reduce ? undefined : { y: headlineY }}
+          style={noParallax ? undefined : { y: headlineY }}
           initial={reduce ? false : { opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -203,14 +206,14 @@ export function Pricing() {
           {plans.map((p, i) => (
             <motion.div
               key={p.name}
-              style={reduce ? undefined : { y: p.featured ? featuredY : pilotY }}
+              style={noParallax ? undefined : { y: p.featured ? featuredY : pilotY }}
               initial={reduce ? false : { opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.8, ease, delay: i * 0.1 }}
             >
               <TiltCard
-                enabled={!reduce && p.featured && hoverDesktop}
+                enabled={!noParallax && p.featured && hoverDesktop}
                 className={`relative overflow-hidden p-8 md:p-12 transition-colors duration-500 ${
                   p.featured
                     ? "bg-foreground text-background"
@@ -291,7 +294,7 @@ export function Pricing() {
         </div>
 
         <motion.p
-          style={reduce ? undefined : { y: footerY }}
+          style={noParallax ? undefined : { y: footerY }}
           className="mt-8 text-[11px] uppercase tracking-[0.3em] text-muted-foreground text-center"
         >
           Cancel anytime · Live in 7 days

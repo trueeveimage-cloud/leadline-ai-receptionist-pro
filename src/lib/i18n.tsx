@@ -14,9 +14,9 @@ const dict = {
 
     "hero.badge": "AI receptionists for high-value businesses",
     "hero.title.l1": "Never miss a",
-    "hero.title.l2": "high-value call",
+    "hero.title.l2": "high-value lead",
     "hero.title.l3": "again.",
-    "hero.subtitle": "Answer. Qualify. Book. 24/7.",
+    "hero.subtitle": "Leadmap AI answers calls, collects customer details, and sends qualified booking requests straight to you.",
     "hero.cta.book": "Book demo",
     "hero.cta.how": "How it works",
 
