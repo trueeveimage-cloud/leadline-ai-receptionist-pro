@@ -4,7 +4,9 @@ export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
       { title: "Terms & Conditions — Leadmap AI" },
-      { name: "description", content: "Leadmap AI terms of service and privacy policy." },
+      { name: "description", content: "Read the Leadmap AI terms and conditions for our AI receptionist services, pilot program, billing and acceptable use." },
+      { property: "og:title", content: "Terms & Conditions — Leadmap AI" },
+      { property: "og:description", content: "The terms that govern your use of Leadmap AI's AI receptionist services, pilot program and billing." },
     ],
   }),
   component: TermsPage,
