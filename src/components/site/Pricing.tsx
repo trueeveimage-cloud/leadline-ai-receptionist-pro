@@ -175,7 +175,7 @@ export function Pricing() {
       />
 
       <motion.div
-        style={noParallax ? undefined : { y: enterY, opacity: enterOpacity, scale: enterScale }}
+        style={noParallax ? undefined : { y: enterY, scale: enterScale }}
         className="relative mx-auto max-w-5xl px-6"
       >
         <motion.div
