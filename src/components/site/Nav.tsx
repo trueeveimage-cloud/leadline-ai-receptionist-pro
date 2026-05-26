@@ -141,20 +141,6 @@ export function Nav() {
         )}
       </AnimatePresence>
 
-      {/* Mobile sticky CTA */}
-      <div className="md:hidden fixed bottom-0 inset-x-0 z-40 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 bg-gradient-to-t from-background via-background/90 to-transparent">
-        <Button
-          variant="brand"
-          size="lg"
-          className="w-full rounded-full shadow-[0_8px_30px_-8px_rgba(0,0,0,0.25)]"
-          onClick={() => {
-            setOpen(false);
-            openBooking();
-          }}
-        >
-          {t("nav.bookDemo")}
-        </Button>
-      </div>
     </>
   );
 }

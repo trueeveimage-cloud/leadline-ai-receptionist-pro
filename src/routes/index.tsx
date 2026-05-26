@@ -84,7 +84,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <DialogsProvider>
-      <div className="min-h-screen bg-background text-foreground pb-24 md:pb-0">
+      <div className="min-h-screen bg-background text-foreground">
         <ScrollProgress />
         <CursorSpotlight />
         <Nav />
