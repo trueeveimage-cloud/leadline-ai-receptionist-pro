@@ -12,11 +12,12 @@ const dict = {
     "nav.openMenu": "Open menu",
     "nav.closeMenu": "Close menu",
 
-    "hero.badge": "AI receptionists for high-value businesses",
+    "hero.badge": "AI receptionists for service businesses",
     "hero.title.l1": "Never miss a",
-    "hero.title.l2": "high-value lead",
+    "hero.title.l2": "valuable lead",
     "hero.title.l3": "again.",
-    "hero.subtitle": "Leadmap AI answers calls, collects customer details, and sends qualified booking requests straight to you.",
+    "hero.subtitle": "Leadmap answers calls, collects customer details, and sends qualified booking requests straight to you.",
+
     "hero.cta.book": "Book demo",
     "hero.cta.how": "How it works",
 
@@ -56,7 +57,8 @@ const dict = {
     "nav.openMenu": "Öppna meny",
     "nav.closeMenu": "Stäng meny",
 
-    "hero.badge": "AI-receptionister för premiumföretag",
+    "hero.badge": "AI-receptionister för serviceföretag",
+
     "hero.title.l1": "Missa aldrig ett",
     "hero.title.l2": "viktigt samtal",
     "hero.title.l3": "igen.",
@@ -100,7 +102,8 @@ const dict = {
     "nav.openMenu": "Abrir menú",
     "nav.closeMenu": "Cerrar menú",
 
-    "hero.badge": "Recepcionistas de IA para negocios premium",
+    "hero.badge": "Recepcionistas de IA para empresas de servicios",
+
     "hero.title.l1": "Nunca pierdas una",
     "hero.title.l2": "llamada importante",
     "hero.title.l3": "más.",
