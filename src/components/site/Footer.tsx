@@ -68,11 +68,12 @@ export function Footer() {
         <div>
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-brand" />
-            <span className="font-semibold tracking-tight">Leadmap AI</span>
+            <span className="font-semibold tracking-tight">Leadmap</span>
           </div>
           <p className="mt-3 text-sm text-muted-foreground max-w-xs leading-relaxed">
-            AI receptionists for high-value businesses. Built in Sweden, live in 7 days.
+            AI receptionists for service businesses. Built in Sweden, live in 7 days.
           </p>
+
         </div>
 
         <div>
@@ -99,16 +100,18 @@ export function Footer() {
             Contact us
           </button>
           <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-            hello@leadmap.se<br />
+            leadmapai.se@gmail.com<br />
             Replies within 1 business day
           </p>
+
         </div>
       </div>
 
       <div className="border-t border-border/60">
         <div className="mx-auto max-w-6xl px-6 py-6 flex flex-col-reverse sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-            <span>© {new Date().getFullYear()} Leadmap AI · All rights reserved</span>
+            <span>© {new Date().getFullYear()} Leadmap · All rights reserved</span>
+
             <span className="hidden sm:inline opacity-40">·</span>
             <span>
               Partners with{" "}

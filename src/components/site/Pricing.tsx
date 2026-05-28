@@ -7,6 +7,7 @@ import {
   useSpring,
   useMotionValue,
 } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDialogs } from "./DialogsProvider";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -82,7 +83,6 @@ function TiltCard({
       }
       className={className}
     >
-      {/* glare */}
       {enabled && (
         <motion.div
           aria-hidden
@@ -108,22 +108,11 @@ export function Pricing() {
     offset: ["start end", "end start"],
   });
 
-  // Multi-layer parallax
   const ghostY = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
   const ghostX = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
   const ghostRot = useTransform(scrollYProgress, [0, 1], [-3, 3]);
   const ghostScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1.05, 0.95]);
   const gridY = useTransform(scrollYProgress, [0, 1], ["-30%", "30%"]);
-  const labelY = useTransform(scrollYProgress, [0, 1], [40, -40]);
-  const labelOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const headlineY = useTransform(scrollYProgress, [0, 1], [60, -30]);
-  const featuredY = useTransform(scrollYProgress, [0, 1], [40, -40]);
-  const pilotY = useTransform(scrollYProgress, [0, 1], [-20, 20]);
-  const footerY = useTransform(scrollYProgress, [0, 1], [30, -10]);
-
-  // Smooth parallax entrance — section glides up as it enters viewport
-  const enterY = useTransform(scrollYProgress, [0, 0.25], [120, 0]);
-  const enterScale = useTransform(scrollYProgress, [0, 0.25], [0.96, 1]);
 
   return (
     <section
@@ -131,22 +120,20 @@ export function Pricing() {
       ref={sectionRef}
       onMouseEnter={() => setHoverDesktop(true)}
       onMouseLeave={() => setHoverDesktop(false)}
-      className="relative py-28 md:py-40 overflow-hidden"
+      className="relative py-20 md:py-40 overflow-hidden"
     >
-      {/* Layer 1 — gigantic ghost numerals drifting behind everything */}
       {!noParallax && (
         <motion.div
           aria-hidden
           style={{ y: ghostY, x: ghostX, rotate: ghostRot, scale: ghostScale }}
           className="pointer-events-none absolute inset-0 flex items-center justify-center"
         >
-          <span className="select-none font-extralight tracking-tighter text-[42vw] md:text-[28vw] leading-none text-foreground/[0.025]">
+          <span className="select-none font-extralight tracking-tighter text-[28vw] leading-none text-foreground/[0.025]">
             0%
           </span>
         </motion.div>
       )}
 
-      {/* Layer 2 — drifting hairline grid */}
       {!noParallax && (
         <motion.div
           aria-hidden
@@ -164,7 +151,6 @@ export function Pricing() {
         </motion.div>
       )}
 
-      {/* Layer 3 — ambient radial wash */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.05]"
@@ -174,53 +160,33 @@ export function Pricing() {
         }}
       />
 
-      <motion.div
-        style={noParallax ? undefined : { y: enterY, scale: enterScale }}
-        className="relative mx-auto max-w-5xl px-6"
-      >
-        <motion.div
-          style={noParallax ? undefined : { y: labelY, opacity: labelOpacity }}
-          className="flex items-center gap-3 mb-10 md:mb-14"
-        >
+      <div className="relative mx-auto max-w-5xl px-5 md:px-6">
+        <div className="flex items-center gap-3 mb-8 md:mb-14">
           <span className="h-px w-8 bg-foreground/30" />
           <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-medium">
             Pricing
           </span>
-        </motion.div>
+        </div>
 
-        <motion.h2
-          style={noParallax ? undefined : { y: headlineY }}
-          initial={reduce ? false : { opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.9, ease }}
-          className="text-4xl md:text-6xl font-extralight tracking-tight max-w-2xl"
-        >
+        <h2 className="text-3xl md:text-6xl font-extralight tracking-tight max-w-2xl leading-[1.05]">
           Two ways to begin.
           <br />
           <span className="italic font-extralight text-foreground/40">Both unforgettable.</span>
-        </motion.h2>
+        </h2>
 
-        <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-px bg-border/60 [perspective:1200px]">
-          {plans.map((p, i) => (
-            <motion.div
-              key={p.name}
-              style={noParallax ? undefined : { y: p.featured ? featuredY : pilotY }}
-              initial={reduce ? false : { opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8, ease, delay: i * 0.1 }}
-            >
+        <div className="mt-10 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-px md:bg-border/60 [perspective:1200px]">
+          {plans.map((p) => (
+            <div key={p.name}>
               <TiltCard
                 enabled={!noParallax && p.featured && hoverDesktop}
-                className={`relative overflow-hidden p-8 md:p-12 transition-colors duration-500 ${
+                className={`relative overflow-hidden p-6 md:p-12 border md:border-0 border-border/70 transition-colors duration-500 ${
                   p.featured
                     ? "bg-foreground text-background"
                     : "bg-background hover:bg-card"
                 }`}
               >
                 {p.featured && (
-                  <span className="absolute top-6 right-6 md:top-8 md:right-8 text-[9px] uppercase tracking-[0.4em] text-background/60">
+                  <span className="absolute top-5 right-5 md:top-8 md:right-8 text-[9px] uppercase tracking-[0.4em] text-background/60">
                     Recommended
                   </span>
                 )}
@@ -230,7 +196,7 @@ export function Pricing() {
                   <h3 className="text-[10px] uppercase tracking-[0.4em] font-medium">{p.name}</h3>
                 </div>
 
-                <div className="mt-10 flex items-baseline gap-2 relative">
+                <div className="mt-6 md:mt-10 flex items-baseline gap-2 relative flex-wrap">
                   <span className="text-5xl md:text-7xl font-extralight tracking-tight tabular-nums">
                     {p.price}
                   </span>
@@ -250,31 +216,25 @@ export function Pricing() {
                   {p.note}
                 </p>
 
-                <div
-                  className={`my-10 h-px ${p.featured ? "bg-background/15" : "bg-border"}`}
-                />
+                <div className={`my-6 md:my-10 h-px ${p.featured ? "bg-background/15" : "bg-border"}`} />
 
-                <ul className="space-y-4 relative">
-                  {p.features.map((f, fi) => (
-                    <motion.li
+                <ul className="space-y-3 md:space-y-4 relative">
+                  {p.features.map((f) => (
+                    <li
                       key={f}
-                      initial={reduce ? false : { opacity: 0, x: -8 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, margin: "-80px" }}
-                      transition={{ duration: 0.5, ease, delay: 0.2 + fi * 0.06 }}
                       className="flex items-center gap-4 text-[13px] md:text-sm font-light"
                     >
                       <span
-                        className={`h-px w-4 ${
+                        className={`h-px w-4 shrink-0 ${
                           p.featured ? "bg-background/40" : "bg-foreground/30"
                         }`}
                       />
                       {f}
-                    </motion.li>
+                    </li>
                   ))}
                 </ul>
 
-                <div className="mt-12 relative">
+                <div className="mt-8 md:mt-12 relative">
                   <Button
                     size="lg"
                     onClick={openBooking}
@@ -288,17 +248,36 @@ export function Pricing() {
                   </Button>
                 </div>
               </TiltCard>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.p
-          style={noParallax ? undefined : { y: footerY }}
-          className="mt-8 text-[11px] uppercase tracking-[0.3em] text-muted-foreground text-center"
-        >
+        {/* Premium mobile-only book demo */}
+        <div className="md:hidden mt-8">
+          <Button
+            size="lg"
+            variant="brand"
+            onClick={openBooking}
+            className="w-full rounded-full h-14 text-[13px] uppercase tracking-[0.2em] font-semibold shadow-[0_10px_30px_-12px_rgba(0,0,0,0.6)]"
+          >
+            Book demo
+            <ArrowRight className="h-4 w-4" />
+          </Button>
+        </div>
+
+        <p className="mt-6 md:mt-8 text-[11px] uppercase tracking-[0.3em] text-muted-foreground text-center">
           Cancel anytime · Live in 7 days
-        </motion.p>
-      </motion.div>
+        </p>
+      </div>
+
+      <motion.div
+        initial={reduce ? false : { opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.9, ease }}
+        aria-hidden
+        className="hidden"
+      />
     </section>
   );
 }

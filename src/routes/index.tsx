@@ -15,13 +15,13 @@ import { DialogsProvider } from "@/components/site/DialogsProvider";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Leadmap AI — Never miss a high-value call again" },
+      { title: "Leadmap — Never miss a valuable call again" },
       {
         name: "description",
         content:
-          "AI receptionists that answer, qualify, book and notify — 24/7. Built for premium service businesses.",
+          "AI receptionists that answer, qualify, book and notify — 24/7. Built for service businesses.",
       },
-      { property: "og:title", content: "Leadmap AI — AI receptionists for high-value businesses" },
+      { property: "og:title", content: "Leadmap — AI receptionists for service businesses" },
       {
         property: "og:description",
         content: "Answers. Books. Sends the summary. Live in 7 days.",
@@ -35,13 +35,13 @@ export const Route = createFileRoute("/")({
           "@graph": [
             {
               "@type": "Organization",
-              name: "Leadmap AI",
+              name: "Leadmap",
               url: "https://www.leadmap.se",
-              email: "hello@leadmap.se",
+              email: "leadmapai.se@gmail.com",
             },
             {
               "@type": "WebSite",
-              name: "Leadmap AI",
+              name: "Leadmap",
               url: "https://www.leadmap.se",
             },
             {

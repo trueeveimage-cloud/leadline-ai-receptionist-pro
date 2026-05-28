@@ -46,8 +46,9 @@ export function Pain() {
           className="mt-8 max-w-2xl text-sm md:text-base text-muted-foreground font-light leading-relaxed"
         >
           Built for plumbers, roofers, dentists, clinics, car detailers and other
-          high-value service businesses.
+          service businesses.
         </motion.p>
+
       </div>
     </section>
   );

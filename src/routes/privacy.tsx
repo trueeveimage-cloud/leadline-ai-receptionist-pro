@@ -3,10 +3,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy — Leadmap AI" },
-      { name: "description", content: "How Leadmap AI collects, stores and protects call recordings, transcripts and contact details under GDPR." },
-      { property: "og:title", content: "Privacy Policy — Leadmap AI" },
-      { property: "og:description", content: "How Leadmap AI handles your data: EU storage, encryption, GDPR rights and subprocessors." },
+      { title: "Privacy Policy — Leadmap" },
+      { name: "description", content: "How Leadmap collects, stores and protects call recordings, transcripts and contact details under GDPR." },
+      { property: "og:title", content: "Privacy Policy — Leadmap" },
+      { property: "og:description", content: "How Leadmap handles your data: EU storage, encryption, GDPR rights and subprocessors." },
     ],
   }),
   component: PrivacyPage,
@@ -19,7 +19,7 @@ function PrivacyPage() {
         <div className="mx-auto max-w-3xl px-6 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-brand" />
-            <span className="font-semibold tracking-tight">Leadmap AI</span>
+            <span className="font-semibold tracking-tight">Leadmap</span>
           </Link>
           <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">
             ← Back
@@ -61,8 +61,8 @@ function PrivacyPage() {
           <Section title="Your rights">
             Under GDPR you can access, correct, export or delete your data, and object
             to processing. Email{" "}
-            <a href="mailto:privacy@leadline.ai" className="underline hover:text-foreground">
-              privacy@leadline.ai
+            <a href="mailto:leadmapai.se@gmail.com" className="underline hover:text-foreground">
+              leadmapai.se@gmail.com
             </a>{" "}
             and we'll respond within 30 days.
           </Section>
@@ -74,8 +74,8 @@ function PrivacyPage() {
 
           <Section title="Contact">
             Privacy questions:{" "}
-            <a href="mailto:privacy@leadline.ai" className="underline hover:text-foreground">
-              privacy@leadline.ai
+            <a href="mailto:leadmapai.se@gmail.com" className="underline hover:text-foreground">
+              leadmapai.se@gmail.com
             </a>
             .
           </Section>
@@ -84,7 +84,7 @@ function PrivacyPage() {
 
       <footer className="border-t border-border">
         <div className="mx-auto max-w-3xl px-6 py-10 text-xs text-muted-foreground flex items-center justify-between">
-          <span>© {new Date().getFullYear()} Leadmap AI</span>
+          <span>© {new Date().getFullYear()} Leadmap</span>
           <Link to="/terms" className="hover:text-foreground">
             Terms &amp; Conditions
           </Link>
