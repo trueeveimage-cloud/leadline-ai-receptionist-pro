@@ -44,10 +44,9 @@ export function Pain() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease, delay: 0.2 }}
           className="mt-8 max-w-2xl text-sm md:text-base text-muted-foreground font-light leading-relaxed"
-        >
           Built for plumbers, roofers, dentists, clinics, car detailers and other
-          high-value service businesses.
-        </motion.p>
+          service businesses.
+
       </div>
     </section>
   );

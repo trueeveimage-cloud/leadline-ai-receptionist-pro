@@ -37,7 +37,7 @@ export const Route = createFileRoute("/")({
               "@type": "Organization",
               name: "Leadmap AI",
               url: "https://www.leadmap.se",
-              email: "hello@leadmap.se",
+              email: "leadmapai.se@gmail.com",
             },
             {
               "@type": "WebSite",

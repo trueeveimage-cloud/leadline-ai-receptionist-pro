@@ -117,8 +117,8 @@ function TermsPage() {
 
           <Section title="11. Contact">
             Questions? Email{" "}
-            <a href="mailto:hello@leadmap.se" className="underline hover:text-foreground">
-              hello@leadmap.se
+            <a href="mailto:leadmapai.se@gmail.com" className="underline hover:text-foreground">
+              leadmapai.se@gmail.com
             </a>
             .
           </Section>

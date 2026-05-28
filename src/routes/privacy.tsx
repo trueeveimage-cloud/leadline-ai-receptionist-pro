@@ -61,8 +61,8 @@ function PrivacyPage() {
           <Section title="Your rights">
             Under GDPR you can access, correct, export or delete your data, and object
             to processing. Email{" "}
-            <a href="mailto:privacy@leadline.ai" className="underline hover:text-foreground">
-              privacy@leadline.ai
+            <a href="mailto:leadmapai.se@gmail.com" className="underline hover:text-foreground">
+              leadmapai.se@gmail.com
             </a>{" "}
             and we'll respond within 30 days.
           </Section>
@@ -74,8 +74,8 @@ function PrivacyPage() {
 
           <Section title="Contact">
             Privacy questions:{" "}
-            <a href="mailto:privacy@leadline.ai" className="underline hover:text-foreground">
-              privacy@leadline.ai
+            <a href="mailto:leadmapai.se@gmail.com" className="underline hover:text-foreground">
+              leadmapai.se@gmail.com
             </a>
             .
           </Section>
