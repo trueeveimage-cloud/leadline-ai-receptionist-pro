@@ -28,12 +28,13 @@ export function FinalCTA() {
             Ready when you are
           </p>
           <h2 className="relative mt-4 text-3xl md:text-5xl font-semibold tracking-tight max-w-2xl mx-auto">
-            Turn missed calls into qualified booking requests.
+            See it answer a call about your business.
           </h2>
           <p className="relative mt-5 text-background/70 max-w-xl mx-auto leading-relaxed">
-            Live on your number in 7 days. Cancel any time after the first month.
-            No setup pain — we handle the rollout.
+            Book a 15-minute demo. We'll show you a live call in your industry,
+            in your language. Live on your number in 7 days. Cancel anytime.
           </p>
+
           <div className="relative mt-10 flex flex-wrap items-center justify-center gap-3">
             <Button
               size="lg"

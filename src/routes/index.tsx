@@ -10,7 +10,9 @@ import { FinalCTA, Footer } from "@/components/site/Footer";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { CursorSpotlight } from "@/components/site/CursorSpotlight";
 import { Marquee } from "@/components/site/Marquee";
+import { Testimonials } from "@/components/site/Testimonials";
 import { DialogsProvider } from "@/components/site/DialogsProvider";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -90,14 +92,16 @@ function Index() {
         <Nav />
         <main>
           <Hero />
+          <Pain />
+          <Process />
           <Stats />
           <Marquee />
-          <Process />
-          <Pain />
+          <Testimonials />
           <Pricing />
           <FAQ />
           <FinalCTA />
         </main>
+
         <Footer />
       </div>
     </DialogsProvider>

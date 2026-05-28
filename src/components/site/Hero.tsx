@@ -78,6 +78,20 @@ export function Hero() {
               </li>
             ))}
           </motion.ul>
+
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease, delay: 0.45 }}
+            className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground/80"
+          >
+            <span>Built in Sweden</span>
+            <span className="opacity-30">·</span>
+            <span>3 languages</span>
+            <span className="opacity-30">·</span>
+            <span>No long contract</span>
+          </motion.div>
+
         </div>
 
         <ConversationPreview />

@@ -10,18 +10,35 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 const faqs = [
   {
+    q: "Will it sound robotic?",
+    a: "No. The voice is natural and calm in Swedish, English or Spanish. Most callers don't realize it's AI — and we tune the tone, name and script to your business before launch.",
+  },
+  {
+    q: "Does it work with my current phone number?",
+    a: "Yes. You keep your number. We set up call forwarding (or pickup after X rings) so Leadmap only answers when you can't.",
+  },
+  {
+    q: "What happens if the AI can't answer something?",
+    a: "It politely takes the caller's details and the reason for the call, then sends you a summary immediately so you can call back informed.",
+  },
+  {
+    q: "How fast can we go live?",
+    a: "Most setups go live within 7 days. We handle the configuration, voice training and forwarding rules — you just approve the script.",
+  },
+  {
     q: "Does it confirm bookings automatically?",
     a: "In the pilot, it collects qualified booking requests and sends them to you for confirmation. Full calendar booking can be added later.",
   },
   {
-    q: "Do we need to change phone system?",
-    a: "No, we help set it up with your current number or a forwarding number.",
+    q: "How is my data handled?",
+    a: "Calls and summaries are stored securely in the EU. We never sell data. You can request deletion at any time.",
   },
   {
-    q: "Who is this best for?",
-    a: "Businesses that get valuable calls but are often busy, driving, with customers, or closed.",
+    q: "What if it's not worth it?",
+    a: "Cancel anytime after the first month — no long contract, no termination fee. Most businesses cover the cost with one extra job per month.",
   },
 ];
+
 
 export function FAQ() {
   return (

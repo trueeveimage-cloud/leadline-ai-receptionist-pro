@@ -20,7 +20,8 @@ const plans = [
     price: "2,900",
     currency: "kr",
     cadence: "/ month",
-    note: "+ 2,000 kr setup",
+    note: "+ 2,000 kr setup · 7-day pilot",
+    sub: "≈ the cost of one missed job.",
     features: ["AI receptionist", "Call summaries", "Email handoff", "Standard voice"],
     featured: false,
   },
@@ -29,7 +30,8 @@ const plans = [
     price: "4,900",
     currency: "kr",
     cadence: "/ month",
-    note: "Setup included",
+    note: "Setup included · cancel anytime",
+    sub: "Pays for itself with two extra jobs.",
     features: [
       "Booking requests",
       "Call summaries",
@@ -40,6 +42,7 @@ const plans = [
     featured: true,
   },
 ];
+
 
 function TiltCard({
   children,
@@ -174,7 +177,17 @@ export function Pricing() {
           <span className="italic font-extralight text-foreground/40">Both unforgettable.</span>
         </h2>
 
-        <div className="mt-10 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-px md:bg-border/60 [perspective:1200px]">
+        <div className="mt-8 md:mt-12 flex flex-wrap gap-x-5 gap-y-2 text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
+          <span>7-day pilot</span>
+          <span className="opacity-30">·</span>
+          <span>No long contract</span>
+          <span className="opacity-30">·</span>
+          <span>Cancel anytime</span>
+          <span className="opacity-30">·</span>
+          <span>Keep your number</span>
+        </div>
+
+        <div className="mt-10 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-px md:bg-border/60 [perspective:1200px]">
           {plans.map((p) => (
             <div key={p.name}>
               <TiltCard
@@ -186,10 +199,11 @@ export function Pricing() {
                 }`}
               >
                 {p.featured && (
-                  <span className="absolute top-5 right-5 md:top-8 md:right-8 text-[9px] uppercase tracking-[0.4em] text-background/60">
-                    Recommended
+                  <span className="absolute top-5 right-5 md:top-8 md:right-8 text-[9px] uppercase tracking-[0.4em] bg-brand text-background px-2.5 py-1">
+                    Most popular
                   </span>
                 )}
+
 
                 <div className="flex items-center gap-3 relative">
                   <span className="h-px w-6 bg-current opacity-40" />
@@ -215,6 +229,14 @@ export function Pricing() {
                 >
                   {p.note}
                 </p>
+                <p
+                  className={`mt-1.5 text-[11px] italic relative ${
+                    p.featured ? "text-background/60" : "text-foreground/60"
+                  }`}
+                >
+                  {p.sub}
+                </p>
+
 
                 <div className={`my-6 md:my-10 h-px ${p.featured ? "bg-background/15" : "bg-border"}`} />
 
