@@ -188,7 +188,7 @@ export function Pricing() {
         </div>
 
         <div className="mt-10 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-px md:bg-border/60 [perspective:1200px]">
-
+          {plans.map((p) => (
             <div key={p.name}>
               <TiltCard
                 enabled={!noParallax && p.featured && hoverDesktop}
@@ -199,10 +199,11 @@ export function Pricing() {
                 }`}
               >
                 {p.featured && (
-                  <span className="absolute top-5 right-5 md:top-8 md:right-8 text-[9px] uppercase tracking-[0.4em] text-background/60">
-                    Recommended
+                  <span className="absolute top-5 right-5 md:top-8 md:right-8 text-[9px] uppercase tracking-[0.4em] bg-brand text-background px-2.5 py-1">
+                    Most popular
                   </span>
                 )}
+
 
                 <div className="flex items-center gap-3 relative">
                   <span className="h-px w-6 bg-current opacity-40" />
@@ -228,6 +229,14 @@ export function Pricing() {
                 >
                   {p.note}
                 </p>
+                <p
+                  className={`mt-1.5 text-[11px] italic relative ${
+                    p.featured ? "text-background/60" : "text-foreground/60"
+                  }`}
+                >
+                  {p.sub}
+                </p>
+
 
                 <div className={`my-6 md:my-10 h-px ${p.featured ? "bg-background/15" : "bg-border"}`} />
 
