@@ -14,9 +14,31 @@ export type Database = {
   }
   public: {
     Tables: {
+      customer_notes: {
+        Row: {
+          body: string
+          created_at: string
+          customer_key: string
+          id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          customer_key: string
+          id?: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          customer_key?: string
+          id?: string
+        }
+        Relationships: []
+      }
       leads: {
         Row: {
           company: string
+          contacted: boolean
           created_at: string
           id: string
           name: string
@@ -26,6 +48,7 @@ export type Database = {
         }
         Insert: {
           company: string
+          contacted?: boolean
           created_at?: string
           id?: string
           name: string
@@ -35,11 +58,42 @@ export type Database = {
         }
         Update: {
           company?: string
+          contacted?: boolean
           created_at?: string
           id?: string
           name?: string
           phone?: string
           preferred_time?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          contacted: boolean
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          user_agent: string | null
+        }
+        Insert: {
+          contacted?: boolean
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          user_agent?: string | null
+        }
+        Update: {
+          contacted?: boolean
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
           user_agent?: string | null
         }
         Relationships: []
