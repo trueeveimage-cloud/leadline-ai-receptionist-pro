@@ -14,6 +14,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as LeadLineBookingsRouteImport } from './routes/LeadLineBookings'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiPublicMessagesRouteImport } from './routes/api.public.messages'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api.public.leads'
 
 const TermsRoute = TermsRouteImport.update({
@@ -41,6 +42,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicMessagesRoute = ApiPublicMessagesRouteImport.update({
+  id: '/api/public/messages',
+  path: '/api/public/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
   id: '/api/public/leads',
   path: '/api/public/leads',
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
+  '/api/public/messages': typeof ApiPublicMessagesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
+  '/api/public/messages': typeof ApiPublicMessagesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,6 +79,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
+  '/api/public/messages': typeof ApiPublicMessagesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/api/public/leads'
+    | '/api/public/messages'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -89,6 +99,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/api/public/leads'
+    | '/api/public/messages'
   id:
     | '__root__'
     | '/'
@@ -97,6 +108,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/api/public/leads'
+    | '/api/public/messages'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -106,6 +118,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   ApiPublicLeadsRoute: typeof ApiPublicLeadsRoute
+  ApiPublicMessagesRoute: typeof ApiPublicMessagesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -145,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/messages': {
+      id: '/api/public/messages'
+      path: '/api/public/messages'
+      fullPath: '/api/public/messages'
+      preLoaderRoute: typeof ApiPublicMessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/leads': {
       id: '/api/public/leads'
       path: '/api/public/leads'
@@ -162,7 +182,18 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   ApiPublicLeadsRoute: ApiPublicLeadsRoute,
+  ApiPublicMessagesRoute: ApiPublicMessagesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
