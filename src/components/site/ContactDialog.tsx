@@ -29,16 +29,19 @@ export function ContactDialog({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
 
   const reset = () => {
     setForm({ name: "", email: "", message: "" });
     setErrors({});
     setSent(false);
     setSending(false);
+    setServerError(null);
   };
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setServerError(null);
     const parsed = schema.safeParse(form);
     if (!parsed.success) {
       const errs: Record<string, string> = {};
@@ -47,14 +50,24 @@ export function ContactDialog({
       return;
     }
     setSending(true);
-    // Open email client as fallback delivery
-    const subject = encodeURIComponent(`Contact from ${form.name}`);
-    const body = encodeURIComponent(`${form.message}\n\n— ${form.name} (${form.email})`);
-    setTimeout(() => {
-      window.location.href = `mailto:leadmapai.se@gmail.com?subject=${subject}&body=${body}`;
+    try {
+      const res = await fetch("/api/public/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(parsed.data),
+      });
+      const json = await res.json().catch(() => ({ ok: false }));
+      if (!res.ok || !json.ok) {
+        setServerError("Couldn't send. Please try again or email us directly.");
+        setSending(false);
+        return;
+      }
       setSent(true);
+    } catch {
+      setServerError("Network error. Please try again.");
+    } finally {
       setSending(false);
-    }, 400);
+    }
   };
 
   return (
@@ -76,11 +89,10 @@ export function ContactDialog({
               <Check className="h-6 w-6" strokeWidth={2.5} />
             </div>
             <DialogTitle className="mt-6 text-2xl font-semibold tracking-tight">
-              Message ready
+              Message received
             </DialogTitle>
             <DialogDescription className="mt-2 text-sm text-muted-foreground">
-              Your email client just opened with everything pre-filled. Hit send and we'll
-              reply within one business day.
+              Thanks — we got it. A real human will reply within one business day.
             </DialogDescription>
             <Button variant="brand" size="lg" className="mt-8" onClick={() => onOpenChange(false)}>
               Close
@@ -144,16 +156,13 @@ export function ContactDialog({
                 )}
               </div>
 
-              <div className="flex flex-col-reverse sm:flex-row gap-3 pt-2">
-                <a
-                  href="mailto:leadmapai.se@gmail.com"
-                  className="flex-1 inline-flex items-center justify-center gap-2 h-12 rounded-full border border-border text-sm font-medium hover:border-foreground/40 transition-colors"
-                >
-                  <Mail className="h-4 w-4" />
-                  leadmapai.se@gmail.com
-                </a>
-                <Button type="submit" size="lg" variant="brand" className="flex-1" disabled={sending}>
-                  {sending ? "Opening…" : (
+              {serverError && (
+                <p className="text-xs text-destructive">{serverError}</p>
+              )}
+
+              <div className="pt-2">
+                <Button type="submit" size="lg" variant="brand" className="w-full" disabled={sending}>
+                  {sending ? "Sending…" : (
                     <>
                       Send message
                       <Send className="h-4 w-4" />

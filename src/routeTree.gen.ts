@@ -12,7 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as LeadLineBookingsRouteImport } from './routes/LeadLineBookings'
+import { Route as LeadLineNotiRouteImport } from './routes/LeadLineNoti'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicMessagesRouteImport } from './routes/api.public.messages'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api.public.leads'
@@ -32,9 +32,9 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LeadLineBookingsRoute = LeadLineBookingsRouteImport.update({
-  id: '/LeadLineBookings',
-  path: '/LeadLineBookings',
+const LeadLineNotiRoute = LeadLineNotiRouteImport.update({
+  id: '/LeadLineNoti',
+  path: '/LeadLineNoti',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -55,7 +55,7 @@ const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/LeadLineBookings': typeof LeadLineBookingsRoute
+  '/LeadLineNoti': typeof LeadLineNotiRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -64,7 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/LeadLineBookings': typeof LeadLineBookingsRoute
+  '/LeadLineNoti': typeof LeadLineNotiRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -74,7 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/LeadLineBookings': typeof LeadLineBookingsRoute
+  '/LeadLineNoti': typeof LeadLineNotiRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -85,7 +85,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/LeadLineBookings'
+    | '/LeadLineNoti'
     | '/privacy'
     | '/sitemap.xml'
     | '/terms'
@@ -94,7 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/LeadLineBookings'
+    | '/LeadLineNoti'
     | '/privacy'
     | '/sitemap.xml'
     | '/terms'
@@ -103,7 +103,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/LeadLineBookings'
+    | '/LeadLineNoti'
     | '/privacy'
     | '/sitemap.xml'
     | '/terms'
@@ -113,7 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  LeadLineBookingsRoute: typeof LeadLineBookingsRoute
+  LeadLineNotiRoute: typeof LeadLineNotiRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
@@ -144,11 +144,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/LeadLineBookings': {
-      id: '/LeadLineBookings'
-      path: '/LeadLineBookings'
-      fullPath: '/LeadLineBookings'
-      preLoaderRoute: typeof LeadLineBookingsRouteImport
+    '/LeadLineNoti': {
+      id: '/LeadLineNoti'
+      path: '/LeadLineNoti'
+      fullPath: '/LeadLineNoti'
+      preLoaderRoute: typeof LeadLineNotiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -177,7 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  LeadLineBookingsRoute: LeadLineBookingsRoute,
+  LeadLineNotiRoute: LeadLineNotiRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
