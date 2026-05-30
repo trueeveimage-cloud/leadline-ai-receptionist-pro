@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Section, stagger, item } from "./Section";
 
-const industries = ["Clinics", "Dental", "Car dealerships", "Law firms", "Renovation", "Real estate"];
+const industries = ["Plumbers", "Roofers", "Dentists", "Clinics", "Car detailers", "Emergency trades"];
 
 export function Industries() {
   return (

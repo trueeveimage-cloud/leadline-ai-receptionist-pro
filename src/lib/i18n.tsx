@@ -26,7 +26,7 @@ const dict = {
     "step.3": "Book",
     "step.1.desc": "Your AI receptionist picks up every incoming call in under one second — 24/7, no voicemail, no missed revenue.",
     "step.2.desc": "It asks the right questions in your tone, qualifies the lead against your services and pricing, and filters out time-wasters.",
-    "step.3.desc": "Qualified callers are booked straight into your calendar, with a full transcript and summary sent to your inbox.",
+    "step.3.desc": "Qualified booking requests are sent to the owner for confirmation, with a full transcript and summary in your inbox.",
 
     "booking.title": "Book a setup call",
     "booking.subtitle": "15 minutes. No prep needed.",
@@ -71,7 +71,7 @@ const dict = {
     "step.3": "Bokar",
     "step.1.desc": "Din AI-receptionist svarar på varje samtal på under en sekund — dygnet runt, ingen röstbrevlåda, inga missade intäkter.",
     "step.2.desc": "Den ställer rätt frågor i din ton, kvalificerar leadet mot dina tjänster och priser, och sållar bort tidstjuvar.",
-    "step.3.desc": "Kvalificerade kunder bokas direkt i din kalender, med full transkription och sammanfattning till din inkorg.",
+    "step.3.desc": "Kvalificerade bokningsförfrågningar skickas till ägaren för bekräftelse, med full transkription och sammanfattning till din inkorg.",
 
     "booking.title": "Boka ett uppstartsmöte",
     "booking.subtitle": "15 minuter. Ingen förberedelse.",
@@ -116,7 +116,7 @@ const dict = {
     "step.3": "Agenda",
     "step.1.desc": "Tu recepcionista de IA contesta cada llamada en menos de un segundo — 24/7, sin buzón, sin ingresos perdidos.",
     "step.2.desc": "Hace las preguntas correctas en tu tono, califica al cliente según tus servicios y precios, y filtra a quienes hacen perder el tiempo.",
-    "step.3.desc": "Los clientes calificados se agendan directo en tu calendario, con transcripción completa y resumen en tu correo.",
+    "step.3.desc": "Las solicitudes de reserva calificadas se envían al propietario para confirmar, con transcripción completa y resumen en tu correo.",
 
     "booking.title": "Reservar una llamada",
     "booking.subtitle": "15 minutos. Sin preparación.",

@@ -5,7 +5,7 @@ import { Section, stagger, item } from "./Section";
 const features = [
   { icon: PhoneCall, title: "Answers instantly", body: "Picks up on the first ring, 24/7." },
   { icon: Filter, title: "Qualifies callers", body: "Asks the right questions, every time." },
-  { icon: CalendarCheck, title: "Books appointments", body: "Direct to your calendar." },
+  { icon: CalendarCheck, title: "Captures bookings", body: "Turn missed calls into qualified leads." },
   { icon: PhoneForwarded, title: "Transfers urgent calls", body: "Routes priority calls in real time." },
 ];
 

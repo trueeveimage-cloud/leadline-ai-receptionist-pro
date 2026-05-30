@@ -187,50 +187,50 @@ export function Pricing() {
           <span>Keep your number</span>
         </div>
 
-        <div className="mt-10 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-px md:bg-border/60 [perspective:1200px]">
+        <div className="mt-10 md:mt-16 grid grid-cols-2 gap-2 md:gap-px md:bg-border/60 [perspective:1200px]">
           {plans.map((p) => (
             <div key={p.name}>
               <TiltCard
                 enabled={!noParallax && p.featured && hoverDesktop}
-                className={`relative overflow-hidden p-6 md:p-12 border md:border-0 border-border/70 transition-colors duration-500 ${
+                className={`relative overflow-hidden p-3.5 md:p-12 border md:border-0 border-border/70 transition-colors duration-500 h-full flex flex-col ${
                   p.featured
                     ? "bg-foreground text-background"
                     : "bg-background hover:bg-card"
                 }`}
               >
                 {p.featured && (
-                  <span className="absolute top-5 right-5 md:top-8 md:right-8 text-[9px] uppercase tracking-[0.4em] bg-brand text-background px-2.5 py-1">
-                    Most popular
+                  <span className="absolute top-2 right-2 md:top-8 md:right-8 text-[7.5px] md:text-[9px] uppercase tracking-[0.25em] md:tracking-[0.4em] bg-brand text-background px-1.5 py-0.5 md:px-2.5 md:py-1">
+                    Popular
                   </span>
                 )}
 
 
-                <div className="flex items-center gap-3 relative">
-                  <span className="h-px w-6 bg-current opacity-40" />
-                  <h3 className="text-[10px] uppercase tracking-[0.4em] font-medium">{p.name}</h3>
+                <div className="flex items-center gap-2 md:gap-3 relative">
+                  <span className="h-px w-4 md:w-6 bg-current opacity-40" />
+                  <h3 className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] md:tracking-[0.4em] font-medium">{p.name}</h3>
                 </div>
 
-                <div className="mt-6 md:mt-10 flex items-baseline gap-2 relative flex-wrap">
-                  <span className="text-5xl md:text-7xl font-extralight tracking-tight tabular-nums">
+                <div className="mt-3 md:mt-10 flex items-baseline gap-1 md:gap-2 relative flex-wrap">
+                  <span className="text-2xl md:text-7xl font-extralight tracking-tight tabular-nums">
                     {p.price}
                   </span>
                   <span
-                    className={`text-sm font-light ${
+                    className={`text-[10px] md:text-sm font-light ${
                       p.featured ? "text-background/60" : "text-muted-foreground"
                     }`}
                   >
-                    {p.currency} {p.cadence}
+                    {p.currency}{p.cadence}
                   </span>
                 </div>
                 <p
-                  className={`mt-2 text-xs relative ${
+                  className={`mt-1.5 text-[10px] md:text-xs relative leading-snug ${
                     p.featured ? "text-background/50" : "text-muted-foreground"
                   }`}
                 >
                   {p.note}
                 </p>
                 <p
-                  className={`mt-1.5 text-[11px] italic relative ${
+                  className={`mt-1 text-[10px] md:text-[11px] italic relative leading-snug ${
                     p.featured ? "text-background/60" : "text-foreground/60"
                   }`}
                 >
@@ -238,29 +238,29 @@ export function Pricing() {
                 </p>
 
 
-                <div className={`my-6 md:my-10 h-px ${p.featured ? "bg-background/15" : "bg-border"}`} />
+                <div className={`my-3 md:my-10 h-px ${p.featured ? "bg-background/15" : "bg-border"}`} />
 
-                <ul className="space-y-3 md:space-y-4 relative">
+                <ul className="space-y-1.5 md:space-y-4 relative flex-1">
                   {p.features.map((f) => (
                     <li
                       key={f}
-                      className="flex items-center gap-4 text-[13px] md:text-sm font-light"
+                      className="flex items-start gap-2 md:gap-4 text-[11px] md:text-sm font-light leading-snug"
                     >
                       <span
-                        className={`h-px w-4 shrink-0 ${
+                        className={`mt-1.5 md:mt-0 h-px w-2.5 md:w-4 shrink-0 ${
                           p.featured ? "bg-background/40" : "bg-foreground/30"
                         }`}
                       />
-                      {f}
+                      <span>{f}</span>
                     </li>
                   ))}
                 </ul>
 
-                <div className="mt-8 md:mt-12 relative">
+                <div className="mt-4 md:mt-12 relative">
                   <Button
                     size="lg"
                     onClick={openBooking}
-                    className={`w-full rounded-none uppercase tracking-[0.2em] text-[11px] font-semibold ${
+                    className={`w-full rounded-none uppercase tracking-[0.15em] md:tracking-[0.2em] text-[9px] md:text-[11px] font-semibold h-9 md:h-11 px-2 ${
                       p.featured
                         ? "bg-background text-foreground hover:bg-background/90"
                         : "bg-foreground text-background hover:bg-foreground/90"

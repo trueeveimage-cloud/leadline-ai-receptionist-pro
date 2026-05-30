@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MessageCircle, Phone, Check, Send } from "lucide-react";
+import { Mail, MessageCircle, Check, Send } from "lucide-react";
 import { z } from "zod";
 import {
   Dialog,
@@ -171,9 +171,8 @@ export function ContactDialog({
                 </Button>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 pt-3 border-t border-border/60">
+              <div className="pt-3 border-t border-border/60">
                 <ContactPill icon={Mail} label="Email" value="leadmapai.se@gmail.com" />
-                <ContactPill icon={Phone} label="Phone" value="+46 8 123 456" />
               </div>
             </form>
           </>

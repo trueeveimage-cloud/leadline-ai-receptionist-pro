@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useI18n } from "@/lib/i18n";
+import { ConversationPreview } from "./ConversationPreview";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -161,6 +162,16 @@ export function Process() {
             );
           })}
         </ol>
+
+        <div className="mt-16 md:mt-24">
+          <div className="flex items-center gap-3 mb-8">
+            <span className="h-px w-8 bg-foreground/30" />
+            <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-medium">
+              Live call demo
+            </span>
+          </div>
+          <ConversationPreview />
+        </div>
       </div>
     </section>
   );
