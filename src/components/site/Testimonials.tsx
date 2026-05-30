@@ -51,7 +51,7 @@ export function Testimonials() {
           What pilot customers are saying.
         </motion.h2>
 
-        <div className="mt-12 md:mt-16 grid gap-5 md:gap-6 md:grid-cols-3">
+        <div className="mt-8 md:mt-16 -mx-6 md:mx-0 px-6 md:px-0 flex md:grid md:grid-cols-3 gap-3 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory scroll-px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {quotes.map((q, i) => (
             <motion.figure
               key={q.name}
@@ -59,16 +59,16 @@ export function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, ease, delay: 0.08 * i }}
-              className="relative p-6 md:p-8 border border-border/70 bg-card flex flex-col"
+              className="relative shrink-0 md:shrink w-[78%] md:w-auto snap-start p-4 md:p-8 border border-border/70 bg-card flex flex-col"
             >
-              <Quote className="h-5 w-5 text-brand/70 mb-4" />
-              <blockquote className="text-[14px] md:text-[15px] leading-relaxed font-light text-foreground/90">
+              <Quote className="h-4 w-4 md:h-5 md:w-5 text-brand/70 mb-3 md:mb-4" />
+              <blockquote className="text-[12.5px] md:text-[15px] leading-relaxed font-light text-foreground/90">
                 "{q.text}"
               </blockquote>
-              <figcaption className="mt-6 pt-5 border-t border-border/60">
-                <div className="text-sm font-medium">{q.name}</div>
-                <div className="text-xs text-muted-foreground mt-0.5">{q.role}</div>
-                <span className="mt-3 inline-block text-[9px] uppercase tracking-[0.3em] text-brand">
+              <figcaption className="mt-4 md:mt-6 pt-3 md:pt-5 border-t border-border/60">
+                <div className="text-[12px] md:text-sm font-medium">{q.name}</div>
+                <div className="text-[10.5px] md:text-xs text-muted-foreground mt-0.5">{q.role}</div>
+                <span className="mt-2 md:mt-3 inline-block text-[8.5px] md:text-[9px] uppercase tracking-[0.3em] text-brand">
                   {q.tag}
                 </span>
               </figcaption>
