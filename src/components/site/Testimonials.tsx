@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { Quote } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { useI18n } from "@/lib/i18n";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -8,36 +8,47 @@ const quotes = [
     text: "We used to lose calls every afternoon while on jobs. Now every caller gets answered and we get a booking-ready SMS. Two extra jobs in the first week.",
     name: "Marcus L.",
     role: "Owner · Plumbing, Göteborg",
-    tag: "Pilot user",
   },
   {
     text: "The receptionist sounds calm and professional in Swedish. Patients don't realize it's AI. Our front desk finally has time to focus on people in the clinic.",
     name: "Sofia E.",
     role: "Clinic manager · Stockholm",
-    tag: "Pilot user",
   },
   {
     text: "Setup took less than a week. The qualified-lead summaries land in my inbox while I'm driving — I just call back the serious ones.",
     name: "Daniel K.",
     role: "Roofing contractor · Malmö",
-    tag: "Pilot user",
+  },
+  {
+    text: "Before Leadmap I'd come back from a detail and see 6 missed calls. Now I see 6 summaries with names, cars and budgets. Total game changer.",
+    name: "Anders W.",
+    role: "Owner · Car detailing, Uppsala",
+  },
+  {
+    text: "Out-of-hours emergencies used to go to voicemail. Now we get the address and the issue within seconds. We don't miss night jobs anymore.",
+    name: "Linda P.",
+    role: "Dispatcher · Emergency trades",
   },
 ];
 
 export function Testimonials() {
+  const { t } = useI18n();
+  const reduce = useReducedMotion();
+  const loop = [...quotes, ...quotes];
+
   return (
-    <section id="testimonials" className="py-24 md:py-32 border-t border-border/60">
+    <section id="testimonials" className="py-24 md:py-32 border-t border-border/60 overflow-hidden">
       <div className="mx-auto max-w-6xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease }}
-          className="flex items-center gap-3 mb-8"
+          className="flex items-center gap-3 mb-6"
         >
           <span className="h-px w-8 bg-foreground/30" />
           <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-medium">
-            From the pilot
+            {t("test.eyebrow")}
           </span>
         </motion.div>
 
@@ -46,35 +57,47 @@ export function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease, delay: 0.05 }}
-          className="text-3xl md:text-5xl font-light tracking-[-0.02em] leading-[1.1] max-w-3xl"
+          className="text-3xl md:text-5xl font-extralight tracking-[-0.02em] leading-[1.1] max-w-3xl"
         >
-          What pilot customers are saying.
+          {t("test.title")}
         </motion.h2>
+      </div>
 
-        <div className="mt-8 md:mt-16 -mx-6 md:mx-0 px-6 md:px-0 flex md:grid md:grid-cols-3 gap-3 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory scroll-px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {quotes.map((q, i) => (
-            <motion.figure
-              key={q.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, ease, delay: 0.08 * i }}
-              className="relative shrink-0 md:shrink w-[78%] md:w-auto snap-start p-4 md:p-8 border border-border/70 bg-card flex flex-col"
+      <div
+        className="mt-12 md:mt-16 relative"
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+        }}
+      >
+        <motion.div
+          className="flex gap-4 md:gap-6 w-max"
+          animate={reduce ? undefined : { x: ["0%", "-50%"] }}
+          transition={
+            reduce
+              ? undefined
+              : { duration: 50, ease: "linear", repeat: Infinity }
+          }
+        >
+          {loop.map((q, i) => (
+            <figure
+              key={`${q.name}-${i}`}
+              className="shrink-0 w-[78vw] sm:w-[360px] md:w-[380px] p-5 md:p-7 border border-border/70 bg-card flex flex-col"
             >
-              <Quote className="h-4 w-4 md:h-5 md:w-5 text-brand/70 mb-3 md:mb-4" />
-              <blockquote className="text-[12.5px] md:text-[15px] leading-relaxed font-light text-foreground/90">
+              <blockquote className="text-[13px] md:text-[14px] leading-relaxed font-light text-foreground/90">
                 "{q.text}"
               </blockquote>
-              <figcaption className="mt-4 md:mt-6 pt-3 md:pt-5 border-t border-border/60">
-                <div className="text-[12px] md:text-sm font-medium">{q.name}</div>
-                <div className="text-[10.5px] md:text-xs text-muted-foreground mt-0.5">{q.role}</div>
-                <span className="mt-2 md:mt-3 inline-block text-[8.5px] md:text-[9px] uppercase tracking-[0.3em] text-brand">
-                  {q.tag}
-                </span>
+              <figcaption className="mt-5 pt-4 border-t border-border/60">
+                <div className="text-[12px] md:text-[13px] font-medium">{q.name}</div>
+                <div className="text-[10.5px] md:text-[11px] text-muted-foreground mt-0.5">
+                  {q.role}
+                </div>
               </figcaption>
-            </motion.figure>
+            </figure>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
