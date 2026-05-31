@@ -62,7 +62,7 @@ export function Process() {
         >
           <span className="h-px w-8 bg-foreground/30" />
           <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-medium">
-            How it works
+            {t("process.eyebrow")}
           </span>
         </motion.div>
 
@@ -167,7 +167,7 @@ export function Process() {
           <div className="flex items-center gap-3 mb-8">
             <span className="h-px w-8 bg-foreground/30" />
             <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-medium">
-              Live call demo
+              {t("process.demo")}
             </span>
           </div>
           <ConversationPreview />

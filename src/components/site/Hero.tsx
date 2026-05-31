@@ -60,35 +60,17 @@ export function Hero() {
             </a>
           </motion.div>
 
-          <motion.ul
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease, delay: 0.35 }}
-            className="mt-10 flex flex-col gap-3 text-[12px] md:text-[13px] font-light text-muted-foreground"
-          >
-            {[
-              "Swedish-speaking AI receptionist",
-              "Setup live in 7 days",
-              "Cancel anytime after first month",
-            ].map((point) => (
-              <li key={point} className="flex items-center gap-3">
-                <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-                <span>{point}</span>
-              </li>
-            ))}
-          </motion.ul>
-
           <motion.div
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease, delay: 0.45 }}
-            className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground/80"
+            className="mt-12 flex flex-wrap items-center gap-x-4 gap-y-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground/80"
           >
-            <span>Built in Sweden</span>
+            <span>{t("hero.meta.1")}</span>
             <span className="opacity-30">·</span>
-            <span>3 languages</span>
+            <span>{t("hero.meta.2")}</span>
             <span className="opacity-30">·</span>
-            <span>No long contract</span>
+            <span>{t("hero.meta.3")}</span>
           </motion.div>
 
         </div>
