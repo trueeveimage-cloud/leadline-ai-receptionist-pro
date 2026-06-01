@@ -64,7 +64,7 @@ export function Testimonials() {
       </div>
 
       <div
-        className="mt-12 md:mt-16 relative"
+        className="mt-10 md:mt-16 relative"
         style={{
           maskImage:
             "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
