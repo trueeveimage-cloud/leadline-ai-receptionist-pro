@@ -37,7 +37,7 @@ export function Testimonials() {
   const loop = [...quotes, ...quotes];
 
   return (
-    <section id="testimonials" className="py-24 md:py-32 border-t border-border/60 overflow-hidden">
+    <section id="testimonials" className="py-16 md:py-28 border-t border-border/60 overflow-hidden">
       <div className="mx-auto max-w-6xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}

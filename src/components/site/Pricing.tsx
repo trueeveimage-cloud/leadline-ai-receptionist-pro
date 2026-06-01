@@ -124,7 +124,7 @@ export function Pricing() {
       ref={sectionRef}
       onMouseEnter={() => setHoverDesktop(true)}
       onMouseLeave={() => setHoverDesktop(false)}
-      className="relative py-24 md:py-40 overflow-hidden border-t border-border/60"
+      className="relative py-16 md:py-32 overflow-hidden border-t border-border/60"
     >
       {!noParallax && (
         <motion.div

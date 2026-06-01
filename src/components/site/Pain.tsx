@@ -6,7 +6,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 export function Pain() {
   const { t } = useI18n();
   return (
-    <section id="pain" className="py-24 md:py-32 border-t border-border/60">
+    <section id="pain" className="py-16 md:py-28 border-t border-border/60">
       <div className="mx-auto max-w-3xl px-6">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
