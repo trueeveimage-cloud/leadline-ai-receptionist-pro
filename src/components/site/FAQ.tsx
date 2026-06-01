@@ -29,7 +29,7 @@ export function FAQ() {
           <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground mb-6">
             {t("faq.eyebrow")}
           </p>
-          <h2 className="text-3xl md:text-5xl font-extralight tracking-[-0.02em] leading-[1.05]">
+          <h2 className="text-2xl md:text-5xl font-extralight tracking-[-0.02em] leading-[1.15]">
             {t("faq.title")}
           </h2>
         </motion.div>
