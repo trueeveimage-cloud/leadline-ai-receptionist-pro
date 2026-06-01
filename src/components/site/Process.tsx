@@ -52,7 +52,7 @@ export function Process() {
         }}
       />
 
-      <div className="relative mx-auto max-w-6xl px-6 py-20 md:py-28">
+      <div className="relative mx-auto max-w-6xl px-6 py-16 md:py-28">
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
