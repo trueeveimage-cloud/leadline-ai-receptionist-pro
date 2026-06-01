@@ -192,7 +192,7 @@ export function Pricing() {
               </div>
 
               <div className="mt-6 md:mt-10 flex items-baseline gap-2 relative flex-wrap">
-                <span className="text-5xl md:text-7xl font-extralight tracking-tight tabular-nums">
+                <span className="text-4xl md:text-6xl font-extralight tracking-tight tabular-nums">
                   {p.price}
                 </span>
                 <span
