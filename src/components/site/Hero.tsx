@@ -10,7 +10,7 @@ export function Hero() {
   const reduce = useReducedMotion();
   const { t } = useI18n();
   return (
-    <section id="top" className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
+    <section id="top" className="relative pt-28 pb-16 md:pt-44 md:pb-32 overflow-hidden">
       <div className="absolute inset-x-0 top-0 h-[600px] bg-gradient-to-b from-surface to-transparent -z-10" />
       <div className="mx-auto max-w-3xl px-6">
         <div>
