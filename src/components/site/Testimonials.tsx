@@ -84,7 +84,7 @@ export function Testimonials() {
           {loop.map((q, i) => (
             <figure
               key={`${q.name}-${i}`}
-              className="shrink-0 w-[78vw] sm:w-[360px] md:w-[380px] p-5 md:p-7 border border-border/70 bg-card flex flex-col"
+              className="shrink-0 w-[72vw] sm:w-[340px] md:w-[360px] p-5 md:p-6 border border-border/70 bg-card flex flex-col"
             >
               <blockquote className="text-[13px] md:text-[14px] leading-relaxed font-light text-foreground/90">
                 "{q.text}"
