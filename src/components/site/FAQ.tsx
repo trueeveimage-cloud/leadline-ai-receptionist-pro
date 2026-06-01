@@ -39,7 +39,7 @@ export function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease, delay: 0.1 }}
-          className="mt-12 md:mt-16"
+          className="mt-10 md:mt-16"
         >
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((f, i) => (
