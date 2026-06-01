@@ -58,7 +58,7 @@ export function Process() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease }}
-          className="flex items-center gap-3 mb-12 md:mb-16"
+          className="flex items-center gap-3 mb-10 md:mb-16"
         >
           <span className="h-px w-8 bg-foreground/30" />
           <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-medium">
