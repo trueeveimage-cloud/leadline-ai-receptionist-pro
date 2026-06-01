@@ -57,7 +57,7 @@ export function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease, delay: 0.05 }}
-          className="text-3xl md:text-5xl font-extralight tracking-[-0.02em] leading-[1.1] max-w-3xl"
+          className="text-2xl md:text-5xl font-extralight tracking-[-0.02em] leading-[1.15] max-w-3xl"
         >
           {t("test.title")}
         </motion.h2>
