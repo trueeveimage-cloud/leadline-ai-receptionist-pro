@@ -30,7 +30,7 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease, delay: 0.05 }}
-            className="mt-6 text-5xl leading-[0.95] md:text-7xl font-light tracking-tight"
+            className="mt-6 text-4xl leading-[1] md:text-7xl font-light tracking-tight"
           >
             {t("hero.title.l1")}<br />
             <span className="italic font-extralight text-foreground/40">{t("hero.title.l2")}</span> {t("hero.title.l3")}
