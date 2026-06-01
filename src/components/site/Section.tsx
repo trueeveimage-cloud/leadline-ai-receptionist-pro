@@ -19,7 +19,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={`py-24 md:py-32 ${muted ? "bg-surface" : ""}`}
+      className={`py-16 md:py-28 ${muted ? "bg-surface" : ""}`}
     >
       <div className="mx-auto max-w-6xl px-6">
         <motion.div

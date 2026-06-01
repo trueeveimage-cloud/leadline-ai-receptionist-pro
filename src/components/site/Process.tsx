@@ -52,13 +52,13 @@ export function Process() {
         }}
       />
 
-      <div className="relative mx-auto max-w-6xl px-6 py-20 md:py-28">
+      <div className="relative mx-auto max-w-6xl px-6 py-16 md:py-28">
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease }}
-          className="flex items-center gap-3 mb-12 md:mb-16"
+          className="flex items-center gap-3 mb-10 md:mb-16"
         >
           <span className="h-px w-8 bg-foreground/30" />
           <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-medium">
@@ -97,7 +97,7 @@ export function Process() {
               <li
                 key={s.num}
                 data-idx={i}
-                className={`group relative md:px-8 first:md:pl-0 last:md:pr-0 py-8 md:py-6 ${
+                className={`group relative md:px-8 first:md:pl-0 last:md:pr-0 py-6 md:py-6 ${
                   i < steps.length - 1
                     ? "border-b border-border/40 md:border-b-0"
                     : ""
@@ -148,7 +148,7 @@ export function Process() {
                     />
                   </div>
                   <h3
-                    className={`mt-5 text-3xl md:text-4xl font-extralight tracking-tight transition-colors duration-500 ${
+                    className={`mt-4 text-2xl md:text-4xl font-extralight tracking-tight transition-colors duration-500 ${
                       isActive ? "text-foreground" : "text-foreground/70"
                     }`}
                   >
@@ -163,7 +163,7 @@ export function Process() {
           })}
         </ol>
 
-        <div className="mt-16 md:mt-24">
+        <div className="mt-14 md:mt-24">
           <div className="flex items-center gap-3 mb-8">
             <span className="h-px w-8 bg-foreground/30" />
             <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-medium">

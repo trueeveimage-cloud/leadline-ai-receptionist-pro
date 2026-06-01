@@ -17,7 +17,7 @@ export function FAQ() {
   }));
 
   return (
-    <section id="faq" className="py-24 md:py-32">
+    <section id="faq" className="py-16 md:py-28">
       <div className="mx-auto max-w-3xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -29,7 +29,7 @@ export function FAQ() {
           <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground mb-6">
             {t("faq.eyebrow")}
           </p>
-          <h2 className="text-3xl md:text-5xl font-extralight tracking-[-0.02em] leading-[1.05]">
+          <h2 className="text-2xl md:text-5xl font-extralight tracking-[-0.02em] leading-[1.15]">
             {t("faq.title")}
           </h2>
         </motion.div>
@@ -39,7 +39,7 @@ export function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease, delay: 0.1 }}
-          className="mt-12 md:mt-16"
+          className="mt-10 md:mt-16"
         >
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((f, i) => (

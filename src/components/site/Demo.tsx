@@ -9,7 +9,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 export function Demo() {
   const { openBooking } = useDialogs();
   return (
-    <section id="demo" className="py-24 md:py-32 bg-surface">
+    <section id="demo" className="py-16 md:py-28 bg-surface">
       <div className="mx-auto max-w-5xl px-6 grid md:grid-cols-2 gap-14 items-center">
         <div className="text-left">
           <motion.p

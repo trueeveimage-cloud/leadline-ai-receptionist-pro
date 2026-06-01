@@ -10,7 +10,7 @@ export function Hero() {
   const reduce = useReducedMotion();
   const { t } = useI18n();
   return (
-    <section id="top" className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
+    <section id="top" className="relative pt-28 pb-16 md:pt-44 md:pb-32 overflow-hidden">
       <div className="absolute inset-x-0 top-0 h-[600px] bg-gradient-to-b from-surface to-transparent -z-10" />
       <div className="mx-auto max-w-3xl px-6">
         <div>
@@ -30,7 +30,7 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease, delay: 0.05 }}
-            className="mt-6 text-5xl leading-[0.95] md:text-7xl font-light tracking-tight"
+            className="mt-6 text-4xl leading-[1] md:text-7xl font-light tracking-tight"
           >
             {t("hero.title.l1")}<br />
             <span className="italic font-extralight text-foreground/40">{t("hero.title.l2")}</span> {t("hero.title.l3")}

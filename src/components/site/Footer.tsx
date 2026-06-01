@@ -10,51 +10,40 @@ export function FinalCTA() {
   const { openBooking, openContact } = useDialogs();
   const { t } = useI18n();
   return (
-    <section className="py-24 md:py-36">
-      <div className="mx-auto max-w-5xl px-6">
+    <section className="py-20 md:py-32 border-t border-border/60">
+      <div className="mx-auto max-w-2xl px-6 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, ease }}
-          className="rounded-[2rem] bg-foreground text-background px-8 md:px-16 py-20 md:py-24 text-center relative overflow-hidden"
+          transition={{ duration: 0.7, ease }}
         >
-          <div
-            className="absolute inset-0 -z-0 opacity-[0.06]"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 20% 20%, white 0, transparent 40%), radial-gradient(circle at 80% 80%, white 0, transparent 40%)",
-            }}
-          />
-          <p className="relative text-[10px] uppercase tracking-[0.4em] text-background/60">
+          <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
             {t("cta.eyebrow")}
           </p>
-          <h2 className="relative mt-5 text-3xl md:text-5xl font-extralight tracking-[-0.02em] max-w-2xl mx-auto leading-[1.1]">
+          <h2 className="mt-5 text-3xl md:text-5xl font-extralight tracking-[-0.02em] leading-[1.1]">
             {t("cta.title")}
           </h2>
-          <p className="relative mt-5 text-background/70 max-w-xl mx-auto leading-relaxed font-light">
+          <p className="mt-5 text-sm md:text-base text-muted-foreground max-w-md mx-auto leading-relaxed font-light">
             {t("cta.body")}
           </p>
 
-          <div className="relative mt-10 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
             <Button
               size="lg"
-              variant="soft"
-              className="bg-background text-foreground hover:bg-background/90"
+              variant="brand"
               onClick={openBooking}
+              className="rounded-none uppercase tracking-[0.2em] text-[11px] font-semibold px-8"
             >
               {t("cta.book")}
-              <ArrowRight className="h-4 w-4" />
             </Button>
-            <Button
-              size="lg"
-              variant="ghost"
-              className="text-background hover:bg-background/10 hover:text-background"
+            <button
               onClick={openContact}
+              className="group inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
-              <Mail className="h-4 w-4" />
-              {t("cta.contact")}
-            </Button>
+              <Mail className="h-3.5 w-3.5" />
+              <span>{t("cta.contact")}</span>
+            </button>
           </div>
         </motion.div>
       </div>

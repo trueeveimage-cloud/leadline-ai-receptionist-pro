@@ -37,7 +37,7 @@ export function Testimonials() {
   const loop = [...quotes, ...quotes];
 
   return (
-    <section id="testimonials" className="py-24 md:py-32 border-t border-border/60 overflow-hidden">
+    <section id="testimonials" className="py-16 md:py-28 border-t border-border/60 overflow-hidden">
       <div className="mx-auto max-w-6xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -57,14 +57,14 @@ export function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease, delay: 0.05 }}
-          className="text-3xl md:text-5xl font-extralight tracking-[-0.02em] leading-[1.1] max-w-3xl"
+          className="text-2xl md:text-5xl font-extralight tracking-[-0.02em] leading-[1.15] max-w-3xl"
         >
           {t("test.title")}
         </motion.h2>
       </div>
 
       <div
-        className="mt-12 md:mt-16 relative"
+        className="mt-10 md:mt-16 relative"
         style={{
           maskImage:
             "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
@@ -84,7 +84,7 @@ export function Testimonials() {
           {loop.map((q, i) => (
             <figure
               key={`${q.name}-${i}`}
-              className="shrink-0 w-[78vw] sm:w-[360px] md:w-[380px] p-5 md:p-7 border border-border/70 bg-card flex flex-col"
+              className="shrink-0 w-[72vw] sm:w-[340px] md:w-[360px] p-5 md:p-6 border border-border/70 bg-card flex flex-col"
             >
               <blockquote className="text-[13px] md:text-[14px] leading-relaxed font-light text-foreground/90">
                 "{q.text}"

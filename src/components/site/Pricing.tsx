@@ -124,7 +124,7 @@ export function Pricing() {
       ref={sectionRef}
       onMouseEnter={() => setHoverDesktop(true)}
       onMouseLeave={() => setHoverDesktop(false)}
-      className="relative py-24 md:py-40 overflow-hidden border-t border-border/60"
+      className="relative py-16 md:py-32 overflow-hidden border-t border-border/60"
     >
       {!noParallax && (
         <motion.div
@@ -151,7 +151,7 @@ export function Pricing() {
           </span>
         </div>
 
-        <h2 className="text-3xl md:text-6xl font-extralight tracking-[-0.02em] max-w-2xl leading-[1.05]">
+        <h2 className="text-3xl md:text-5xl font-extralight tracking-[-0.02em] max-w-2xl leading-[1.05]">
           {t("pricing.title.l1")}
           <br />
           <span className="italic font-extralight text-foreground/40">
@@ -172,7 +172,7 @@ export function Pricing() {
             <TiltCard
               key={p.key}
               enabled={!noParallax && p.featured && hoverDesktop}
-              className={`relative overflow-hidden p-6 md:p-12 border border-border/70 md:border-0 transition-colors duration-500 h-full flex flex-col ${
+              className={`relative overflow-hidden p-6 md:p-10 border border-border/70 md:border-0 transition-colors duration-500 h-full flex flex-col ${
                 p.featured
                   ? "bg-foreground text-background"
                   : "bg-background hover:bg-card"
@@ -192,7 +192,7 @@ export function Pricing() {
               </div>
 
               <div className="mt-6 md:mt-10 flex items-baseline gap-2 relative flex-wrap">
-                <span className="text-5xl md:text-7xl font-extralight tracking-tight tabular-nums">
+                <span className="text-4xl md:text-6xl font-extralight tracking-tight tabular-nums">
                   {p.price}
                 </span>
                 <span

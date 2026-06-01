@@ -6,7 +6,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 export function Pain() {
   const { t } = useI18n();
   return (
-    <section id="pain" className="py-24 md:py-32 border-t border-border/60">
+    <section id="pain" className="py-16 md:py-28 border-t border-border/60">
       <div className="mx-auto max-w-3xl px-6">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
@@ -23,7 +23,7 @@ export function Pain() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease, delay: 0.05 }}
-          className="text-3xl md:text-5xl font-extralight tracking-[-0.02em] leading-[1.1]"
+          className="text-2xl md:text-5xl font-extralight tracking-[-0.02em] leading-[1.15]"
         >
           {t("pain.title")}
         </motion.h2>
