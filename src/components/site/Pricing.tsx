@@ -151,7 +151,7 @@ export function Pricing() {
           </span>
         </div>
 
-        <h2 className="text-3xl md:text-6xl font-extralight tracking-[-0.02em] max-w-2xl leading-[1.05]">
+        <h2 className="text-3xl md:text-5xl font-extralight tracking-[-0.02em] max-w-2xl leading-[1.05]">
           {t("pricing.title.l1")}
           <br />
           <span className="italic font-extralight text-foreground/40">
