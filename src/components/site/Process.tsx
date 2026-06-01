@@ -97,7 +97,7 @@ export function Process() {
               <li
                 key={s.num}
                 data-idx={i}
-                className={`group relative md:px-8 first:md:pl-0 last:md:pr-0 py-8 md:py-6 ${
+                className={`group relative md:px-8 first:md:pl-0 last:md:pr-0 py-6 md:py-6 ${
                   i < steps.length - 1
                     ? "border-b border-border/40 md:border-b-0"
                     : ""
