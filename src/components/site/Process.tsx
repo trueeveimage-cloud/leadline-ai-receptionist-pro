@@ -163,7 +163,7 @@ export function Process() {
           })}
         </ol>
 
-        <div className="mt-16 md:mt-24">
+        <div className="mt-14 md:mt-24">
           <div className="flex items-center gap-3 mb-8">
             <span className="h-px w-8 bg-foreground/30" />
             <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-medium">
