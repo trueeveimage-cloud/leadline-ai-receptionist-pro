@@ -148,7 +148,7 @@ export function Process() {
                     />
                   </div>
                   <h3
-                    className={`mt-5 text-3xl md:text-4xl font-extralight tracking-tight transition-colors duration-500 ${
+                    className={`mt-4 text-2xl md:text-4xl font-extralight tracking-tight transition-colors duration-500 ${
                       isActive ? "text-foreground" : "text-foreground/70"
                     }`}
                   >
