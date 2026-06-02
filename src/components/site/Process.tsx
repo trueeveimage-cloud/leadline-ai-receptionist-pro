@@ -42,10 +42,10 @@ export function Process() {
       ref={sectionRef}
       className="relative border-y border-border/60 overflow-hidden"
     >
-      {/* ambient glow */}
+      {/* ambient glow - desktop only */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        className="pointer-events-none absolute inset-0 opacity-0 md:opacity-[0.05]"
         style={{
           backgroundImage:
             "radial-gradient(60% 60% at 50% 40%, var(--foreground) 0%, transparent 70%)",

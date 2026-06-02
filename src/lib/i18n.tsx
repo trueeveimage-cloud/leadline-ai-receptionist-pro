@@ -16,7 +16,7 @@ const dict = {
     "hero.title.l1": "Never miss a",
     "hero.title.l2": "valuable lead",
     "hero.title.l3": "again.",
-    "hero.subtitle": "Leadmap answers calls, qualifies the lead, and sends a booking-ready summary to you.",
+    "hero.subtitle": "We answer. We qualify. You get the booking.",
     "hero.cta.book": "Book demo",
     "hero.cta.how": "How it works",
     "hero.trust.1": "Swedish-speaking AI receptionist",
@@ -37,8 +37,8 @@ const dict = {
 
     "pain.eyebrow": "The problem",
     "pain.title": "Every missed call is a lost job.",
-    "pain.body": "You're on a roof, under a sink, mid-treatment, or closed. The phone keeps ringing — and most callers just dial the next business on the list.",
-    "pain.built": "Built for plumbers, roofers, dentists, clinics, car detailers and emergency trades.",
+    "pain.body": "While you're working, the phone rings. Most callers don't leave a message — they just call the next business.",
+    "pain.built": "For plumbers, roofers, dentists, detailers and emergency trades.",
 
     "pricing.eyebrow": "Pricing",
     "pricing.title.l1": "Two ways to begin.",
@@ -96,7 +96,7 @@ const dict = {
     "cta.book": "Book demo",
     "cta.contact": "Contact us",
 
-    "footer.tagline": "AI receptionists for service businesses. Built in Sweden, live in 7 days.",
+    "footer.tagline": "AI receptionists. Built in Sweden. Live in 7 days.",
     "footer.explore": "Explore",
     "footer.contact": "Get in touch",
     "footer.replies": "Replies within 1 business day",
@@ -138,7 +138,7 @@ const dict = {
     "hero.title.l1": "Missa aldrig ett",
     "hero.title.l2": "viktigt samtal",
     "hero.title.l3": "igen.",
-    "hero.subtitle": "Leadmap svarar, kvalificerar leadet och skickar en bokningsklar sammanfattning till dig.",
+    "hero.subtitle": "Vi svarar. Vi kvalificerar. Du får bokningen.",
     "hero.cta.book": "Boka demo",
     "hero.cta.how": "Så fungerar det",
     "hero.trust.1": "Svensktalande AI-receptionist",
@@ -159,8 +159,8 @@ const dict = {
 
     "pain.eyebrow": "Problemet",
     "pain.title": "Varje missat samtal är ett förlorat jobb.",
-    "pain.body": "Du är på ett tak, under ett handfat, mitt i en behandling — eller stängd. Telefonen ringer, och de flesta uppringare ringer bara nästa företag på listan.",
-    "pain.built": "Byggt för rörmokare, takläggare, tandläkare, kliniker, bilrekonditionerare och akuta hantverkare.",
+    "pain.body": "Medan du jobbar ringer telefonen. De flesta lämnar inget meddelande — de ringer nästa företag.",
+    "pain.built": "För rörmokare, takläggare, tandläkare, bilrekond och akuta hantverkare.",
 
     "pricing.eyebrow": "Priser",
     "pricing.title.l1": "Två sätt att börja.",
@@ -218,7 +218,7 @@ const dict = {
     "cta.book": "Boka demo",
     "cta.contact": "Kontakta oss",
 
-    "footer.tagline": "AI-receptionister för serviceföretag. Byggt i Sverige, live på 7 dagar.",
+    "footer.tagline": "AI-receptionister. Byggt i Sverige. Live på 7 dagar.",
     "footer.explore": "Utforska",
     "footer.contact": "Kontakt",
     "footer.replies": "Svar inom 1 arbetsdag",
@@ -260,7 +260,7 @@ const dict = {
     "hero.title.l1": "Nunca pierdas una",
     "hero.title.l2": "llamada importante",
     "hero.title.l3": "más.",
-    "hero.subtitle": "Leadmap contesta, califica al cliente y te envía un resumen listo para reservar.",
+    "hero.subtitle": "Contestamos. Calificamos. Tú recibes la reserva.",
     "hero.cta.book": "Reservar demo",
     "hero.cta.how": "Cómo funciona",
     "hero.trust.1": "Recepcionista de IA en sueco",
@@ -281,8 +281,8 @@ const dict = {
 
     "pain.eyebrow": "El problema",
     "pain.title": "Cada llamada perdida es un trabajo perdido.",
-    "pain.body": "Estás en un tejado, bajo un fregadero, en plena consulta — o cerrado. El teléfono no para, y la mayoría de quienes llaman simplemente marcan al siguiente negocio.",
-    "pain.built": "Hecho para fontaneros, techadores, dentistas, clínicas, detallistas de coches y oficios de emergencia.",
+    "pain.body": "Mientras trabajas, suena el teléfono. Casi nadie deja mensaje — llaman al siguiente negocio.",
+    "pain.built": "Para fontaneros, techadores, dentistas, detallistas y oficios de emergencia.",
 
     "pricing.eyebrow": "Precios",
     "pricing.title.l1": "Dos formas de empezar.",
@@ -340,7 +340,7 @@ const dict = {
     "cta.book": "Reservar demo",
     "cta.contact": "Contáctanos",
 
-    "footer.tagline": "Recepcionistas de IA para empresas de servicios. Hecho en Suecia, listo en 7 días.",
+    "footer.tagline": "Recepcionistas de IA. Hecho en Suecia. Listo en 7 días.",
     "footer.explore": "Explorar",
     "footer.contact": "Contacto",
     "footer.replies": "Respuesta en 1 día hábil",
