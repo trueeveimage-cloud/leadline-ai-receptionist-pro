@@ -281,8 +281,8 @@ const dict = {
 
     "pain.eyebrow": "El problema",
     "pain.title": "Cada llamada perdida es un trabajo perdido.",
-    "pain.body": "Estás en un tejado, bajo un fregadero, en plena consulta — o cerrado. El teléfono no para, y la mayoría de quienes llaman simplemente marcan al siguiente negocio.",
-    "pain.built": "Hecho para fontaneros, techadores, dentistas, clínicas, detallistas de coches y oficios de emergencia.",
+    "pain.body": "Mientras trabajas, suena el teléfono. Casi nadie deja mensaje — llaman al siguiente negocio.",
+    "pain.built": "Para fontaneros, techadores, dentistas, detallistas y oficios de emergencia.",
 
     "pricing.eyebrow": "Precios",
     "pricing.title.l1": "Dos formas de empezar.",
