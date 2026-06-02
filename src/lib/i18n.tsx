@@ -16,7 +16,7 @@ const dict = {
     "hero.title.l1": "Never miss a",
     "hero.title.l2": "valuable lead",
     "hero.title.l3": "again.",
-    "hero.subtitle": "Leadmap answers calls, qualifies the lead, and sends a booking-ready summary to you.",
+    "hero.subtitle": "We answer. We qualify. You get the booking.",
     "hero.cta.book": "Book demo",
     "hero.cta.how": "How it works",
     "hero.trust.1": "Swedish-speaking AI receptionist",
