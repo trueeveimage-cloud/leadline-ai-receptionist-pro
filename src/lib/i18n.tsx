@@ -159,8 +159,8 @@ const dict = {
 
     "pain.eyebrow": "Problemet",
     "pain.title": "Varje missat samtal är ett förlorat jobb.",
-    "pain.body": "Du är på ett tak, under ett handfat, mitt i en behandling — eller stängd. Telefonen ringer, och de flesta uppringare ringer bara nästa företag på listan.",
-    "pain.built": "Byggt för rörmokare, takläggare, tandläkare, kliniker, bilrekonditionerare och akuta hantverkare.",
+    "pain.body": "Medan du jobbar ringer telefonen. De flesta lämnar inget meddelande — de ringer nästa företag.",
+    "pain.built": "För rörmokare, takläggare, tandläkare, bilrekond och akuta hantverkare.",
 
     "pricing.eyebrow": "Priser",
     "pricing.title.l1": "Två sätt att börja.",
