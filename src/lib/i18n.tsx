@@ -218,7 +218,7 @@ const dict = {
     "cta.book": "Boka demo",
     "cta.contact": "Kontakta oss",
 
-    "footer.tagline": "AI-receptionister för serviceföretag. Byggt i Sverige, live på 7 dagar.",
+    "footer.tagline": "AI-receptionister. Byggt i Sverige. Live på 7 dagar.",
     "footer.explore": "Utforska",
     "footer.contact": "Kontakt",
     "footer.replies": "Svar inom 1 arbetsdag",
