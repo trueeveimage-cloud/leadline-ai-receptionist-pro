@@ -340,7 +340,7 @@ const dict = {
     "cta.book": "Reservar demo",
     "cta.contact": "Contáctanos",
 
-    "footer.tagline": "Recepcionistas de IA para empresas de servicios. Hecho en Suecia, listo en 7 días.",
+    "footer.tagline": "Recepcionistas de IA. Hecho en Suecia. Listo en 7 días.",
     "footer.explore": "Explorar",
     "footer.contact": "Contacto",
     "footer.replies": "Respuesta en 1 día hábil",
