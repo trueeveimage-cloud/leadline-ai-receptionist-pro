@@ -6,7 +6,7 @@ import { useI18n } from "@/lib/i18n";
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
-  const { openBooking } = useDialogs();
+  const { openBooking, openTestAI } = useDialogs();
   const reduce = useReducedMotion();
   const { t } = useI18n();
   return (
