@@ -260,7 +260,7 @@ const dict = {
     "hero.title.l1": "Nunca pierdas una",
     "hero.title.l2": "llamada importante",
     "hero.title.l3": "más.",
-    "hero.subtitle": "Leadmap contesta, califica al cliente y te envía un resumen listo para reservar.",
+    "hero.subtitle": "Contestamos. Calificamos. Tú recibes la reserva.",
     "hero.cta.book": "Reservar demo",
     "hero.cta.how": "Cómo funciona",
     "hero.trust.1": "Recepcionista de IA en sueco",
