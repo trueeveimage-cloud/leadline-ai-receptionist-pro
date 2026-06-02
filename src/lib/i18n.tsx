@@ -37,8 +37,8 @@ const dict = {
 
     "pain.eyebrow": "The problem",
     "pain.title": "Every missed call is a lost job.",
-    "pain.body": "You're on a roof, under a sink, mid-treatment, or closed. The phone keeps ringing — and most callers just dial the next business on the list.",
-    "pain.built": "Built for plumbers, roofers, dentists, clinics, car detailers and emergency trades.",
+    "pain.body": "While you're working, the phone rings. Most callers don't leave a message — they just call the next business.",
+    "pain.built": "For plumbers, roofers, dentists, detailers and emergency trades.",
 
     "pricing.eyebrow": "Pricing",
     "pricing.title.l1": "Two ways to begin.",
