@@ -174,7 +174,7 @@ export function Pricing() {
               enabled={!noParallax && p.featured && hoverDesktop}
               className={`relative overflow-hidden p-6 md:p-10 border border-border/70 md:border-0 transition-colors duration-500 h-full flex flex-col ${
                 p.featured
-                  ? "bg-foreground text-background"
+                  ? "bg-background md:bg-foreground md:text-background"
                   : "bg-background hover:bg-card"
               }`}
             >
