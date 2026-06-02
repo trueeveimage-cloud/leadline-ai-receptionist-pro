@@ -197,7 +197,7 @@ export function Pricing() {
                 </span>
                 <span
                   className={`text-xs md:text-sm font-light ${
-                    p.featured ? "text-background/60" : "text-muted-foreground"
+                    p.featured ? "text-muted-foreground md:text-background/60" : "text-muted-foreground"
                   }`}
                 >
                   {p.currency}{t("pricing.month")}
@@ -205,14 +205,14 @@ export function Pricing() {
               </div>
               <p
                 className={`mt-2 text-[11px] md:text-xs relative leading-snug ${
-                  p.featured ? "text-background/55" : "text-muted-foreground"
+                  p.featured ? "text-muted-foreground md:text-background/55" : "text-muted-foreground"
                 }`}
               >
                 {p.note}
               </p>
               <p
                 className={`mt-1 text-[11px] md:text-[12px] italic relative leading-snug ${
-                  p.featured ? "text-background/65" : "text-foreground/60"
+                  p.featured ? "text-foreground/60 md:text-background/65" : "text-foreground/60"
                 }`}
               >
                 {p.sub}
@@ -220,7 +220,7 @@ export function Pricing() {
 
               <div
                 className={`my-6 md:my-10 h-px ${
-                  p.featured ? "bg-background/15" : "bg-border"
+                  p.featured ? "bg-border md:bg-background/15" : "bg-border"
                 }`}
               />
 
@@ -232,7 +232,7 @@ export function Pricing() {
                   >
                     <span
                       className={`mt-2 h-px w-3 md:w-4 shrink-0 ${
-                        p.featured ? "bg-background/40" : "bg-foreground/30"
+                        p.featured ? "bg-foreground/30 md:bg-background/40" : "bg-foreground/30"
                       }`}
                     />
                     <span>{f}</span>
@@ -246,7 +246,7 @@ export function Pricing() {
                   onClick={openBooking}
                   className={`w-full rounded-none uppercase tracking-[0.2em] text-[11px] font-semibold h-11 md:h-12 ${
                     p.featured
-                      ? "bg-background text-foreground hover:bg-background/90"
+                      ? "bg-foreground text-background hover:bg-foreground/90 md:bg-background md:text-foreground md:hover:bg-background/90"
                       : "bg-foreground text-background hover:bg-foreground/90"
                   }`}
                 >
