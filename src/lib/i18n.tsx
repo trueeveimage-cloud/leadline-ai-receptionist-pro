@@ -138,7 +138,7 @@ const dict = {
     "hero.title.l1": "Missa aldrig ett",
     "hero.title.l2": "viktigt samtal",
     "hero.title.l3": "igen.",
-    "hero.subtitle": "Leadmap svarar, kvalificerar leadet och skickar en bokningsklar sammanfattning till dig.",
+    "hero.subtitle": "Vi svarar. Vi kvalificerar. Du får bokningen.",
     "hero.cta.book": "Boka demo",
     "hero.cta.how": "Så fungerar det",
     "hero.trust.1": "Svensktalande AI-receptionist",
