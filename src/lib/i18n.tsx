@@ -96,7 +96,7 @@ const dict = {
     "cta.book": "Book demo",
     "cta.contact": "Contact us",
 
-    "footer.tagline": "AI receptionists for service businesses. Built in Sweden, live in 7 days.",
+    "footer.tagline": "AI receptionists. Built in Sweden. Live in 7 days.",
     "footer.explore": "Explore",
     "footer.contact": "Get in touch",
     "footer.replies": "Replies within 1 business day",
