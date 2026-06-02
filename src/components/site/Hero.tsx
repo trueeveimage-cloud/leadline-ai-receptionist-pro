@@ -54,6 +54,16 @@ export function Hero() {
             <Button size="lg" variant="brand" onClick={openBooking} className="rounded-none uppercase tracking-[0.2em] text-[11px] font-semibold px-8">
               {t("hero.cta.book")}
             </Button>
+            <button
+              onClick={openTestAI}
+              className="group inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] font-medium text-foreground hover:text-foreground transition-colors"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-brand opacity-60 animate-ping" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
+              </span>
+              <span>Test the AI</span>
+            </button>
             <a href="#how" className="group inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] font-medium text-muted-foreground hover:text-foreground transition-colors">
               <span>{t("hero.cta.how")}</span>
               <span className="h-px w-5 bg-foreground/20 group-hover:w-8 group-hover:bg-foreground transition-all duration-500" />
