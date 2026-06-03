@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useI18n } from "@/lib/i18n";
 import { ConversationPreview } from "./ConversationPreview";
+import { useDialogs } from "./DialogsProvider";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
