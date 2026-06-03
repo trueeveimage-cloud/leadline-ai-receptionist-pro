@@ -69,7 +69,7 @@ function TiltCard({
 }
 
 export function Pricing() {
-  const { openBooking } = useDialogs();
+  const { openBooking, openTestAI } = useDialogs();
   const reduce = useReducedMotion();
   const isMobile = useIsMobile();
   const { t } = useI18n();
@@ -179,9 +179,12 @@ export function Pricing() {
               }`}
             >
               {p.featured && (
-                <span className="absolute top-4 right-4 md:top-8 md:right-8 text-[9px] uppercase tracking-[0.3em] md:tracking-[0.4em] bg-brand text-background px-2 py-0.5 md:px-2.5 md:py-1">
-                  {t("pricing.popular")}
-                </span>
+                <>
+                  <span aria-hidden className="absolute inset-x-0 top-0 h-px bg-brand" />
+                  <span className="absolute top-4 right-4 md:top-8 md:right-8 text-[9px] uppercase tracking-[0.3em] md:tracking-[0.4em] bg-brand text-background px-2 py-0.5 md:px-2.5 md:py-1">
+                    {t("pricing.popular")}
+                  </span>
+                </>
               )}
 
               <div className="flex items-center gap-3 relative">
@@ -257,9 +260,21 @@ export function Pricing() {
           ))}
         </div>
 
-        <p className="mt-8 md:mt-10 text-[10px] uppercase tracking-[0.4em] text-muted-foreground text-center">
-          {t("pricing.footer")}
-        </p>
+        <div className="mt-10 md:mt-14 flex flex-col items-center gap-4">
+          <button
+            onClick={openTestAI}
+            className="group inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] font-medium text-foreground hover:opacity-70 transition-opacity"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-brand opacity-60 animate-ping" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
+            </span>
+            <span>Test the AI before you commit</span>
+          </button>
+          <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground text-center">
+            {t("pricing.footer")}
+          </p>
+        </div>
       </div>
     </section>
   );

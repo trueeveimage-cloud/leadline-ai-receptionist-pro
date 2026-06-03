@@ -2,11 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useI18n } from "@/lib/i18n";
 import { ConversationPreview } from "./ConversationPreview";
+import { useDialogs } from "./DialogsProvider";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Process() {
   const { t } = useI18n();
+  const { openTestAI } = useDialogs();
   const reduce = useReducedMotion();
   const [active, setActive] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
@@ -22,14 +24,14 @@ export function Process() {
   // end of section reaches viewport center => progress 1
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 60%", "end 40%"],
+    offset: ["start 75%", "end 65%"],
   });
   const sweepX = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   useEffect(() => {
     const unsub = scrollYProgress.on("change", (v) => {
-      // 0 - 0.33 => step 0, 0.33 - 0.66 => step 1, 0.66 - 1 => step 2
-      const idx = v < 0.34 ? 0 : v < 0.67 ? 1 : 2;
+      // shift thresholds earlier so step 3 activates ~65% through
+      const idx = v < 0.28 ? 0 : v < 0.58 ? 1 : 2;
       setActive(idx);
     });
     return () => unsub();
@@ -164,11 +166,23 @@ export function Process() {
         </ol>
 
         <div className="mt-14 md:mt-24">
-          <div className="flex items-center gap-3 mb-8">
-            <span className="h-px w-8 bg-foreground/30" />
-            <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-medium">
-              {t("process.demo")}
-            </span>
+          <div className="flex items-center justify-between gap-3 mb-8 flex-wrap">
+            <div className="flex items-center gap-3">
+              <span className="h-px w-8 bg-foreground/30" />
+              <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-medium">
+                {t("process.demo")}
+              </span>
+            </div>
+            <button
+              onClick={openTestAI}
+              className="group inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] font-medium text-foreground hover:opacity-70 transition-opacity"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-brand opacity-60 animate-ping" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
+              </span>
+              <span>Try it live</span>
+            </button>
           </div>
           <ConversationPreview />
         </div>
