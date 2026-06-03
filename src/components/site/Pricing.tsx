@@ -257,9 +257,21 @@ export function Pricing() {
           ))}
         </div>
 
-        <p className="mt-8 md:mt-10 text-[10px] uppercase tracking-[0.4em] text-muted-foreground text-center">
-          {t("pricing.footer")}
-        </p>
+        <div className="mt-10 md:mt-14 flex flex-col items-center gap-4">
+          <button
+            onClick={openTestAI}
+            className="group inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] font-medium text-foreground hover:opacity-70 transition-opacity"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-brand opacity-60 animate-ping" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
+            </span>
+            <span>Test the AI before you commit</span>
+          </button>
+          <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground text-center">
+            {t("pricing.footer")}
+          </p>
+        </div>
       </div>
     </section>
   );
