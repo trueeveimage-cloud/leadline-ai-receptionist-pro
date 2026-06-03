@@ -179,9 +179,12 @@ export function Pricing() {
               }`}
             >
               {p.featured && (
-                <span className="absolute top-4 right-4 md:top-8 md:right-8 text-[9px] uppercase tracking-[0.3em] md:tracking-[0.4em] bg-brand text-background px-2 py-0.5 md:px-2.5 md:py-1">
-                  {t("pricing.popular")}
-                </span>
+                <>
+                  <span aria-hidden className="absolute inset-x-0 top-0 h-px bg-brand" />
+                  <span className="absolute top-4 right-4 md:top-8 md:right-8 text-[9px] uppercase tracking-[0.3em] md:tracking-[0.4em] bg-brand text-background px-2 py-0.5 md:px-2.5 md:py-1">
+                    {t("pricing.popular")}
+                  </span>
+                </>
               )}
 
               <div className="flex items-center gap-3 relative">
