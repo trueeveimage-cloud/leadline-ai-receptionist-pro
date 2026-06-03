@@ -8,6 +8,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Process() {
   const { t } = useI18n();
+  const { openTestAI } = useDialogs();
   const reduce = useReducedMotion();
   const [active, setActive] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
