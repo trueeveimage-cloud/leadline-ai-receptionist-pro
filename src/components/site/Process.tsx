@@ -24,14 +24,14 @@ export function Process() {
   // end of section reaches viewport center => progress 1
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 75%", "end 65%"],
+    offset: ["start 85%", "end center"],
   });
   const sweepX = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   useEffect(() => {
     const unsub = scrollYProgress.on("change", (v) => {
-      // shift thresholds earlier so step 3 activates ~65% through
-      const idx = v < 0.28 ? 0 : v < 0.58 ? 1 : 2;
+      // even thirds so step 3 activates as you reach the end of the section
+      const idx = v < 0.34 ? 0 : v < 0.67 ? 1 : 2;
       setActive(idx);
     });
     return () => unsub();
