@@ -166,11 +166,23 @@ export function Process() {
         </ol>
 
         <div className="mt-14 md:mt-24">
-          <div className="flex items-center gap-3 mb-8">
-            <span className="h-px w-8 bg-foreground/30" />
-            <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-medium">
-              {t("process.demo")}
-            </span>
+          <div className="flex items-center justify-between gap-3 mb-8 flex-wrap">
+            <div className="flex items-center gap-3">
+              <span className="h-px w-8 bg-foreground/30" />
+              <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-medium">
+                {t("process.demo")}
+              </span>
+            </div>
+            <button
+              onClick={openTestAI}
+              className="group inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] font-medium text-foreground hover:opacity-70 transition-opacity"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-brand opacity-60 animate-ping" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
+              </span>
+              <span>Try it live</span>
+            </button>
           </div>
           <ConversationPreview />
         </div>
