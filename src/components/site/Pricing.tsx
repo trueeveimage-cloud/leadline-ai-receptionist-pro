@@ -69,7 +69,7 @@ function TiltCard({
 }
 
 export function Pricing() {
-  const { openBooking } = useDialogs();
+  const { openBooking, openTestAI } = useDialogs();
   const reduce = useReducedMotion();
   const isMobile = useIsMobile();
   const { t } = useI18n();
