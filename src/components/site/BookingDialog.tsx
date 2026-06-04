@@ -353,7 +353,7 @@ export function BookingDialog({
                       <Input
                         value={form.phone}
                         onChange={(e) => update("phone", e.target.value)}
-                        placeholder="+46 70 123 45 67"
+                        placeholder="076 322 44 78"
                         inputMode="tel"
                         autoComplete="tel"
                         className="h-12 rounded-xl"
