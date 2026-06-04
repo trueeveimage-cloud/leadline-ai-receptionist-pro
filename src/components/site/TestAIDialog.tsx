@@ -95,8 +95,8 @@ export function TestAIDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl p-0 overflow-hidden bg-background border-border max-h-[92vh] flex flex-col gap-0">
-        <DialogHeader className="px-5 md:px-7 pt-5 md:pt-6 pb-3 space-y-2">
+      <DialogContent className="max-w-4xl w-[96vw] p-0 overflow-hidden bg-background border-border max-h-[96vh] flex flex-col gap-0">
+        <DialogHeader className="px-5 md:px-7 pt-4 md:pt-5 pb-2 space-y-1.5">
           <div className="flex items-center justify-between gap-3 flex-wrap pr-7">
             <DialogTitle className="text-base md:text-lg font-light tracking-tight">
               Talk to the AI receptionist
@@ -108,12 +108,11 @@ export function TestAIDialog({
           </div>
           <DialogDescription className="text-[11px] md:text-xs text-muted-foreground leading-relaxed">
             Live demo speaks <span className="text-foreground">English only</span>. Production
-            receptionists run in Swedish, Spanish, German and more. Allow microphone access when
-            prompted.
+            receptionists run in Swedish, Spanish, German and more.
           </DialogDescription>
         </DialogHeader>
 
-        <div className="px-5 md:px-7 flex items-center justify-between gap-3 py-2.5 border-y border-border/60">
+        <div className="px-5 md:px-7 flex items-center justify-between gap-3 py-2 border-y border-border/60">
           <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
             <span className={`h-1.5 w-1.5 rounded-full ${phase === "calling" ? "bg-brand animate-pulse" : "bg-muted-foreground/40"}`} />
             {phase === "calling" ? "Live call" : phase === "ended" ? "Call ended" : "Idle"}
@@ -136,7 +135,7 @@ export function TestAIDialog({
           )}
         </div>
 
-        <div className="relative w-full flex-1 min-h-[340px] md:min-h-[460px] bg-background overflow-y-auto">
+        <div className="relative w-full flex-1 min-h-[75vh] md:min-h-[640px] bg-background overflow-y-auto">
           {phase !== "ended" && open && (
             <iframe
               src={RETELL_ORB_URL}
