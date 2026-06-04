@@ -83,9 +83,9 @@ export function Process() {
           )}
           <div className="absolute inset-x-0 -top-1 grid grid-cols-3">
             {steps.map((_, i) => (
-              <div key={i} className="flex justify-start">
+              <div key={i} className="flex justify-center">
                 <span
-                  className={`block h-2 w-2 rounded-full -translate-x-1/2 transition-all duration-500 ${
+                  className={`block h-2 w-2 rounded-full transition-all duration-500 ${
                     active >= i ? "bg-foreground scale-100" : "bg-border scale-75"
                   }`}
                 />
