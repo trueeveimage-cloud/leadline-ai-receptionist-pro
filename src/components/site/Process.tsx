@@ -19,19 +19,22 @@ export function Process() {
     { num: "03", title: t("step.3"), desc: t("step.3.desc") },
   ];
 
-  // Map scroll progress through the section to active step.
-  // start of section reaches viewport center => progress 0
-  // end of section reaches viewport center => progress 1
+  // Track the section as it travels through the viewport.
+  // progress 0 = section top at viewport bottom (just entering)
+  // progress 1 = section bottom at viewport top (just leaving)
+  // => progress 0.5 = section visually centered in the viewport
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start start", "end end"],
+    offset: ["start end", "end start"],
   });
-  const sweepX = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const sweepX = useTransform(scrollYProgress, [0.25, 0.75], ["0%", "100%"], {
+    clamp: true,
+  });
 
   useEffect(() => {
     const unsub = scrollYProgress.on("change", (v) => {
-      // step 3 activates at 85% of section scrolled, step 2 at 40%
-      const idx = v < 0.25 ? 0 : v < 0.5 ? 1 : 2;
+      // Step 3 activates at exactly 50% (section centered), step 2 just before.
+      const idx = v < 0.38 ? 0 : v < 0.5 ? 1 : 2;
       setActive(idx);
     });
     return () => unsub();
