@@ -31,7 +31,7 @@ export function Process() {
   useEffect(() => {
     const unsub = scrollYProgress.on("change", (v) => {
       // step 3 activates at 85% of section scrolled, step 2 at 40%
-      const idx = v < 0.4 ? 0 : v < 0.85 ? 1 : 2;
+      const idx = v < 0.25 ? 0 : v < 0.5 ? 1 : 2;
       setActive(idx);
     });
     return () => unsub();
