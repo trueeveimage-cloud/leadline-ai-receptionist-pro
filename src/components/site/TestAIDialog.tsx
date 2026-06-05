@@ -1,13 +1,26 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useI18n } from "@/lib/i18n";
 
 type AgentLang = "en" | "sv" | "es";
 
-const RETELL_ORBS: Record<AgentLang, string> = {
-  en: "https://agent.retellai.com/orb/agent_9c9a94b6b4ff82ae796e40a3d9?token=dd61cb170807aabaa218567da83ac487",
-  sv: "https://agent.retellai.com/orb/agent_e666bccc68d1d6e4b159a4b906?token=6a1f4c4171c68cc8dba23f661a2b3b48",
-  es: "https://agent.retellai.com/orb/agent_d753b54a79e058365a1629e759?token=d0a88faebb97c9d3063e9d9783be052c",
+// Retell orb URLs — one dedicated agent per language.
+const RETELL_ORBS: Record<AgentLang, { url: string; agentId: string; token: string }> = {
+  en: {
+    url: "https://agent.retellai.com/orb/agent_9c9a94b6b4ff82ae796e40a3d9?token=dd61cb170807aabaa218567da83ac487",
+    agentId: "agent_9c9a94b6b4ff82ae796e40a3d9",
+    token: "dd61cb170807aabaa218567da83ac487",
+  },
+  sv: {
+    url: "https://agent.retellai.com/orb/agent_e666bccc68d1d6e4b159a4b906?token=6a1f4c4171c68cc8dba23f661a2b3b48",
+    agentId: "agent_e666bccc68d1d6e4b159a4b906",
+    token: "6a1f4c4171c68cc8dba23f661a2b3b48",
+  },
+  es: {
+    url: "https://agent.retellai.com/orb/agent_d753b54a79e058365a1629e759?token=d0a88faebb97c9d3063e9d9783be052c",
+    agentId: "agent_d753b54a79e058365a1629e759",
+    token: "d0a88faebb97c9d3063e9d9783be052c",
+  },
 };
 
 const LANG_LABELS: Record<AgentLang, string> = {
@@ -17,7 +30,7 @@ const LANG_LABELS: Record<AgentLang, string> = {
 };
 
 type Phase = "idle" | "calling" | "ended";
-type Turn = { role: "agent" | "user"; text: string };
+type Turn = { role: "agent" | "user"; text: string; at: number };
 
 export function TestAIDialog({
   open,
@@ -36,19 +49,22 @@ export function TestAIDialog({
   const [seconds, setSeconds] = useState(0);
   const [transcript, setTranscript] = useState<Turn[]>([]);
   const tickRef = useRef<number | null>(null);
+  const startRef = useRef<number>(Date.now());
 
-  // Reset whenever dialog opens or language changes
+  // Reset agent language when dialog opens
   useEffect(() => {
     if (!open) return;
     setAgentLang(defaultLang);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
+  // (Re)start timer whenever dialog opens or language changes
   useEffect(() => {
     if (!open) return;
     setPhase("calling");
     setSeconds(0);
     setTranscript([]);
+    startRef.current = Date.now();
     if (tickRef.current) window.clearInterval(tickRef.current);
     tickRef.current = window.setInterval(() => setSeconds((s) => s + 1), 1000);
     return () => {
@@ -61,7 +77,7 @@ export function TestAIDialog({
   useEffect(() => {
     if (!open) return;
     const onMessage = (e: MessageEvent) => {
-      if (typeof e.origin === "string" && !e.origin.includes("retellai.com")) return;
+      if (typeof e.origin === "string" && e.origin && !e.origin.includes("retellai.com")) return;
       const data: any = e.data;
       if (!data || typeof data !== "object") return;
 
@@ -71,16 +87,16 @@ export function TestAIDialog({
         setTranscript((prev) => {
           const last = prev[prev.length - 1];
           if (last && last.role === r && last.text === text) return prev;
-          return [...prev, { role: r, text }];
+          return [...prev, { role: r, text, at: Date.now() - startRef.current }];
         });
       };
 
-      // Try many shapes Retell may post.
       if (Array.isArray(data.transcript)) {
         const turns: Turn[] = data.transcript
-          .map((t: any) => ({
+          .map((t: any, i: number) => ({
             role: t.role === "user" ? "user" : "agent",
             text: typeof t.content === "string" ? t.content : t.text || t.message || "",
+            at: typeof t.timestamp === "number" ? t.timestamp : i * 1000,
           }))
           .filter((t: Turn) => t.text);
         if (turns.length) setTranscript(turns);
@@ -112,6 +128,7 @@ export function TestAIDialog({
     setPhase("calling");
     setSeconds(0);
     setTranscript([]);
+    startRef.current = Date.now();
     if (tickRef.current) window.clearInterval(tickRef.current);
     tickRef.current = window.setInterval(() => setSeconds((s) => s + 1), 1000);
   };
@@ -119,11 +136,22 @@ export function TestAIDialog({
   const mm = String(Math.floor(seconds / 60)).padStart(2, "0");
   const ss = String(seconds % 60).padStart(2, "0");
 
-  const userTurns = transcript.filter((t) => t.role === "user");
-  const agentTurns = transcript.filter((t) => t.role === "agent");
-  const wordCount = transcript.reduce((n, t) => n + t.text.trim().split(/\s+/).filter(Boolean).length, 0);
+  const stats = useMemo(() => {
+    const userTurns = transcript.filter((t) => t.role === "user");
+    const agentTurns = transcript.filter((t) => t.role === "agent");
+    const wordCount = transcript.reduce(
+      (n, t) => n + t.text.trim().split(/\s+/).filter(Boolean).length,
+      0,
+    );
+    return { userTurns, agentTurns, wordCount };
+  }, [transcript]);
 
-  const summaryAvailable = transcript.length > 0;
+  const hasTranscript = transcript.length > 0;
+
+  const fmtAt = (ms: number) => {
+    const s = Math.max(0, Math.floor(ms / 1000));
+    return `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -182,7 +210,7 @@ export function TestAIDialog({
           {phase !== "ended" && open && (
             <iframe
               key={agentLang}
-              src={RETELL_ORBS[agentLang]}
+              src={RETELL_ORBS[agentLang].url}
               title={`Leadmap AI receptionist demo (${LANG_LABELS[agentLang]})`}
               allow="microphone; autoplay; clipboard-write"
               className="absolute inset-0 w-full h-full border-0"
@@ -191,28 +219,42 @@ export function TestAIDialog({
           {phase === "ended" && (
             <div className="p-5 md:p-7 space-y-5">
               <div>
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="h-px w-6 bg-foreground/30" />
-                  <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
-                    Transcript
+                <div className="flex items-center justify-between gap-3 mb-3">
+                  <div className="flex items-center gap-3">
+                    <span className="h-px w-6 bg-foreground/30" />
+                    <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
+                      Transcript
+                    </span>
+                  </div>
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                    {hasTranscript ? `${transcript.length} turn${transcript.length === 1 ? "" : "s"} captured` : "Not captured"}
                   </span>
                 </div>
-                {transcript.length === 0 ? (
-                  <p className="text-[13px] text-muted-foreground border-l border-border/70 pl-4 leading-relaxed">
-                    No transcript was captured for this demo session — the embedded orb doesn't
-                    expose the conversation to this page. In production, every real call is
-                    transcribed and saved to your dashboard automatically, with a full AI-written
-                    summary and caller intent.
-                  </p>
+
+                {!hasTranscript ? (
+                  <div className="border border-dashed border-border/70 p-4 md:p-5 text-[13px] text-muted-foreground leading-relaxed space-y-2">
+                    <p>
+                      <span className="text-foreground">No transcript data was received from the demo orb.</span>{" "}
+                      The embedded Retell widget runs in a sandboxed iframe and doesn't broadcast
+                      per-turn transcript events to this page, so we can't reconstruct what was said here.
+                    </p>
+                    <p>
+                      In production every real call is transcribed server-side and the full conversation,
+                      caller intent and AI-written summary are saved to your dashboard automatically.
+                    </p>
+                  </div>
                 ) : (
-                  <div className="space-y-2.5 text-[13px] leading-relaxed border-l border-border/70 pl-4 max-h-[260px] overflow-y-auto">
+                  <div className="space-y-2 text-[13px] leading-relaxed border-l border-border/70 pl-4 max-h-[280px] overflow-y-auto">
                     {transcript.map((t, i) => (
-                      <p key={i}>
-                        <span className="text-muted-foreground text-[10px] uppercase tracking-[0.3em] mr-2">
+                      <div key={i} className="flex gap-3">
+                        <span className="text-muted-foreground/70 text-[10px] uppercase tracking-[0.25em] w-14 shrink-0 pt-0.5 tabular-nums">
+                          {fmtAt(t.at)}
+                        </span>
+                        <span className={`text-[10px] uppercase tracking-[0.3em] w-10 shrink-0 pt-0.5 ${t.role === "user" ? "text-brand" : "text-muted-foreground"}`}>
                           {t.role === "user" ? "You" : "AI"}
                         </span>
-                        {t.text}
-                      </p>
+                        <p className="flex-1 min-w-0 break-words">{t.text}</p>
+                      </div>
                     ))}
                   </div>
                 )}
@@ -227,19 +269,18 @@ export function TestAIDialog({
                 </div>
                 <div className="border border-border/70 p-4 md:p-5 space-y-3 text-[13px]">
                   <Row label="Language" value={LANG_LABELS[agentLang]} />
+                  <Row label="Agent" value={RETELL_ORBS[agentLang].agentId} mono />
                   <Row label="Duration" value={`${mm}:${ss}`} />
-                  {summaryAvailable ? (
-                    <>
-                      <Row label="Turns" value={String(transcript.length)} />
-                      <Row label="You said" value={String(userTurns.length)} />
-                      <Row label="AI said" value={String(agentTurns.length)} />
-                      <Row label="Words exchanged" value={String(wordCount)} />
-                      <Row label="First caller line" value={userTurns[0]?.text ?? "—"} />
-                    </>
+                  <Row label="Turns captured" value={String(transcript.length)} />
+                  <Row label="You said" value={`${stats.userTurns.length} turn${stats.userTurns.length === 1 ? "" : "s"}`} />
+                  <Row label="AI said" value={`${stats.agentTurns.length} turn${stats.agentTurns.length === 1 ? "" : "s"}`} />
+                  <Row label="Words exchanged" value={String(stats.wordCount)} />
+                  {hasTranscript ? (
+                    <Row label="First caller line" value={stats.userTurns[0]?.text ?? "—"} />
                   ) : (
                     <Row
                       label="Note"
-                      value="The demo orb doesn't share live transcript data with this page, so a per-call summary can't be generated here. Your production dashboard records and summarises every real call."
+                      value="No transcript events were received from the demo orb, so per-turn stats above are zero. This is a limitation of the embedded demo only — your production dashboard records and summarises every real call."
                     />
                   )}
                 </div>
@@ -252,13 +293,15 @@ export function TestAIDialog({
   );
 }
 
-function Row({ label, value }: { label: string; value: string }) {
+function Row({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
   return (
     <div className="flex items-start gap-3">
       <div className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground w-32 shrink-0 pt-0.5">
         {label}
       </div>
-      <div className="text-foreground leading-snug flex-1 min-w-0 break-words">{value}</div>
+      <div className={`text-foreground leading-snug flex-1 min-w-0 break-words ${mono ? "font-mono text-[11px]" : ""}`}>
+        {value}
+      </div>
     </div>
   );
 }
