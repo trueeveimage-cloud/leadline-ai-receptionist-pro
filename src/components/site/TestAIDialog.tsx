@@ -1,8 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { useI18n } from "@/lib/i18n";
 
-const RETELL_ORB_URL =
-  "https://agent.retellai.com/orb/agent_3b81fadcba03101e07cb4911e6?token=e5cd68c4559382a072c5483135d4dc83";
+type AgentLang = "en" | "sv" | "es";
+
+const RETELL_ORBS: Record<AgentLang, string> = {
+  en: "https://agent.retellai.com/orb/agent_9c9a94b6b4ff82ae796e40a3d9?token=dd61cb170807aabaa218567da83ac487",
+  sv: "https://agent.retellai.com/orb/agent_e666bccc68d1d6e4b159a4b906?token=6a1f4c4171c68cc8dba23f661a2b3b48",
+  es: "https://agent.retellai.com/orb/agent_d753b54a79e058365a1629e759?token=d0a88faebb97c9d3063e9d9783be052c",
+};
+
+const LANG_LABELS: Record<AgentLang, string> = {
+  en: "English",
+  sv: "Svenska",
+  es: "Español",
+};
 
 type Phase = "idle" | "calling" | "ended";
 type Turn = { role: "agent" | "user"; text: string };
@@ -14,24 +26,38 @@ export function TestAIDialog({
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) {
+  const { lang: uiLang } = useI18n();
+  const defaultLang: AgentLang = (["en", "sv", "es"] as const).includes(uiLang as AgentLang)
+    ? (uiLang as AgentLang)
+    : "en";
+
+  const [agentLang, setAgentLang] = useState<AgentLang>(defaultLang);
   const [phase, setPhase] = useState<Phase>("idle");
   const [seconds, setSeconds] = useState(0);
   const [transcript, setTranscript] = useState<Turn[]>([]);
   const tickRef = useRef<number | null>(null);
+
+  // Reset whenever dialog opens or language changes
+  useEffect(() => {
+    if (!open) return;
+    setAgentLang(defaultLang);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
     setPhase("calling");
     setSeconds(0);
     setTranscript([]);
+    if (tickRef.current) window.clearInterval(tickRef.current);
     tickRef.current = window.setInterval(() => setSeconds((s) => s + 1), 1000);
     return () => {
       if (tickRef.current) window.clearInterval(tickRef.current);
       tickRef.current = null;
     };
-  }, [open]);
+  }, [open, agentLang]);
 
-  // Listen for transcript events posted by the Retell orb iframe.
+  // Listen for transcript / call events posted by the Retell orb iframe.
   useEffect(() => {
     if (!open) return;
     const onMessage = (e: MessageEvent) => {
@@ -39,7 +65,6 @@ export function TestAIDialog({
       const data: any = e.data;
       if (!data || typeof data !== "object") return;
 
-      // Retell posts a variety of shapes; defensively extract turns.
       const pushTurn = (role: string | undefined, text: string | undefined) => {
         if (!text) return;
         const r: Turn["role"] = role === "user" ? "user" : "agent";
@@ -50,17 +75,23 @@ export function TestAIDialog({
         });
       };
 
+      // Try many shapes Retell may post.
       if (Array.isArray(data.transcript)) {
         const turns: Turn[] = data.transcript
           .map((t: any) => ({
             role: t.role === "user" ? "user" : "agent",
-            text: typeof t.content === "string" ? t.content : t.text || "",
+            text: typeof t.content === "string" ? t.content : t.text || t.message || "",
           }))
           .filter((t: Turn) => t.text);
         if (turns.length) setTranscript(turns);
-      } else if (data.type === "transcript" || data.event === "transcript") {
-        pushTurn(data.role, data.content || data.text);
-      } else if (data.type === "call_ended" || data.event === "call_ended") {
+      }
+      if (data.transcript_update?.role) {
+        pushTurn(data.transcript_update.role, data.transcript_update.content || data.transcript_update.text);
+      }
+      if (data.type === "transcript" || data.event === "transcript" || data.event === "update") {
+        pushTurn(data.role, data.content || data.text || data.message);
+      }
+      if (data.type === "call_ended" || data.event === "call_ended" || data.event === "agent_call_ended") {
         endCall();
       }
     };
@@ -88,10 +119,11 @@ export function TestAIDialog({
   const mm = String(Math.floor(seconds / 60)).padStart(2, "0");
   const ss = String(seconds % 60).padStart(2, "0");
 
-  // Derive a real summary from the transcript.
   const userTurns = transcript.filter((t) => t.role === "user");
-  const intent = userTurns[0]?.text ?? "—";
-  const wordCount = transcript.reduce((n, t) => n + t.text.split(/\s+/).length, 0);
+  const agentTurns = transcript.filter((t) => t.role === "agent");
+  const wordCount = transcript.reduce((n, t) => n + t.text.trim().split(/\s+/).filter(Boolean).length, 0);
+
+  const summaryAvailable = transcript.length > 0;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -101,14 +133,25 @@ export function TestAIDialog({
             <DialogTitle className="text-base md:text-lg font-light tracking-tight">
               Talk to the AI receptionist
             </DialogTitle>
-            <span className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground border border-border/70 px-2.5 py-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-              English demo
-            </span>
+            <div className="flex items-center gap-1 border border-border/70 p-0.5">
+              {(Object.keys(RETELL_ORBS) as AgentLang[]).map((l) => (
+                <button
+                  key={l}
+                  onClick={() => setAgentLang(l)}
+                  className={`text-[10px] uppercase tracking-[0.2em] px-2 py-1 transition-colors ${
+                    agentLang === l
+                      ? "bg-foreground text-background"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {LANG_LABELS[l]}
+                </button>
+              ))}
+            </div>
           </div>
           <DialogDescription className="text-[11px] md:text-xs text-muted-foreground leading-relaxed">
-            Live demo speaks <span className="text-foreground">English only</span>. Production
-            receptionists run in Swedish, Spanish, German and more.
+            Pick a language to hear the receptionist in {LANG_LABELS[agentLang]}. Each language
+            uses a dedicated AI agent.
           </DialogDescription>
         </DialogHeader>
 
@@ -138,8 +181,9 @@ export function TestAIDialog({
         <div className="relative w-full flex-1 min-h-[75vh] md:min-h-[640px] bg-background overflow-y-auto">
           {phase !== "ended" && open && (
             <iframe
-              src={RETELL_ORB_URL}
-              title="Leadmap AI receptionist demo"
+              key={agentLang}
+              src={RETELL_ORBS[agentLang]}
+              title={`Leadmap AI receptionist demo (${LANG_LABELS[agentLang]})`}
               allow="microphone; autoplay; clipboard-write"
               className="absolute inset-0 w-full h-full border-0"
             />
@@ -155,8 +199,10 @@ export function TestAIDialog({
                 </div>
                 {transcript.length === 0 ? (
                   <p className="text-[13px] text-muted-foreground border-l border-border/70 pl-4 leading-relaxed">
-                    No transcript was captured for this session. In production, every call is
-                    transcribed and saved to your dashboard automatically.
+                    No transcript was captured for this demo session — the embedded orb doesn't
+                    expose the conversation to this page. In production, every real call is
+                    transcribed and saved to your dashboard automatically, with a full AI-written
+                    summary and caller intent.
                   </p>
                 ) : (
                   <div className="space-y-2.5 text-[13px] leading-relaxed border-l border-border/70 pl-4 max-h-[260px] overflow-y-auto">
@@ -180,10 +226,22 @@ export function TestAIDialog({
                   </span>
                 </div>
                 <div className="border border-border/70 p-4 md:p-5 space-y-3 text-[13px]">
+                  <Row label="Language" value={LANG_LABELS[agentLang]} />
                   <Row label="Duration" value={`${mm}:${ss}`} />
-                  <Row label="Turns" value={transcript.length ? String(transcript.length) : "—"} />
-                  <Row label="Words exchanged" value={wordCount ? String(wordCount) : "—"} />
-                  <Row label="Caller intent" value={intent} />
+                  {summaryAvailable ? (
+                    <>
+                      <Row label="Turns" value={String(transcript.length)} />
+                      <Row label="You said" value={String(userTurns.length)} />
+                      <Row label="AI said" value={String(agentTurns.length)} />
+                      <Row label="Words exchanged" value={String(wordCount)} />
+                      <Row label="First caller line" value={userTurns[0]?.text ?? "—"} />
+                    </>
+                  ) : (
+                    <Row
+                      label="Note"
+                      value="The demo orb doesn't share live transcript data with this page, so a per-call summary can't be generated here. Your production dashboard records and summarises every real call."
+                    />
+                  )}
                 </div>
               </div>
             </div>
