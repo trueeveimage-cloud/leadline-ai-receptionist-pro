@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-export const Route = createFileRoute("/LeadLineNoti")({
+export const Route = createFileRoute("/_authenticated/LeadLineNoti")({
   head: () => ({
     meta: [
       { title: "Inbox · Leadmap" },

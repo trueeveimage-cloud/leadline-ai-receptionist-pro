@@ -1,32 +1,37 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-export const listLeads = createServerFn({ method: "GET" }).handler(async () => {
-  const { data, error } = await supabaseAdmin
-    .from("leads")
-    .select("id, name, company, phone, preferred_time, contacted, user_agent, created_at")
-    .order("created_at", { ascending: false })
-    .limit(500);
-  if (error) {
-    console.error("[crm] listLeads failed", error);
-    return { leads: [], error: error.message };
-  }
-  return { leads: data ?? [], error: null as string | null };
-});
+export const listLeads = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async () => {
+    const { data, error } = await supabaseAdmin
+      .from("leads")
+      .select("id, name, company, phone, preferred_time, contacted, user_agent, created_at")
+      .order("created_at", { ascending: false })
+      .limit(500);
+    if (error) {
+      console.error("[crm] listLeads failed", error);
+      return { leads: [], error: error.message };
+    }
+    return { leads: data ?? [], error: null as string | null };
+  });
 
-export const listMessages = createServerFn({ method: "GET" }).handler(async () => {
-  const { data, error } = await supabaseAdmin
-    .from("messages")
-    .select("id, name, email, message, contacted, user_agent, created_at")
-    .order("created_at", { ascending: false })
-    .limit(500);
-  if (error) {
-    console.error("[crm] listMessages failed", error);
-    return { messages: [], error: error.message };
-  }
-  return { messages: data ?? [], error: null as string | null };
-});
+export const listMessages = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async () => {
+    const { data, error } = await supabaseAdmin
+      .from("messages")
+      .select("id, name, email, message, contacted, user_agent, created_at")
+      .order("created_at", { ascending: false })
+      .limit(500);
+    if (error) {
+      console.error("[crm] listMessages failed", error);
+      return { messages: [], error: error.message };
+    }
+    return { messages: data ?? [], error: null as string | null };
+  });
 
 const toggleSchema = z.object({
   id: z.string().uuid(),
@@ -34,6 +39,7 @@ const toggleSchema = z.object({
 });
 
 export const setLeadContacted = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((input) => toggleSchema.parse(input))
   .handler(async ({ data }) => {
     const { error } = await supabaseAdmin
@@ -45,6 +51,7 @@ export const setLeadContacted = createServerFn({ method: "POST" })
   });
 
 export const setMessageContacted = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((input) => toggleSchema.parse(input))
   .handler(async ({ data }) => {
     const { error } = await supabaseAdmin
@@ -56,10 +63,11 @@ export const setMessageContacted = createServerFn({ method: "POST" })
   });
 
 const listNotesSchema = z.object({
-  customerKey: z.string().min(1).max(320),
+  customerKey: z.string().min(1).max(320).regex(/^[a-zA-Z0-9._@+\- ]+$/),
 });
 
 export const listCustomerNotes = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((input) => listNotesSchema.parse(input))
   .handler(async ({ data }) => {
     const { data: notes, error } = await supabaseAdmin
@@ -72,11 +80,12 @@ export const listCustomerNotes = createServerFn({ method: "GET" })
   });
 
 const addNoteSchema = z.object({
-  customerKey: z.string().min(1).max(320),
+  customerKey: z.string().min(1).max(320).regex(/^[a-zA-Z0-9._@+\- ]+$/),
   body: z.string().trim().min(1).max(4000),
 });
 
 export const addCustomerNote = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((input) => addNoteSchema.parse(input))
   .handler(async ({ data }) => {
     const { error } = await supabaseAdmin.from("customer_notes").insert({
@@ -88,14 +97,15 @@ export const addCustomerNote = createServerFn({ method: "POST" })
   });
 
 const customerSchema = z.object({
-  customerKey: z.string().min(1).max(320),
+  customerKey: z.string().min(1).max(320).regex(/^[a-zA-Z0-9._@+\- ]+$/),
 });
 
 export const getCustomerHistory = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((input) => customerSchema.parse(input))
   .handler(async ({ data }) => {
     const key = data.customerKey.toLowerCase();
-    const [{ data: msgs }, { data: leads }, { data: notes }] = await Promise.all([
+    const [msgsRes, leadsByPhone, leadsByName, notesRes] = await Promise.all([
       supabaseAdmin
         .from("messages")
         .select("id, name, email, message, contacted, created_at")
@@ -104,7 +114,12 @@ export const getCustomerHistory = createServerFn({ method: "GET" })
       supabaseAdmin
         .from("leads")
         .select("id, name, company, phone, preferred_time, contacted, created_at")
-        .or(`phone.eq.${key},name.ilike.${key}`)
+        .eq("phone", key)
+        .order("created_at", { ascending: false }),
+      supabaseAdmin
+        .from("leads")
+        .select("id, name, company, phone, preferred_time, contacted, created_at")
+        .ilike("name", key)
         .order("created_at", { ascending: false }),
       supabaseAdmin
         .from("customer_notes")
@@ -112,9 +127,12 @@ export const getCustomerHistory = createServerFn({ method: "GET" })
         .eq("customer_key", key)
         .order("created_at", { ascending: false }),
     ]);
+    const leadsMap = new Map<string, NonNullable<typeof leadsByPhone.data>[number]>();
+    for (const l of leadsByPhone.data ?? []) leadsMap.set(l.id, l);
+    for (const l of leadsByName.data ?? []) leadsMap.set(l.id, l);
     return {
-      messages: msgs ?? [],
-      leads: leads ?? [],
-      notes: notes ?? [],
+      messages: msgsRes.data ?? [],
+      leads: Array.from(leadsMap.values()),
+      notes: notesRes.data ?? [],
     };
   });
