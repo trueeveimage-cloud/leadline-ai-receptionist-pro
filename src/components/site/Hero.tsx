@@ -1,11 +1,12 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, CalendarCheck, Mail, PhoneIncoming, ShieldCheck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDialogs } from "./DialogsProvider";
 import { useI18n } from "@/lib/i18n";
 
 const ease = [0.22, 1, 0.36, 1] as const;
+
 
 export function Hero() {
   const { openBooking, openTestAI } = useDialogs();
@@ -16,8 +17,8 @@ export function Hero() {
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-  const visualY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
   const lineY = useTransform(scrollYProgress, [0, 1], ["-10%", "18%"]);
+
 
   return (
     <section
@@ -35,8 +36,9 @@ export function Hero() {
         className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(255,255,255,0.08),transparent_70%)]"
       />
 
-      <div className="relative mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.85fr)] md:items-center">
-        <div className="max-w-3xl">
+      <div className="relative mx-auto max-w-4xl px-6">
+        <div>
+
           <motion.p
             initial={reduce ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -106,73 +108,8 @@ export function Hero() {
           </motion.dl>
         </div>
 
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, ease, delay: 0.15 }}
-          style={reduce ? undefined : { y: visualY }}
-          className="relative min-h-[360px] md:min-h-[540px]"
-        >
-          <CallFlowVisual />
-        </motion.div>
       </div>
     </section>
   );
 }
 
-function CallFlowVisual() {
-  const reduce = useReducedMotion();
-  const points = [
-    { icon: PhoneIncoming, label: "Call", text: "New customer needs help" },
-    { icon: ShieldCheck, label: "Qualify", text: "Intent, urgency, details" },
-    { icon: CalendarCheck, label: "Book", text: "Preferred time captured" },
-    { icon: Mail, label: "Summary", text: "Owner gets the next step" },
-  ];
-
-  return (
-    <div className="absolute inset-0">
-      <motion.div
-        aria-hidden
-        animate={reduce ? undefined : { backgroundPositionY: ["0px", "80px"] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-0 opacity-[0.045]"
-        style={{
-          backgroundImage: "linear-gradient(var(--foreground) 1px, transparent 1px)",
-          backgroundSize: "100% 80px",
-        }}
-      />
-      <div className="absolute left-1/2 top-4 h-[calc(100%-2rem)] w-px -translate-x-1/2 bg-foreground/14" />
-
-      <div className="relative mx-auto flex h-full max-w-sm flex-col justify-between py-8">
-        {points.map((point, index) => {
-          const Icon = point.icon;
-          return (
-            <motion.div
-              key={point.label}
-              initial={reduce ? false : { opacity: 0, x: index % 2 ? 18 : -18 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, ease, delay: index * 0.08 }}
-              className={`relative flex ${index % 2 ? "justify-end" : "justify-start"}`}
-            >
-              <div className="w-[78%] border border-border bg-background/88 p-4 backdrop-blur">
-                <div className="flex items-start gap-3">
-                  <div className="grid h-10 w-10 shrink-0 place-items-center border border-foreground/20">
-                    <Icon className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <div className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
-                      0{index + 1} / {point.label}
-                    </div>
-                    <div className="mt-1 text-sm font-light text-foreground">{point.text}</div>
-                  </div>
-                </div>
-              </div>
-              <span className="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-background bg-foreground" />
-            </motion.div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
