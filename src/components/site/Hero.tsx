@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, CalendarCheck, MailCheck, PhoneIncoming, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDialogs } from "./DialogsProvider";
 import { useI18n } from "@/lib/i18n";
@@ -11,13 +11,6 @@ const stats = [
   ["24/7", "pickup"],
   ["7 days", "pilot setup"],
   ["EU", "summaries"],
-] as const;
-
-const flow = [
-  { icon: PhoneIncoming, label: "Answers", text: "instant pickup" },
-  { icon: Sparkles, label: "Qualifies", text: "lead intent" },
-  { icon: CalendarCheck, label: "Schedules", text: "next step" },
-  { icon: MailCheck, label: "Summarizes", text: "sent to inbox" },
 ] as const;
 
 
@@ -32,6 +25,9 @@ export function Hero() {
   });
   const lineY = useTransform(scrollYProgress, [0, 1], ["-10%", "18%"]);
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "7%"]);
+  const gridY = useTransform(scrollYProgress, [0, 1], ["-5%", "12%"]);
+  const frameY = useTransform(scrollYProgress, [0, 1], ["8%", "-14%"]);
+  const scanY = useTransform(scrollYProgress, [0, 1], ["-30%", "120%"]);
 
 
   return (
@@ -44,6 +40,28 @@ export function Hero() {
         aria-hidden
         style={reduce ? undefined : { y: lineY }}
         className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-px bg-foreground/10 md:block"
+      />
+      <motion.div
+        aria-hidden
+        style={reduce ? undefined : { y: gridY }}
+        className="pointer-events-none absolute inset-x-4 top-20 bottom-12 -z-10 opacity-35 [mask-image:linear-gradient(to_bottom,transparent,black_16%,black_78%,transparent)] md:inset-x-12"
+      >
+        <div className="h-full border-x border-border/50 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:5.5rem_5.5rem]" />
+      </motion.div>
+      <motion.div
+        aria-hidden
+        style={reduce ? undefined : { y: frameY }}
+        className="pointer-events-none absolute left-[8vw] top-36 -z-10 hidden h-64 w-28 rotate-[-8deg] border border-border/70 bg-card/20 md:block"
+      />
+      <motion.div
+        aria-hidden
+        style={reduce ? undefined : { y: frameY }}
+        className="pointer-events-none absolute right-[9vw] bottom-20 -z-10 hidden h-72 w-36 rotate-[7deg] border border-border/60 bg-card/15 md:block"
+      />
+      <motion.div
+        aria-hidden
+        style={reduce ? undefined : { y: scanY }}
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-transparent via-foreground/[0.055] to-transparent"
       />
       <div
         aria-hidden
@@ -127,31 +145,6 @@ export function Hero() {
               </div>
             ))}
           </motion.dl>
-
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease, delay: 0.42 }}
-            className="mt-8 grid w-full max-w-2xl gap-2 sm:grid-cols-4"
-          >
-            {flow.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.label}
-                  className="group flex items-center gap-3 rounded-md border border-border/70 bg-card/70 px-3 py-3 text-left backdrop-blur-sm transition-colors hover:border-foreground/20 hover:bg-secondary"
-                >
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-secondary text-foreground">
-                    <Icon className="h-4 w-4" />
-                  </span>
-                  <span>
-                    <span className="block text-xs font-medium">{item.label}</span>
-                    <span className="block text-[10px] uppercase tracking-[0.16em] text-muted-foreground">{item.text}</span>
-                  </span>
-                </div>
-              );
-            })}
-          </motion.div>
       </motion.div>
     </section>
   );

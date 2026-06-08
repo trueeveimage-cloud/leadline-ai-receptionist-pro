@@ -150,13 +150,14 @@ export function Footer() {
 }
 
 type ThemeMode = "light" | "dark";
+const THEME_STORAGE_KEY = "leadmap-theme-v2";
 
 function ThemeSwitch() {
-  const [theme, setTheme] = useState<ThemeMode>("light");
+  const [theme, setTheme] = useState<ThemeMode>("dark");
 
   useEffect(() => {
     const saved = readStoredTheme();
-    const initial: ThemeMode = saved === "dark" ? "dark" : "light";
+    const initial: ThemeMode = saved === "light" ? "light" : "dark";
 
     setTheme(initial);
     document.documentElement.classList.toggle("dark", initial === "dark");
@@ -198,7 +199,7 @@ function ThemeSwitch() {
 
 function readStoredTheme() {
   try {
-    return window.localStorage?.getItem("leadmap-theme");
+    return window.localStorage?.getItem(THEME_STORAGE_KEY);
   } catch {
     return null;
   }
@@ -206,7 +207,7 @@ function readStoredTheme() {
 
 function storeTheme(theme: ThemeMode) {
   try {
-    window.localStorage?.setItem("leadmap-theme", theme);
+    window.localStorage?.setItem(THEME_STORAGE_KEY, theme);
   } catch {
     // Browsers can block storage in strict/privacy contexts; the visible theme still switches.
   }

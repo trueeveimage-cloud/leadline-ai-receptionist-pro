@@ -3,11 +3,11 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Phone, Sparkles, CheckCircle2, CalendarCheck, Mail, PhoneIncoming } from "lucide-react";
 
 const stages = [
-  { key: "incoming", label: "Incoming", icon: PhoneIncoming },
-  { key: "answered", label: "Answered", icon: Phone },
-  { key: "qualifying", label: "Qualifying", icon: Sparkles },
-  { key: "booking", label: "Booking", icon: CalendarCheck },
-  { key: "summary", label: "Summary", icon: Mail },
+  { key: "incoming", label: "Incoming", shortLabel: "In", icon: PhoneIncoming },
+  { key: "answered", label: "Answered", shortLabel: "Ans", icon: Phone },
+  { key: "qualifying", label: "Qualifying", shortLabel: "Qual", icon: Sparkles },
+  { key: "booking", label: "Booking", shortLabel: "Book", icon: CalendarCheck },
+  { key: "summary", label: "Summary", shortLabel: "Sum", icon: Mail },
 ] as const;
 
 // Map each conversation turn index to a stage index (0..4)
@@ -252,11 +252,12 @@ function StageTracker({ current }: { current: number }) {
                 <Icon className="h-3 w-3" />
               </motion.div>
               <span
-                className={`text-[9.5px] uppercase tracking-[0.12em] font-medium transition-colors ${
+                className={`text-[9px] uppercase tracking-[0.1em] font-medium transition-colors sm:text-[9.5px] sm:tracking-[0.12em] ${
                   active ? "text-foreground" : "text-muted-foreground/70"
                 }`}
               >
-                {s.label}
+                <span className="sm:hidden">{s.shortLabel}</span>
+                <span className="hidden sm:inline">{s.label}</span>
               </span>
             </div>
           );
