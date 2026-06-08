@@ -12,10 +12,10 @@ export function Nav() {
   const { openBooking, openContact } = useDialogs();
   const { t } = useI18n();
   const links = [
-    { href: "#how", label: t("nav.how") },
-    { href: "#industries", label: t("nav.industries") },
-    { href: "#pricing", label: t("nav.pricing") },
-    { href: "#faq", label: "FAQ" },
+    { href: "/features", label: t("nav.how") },
+    { href: "/lead-finder", label: "Lead Finder" },
+    { href: "/pricing", label: t("nav.pricing") },
+    { href: "/#faq", label: "FAQ" },
   ];
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export function Nav() {
         }`}
       >
         <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
-          <a href="#top" className="flex items-center gap-2" onClick={() => setOpen(false)}>
+          <a href="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
             <span className="h-2 w-2 rounded-full bg-brand" />
             <span className="font-semibold tracking-tight">Leadmap</span>
 

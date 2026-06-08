@@ -5,31 +5,44 @@ import { Stats } from "@/components/site/SocialProof";
 import { Process } from "@/components/site/Process";
 import { Pain } from "@/components/site/Pain";
 import { Industries } from "@/components/site/Industries";
-import { TrustStack } from "@/components/site/TrustStack";
 import { Pricing } from "@/components/site/Pricing";
 import { FAQ } from "@/components/site/FAQ";
 import { FinalCTA, Footer } from "@/components/site/Footer";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { CursorSpotlight } from "@/components/site/CursorSpotlight";
-import { Marquee } from "@/components/site/Marquee";
-import { Testimonials } from "@/components/site/Testimonials";
 import { DialogsProvider } from "@/components/site/DialogsProvider";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Leadmap - Never miss a valuable call again" },
+      { title: "Leadmap - AI Receptionist for Missed Calls and Lead Capture" },
       {
         name: "description",
         content:
-          "AI receptionists that answer, qualify, book and notify 24/7. Built for service businesses.",
+          "Leadmap is an AI receptionist for service businesses. Answer missed calls, qualify leads, capture appointment requests and send owner-ready summaries.",
       },
-      { property: "og:title", content: "Leadmap - AI receptionists for service businesses" },
+      {
+        name: "keywords",
+        content:
+          "AI receptionist, missed call answering, lead generation, lead discovery, business lead mapping, email outreach, service business calls",
+      },
+      { name: "robots", content: "index,follow" },
+      { property: "og:title", content: "Leadmap - AI Receptionist for Service Businesses" },
       {
         property: "og:description",
-        content: "Answers. Books. Sends the summary. Live in 7 days.",
+        content: "Answer calls, qualify leads and send summaries when your team is busy or closed.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.leadmap.se/" },
+      { property: "og:site_name", content: "Leadmap" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Leadmap - AI Receptionist for Missed Calls" },
+      {
+        name: "twitter:description",
+        content: "AI call answering and lead capture for phone-first service businesses.",
       },
     ],
+    links: [{ rel: "canonical", href: "https://www.leadmap.se/" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -41,11 +54,23 @@ export const Route = createFileRoute("/")({
               name: "Leadmap",
               url: "https://www.leadmap.se",
               email: "leadmapai.se@gmail.com",
+              sameAs: ["https://leadmap.se"],
             },
             {
               "@type": "WebSite",
               name: "Leadmap",
               url: "https://www.leadmap.se",
+              description:
+                "AI receptionist, missed call answering, lead qualification and lead capture for service businesses.",
+            },
+            {
+              "@type": "Service",
+              name: "Leadmap AI receptionist",
+              provider: { "@type": "Organization", name: "Leadmap" },
+              areaServed: ["SE", "NO", "DK", "GB", "ES"],
+              serviceType: "AI receptionist and lead capture",
+              description:
+                "AI call answering, appointment request capture, lead qualification and owner summaries for service businesses.",
             },
             {
               "@type": "FAQPage",
@@ -94,12 +119,9 @@ function Index() {
         <main>
           <Hero />
           <Pain />
-          <Industries />
           <Process />
-          <TrustStack />
+          <Industries />
           <Stats />
-          <Marquee />
-          <Testimonials />
           <Pricing />
           <FAQ />
           <FinalCTA />

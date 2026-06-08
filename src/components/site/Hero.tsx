@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { Activity, CalendarCheck, Mail, PhoneIncoming, ShieldCheck } from "lucide-react";
+import { ArrowRight, CalendarCheck, Mail, PhoneIncoming, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDialogs } from "./DialogsProvider";
 import { useI18n } from "@/lib/i18n";
@@ -16,222 +16,163 @@ export function Hero() {
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-  const visualY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
-  const railY = useTransform(scrollYProgress, [0, 1], ["-8%", "14%"]);
+  const visualY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
+  const lineY = useTransform(scrollYProgress, [0, 1], ["-10%", "18%"]);
 
   return (
     <section
       id="top"
       ref={sectionRef}
-      className="relative min-h-[92vh] overflow-hidden border-b border-border/60 pt-28 pb-12 md:pt-36 md:pb-16"
+      className="relative min-h-[86svh] overflow-hidden border-b border-border/60 pt-24 pb-12 md:pt-32 md:pb-16"
     >
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-[0.035]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, var(--foreground) 1px, transparent 1px), linear-gradient(to bottom, var(--foreground) 1px, transparent 1px)",
-          backgroundSize: "72px 72px",
-        }}
-      />
       <motion.div
         aria-hidden
-        style={reduce ? undefined : { y: railY }}
-        className="absolute right-0 top-0 hidden h-full w-1/2 border-l border-border/40 md:block"
-      >
-        <div className="absolute left-1/3 top-0 h-full w-px bg-foreground/10" />
-        <div className="absolute left-2/3 top-0 h-full w-px bg-foreground/10" />
-      </motion.div>
+        style={reduce ? undefined : { y: lineY }}
+        className="pointer-events-none absolute inset-y-0 right-[8vw] hidden w-px bg-foreground/10 md:block"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(255,255,255,0.08),transparent_70%)]"
+      />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-6 md:grid-cols-[minmax(0,0.95fr)_minmax(420px,1.05fr)]">
-        <div className="relative z-10">
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 12 }}
+      <div className="relative mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.85fr)] md:items-center">
+        <div className="max-w-3xl">
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease }}
-            className="flex items-center gap-3"
+            transition={{ duration: 0.55, ease }}
+            className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground"
           >
-            <span className="h-px w-8 bg-foreground/30" />
-            <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-medium">
-              01 / {t("hero.badge")}
-            </span>
-          </motion.div>
+            {t("hero.badge")} for service businesses
+          </motion.p>
 
           <motion.h1
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease, delay: 0.05 }}
-            className="mt-6 max-w-3xl text-5xl leading-[0.95] md:text-7xl font-light tracking-tight"
+            transition={{ duration: 0.75, ease, delay: 0.05 }}
+            className="mt-5 max-w-4xl text-5xl font-extralight leading-[0.98] tracking-tight md:text-7xl"
           >
-            {t("hero.title.l1")}
-            <br />
-            <span className="italic font-extralight text-foreground/40">
-              {t("hero.title.l2")}
-            </span>{" "}
-            {t("hero.title.l3")}
+            AI receptionist for missed calls.
           </motion.h1>
 
           <motion.p
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease, delay: 0.15 }}
-            className="mt-8 max-w-lg text-base md:text-lg font-light text-muted-foreground leading-relaxed"
+            transition={{ duration: 0.75, ease, delay: 0.12 }}
+            className="mt-6 max-w-xl text-base font-light leading-relaxed text-muted-foreground md:text-lg"
           >
-            {t("hero.subtitle")}
+            Leadmap answers, qualifies, and summarizes customer calls when your team is busy or closed.
           </motion.p>
 
           <motion.div
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease, delay: 0.25 }}
-            className="mt-10 flex flex-wrap items-center gap-8"
+            transition={{ duration: 0.75, ease, delay: 0.2 }}
+            className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
           >
             <Button
               size="lg"
               variant="brand"
               onClick={openBooking}
-              className="rounded-none uppercase tracking-[0.2em] text-[11px] font-semibold px-8"
+              className="w-full rounded-none px-8 text-[11px] font-semibold uppercase tracking-[0.2em] sm:w-auto"
             >
               {t("hero.cta.book")}
             </Button>
             <button
               onClick={openTestAI}
-              className="group inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] font-medium text-foreground hover:text-foreground transition-colors"
+              className="group inline-flex justify-center gap-3 px-1 py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-foreground transition-opacity hover:opacity-70 sm:justify-start"
             >
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-brand opacity-60 animate-ping" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
-              </span>
               <span>Test the AI</span>
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </button>
-            <a
-              href="#how"
-              className="group inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <span>{t("hero.cta.how")}</span>
-              <span className="h-px w-5 bg-foreground/20 group-hover:w-8 group-hover:bg-foreground transition-all duration-500" />
-            </a>
           </motion.div>
 
-          <motion.div
+          <motion.dl
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease, delay: 0.45 }}
-            className="mt-12 flex flex-wrap items-center gap-x-4 gap-y-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground/80"
-          >
-            <span>{t("hero.meta.1")}</span>
-            <span className="opacity-30">/</span>
-            <span>{t("hero.meta.2")}</span>
-            <span className="opacity-30">/</span>
-            <span>{t("hero.meta.3")}</span>
-          </motion.div>
-
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease, delay: 0.55 }}
-            className="mt-8 grid max-w-xl grid-cols-1 gap-px border border-border/70 bg-border/70 sm:grid-cols-3"
+            transition={{ duration: 0.75, ease, delay: 0.32 }}
+            className="mt-12 grid max-w-2xl grid-cols-3 gap-px bg-border/70 text-center sm:text-left"
           >
             {[
-              { label: "Keep your number", value: "No phone-system swap" },
-              { label: "Human fallback", value: "Only when needed" },
-              { label: "EU handling", value: "Calls and summaries" },
-            ].map((item) => (
-              <div key={item.label} className="bg-background px-4 py-3">
-                <div className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
-                  {item.label}
-                </div>
-                <div className="mt-1 text-sm font-light text-foreground/90">
-                  {item.value}
-                </div>
+              ["24/7", "pickup"],
+              ["7 days", "pilot setup"],
+              ["EU", "summaries"],
+            ].map(([value, label]) => (
+              <div key={label} className="bg-background px-3 py-4 sm:px-5">
+                <dt className="text-2xl font-extralight tracking-tight">{value}</dt>
+                <dd className="mt-1 text-[10px] uppercase tracking-[0.24em] text-muted-foreground">{label}</dd>
               </div>
             ))}
-          </motion.div>
+          </motion.dl>
         </div>
 
         <motion.div
-          initial={reduce ? false : { opacity: 0, y: 28, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.9, ease, delay: 0.18 }}
+          initial={reduce ? false : { opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.85, ease, delay: 0.15 }}
           style={reduce ? undefined : { y: visualY }}
-          className="relative z-0 min-h-[520px] md:min-h-[620px]"
+          className="relative min-h-[360px] md:min-h-[540px]"
         >
-          <HeroSignalSystem />
+          <CallFlowVisual />
         </motion.div>
       </div>
     </section>
   );
 }
 
-function HeroSignalSystem() {
+function CallFlowVisual() {
   const reduce = useReducedMotion();
-  const lanes = [
-    { icon: PhoneIncoming, label: "Incoming call", value: "Dental emergency", y: "top-[14%]", x: "left-[5%]" },
-    { icon: Activity, label: "Intent detected", value: "High value booking", y: "top-[38%]", x: "right-[2%]" },
-    { icon: CalendarCheck, label: "Request captured", value: "Tue 10:30", y: "bottom-[26%]", x: "left-[0%]" },
-    { icon: Mail, label: "Summary sent", value: "Owner notified", y: "bottom-[6%]", x: "right-[10%]" },
+  const points = [
+    { icon: PhoneIncoming, label: "Call", text: "New customer needs help" },
+    { icon: ShieldCheck, label: "Qualify", text: "Intent, urgency, details" },
+    { icon: CalendarCheck, label: "Book", text: "Preferred time captured" },
+    { icon: Mail, label: "Summary", text: "Owner gets the next step" },
   ];
 
   return (
     <div className="absolute inset-0">
       <motion.div
         aria-hidden
-        animate={reduce ? undefined : { rotate: 360 }}
-        transition={{ duration: 38, repeat: Infinity, ease: "linear" }}
-        className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-foreground/15 md:h-[540px] md:w-[540px]"
+        animate={reduce ? undefined : { backgroundPositionY: ["0px", "80px"] }}
+        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-0 opacity-[0.045]"
+        style={{
+          backgroundImage: "linear-gradient(var(--foreground) 1px, transparent 1px)",
+          backgroundSize: "100% 80px",
+        }}
       />
-      <motion.div
-        aria-hidden
-        animate={reduce ? undefined : { rotate: -360 }}
-        transition={{ duration: 52, repeat: Infinity, ease: "linear" }}
-        className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-foreground/20 md:h-[410px] md:w-[410px]"
-      />
+      <div className="absolute left-1/2 top-4 h-[calc(100%-2rem)] w-px -translate-x-1/2 bg-foreground/14" />
 
-      <div className="absolute left-1/2 top-1/2 grid h-48 w-48 -translate-x-1/2 -translate-y-1/2 place-items-center border border-foreground/25 bg-background/80 backdrop-blur md:h-60 md:w-60">
-        <div className="text-center">
-          <div className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-foreground text-background">
-            <ShieldCheck className="h-5 w-5" />
-          </div>
-          <div className="mt-5 text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
-            Leadmap core
-          </div>
-          <div className="mt-2 text-2xl font-extralight tracking-tight md:text-3xl">
-            Answered
-          </div>
-          <div className="mt-1 text-xs text-muted-foreground">0.4s pickup simulation</div>
-        </div>
-      </div>
-
-      {lanes.map((lane, index) => {
-        const Icon = lane.icon;
-        return (
-          <motion.div
-            key={lane.label}
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={reduce ? { opacity: 1 } : { opacity: 1, y: [0, -8, 0] }}
-            transition={{
-              opacity: { duration: 0.5, delay: 0.45 + index * 0.12 },
-              y: { duration: 4 + index, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 },
-            }}
-            className={`absolute ${lane.y} ${lane.x} w-[230px] border border-border bg-background/88 p-4 backdrop-blur`}
-          >
-            <div className="flex items-start gap-3">
-              <div className="grid h-9 w-9 shrink-0 place-items-center border border-foreground/25">
-                <Icon className="h-4 w-4" />
-              </div>
-              <div>
-                <div className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
-                  {lane.label}
+      <div className="relative mx-auto flex h-full max-w-sm flex-col justify-between py-8">
+        {points.map((point, index) => {
+          const Icon = point.icon;
+          return (
+            <motion.div
+              key={point.label}
+              initial={reduce ? false : { opacity: 0, x: index % 2 ? 18 : -18 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, ease, delay: index * 0.08 }}
+              className={`relative flex ${index % 2 ? "justify-end" : "justify-start"}`}
+            >
+              <div className="w-[78%] border border-border bg-background/88 p-4 backdrop-blur">
+                <div className="flex items-start gap-3">
+                  <div className="grid h-10 w-10 shrink-0 place-items-center border border-foreground/20">
+                    <Icon className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
+                      0{index + 1} / {point.label}
+                    </div>
+                    <div className="mt-1 text-sm font-light text-foreground">{point.text}</div>
+                  </div>
                 </div>
-                <div className="mt-1 text-sm font-light">{lane.value}</div>
               </div>
-            </div>
-          </motion.div>
-        );
-      })}
-
-      <div className="absolute inset-x-8 top-1/2 h-px bg-foreground/20" />
-      <div className="absolute left-1/2 inset-y-8 w-px bg-foreground/20" />
+              <span className="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-background bg-foreground" />
+            </motion.div>
+          );
+        })}
+      </div>
     </div>
   );
 }
