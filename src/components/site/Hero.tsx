@@ -36,8 +36,9 @@ export function Hero() {
         className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(255,255,255,0.08),transparent_70%)]"
       />
 
-      <div className="relative mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.85fr)] md:items-center">
-        <div className="max-w-3xl">
+      <div className="relative mx-auto max-w-4xl px-6">
+        <div>
+
           <motion.p
             initial={reduce ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
