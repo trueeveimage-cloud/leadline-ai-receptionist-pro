@@ -12,8 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as LeadLineNotiRouteImport } from './routes/LeadLineNoti'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedLeadLineNotiRouteImport } from './routes/_authenticated/LeadLineNoti'
 import { Route as ApiPublicMessagesRouteImport } from './routes/api.public.messages'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api.public.leads'
 
@@ -32,9 +34,13 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LeadLineNotiRoute = LeadLineNotiRouteImport.update({
-  id: '/LeadLineNoti',
-  path: '/LeadLineNoti',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -42,6 +48,12 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedLeadLineNotiRoute =
+  AuthenticatedLeadLineNotiRouteImport.update({
+    id: '/LeadLineNoti',
+    path: '/LeadLineNoti',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const ApiPublicMessagesRoute = ApiPublicMessagesRouteImport.update({
   id: '/api/public/messages',
   path: '/api/public/messages',
@@ -55,29 +67,33 @@ const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/LeadLineNoti': typeof LeadLineNotiRoute
+  '/auth': typeof AuthRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/LeadLineNoti': typeof AuthenticatedLeadLineNotiRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/api/public/messages': typeof ApiPublicMessagesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/LeadLineNoti': typeof LeadLineNotiRoute
+  '/auth': typeof AuthRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/LeadLineNoti': typeof AuthenticatedLeadLineNotiRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/api/public/messages': typeof ApiPublicMessagesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/LeadLineNoti': typeof LeadLineNotiRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/_authenticated/LeadLineNoti': typeof AuthenticatedLeadLineNotiRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/api/public/messages': typeof ApiPublicMessagesRoute
 }
@@ -85,35 +101,40 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/LeadLineNoti'
+    | '/auth'
     | '/privacy'
     | '/sitemap.xml'
     | '/terms'
+    | '/LeadLineNoti'
     | '/api/public/leads'
     | '/api/public/messages'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/LeadLineNoti'
+    | '/auth'
     | '/privacy'
     | '/sitemap.xml'
     | '/terms'
+    | '/LeadLineNoti'
     | '/api/public/leads'
     | '/api/public/messages'
   id:
     | '__root__'
     | '/'
-    | '/LeadLineNoti'
+    | '/_authenticated'
+    | '/auth'
     | '/privacy'
     | '/sitemap.xml'
     | '/terms'
+    | '/_authenticated/LeadLineNoti'
     | '/api/public/leads'
     | '/api/public/messages'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  LeadLineNotiRoute: typeof LeadLineNotiRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
@@ -144,11 +165,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/LeadLineNoti': {
-      id: '/LeadLineNoti'
-      path: '/LeadLineNoti'
-      fullPath: '/LeadLineNoti'
-      preLoaderRoute: typeof LeadLineNotiRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -157,6 +185,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/LeadLineNoti': {
+      id: '/_authenticated/LeadLineNoti'
+      path: '/LeadLineNoti'
+      fullPath: '/LeadLineNoti'
+      preLoaderRoute: typeof AuthenticatedLeadLineNotiRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/api/public/messages': {
       id: '/api/public/messages'
@@ -175,9 +210,21 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedLeadLineNotiRoute: typeof AuthenticatedLeadLineNotiRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedLeadLineNotiRoute: AuthenticatedLeadLineNotiRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  LeadLineNotiRoute: LeadLineNotiRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
@@ -187,3 +234,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
