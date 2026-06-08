@@ -1,11 +1,12 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, CalendarCheck, Mail, PhoneIncoming, ShieldCheck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDialogs } from "./DialogsProvider";
 import { useI18n } from "@/lib/i18n";
 
 const ease = [0.22, 1, 0.36, 1] as const;
+
 
 export function Hero() {
   const { openBooking, openTestAI } = useDialogs();
