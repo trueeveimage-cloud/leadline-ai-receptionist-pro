@@ -17,8 +17,8 @@ export function Hero() {
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-  const visualY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
   const lineY = useTransform(scrollYProgress, [0, 1], ["-10%", "18%"]);
+
 
   return (
     <section
