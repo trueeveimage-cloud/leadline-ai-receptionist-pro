@@ -12,7 +12,7 @@ const dict = {
     "nav.openMenu": "Open menu",
     "nav.closeMenu": "Close menu",
 
-    "hero.badge": "AI receptionists for service businesses",
+    "hero.badge": "AI receptionist - for service businesses",
     "hero.title.l1": "Never miss a",
     "hero.title.l2": "valuable lead",
     "hero.title.l3": "again.",
@@ -134,7 +134,7 @@ const dict = {
     "nav.openMenu": "Öppna meny",
     "nav.closeMenu": "Stäng meny",
 
-    "hero.badge": "AI-receptionister för serviceföretag",
+    "hero.badge": "AI-receptionist - för serviceföretag",
     "hero.title.l1": "Missa aldrig ett",
     "hero.title.l2": "viktigt samtal",
     "hero.title.l3": "igen.",
@@ -256,7 +256,7 @@ const dict = {
     "nav.openMenu": "Abrir menú",
     "nav.closeMenu": "Cerrar menú",
 
-    "hero.badge": "Recepcionistas de IA para empresas de servicios",
+    "hero.badge": "Recepcionista IA - para empresas de servicios",
     "hero.title.l1": "Nunca pierdas una",
     "hero.title.l2": "llamada importante",
     "hero.title.l3": "más.",
