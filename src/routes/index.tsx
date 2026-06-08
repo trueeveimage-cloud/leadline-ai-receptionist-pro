@@ -4,6 +4,8 @@ import { Hero } from "@/components/site/Hero";
 import { Stats } from "@/components/site/SocialProof";
 import { Process } from "@/components/site/Process";
 import { Pain } from "@/components/site/Pain";
+import { Industries } from "@/components/site/Industries";
+import { TrustStack } from "@/components/site/TrustStack";
 import { Pricing } from "@/components/site/Pricing";
 import { FAQ } from "@/components/site/FAQ";
 import { FinalCTA, Footer } from "@/components/site/Footer";
@@ -13,17 +15,16 @@ import { Marquee } from "@/components/site/Marquee";
 import { Testimonials } from "@/components/site/Testimonials";
 import { DialogsProvider } from "@/components/site/DialogsProvider";
 
-
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Leadmap — Never miss a valuable call again" },
+      { title: "Leadmap - Never miss a valuable call again" },
       {
         name: "description",
         content:
-          "AI receptionists that answer, qualify, book and notify — 24/7. Built for service businesses.",
+          "AI receptionists that answer, qualify, book and notify 24/7. Built for service businesses.",
       },
-      { property: "og:title", content: "Leadmap — AI receptionists for service businesses" },
+      { property: "og:title", content: "Leadmap - AI receptionists for service businesses" },
       {
         property: "og:description",
         content: "Answers. Books. Sends the summary. Live in 7 days.",
@@ -93,7 +94,9 @@ function Index() {
         <main>
           <Hero />
           <Pain />
+          <Industries />
           <Process />
+          <TrustStack />
           <Stats />
           <Marquee />
           <Testimonials />
@@ -107,4 +110,3 @@ function Index() {
     </DialogsProvider>
   );
 }
-

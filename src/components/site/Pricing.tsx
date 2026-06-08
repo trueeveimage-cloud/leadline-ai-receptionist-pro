@@ -9,7 +9,6 @@ import {
 } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useDialogs } from "./DialogsProvider";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { useI18n } from "@/lib/i18n";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -71,9 +70,8 @@ function TiltCard({
 export function Pricing() {
   const { openBooking, openTestAI } = useDialogs();
   const reduce = useReducedMotion();
-  const isMobile = useIsMobile();
   const { t } = useI18n();
-  const noParallax = reduce || isMobile;
+  const noParallax = reduce;
   const sectionRef = useRef<HTMLElement>(null);
   const [hoverDesktop, setHoverDesktop] = useState(false);
 
@@ -126,22 +124,20 @@ export function Pricing() {
       onMouseLeave={() => setHoverDesktop(false)}
       className="relative py-16 md:py-32 overflow-hidden border-t border-border/60"
     >
-      {!noParallax && (
-        <motion.div
-          aria-hidden
-          style={{ y: gridY }}
-          className="pointer-events-none absolute inset-x-0 -inset-y-1/3 opacity-[0.04]"
-        >
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "linear-gradient(to right, var(--foreground) 1px, transparent 1px), linear-gradient(to bottom, var(--foreground) 1px, transparent 1px)",
-              backgroundSize: "80px 80px",
-            }}
-          />
-        </motion.div>
-      )}
+      <motion.div
+        aria-hidden
+        style={noParallax ? undefined : { y: gridY }}
+        className="pointer-events-none absolute inset-x-0 -inset-y-1/3 hidden opacity-[0.04] md:block"
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, var(--foreground) 1px, transparent 1px), linear-gradient(to bottom, var(--foreground) 1px, transparent 1px)",
+            backgroundSize: "80px 80px",
+          }}
+        />
+      </motion.div>
 
       <div className="relative mx-auto max-w-5xl px-6">
         <div className="flex items-center gap-3 mb-6 md:mb-12">

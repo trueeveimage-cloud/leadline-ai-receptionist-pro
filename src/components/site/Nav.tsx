@@ -13,6 +13,7 @@ export function Nav() {
   const { t } = useI18n();
   const links = [
     { href: "#how", label: t("nav.how") },
+    { href: "#industries", label: t("nav.industries") },
     { href: "#pricing", label: t("nav.pricing") },
     { href: "#faq", label: "FAQ" },
   ];
