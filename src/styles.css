@@ -144,6 +144,11 @@
     font-feature-settings: "ss01", "ss02", "cv11";
   }
 
+  ::selection {
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);

@@ -109,9 +109,9 @@ export function Hero() {
               ["7 days", t("hero.stat.setup")],
               ["Inbox", t("hero.stat.summaries")],
             ].map(([value, label]) => (
-              <div key={label} className="bg-background px-3 py-4 sm:px-5">
+              <div key={label} className="bg-background px-2 py-4 sm:px-5">
                 <dt className="text-2xl font-extralight tracking-tight">{value}</dt>
-                <dd className="mt-1 text-[10px] uppercase tracking-[0.24em] text-muted-foreground">{label}</dd>
+                <dd className="mt-1 text-[9px] sm:text-[10px] uppercase tracking-widest sm:tracking-[0.24em] text-muted-foreground break-words hyphens-auto">{label}</dd>
               </div>
             ))}
           </motion.dl>

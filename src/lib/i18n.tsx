@@ -37,13 +37,13 @@ const dict = {
     "step.1": "Answer",
     "step.2": "Qualify",
     "step.3": "Notify",
-    "step.1.desc": "Your AI receptionist picks up every call in under a second. 24/7.",
-    "step.2.desc": "It asks the right questions in your tone and filters out time-wasters.",
-    "step.3.desc": "A qualified booking request lands in your inbox for confirmation.",
+    "step.1.desc": "Answers every call instantly. 24/7.",
+    "step.2.desc": "Asks the right questions and filters out time-wasters.",
+    "step.3.desc": "Qualified booking requests land straight in your inbox.",
 
     "pain.eyebrow": "The problem",
     "pain.title": "Every missed call is a lost job.",
-    "pain.body": "While you're working, the phone rings. Most callers don't leave a message — they just call the next business.",
+    "pain.body": "If you don't answer, they call your competitor. Stop losing jobs to missed calls.",
     "pain.built": "For plumbers, roofers, dentists, detailers and emergency trades.",
 
     "industries.eyebrow": "Best-fit customers",
@@ -108,7 +108,7 @@ const dict = {
     "faq.2.q": "Does it work with my current number?",
     "faq.2.a": "Yes. You keep your number. We set up forwarding so Leadmap only answers when you can't.",
     "faq.3.q": "What if the AI can't answer?",
-    "faq.3.a": "It politely takes the caller's details and reason for the call, then sends you a summary right away.",
+    "faq.3.a": "It takes their details and reason for the call, then sends you an instant summary.",
     "faq.4.q": "How fast can we go live?",
     "faq.4.a": "Most setups go live within 7 days. We handle voice training, script and forwarding.",
     "faq.5.q": "Does it confirm bookings?",
@@ -187,13 +187,13 @@ const dict = {
     "step.1": "Svarar",
     "step.2": "Kvalificerar",
     "step.3": "Meddelar dig",
-    "step.1.desc": "Din AI-receptionist svarar på varje samtal på under en sekund. Dygnet runt.",
-    "step.2.desc": "Den ställer rätt frågor i din ton och filtrerar bort tidstjuvar.",
-    "step.3.desc": "En kvalificerad bokningsförfrågan landar direkt i din inkorg.",
+    "step.1.desc": "Svarar på varje samtal direkt. Dygnet runt.",
+    "step.2.desc": "Ställer rätt frågor och filtrerar bort tidstjuvar.",
+    "step.3.desc": "Kvalificerade bokningsförfrågningar landar rakt i din inkorg.",
 
     "pain.eyebrow": "Problemet",
     "pain.title": "Varje missat samtal är ett förlorat jobb.",
-    "pain.body": "Medan du jobbar ringer telefonen. De flesta lämnar inget meddelande – de ringer bara nästa företag istället.",
+    "pain.body": "Svarar du inte ringer de konkurrenten istället. Sluta förlora jobb på missade samtal.",
     "pain.built": "För rörmokare, takläggare, tandläkare, bilrekond och akuta hantverkare.",
 
     "industries.eyebrow": "Bäst passande kunder",
@@ -258,7 +258,7 @@ const dict = {
     "faq.2.q": "Fungerar det med mitt nuvarande nummer?",
     "faq.2.a": "Ja. Du behåller ditt nummer. Vi sätter upp vidarekoppling så Leadmap bara svarar när du själv inte hinner.",
     "faq.3.q": "Vad händer om AI:n inte kan svara?",
-    "faq.3.a": "Den tar artigt uppringarens uppgifter och ärende, och skickar dig en sammanfattning direkt.",
+    "faq.3.a": "Den tar uppringarens uppgifter och ärende och skickar en sammanfattning direkt.",
     "faq.4.q": "Hur snabbt kan vi komma igång?",
     "faq.4.a": "De flesta är igång inom 7 dagar. Vi sköter rösten, manuset och vidarekopplingen åt dig.",
     "faq.5.q": "Bekräftar den bokningar?",
@@ -337,13 +337,13 @@ const dict = {
     "step.1": "Contesta",
     "step.2": "Califica",
     "step.3": "Te avisa",
-    "step.1.desc": "Tu recepcionista de IA contesta cada llamada en menos de un segundo. 24/7.",
-    "step.2.desc": "Hace las preguntas adecuadas con tu tono y filtra a quienes solo hacen perder el tiempo.",
-    "step.3.desc": "Recibes la solicitud de reserva ya calificada directamente en tu correo.",
+    "step.1.desc": "Contesta cada llamada al instante. 24/7.",
+    "step.2.desc": "Hace las preguntas adecuadas y filtra a quienes te hacen perder el tiempo.",
+    "step.3.desc": "Solicitudes de reserva calificadas directas a tu bandeja de entrada.",
 
     "pain.eyebrow": "El problema",
     "pain.title": "Cada llamada perdida es un trabajo perdido.",
-    "pain.body": "Mientras trabajas, suena el teléfono. Casi nadie deja mensaje — simplemente llaman al siguiente.",
+    "pain.body": "Si no contestas, llaman a tu competidor. Deja de perder trabajos por llamadas perdidas.",
     "pain.built": "Para fontaneros, techadores, dentistas, detallistas y oficios de urgencia.",
 
     "industries.eyebrow": "Clientes ideales",
@@ -408,7 +408,7 @@ const dict = {
     "faq.2.q": "¿Funciona con mi número actual?",
     "faq.2.a": "Sí. Tú conservas tu número. Configuramos el desvío para que Leadmap solo conteste cuando tú no puedas.",
     "faq.3.q": "¿Y si la IA no sabe responder?",
-    "faq.3.a": "Recoge los datos y el motivo de la llamada con amabilidad y te envía un resumen al instante.",
+    "faq.3.a": "Toma los datos y el motivo de la llamada, y te envía un resumen al instante.",
     "faq.4.q": "¿En cuánto tiempo está en marcha?",
     "faq.4.a": "Casi todos estamos en directo en 7 días. Nos encargamos de la voz, el guion y el desvío.",
     "faq.5.q": "¿Confirma las reservas?",
@@ -491,11 +491,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en");
 
   useEffect(() => {
-    const stored = (typeof window !== "undefined" && localStorage.getItem("lang")) as Lang | null;
-    if (stored && ["en", "sv", "es"].includes(stored)) {
-      setLangState(stored);
-    } else {
-      setLangState(detectLang());
+
     }
   }, []);
 

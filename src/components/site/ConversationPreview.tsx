@@ -92,19 +92,20 @@ export function ConversationPreview() {
 
   return (
     <motion.div
-      initial={reduce ? false : { opacity: 0, y: 24, scale: 0.98 }}
+      initial={reduce ? false : { opacity: 0, y: 30, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-      className="relative mx-auto w-full max-w-md"
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+      className="relative mx-auto w-full max-w-md group"
     >
-      <div className="absolute -inset-6 -z-10 bg-gradient-to-br from-brand/5 via-transparent to-transparent rounded-[2rem] blur-2xl" />
-      <div className="rounded-3xl border border-border bg-card shadow-[0_1px_2px_rgba(0,0,0,0.04),0_24px_60px_-20px_rgba(0,0,0,0.12)] overflow-hidden">
+      <div className="absolute -inset-10 -z-10 bg-gradient-to-br from-brand/20 via-brand/5 to-transparent rounded-[3rem] blur-3xl opacity-60 transition-all duration-1000 group-hover:opacity-100 group-hover:blur-2xl" />
+      <div className="rounded-3xl border border-border/80 bg-card shadow-2xl overflow-hidden relative">
         {/* Header */}
-        <div className="px-5 pt-5 pb-4 flex items-center justify-between border-b border-border/60">
+        <div className="px-5 pt-5 pb-4 flex items-center justify-between border-b border-border/60 bg-gradient-to-b from-surface/80 to-transparent">
           <div className="flex items-center gap-3">
-            <div className="relative h-9 w-9 rounded-full bg-foreground text-background grid place-items-center">
+            <div className="relative h-10 w-10 rounded-full bg-foreground text-background grid place-items-center shadow-lg">
               <Phone className="h-4 w-4" />
-              <span className="absolute -inset-1 rounded-full border border-brand/40 animate-ping" />
+              <span className="absolute -inset-1.5 rounded-full border border-brand/50 animate-ping" />
+              <span className="absolute -inset-3 rounded-full border border-brand/20 animate-ping delay-150" />
             </div>
             <div>
               <p className="text-sm font-medium">Live call</p>
@@ -123,17 +124,17 @@ export function ConversationPreview() {
               <motion.div
                 key={`${script.code}-${i}`}
                 layout
-                initial={reduce ? { opacity: 0 } : { opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                className={`flex mb-2 ${turn.who === "ai" ? "justify-start" : "justify-end"}`}
+                initial={reduce ? { opacity: 0 } : { opacity: 0, y: 15, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 280, damping: 22 }}
+                className={`flex mb-3 ${turn.who === "ai" ? "justify-start" : "justify-end"}`}
               >
                 <div
-                  className={`max-w-[82%] rounded-2xl px-3.5 py-2 text-[13px] leading-snug ${
+                  className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 text-[13px] leading-snug shadow-sm ${
                     turn.who === "ai"
-                      ? "bg-background border border-border text-foreground"
-                      : "bg-foreground text-background"
+                      ? "bg-background border border-border/80 text-foreground"
+                      : "bg-foreground text-background shadow-md"
                   }`}
                 >
                   {turn.text}
@@ -173,10 +174,10 @@ export function ConversationPreview() {
         </div>
 
         {/* Footer */}
-        <div className="px-5 py-3.5 border-t border-border/60 flex items-center justify-between bg-surface/60">
-          <span className="text-[11px] text-muted-foreground">Simulated demo · loops automatically</span>
-          <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-brand">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand" /> Live
+        <div className="px-5 py-4 border-t border-border/60 flex items-center justify-between bg-surface/80 backdrop-blur-sm">
+          <span className="text-[11px] font-medium text-muted-foreground uppercase tracking-widest">Simulated Demo</span>
+          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-brand uppercase tracking-wider">
+            <span className="h-2 w-2 rounded-full bg-brand animate-pulse shadow-[0_0_8px_var(--brand)]" /> Live
           </span>
         </div>
       </div>
