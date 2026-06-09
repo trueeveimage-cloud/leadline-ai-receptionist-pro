@@ -184,7 +184,7 @@ export function Process() {
                 <span className="absolute inline-flex h-full w-full rounded-full bg-brand opacity-60 animate-ping" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
               </span>
-              <span>Try it live</span>
+              <span>{t("process.tryLive")}</span>
             </button>
           </div>
           <ConversationPreview />

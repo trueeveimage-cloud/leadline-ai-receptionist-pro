@@ -93,7 +93,7 @@ export function Hero() {
               onClick={openTestAI}
               className="group inline-flex justify-center border border-border bg-secondary px-6 py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-foreground transition-colors hover:bg-background sm:justify-start"
             >
-              <span>Test the AI</span>
+              <span>{t("hero.cta.test")}</span>
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </button>
           </motion.div>
@@ -105,9 +105,9 @@ export function Hero() {
             className="mx-auto mt-12 grid w-full max-w-2xl grid-cols-3 gap-px bg-border/70 text-center"
           >
             {[
-              ["24/7", "pickup"],
-              ["7 days", "pilot setup"],
-              ["Inbox", "summaries"],
+              ["24/7", t("hero.stat.pickup")],
+              ["7 days", t("hero.stat.setup")],
+              ["Inbox", t("hero.stat.summaries")],
             ].map(([value, label]) => (
               <div key={label} className="bg-background px-2 py-4 sm:px-5">
                 <dt className="text-2xl font-extralight tracking-tight">{value}</dt>

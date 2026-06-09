@@ -14,7 +14,7 @@ export function Nav() {
   const links = [
     { href: "/#how", label: t("nav.how") },
     { href: "/#pricing", label: t("nav.pricing") },
-    { href: "/#faq", label: "FAQ" },
+    { href: "/#faq", label: t("nav.faq") },
   ];
 
   useEffect(() => {
@@ -70,7 +70,7 @@ export function Nav() {
               className="hidden md:inline-flex rounded-full px-4 text-muted-foreground hover:text-foreground"
               onClick={openContact}
             >
-              Contact
+              {t("nav.contact")}
             </Button>
             <Button
               size="sm"
@@ -131,7 +131,7 @@ export function Nav() {
                   }}
                   className="py-4 text-xl font-medium tracking-tight border-b border-border/60 text-left text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Contact
+                  {t("nav.contact")}
                 </button>
                 <div className="pt-5">
                   <LanguageSwitcher />

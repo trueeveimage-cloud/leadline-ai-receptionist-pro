@@ -9,6 +9,7 @@ const dict = {
     "nav.pricing": "Pricing",
     "nav.faq": "FAQ",
     "nav.bookDemo": "Book demo",
+    "nav.contact": "Contact",
     "nav.openMenu": "Open menu",
     "nav.closeMenu": "Close menu",
 
@@ -19,6 +20,10 @@ const dict = {
     "hero.subtitle": "We answer. We qualify. You get the booking.",
     "hero.cta.book": "Book demo",
     "hero.cta.how": "How it works",
+    "hero.cta.test": "Test the AI",
+    "hero.stat.pickup": "pickup",
+    "hero.stat.setup": "pilot setup",
+    "hero.stat.summaries": "summaries",
     "hero.trust.1": "Swedish-speaking AI receptionist",
     "hero.trust.2": "Live in 7 days",
     "hero.trust.3": "Cancel anytime",
@@ -28,6 +33,7 @@ const dict = {
 
     "process.eyebrow": "How it works",
     "process.demo": "Live call demo",
+    "process.tryLive": "Try it live",
     "step.1": "Answer",
     "step.2": "Qualify",
     "step.3": "Notify",
@@ -40,6 +46,27 @@ const dict = {
     "pain.body": "If you don't answer, they call your competitor. Stop losing jobs to missed calls.",
     "pain.built": "For plumbers, roofers, dentists, detailers and emergency trades.",
 
+    "industries.eyebrow": "Best-fit customers",
+    "industries.title": "Built for businesses where one call can pay for the month.",
+    "industries.body": "Leadmap is strongest when calls are urgent, appointment-driven, or arrive while the owner is busy doing the work. The AI qualifies the intent before it reaches your inbox.",
+    "industries.1.name": "Emergency trades",
+    "industries.1.examples": "Plumbers, roofers, electricians",
+    "industries.1.signal": "High-value callers choose whoever answers first.",
+    "industries.2.name": "Clinics and appointments",
+    "industries.2.examples": "Dentists, aesthetics, private care",
+    "industries.2.signal": "Every missed inquiry can become an empty slot.",
+    "industries.3.name": "Mobile operators",
+    "industries.3.examples": "Detailers, installers, repair teams",
+    "industries.3.signal": "Calls arrive while the team is driving or on-site.",
+    "industries.4.name": "After-hours demand",
+    "industries.4.examples": "Legal, property, local services",
+    "industries.4.signal": "Leadmap catches intent after the office closes.",
+
+    "stats.voicemail": "Callers won't leave voicemail",
+    "stats.pickup": "Pickup time",
+    "stats.coverage": "Coverage",
+    "stats.live": "To go live",
+
     "pricing.eyebrow": "Pricing",
     "pricing.title.l1": "Two ways to begin.",
     "pricing.title.l2": "Both unforgettable.",
@@ -51,6 +78,7 @@ const dict = {
     "pricing.month": "/ month",
     "pricing.book": "Book demo",
     "pricing.footer": "Cancel anytime · Live in 7 days",
+    "pricing.testBefore": "Test the AI before you commit",
 
     "pricing.pilot.name": "Pilot",
     "pricing.pilot.note": "+ 2,000 kr setup · 7-day pilot",
@@ -131,6 +159,7 @@ const dict = {
     "nav.pricing": "Priser",
     "nav.faq": "FAQ",
     "nav.bookDemo": "Boka demo",
+    "nav.contact": "Kontakt",
     "nav.openMenu": "Öppna meny",
     "nav.closeMenu": "Stäng meny",
 
@@ -141,6 +170,10 @@ const dict = {
     "hero.subtitle": "Vi svarar. Vi kvalificerar. Du får bokningen.",
     "hero.cta.book": "Boka demo",
     "hero.cta.how": "Så fungerar det",
+    "hero.cta.test": "Testa AI:n",
+    "hero.stat.pickup": "svarar direkt",
+    "hero.stat.setup": "pilotstart",
+    "hero.stat.summaries": "sammanfattningar",
     "hero.trust.1": "Svensktalande AI-receptionist",
     "hero.trust.2": "Igång på 7 dagar",
     "hero.trust.3": "Säg upp när du vill",
@@ -150,6 +183,7 @@ const dict = {
 
     "process.eyebrow": "Så fungerar det",
     "process.demo": "Live-demo av ett samtal",
+    "process.tryLive": "Testa live",
     "step.1": "Svarar",
     "step.2": "Kvalificerar",
     "step.3": "Meddelar dig",
@@ -162,6 +196,27 @@ const dict = {
     "pain.body": "Svarar du inte ringer de konkurrenten istället. Sluta förlora jobb på missade samtal.",
     "pain.built": "För rörmokare, takläggare, tandläkare, bilrekond och akuta hantverkare.",
 
+    "industries.eyebrow": "Bäst passande kunder",
+    "industries.title": "Byggt för företag där ett samtal kan betala hela månaden.",
+    "industries.body": "Leadmap är som starkast när samtal är brådskande, bokningsdrivna eller kommer medan ägaren är upptagen med jobbet. AI:n kvalificerar ärendet innan det når din inkorg.",
+    "industries.1.name": "Akuta hantverkare",
+    "industries.1.examples": "Rörmokare, takläggare, elektriker",
+    "industries.1.signal": "Kunder med högt värde väljer den som svarar först.",
+    "industries.2.name": "Kliniker och bokningar",
+    "industries.2.examples": "Tandläkare, estetik, privat vård",
+    "industries.2.signal": "Varje missad förfrågan kan bli en tom tid.",
+    "industries.3.name": "Mobila operatörer",
+    "industries.3.examples": "Bilrekond, installatörer, reparatörer",
+    "industries.3.signal": "Samtal kommer när teamet kör eller är ute på plats.",
+    "industries.4.name": "Efter kontorstid",
+    "industries.4.examples": "Juridik, fastighet, lokala tjänster",
+    "industries.4.signal": "Leadmap fångar köpintentionen efter stängning.",
+
+    "stats.voicemail": "Uppringare lämnar inte röstmeddelande",
+    "stats.pickup": "Svarstid",
+    "stats.coverage": "Täckning",
+    "stats.live": "Till live",
+
     "pricing.eyebrow": "Priser",
     "pricing.title.l1": "Två sätt att börja.",
     "pricing.title.l2": "Båda oförglömliga.",
@@ -173,6 +228,7 @@ const dict = {
     "pricing.month": "/ mån",
     "pricing.book": "Boka demo",
     "pricing.footer": "Säg upp när du vill · Igång på 7 dagar",
+    "pricing.testBefore": "Testa AI:n innan du bestämmer dig",
 
     "pricing.pilot.name": "Pilot",
     "pricing.pilot.note": "+ 2 000 kr i startavgift · 7 dagars pilot",
@@ -253,6 +309,7 @@ const dict = {
     "nav.pricing": "Precios",
     "nav.faq": "FAQ",
     "nav.bookDemo": "Reservar demo",
+    "nav.contact": "Contacto",
     "nav.openMenu": "Abrir menú",
     "nav.closeMenu": "Cerrar menú",
 
@@ -263,6 +320,10 @@ const dict = {
     "hero.subtitle": "Contestamos. Calificamos. Tú te llevas la cita.",
     "hero.cta.book": "Reservar demo",
     "hero.cta.how": "Cómo funciona",
+    "hero.cta.test": "Probar la IA",
+    "hero.stat.pickup": "contesta",
+    "hero.stat.setup": "piloto",
+    "hero.stat.summaries": "resúmenes",
     "hero.trust.1": "Recepcionista de IA en español",
     "hero.trust.2": "Listo en 7 días",
     "hero.trust.3": "Cancela cuando quieras",
@@ -272,6 +333,7 @@ const dict = {
 
     "process.eyebrow": "Cómo funciona",
     "process.demo": "Demo de llamada en directo",
+    "process.tryLive": "Pruébalo en vivo",
     "step.1": "Contesta",
     "step.2": "Califica",
     "step.3": "Te avisa",
@@ -284,6 +346,27 @@ const dict = {
     "pain.body": "Si no contestas, llaman a tu competidor. Deja de perder trabajos por llamadas perdidas.",
     "pain.built": "Para fontaneros, techadores, dentistas, detallistas y oficios de urgencia.",
 
+    "industries.eyebrow": "Clientes ideales",
+    "industries.title": "Hecho para negocios donde una llamada puede pagar el mes.",
+    "industries.body": "Leadmap funciona mejor cuando las llamadas son urgentes, dependen de citas o llegan mientras el dueño está trabajando. La IA califica la intención antes de enviártela.",
+    "industries.1.name": "Oficios urgentes",
+    "industries.1.examples": "Fontaneros, techadores, electricistas",
+    "industries.1.signal": "Los clientes de alto valor eligen a quien responde primero.",
+    "industries.2.name": "Clínicas y citas",
+    "industries.2.examples": "Dentistas, estética, atención privada",
+    "industries.2.signal": "Cada consulta perdida puede convertirse en un hueco vacío.",
+    "industries.3.name": "Equipos móviles",
+    "industries.3.examples": "Detailers, instaladores, reparadores",
+    "industries.3.signal": "Las llamadas llegan mientras el equipo conduce o está en una visita.",
+    "industries.4.name": "Demanda fuera de horario",
+    "industries.4.examples": "Legal, propiedad, servicios locales",
+    "industries.4.signal": "Leadmap captura intención cuando la oficina ya cerró.",
+
+    "stats.voicemail": "No dejan mensaje de voz",
+    "stats.pickup": "Tiempo de respuesta",
+    "stats.coverage": "Cobertura",
+    "stats.live": "Para salir en vivo",
+
     "pricing.eyebrow": "Precios",
     "pricing.title.l1": "Dos formas de empezar.",
     "pricing.title.l2": "Las dos, inolvidables.",
@@ -295,6 +378,7 @@ const dict = {
     "pricing.month": "/ mes",
     "pricing.book": "Reservar demo",
     "pricing.footer": "Cancela cuando quieras · Listo en 7 días",
+    "pricing.testBefore": "Prueba la IA antes de decidir",
 
     "pricing.pilot.name": "Piloto",
     "pricing.pilot.note": "+ 2.000 kr de alta · piloto de 7 días",
@@ -381,19 +465,33 @@ type Ctx = {
 
 const I18nContext = createContext<Ctx | null>(null);
 
+const SPANISH_REGIONS = new Set([
+  "ES", "MX", "AR", "CO", "CL", "PE", "VE", "EC", "GT", "CU", "BO",
+  "DO", "HN", "PY", "SV", "NI", "CR", "PR", "PA", "UY", "US",
+]);
+
+function detectLang(): Lang {
+  if (typeof navigator === "undefined") return "en";
+  const candidates = [
+    ...(navigator.languages ?? []),
+    navigator.language,
+  ].filter(Boolean) as string[];
+  for (const raw of candidates) {
+    const [langPart, regionPart] = raw.toLowerCase().split("-");
+    const region = regionPart?.toUpperCase();
+    if (langPart === "sv" || region === "SE") return "sv";
+    if (langPart === "es" || (region && SPANISH_REGIONS.has(region) && langPart === "es")) return "es";
+    if (langPart === "es") return "es";
+    if (langPart === "en") return "en";
+  }
+  return "en";
+}
+
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en");
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const stored = localStorage.getItem("lang") as Lang | null;
-    if (stored && ["en", "sv", "es"].includes(stored)) {
-      setLangState(stored);
-    } else {
-      const browserLang = navigator.language.slice(0, 2).toLowerCase();
-      if (browserLang === "sv") setLangState("sv");
-      else if (browserLang === "es") setLangState("es");
-      else setLangState("en");
+
     }
   }, []);
 

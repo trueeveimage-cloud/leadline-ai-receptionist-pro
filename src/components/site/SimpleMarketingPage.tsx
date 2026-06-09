@@ -5,6 +5,7 @@ import { DialogsProvider, useDialogs } from "./DialogsProvider";
 import { Footer } from "./Footer";
 import { Nav } from "./Nav";
 import { ScrollProgress } from "./ScrollProgress";
+import { useI18n } from "@/lib/i18n";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -94,6 +95,7 @@ export function SimpleMarketingPage({
 
 function PageActions({ cta }: { cta: string }) {
   const { openBooking, openContact } = useDialogs();
+  const { t } = useI18n();
   return (
     <div className="mt-10 flex flex-col gap-3 sm:flex-row">
       <Button
@@ -109,7 +111,7 @@ function PageActions({ cta }: { cta: string }) {
         className="inline-flex items-center justify-center gap-3 px-1 py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground sm:justify-start"
       >
         <Mail className="h-3.5 w-3.5" />
-        Contact
+        {t("nav.contact")}
         <ArrowRight className="h-3.5 w-3.5" />
       </button>
     </div>
