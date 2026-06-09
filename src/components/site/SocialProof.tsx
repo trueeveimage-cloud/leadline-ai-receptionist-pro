@@ -1,14 +1,16 @@
 import { motion } from "framer-motion";
 import { Section } from "./Section";
-
-const stats = [
-  { value: "87%", label: "Callers won't leave voicemail" },
-  { value: "<1s", label: "Pickup time" },
-  { value: "24/7", label: "Coverage" },
-  { value: "7 days", label: "To go live" },
-];
+import { useI18n } from "@/lib/i18n";
 
 export function Stats() {
+  const { t } = useI18n();
+  const stats = [
+    { value: "87%", label: t("stats.voicemail") },
+    { value: "<1s", label: t("stats.pickup") },
+    { value: "24/7", label: t("stats.coverage") },
+    { value: "7 days", label: t("stats.live") },
+  ];
+
   return (
     <section className="border-y border-border/60 bg-surface/40">
       <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">

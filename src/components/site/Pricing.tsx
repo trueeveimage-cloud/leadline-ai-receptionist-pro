@@ -265,7 +265,7 @@ export function Pricing() {
               <span className="absolute inline-flex h-full w-full rounded-full bg-brand opacity-60 animate-ping" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
             </span>
-            <span>Test the AI before you commit</span>
+            <span>{t("pricing.testBefore")}</span>
           </button>
           <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground text-center">
             {t("pricing.footer")}
