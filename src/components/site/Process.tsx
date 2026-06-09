@@ -3,7 +3,6 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { useI18n } from "@/lib/i18n";
 import { ConversationPreview } from "./ConversationPreview";
 import { useDialogs } from "./DialogsProvider";
-import { CallFlowStack } from "./CallFlowStack";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -13,7 +12,6 @@ export function Process() {
   const reduce = useReducedMotion();
   const [active, setActive] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-  const stepRefs = useRef<Array<HTMLLIElement | null>>([]);
 
   const steps = [
     { num: "01", title: t("step.1"), desc: t("step.1.desc") },
@@ -21,55 +19,26 @@ export function Process() {
     { num: "03", title: t("step.3"), desc: t("step.3.desc") },
   ];
 
+  // Track the section as it travels through the viewport.
+  // progress 0 = section top at viewport bottom (just entering)
+  // progress 1 = section bottom at viewport top (just leaving)
+  // => progress 0.5 = section visually centered in the viewport
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const parallaxY = useTransform(scrollYProgress, [0, 1], ["-6%", "10%"], {
+  const sweepX = useTransform(scrollYProgress, [0.25, 0.75], ["0%", "100%"], {
     clamp: true,
   });
-  const railWidth = `${active === 0 ? 16.7 : active === 1 ? 50 : 83.3}%`;
 
   useEffect(() => {
-    let frame = 0;
-
-    const updateActiveStep = () => {
-      frame = 0;
-      const viewportCenter = window.innerHeight * 0.5;
-      let nextActive = 0;
-      let nearest = Number.POSITIVE_INFINITY;
-
-      stepRefs.current.forEach((step, index) => {
-        if (!step) return;
-
-        const rect = step.getBoundingClientRect();
-        const center = rect.top + rect.height * 0.5;
-        const distance = Math.abs(center - viewportCenter);
-
-        if (distance < nearest) {
-          nearest = distance;
-          nextActive = index;
-        }
-      });
-
-      setActive(nextActive);
-    };
-
-    const requestUpdate = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(updateActiveStep);
-    };
-
-    updateActiveStep();
-    window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
-
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", requestUpdate);
-      window.removeEventListener("resize", requestUpdate);
-    };
-  }, []);
+    const unsub = scrollYProgress.on("change", (v) => {
+      // Step 3 activates at exactly 50% (section centered), step 2 just before.
+      const idx = v < 0.38 ? 0 : v < 0.5 ? 1 : 2;
+      setActive(idx);
+    });
+    return () => unsub();
+  }, [scrollYProgress]);
 
 
   return (
@@ -79,26 +48,14 @@ export function Process() {
       className="relative border-y border-border/60 overflow-hidden"
     >
       {/* ambient glow - desktop only */}
-      <motion.div
+      <div
         aria-hidden
-        style={reduce ? undefined : { y: parallaxY }}
         className="pointer-events-none absolute inset-0 opacity-0 md:opacity-[0.05]"
-      >
-        <div
-          className="h-full w-full"
-          style={{
+        style={{
           backgroundImage:
             "radial-gradient(60% 60% at 50% 40%, var(--foreground) 0%, transparent 70%)",
-          }}
-        />
-      </motion.div>
-      <motion.div
-        aria-hidden
-        style={reduce ? undefined : { y: parallaxY }}
-        className="pointer-events-none absolute inset-x-8 top-28 bottom-16 opacity-[0.08] [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]"
-      >
-        <div className="h-full bg-[repeating-linear-gradient(90deg,transparent_0,transparent_3.5rem,var(--foreground)_3.55rem,var(--foreground)_3.58rem)]" />
-      </motion.div>
+        }}
+      />
 
       <div className="relative mx-auto max-w-6xl px-6 py-16 md:py-28">
         <motion.div
@@ -117,12 +74,13 @@ export function Process() {
         {/* Desktop top progress rail */}
         <div className="hidden md:block relative mb-10">
           <div className="h-px w-full bg-border/60" />
-          <motion.div
-            aria-hidden
-            animate={{ width: railWidth }}
-            transition={{ duration: 0.45, ease }}
-            className="absolute left-0 top-0 h-px origin-left bg-foreground"
-          />
+          {!reduce && (
+            <motion.div
+              aria-hidden
+              style={{ width: sweepX }}
+              className="absolute left-0 top-0 h-px bg-foreground origin-left"
+            />
+          )}
           <div className="absolute inset-x-0 -top-1 grid grid-cols-3">
             {steps.map((_, i) => (
               <div key={i} className="flex justify-center">
@@ -143,9 +101,6 @@ export function Process() {
             return (
               <li
                 key={s.num}
-                ref={(node) => {
-                  stepRefs.current[i] = node;
-                }}
                 data-idx={i}
                 className={`group relative md:px-8 first:md:pl-0 last:md:pr-0 py-6 md:py-6 ${
                   i < steps.length - 1
@@ -233,7 +188,6 @@ export function Process() {
             </button>
           </div>
           <ConversationPreview />
-          <CallFlowStack />
         </div>
       </div>
     </section>

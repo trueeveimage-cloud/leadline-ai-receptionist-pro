@@ -15,11 +15,11 @@ import { DialogsProvider } from "@/components/site/DialogsProvider";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Leadmap - Never Miss Another Valuable Lead" },
+      { title: "Leadmap - AI Receptionist for Missed Calls and Lead Capture" },
       {
         name: "description",
         content:
-          "Leadmap is an AI receptionist for service businesses. It answers missed calls, qualifies leads, schedules next steps and sends clear summaries to your inbox 24/7.",
+          "Leadmap is an AI receptionist for service businesses. Answer missed calls, qualify leads, capture appointment requests and send owner-ready summaries.",
       },
       {
         name: "keywords",
@@ -27,16 +27,16 @@ export const Route = createFileRoute("/")({
           "AI receptionist, missed call answering, lead generation, lead discovery, business lead mapping, email outreach, service business calls",
       },
       { name: "robots", content: "index,follow" },
-      { property: "og:title", content: "Leadmap - Never Miss Another Valuable Lead" },
+      { property: "og:title", content: "Leadmap - AI Receptionist for Service Businesses" },
       {
         property: "og:description",
-        content: "Answer missed calls, qualify leads and send clean summaries when your team is busy or closed.",
+        content: "Answer calls, qualify leads and send summaries when your team is busy or closed.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.leadmap.se/" },
       { property: "og:site_name", content: "Leadmap" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Leadmap - Never Miss Another Valuable Lead" },
+      { name: "twitter:title", content: "Leadmap - AI Receptionist for Missed Calls" },
       {
         name: "twitter:description",
         content: "AI call answering and lead capture for phone-first service businesses.",
