@@ -30,3 +30,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Codex Patch Exclusions
+.vs/
+supabase/.temp/
+

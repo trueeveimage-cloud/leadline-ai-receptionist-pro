@@ -1,1 +1,4 @@
 project_id = "mkvlnukezlcjplsqacbn"
+[functions.finder-search]
+verify_jwt = false
+
