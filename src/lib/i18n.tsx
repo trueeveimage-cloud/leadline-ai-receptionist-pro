@@ -465,12 +465,38 @@ type Ctx = {
 
 const I18nContext = createContext<Ctx | null>(null);
 
+const SPANISH_REGIONS = new Set([
+  "ES", "MX", "AR", "CO", "CL", "PE", "VE", "EC", "GT", "CU", "BO",
+  "DO", "HN", "PY", "SV", "NI", "CR", "PR", "PA", "UY", "US",
+]);
+
+function detectLang(): Lang {
+  if (typeof navigator === "undefined") return "en";
+  const candidates = [
+    ...(navigator.languages ?? []),
+    navigator.language,
+  ].filter(Boolean) as string[];
+  for (const raw of candidates) {
+    const [langPart, regionPart] = raw.toLowerCase().split("-");
+    const region = regionPart?.toUpperCase();
+    if (langPart === "sv" || region === "SE") return "sv";
+    if (langPart === "es" || (region && SPANISH_REGIONS.has(region) && langPart === "es")) return "es";
+    if (langPart === "es") return "es";
+    if (langPart === "en") return "en";
+  }
+  return "en";
+}
+
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en");
 
   useEffect(() => {
     const stored = (typeof window !== "undefined" && localStorage.getItem("lang")) as Lang | null;
-    if (stored && ["en", "sv", "es"].includes(stored)) setLangState(stored);
+    if (stored && ["en", "sv", "es"].includes(stored)) {
+      setLangState(stored);
+    } else {
+      setLangState(detectLang());
+    }
   }, []);
 
   const setLang = (l: Lang) => {
