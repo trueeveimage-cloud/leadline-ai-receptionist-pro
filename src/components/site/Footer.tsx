@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDialogs } from "./DialogsProvider";
 import { useI18n } from "@/lib/i18n";
+import { ThemeToggle } from "./ThemeToggle";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -21,7 +22,7 @@ export function FinalCTA() {
           <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
             {t("cta.eyebrow")}
           </p>
-          <h2 className="mt-5 text-3xl md:text-5xl font-extralight tracking-[-0.02em] leading-[1.1]">
+          <h2 className="mt-5 text-3xl md:text-5xl font-extralight tracking-normal leading-[1.1]">
             {t("cta.title")}
           </h2>
           <p className="mt-5 text-sm md:text-base text-muted-foreground max-w-md mx-auto leading-relaxed font-light">
@@ -97,7 +98,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-border/60">
-        <div className="mx-auto max-w-6xl px-6 py-6 flex flex-col-reverse sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+        <div className="mx-auto max-w-6xl px-6 py-6 flex flex-col-reverse lg:flex-row items-center justify-between gap-5 text-xs text-muted-foreground">
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
             <span>© {new Date().getFullYear()} Leadmap · {t("footer.rights")}</span>
             <span className="hidden sm:inline opacity-40">·</span>
@@ -113,13 +114,14 @@ export function Footer() {
               </a>
             </span>
           </div>
-          <div className="flex items-center gap-5">
+          <div className="flex flex-wrap items-center justify-center gap-5">
             <a href="/terms" className="hover:text-foreground transition-colors">
               {t("footer.terms")}
             </a>
             <a href="/privacy" className="hover:text-foreground transition-colors">
               {t("footer.privacy")}
             </a>
+            <ThemeToggle />
           </div>
         </div>
       </div>

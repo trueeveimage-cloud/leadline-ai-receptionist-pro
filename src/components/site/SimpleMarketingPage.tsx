@@ -51,7 +51,7 @@ export function SimpleMarketingPage({
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease, delay: 0.05 }}
-                className="mt-5 max-w-3xl text-4xl font-extralight tracking-tight md:text-7xl"
+                className="mt-5 max-w-3xl text-4xl font-extralight tracking-normal md:text-7xl"
               >
                 {title}
               </motion.h1>
@@ -79,7 +79,7 @@ export function SimpleMarketingPage({
                   className="bg-background p-6 md:p-8"
                 >
                   <p className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground">{block.eyebrow}</p>
-                  <h2 className="mt-4 text-2xl font-extralight tracking-tight">{block.title}</h2>
+                  <h2 className="mt-4 text-2xl font-extralight tracking-normal">{block.title}</h2>
                   <p className="mt-4 text-sm font-light leading-relaxed text-muted-foreground">{block.body}</p>
                 </motion.article>
               ))}

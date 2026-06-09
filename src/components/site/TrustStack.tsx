@@ -36,7 +36,7 @@ export function TrustStack() {
           <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
             Trust the handoff
           </p>
-          <h2 className="mt-5 text-3xl font-extralight tracking-tight md:text-5xl">
+          <h2 className="mt-5 text-3xl font-extralight tracking-normal md:text-5xl">
             Not a chatbot. A controlled front desk system.
           </h2>
           <p className="mt-6 max-w-md text-sm font-light leading-relaxed text-muted-foreground">
@@ -75,7 +75,7 @@ export function TrustStack() {
                     <div className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
                       {item.day}
                     </div>
-                    <h3 className="mt-2 text-xl font-light tracking-tight">{item.title}</h3>
+                    <h3 className="mt-2 text-xl font-light tracking-normal">{item.title}</h3>
                   </div>
                   <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
                     0{index + 1}

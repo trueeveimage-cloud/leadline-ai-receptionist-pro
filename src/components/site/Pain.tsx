@@ -23,7 +23,7 @@ export function Pain() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease, delay: 0.05 }}
-          className="text-2xl md:text-5xl font-extralight tracking-[-0.02em] leading-[1.15]"
+          className="text-2xl md:text-5xl font-extralight tracking-normal leading-[1.15]"
         >
           {t("pain.title")}
         </motion.h2>

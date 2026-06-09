@@ -44,7 +44,7 @@ export function Industries() {
             <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
               Best-fit customers
             </p>
-            <h2 className="mt-5 text-3xl font-extralight tracking-tight md:text-5xl">
+            <h2 className="mt-5 text-3xl font-extralight tracking-normal md:text-5xl">
               Built for businesses where one call can pay for the month.
             </h2>
           </motion.div>
@@ -76,7 +76,7 @@ export function Industries() {
                 <div className="flex h-11 w-11 items-center justify-center border border-foreground/20 transition-colors group-hover:border-foreground/50">
                   <Icon className="h-4 w-4" />
                 </div>
-                <h3 className="mt-8 text-xl font-light tracking-tight">{segment.name}</h3>
+                <h3 className="mt-8 text-xl font-light tracking-normal">{segment.name}</h3>
                 <p className="mt-2 text-xs uppercase tracking-[0.22em] text-muted-foreground">
                   {segment.examples}
                 </p>

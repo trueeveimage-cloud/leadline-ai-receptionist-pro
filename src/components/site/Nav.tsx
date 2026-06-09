@@ -39,7 +39,7 @@ export function Nav() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
           scrolled || open
-            ? "backdrop-blur-xl bg-background/80 border-b border-border/60"
+            ? "backdrop-blur-xl bg-background/86 border-b border-border/60 shadow-[0_12px_36px_-32px_var(--foreground)]"
             : "bg-transparent"
         }`}
       >
@@ -83,7 +83,7 @@ export function Nav() {
             <button
               aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
               onClick={() => setOpen((v) => !v)}
-              className="md:hidden h-10 w-10 grid place-items-center rounded-full border border-border bg-background"
+              className="md:hidden h-10 w-10 grid place-items-center rounded-full border border-border bg-background text-foreground shadow-sm"
             >
               {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>
@@ -108,7 +108,7 @@ export function Nav() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed top-16 inset-x-0 z-40 md:hidden bg-background border-b border-border"
+              className="fixed top-16 inset-x-0 z-40 md:hidden bg-background border-b border-border shadow-[0_20px_70px_-45px_var(--foreground)]"
             >
               <nav className="px-6 py-6 flex flex-col">
                 {links.map((l, i) => (

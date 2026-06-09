@@ -107,9 +107,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
+  const themeScript = `
+    (() => {
+      try {
+        const stored = window.localStorage.getItem("leadmap-theme");
+        const cookie = document.cookie.match(/(?:^|; )leadmap-theme=(dark|light)/)?.[1];
+        const theme = stored || cookie || "light";
+        document.documentElement.classList.toggle("dark", theme === "dark");
+        document.documentElement.style.colorScheme = theme;
+      } catch {
+        document.documentElement.classList.remove("dark");
+        document.documentElement.style.colorScheme = "light";
+      }
+    })();
+  `;
+
   return (
     <html lang="en">
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <HeadContent />
       </head>
       <body>

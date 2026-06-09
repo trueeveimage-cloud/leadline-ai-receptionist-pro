@@ -32,7 +32,7 @@ function TiltCard({
   const glareBg = useTransform(
     [glareX, glareY],
     ([gx, gy]) =>
-      `radial-gradient(40% 40% at ${gx} ${gy}, rgba(255,255,255,0.25), transparent 70%)`,
+      `radial-gradient(40% 40% at ${gx} ${gy}, color-mix(in oklch, var(--background) 62%, transparent), transparent 70%)`,
   );
 
   return (
@@ -147,7 +147,7 @@ export function Pricing() {
           </span>
         </div>
 
-        <h2 className="text-3xl md:text-5xl font-extralight tracking-[-0.02em] max-w-2xl leading-[1.05]">
+        <h2 className="text-3xl md:text-5xl font-extralight tracking-normal max-w-2xl leading-[1.05]">
           {t("pricing.title.l1")}
           <br />
           <span className="italic font-extralight text-foreground/40">
