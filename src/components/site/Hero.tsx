@@ -31,13 +31,17 @@ export function Hero() {
       style={{ backgroundColor: PAPER, color: INK, fontFamily: sans }}
       className="relative overflow-hidden border-b border-black/5"
     >
-      {/* Soft top vignette so the dark nav reads cleanly on the paper background */}
+      {/* Dark band sized to the fixed nav so the logo/menu read on the paper background */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-32"
+        className="pointer-events-none absolute inset-x-0 top-0 h-16"
+        style={{ backgroundColor: DEEP }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-16 h-10"
         style={{
-          background:
-            "radial-gradient(70% 60% at 50% 0%, rgba(0,0,0,0.07), transparent 70%)",
+          background: `linear-gradient(to bottom, ${DEEP}, transparent)`,
         }}
       />
 
