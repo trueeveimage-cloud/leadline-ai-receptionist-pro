@@ -491,8 +491,16 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en");
 
   useEffect(() => {
-
+    try {
+      const stored = localStorage.getItem("lang") as Lang | null;
+      if (stored && (stored === "en" || stored === "sv" || stored === "es")) {
+        setLangState(stored);
+        return;
+      }
+    } catch {
+      /* ignore */
     }
+    setLangState(detectLang());
   }, []);
 
   const setLang = (l: Lang) => {
