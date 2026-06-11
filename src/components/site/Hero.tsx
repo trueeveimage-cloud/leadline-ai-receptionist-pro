@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, PhoneIncoming } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useDialogs } from "./DialogsProvider";
 import { useI18n } from "@/lib/i18n";
 import { WordRotator } from "./WordRotator";
