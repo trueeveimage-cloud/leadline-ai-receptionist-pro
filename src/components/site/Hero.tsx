@@ -134,15 +134,11 @@ export function Hero() {
             transition={{ duration: 0.75, ease, delay: 0.32 }}
             className="mx-auto mt-10 flex w-full max-w-xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-center"
           >
-            <MagneticButton onClick={openBooking} className="relative w-full sm:w-auto">
-              <Button
-                asChild
-                size="lg"
-                variant="brand"
-                className="pointer-events-none w-full rounded-none px-9 text-[11px] font-semibold uppercase tracking-[0.22em] shadow-[0_20px_60px_-20px_color-mix(in_oklch,var(--brand)_55%,transparent)] sm:w-auto"
-              >
-                <span>{t("hero.cta.book")}</span>
-              </Button>
+            <MagneticButton
+              onClick={openBooking}
+              className="relative inline-flex h-12 w-full items-center justify-center rounded-none bg-brand px-9 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-foreground shadow-[0_20px_60px_-20px_color-mix(in_oklch,var(--brand)_55%,transparent)] transition-colors hover:bg-brand/90 sm:w-auto"
+            >
+              <span>{t("hero.cta.book")}</span>
             </MagneticButton>
             <button
               onClick={openTestAI}
