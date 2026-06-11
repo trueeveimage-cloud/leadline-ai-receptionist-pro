@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/site/Nav";
 import { Hero } from "@/components/site/Hero";
+import { AttentionSystem } from "@/components/site/AttentionSystem";
 import { Stats } from "@/components/site/SocialProof";
 import { Process } from "@/components/site/Process";
 import { Pain } from "@/components/site/Pain";
@@ -11,6 +12,7 @@ import { FinalCTA, Footer } from "@/components/site/Footer";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { CursorSpotlight } from "@/components/site/CursorSpotlight";
 import { DialogsProvider } from "@/components/site/DialogsProvider";
+import { Marquee } from "@/components/site/Marquee";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -118,6 +120,8 @@ function Index() {
         <Nav />
         <main>
           <Hero />
+          <Marquee />
+          <AttentionSystem />
           <Pain />
           <Process />
           <Industries />

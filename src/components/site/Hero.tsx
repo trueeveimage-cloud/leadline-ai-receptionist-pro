@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, PhoneIncoming } from "lucide-react";
+import { ArrowRight, CalendarCheck, MailCheck, PhoneIncoming, Sparkles } from "lucide-react";
 import { useDialogs } from "./DialogsProvider";
 import { useI18n } from "@/lib/i18n";
 import { WordRotator } from "./WordRotator";
@@ -32,15 +32,21 @@ export function Hero() {
   const liveLabel =
     lang === "sv" ? "Live · just nu" : lang === "es" ? "En vivo · ahora" : "Live · right now";
   const ringingLabel =
-    lang === "sv" ? "Ett samtal kommer in…" : lang === "es" ? "Entra una llamada…" : "A call is coming in…";
+    lang === "sv" ? "Ett samtal kommer in..." : lang === "es" ? "Entra una llamada..." : "A call is coming in...";
+
+  const rescue = [
+    { icon: PhoneIncoming, label: t("hero.rescue.1"), meta: t("hero.rescue.1.meta") },
+    { icon: Sparkles, label: t("hero.rescue.2"), meta: t("hero.rescue.2.meta") },
+    { icon: CalendarCheck, label: t("hero.rescue.3"), meta: t("hero.rescue.3.meta") },
+    { icon: MailCheck, label: t("hero.rescue.4"), meta: t("hero.rescue.4.meta") },
+  ];
 
   return (
     <section
       id="top"
       ref={sectionRef}
-      className="relative min-h-[92svh] overflow-hidden border-b border-border/60 pt-24 pb-16 md:min-h-[96svh] md:pt-32 md:pb-24"
+      className="relative overflow-hidden border-b border-border/60 pt-24 pb-12 md:pt-28 md:pb-20"
     >
-      {/* layered backdrops */}
       <motion.div
         aria-hidden
         style={reduce ? undefined : { y: lineY }}
@@ -50,13 +56,11 @@ export function Hero() {
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-44 bg-[radial-gradient(60%_50%_at_50%_0%,var(--hero-glow),transparent_72%)]"
       />
-      {/* faint dotted grid */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.04]"
         style={{
-          backgroundImage:
-            "radial-gradient(var(--foreground) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(var(--foreground) 1px, transparent 1px)",
           backgroundSize: "24px 24px",
         }}
       />
@@ -66,7 +70,6 @@ export function Hero() {
         className="pointer-events-none absolute left-1/2 top-24 hidden h-[62vh] w-[min(26rem,30vw)] -translate-x-1/2 border-x border-foreground/[0.06] md:block"
       />
 
-      {/* animated waveform behind the content */}
       <HeroWaveform />
 
       <motion.div
@@ -74,7 +77,6 @@ export function Hero() {
         className="relative mx-auto flex max-w-4xl flex-col items-center px-6 text-center"
       >
         <div className="w-full">
-          {/* Live pill */}
           <motion.div
             initial={reduce ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -99,7 +101,7 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, ease, delay: 0.05 }}
-            className="mx-auto mt-7 max-w-4xl text-5xl font-extralight leading-[0.98] tracking-tight md:text-7xl lg:text-[5.4rem]"
+            className="mx-auto mt-6 max-w-4xl text-5xl font-extralight leading-[0.98] tracking-tight md:mt-7 md:text-7xl lg:text-[5.4rem]"
           >
             <span>
               {t("hero.title.l1")}{" "}
@@ -108,12 +110,11 @@ export function Hero() {
             <span className="block">{t("hero.title.l3")}</span>
           </motion.h1>
 
-          {/* Rotating industries strip */}
           <motion.p
             initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease, delay: 0.18 }}
-            className="mx-auto mt-6 flex items-center justify-center gap-2 text-base md:text-xl font-light text-muted-foreground"
+            className="mx-auto mt-5 flex items-center justify-center gap-2 text-base font-light text-muted-foreground md:mt-6 md:text-xl"
           >
             <span className="font-serif italic text-foreground/70">For&nbsp;</span>
             <WordRotator words={industries} className="font-serif italic text-foreground" />
@@ -132,7 +133,7 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease, delay: 0.32 }}
-            className="mx-auto mt-10 flex w-full max-w-xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-center"
+            className="mx-auto mt-8 flex w-full max-w-xl flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-center"
           >
             <MagneticButton
               onClick={openBooking}
@@ -149,11 +150,42 @@ export function Hero() {
             </button>
           </motion.div>
 
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, ease, delay: 0.38 }}
+            className="mx-auto mt-7 grid w-full max-w-3xl grid-cols-2 gap-px overflow-hidden border border-border/70 bg-border/70 text-left sm:mt-9 lg:grid-cols-4"
+          >
+            {rescue.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.label}
+                  className="group relative bg-background p-3 transition-colors hover:bg-card sm:p-4"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="grid h-8 w-8 shrink-0 place-items-center border border-foreground/15 transition-colors group-hover:border-foreground/45 sm:h-9 sm:w-9">
+                      <Icon className="h-4 w-4" />
+                    </span>
+                    <span className="text-sm font-medium leading-tight">{item.label}</span>
+                  </div>
+                  <div className="mt-2.5 flex items-center gap-2 sm:mt-3">
+                    <span className="text-[10px] tabular-nums text-muted-foreground">0{index + 1}</span>
+                    <span className="h-px flex-1 bg-foreground/15" />
+                  </div>
+                  <p className="mt-2 text-[9px] uppercase tracking-[0.16em] text-muted-foreground sm:text-[10px] sm:tracking-[0.2em]">
+                    {item.meta}
+                  </p>
+                </div>
+              );
+            })}
+          </motion.div>
+
           <motion.dl
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease, delay: 0.42 }}
-            className="mx-auto mt-14 grid w-full max-w-2xl grid-cols-3 gap-px bg-border/70 text-center"
+            transition={{ duration: 0.75, ease, delay: 0.46 }}
+            className="mx-auto mt-6 grid w-full max-w-2xl grid-cols-3 gap-px bg-border/70 text-center sm:mt-8"
           >
             {[
               ["24/7", t("hero.stat.pickup")],
@@ -162,7 +194,7 @@ export function Hero() {
             ].map(([value, label]) => (
               <div key={label} className="bg-background px-2 py-4 sm:px-5">
                 <dt className="text-2xl font-extralight tracking-tight">{value}</dt>
-                <dd className="mt-1 text-[9px] sm:text-[10px] uppercase tracking-widest sm:tracking-[0.24em] text-muted-foreground break-words hyphens-auto">
+                <dd className="mt-1 break-words text-[9px] uppercase tracking-widest text-muted-foreground hyphens-auto sm:text-[10px] sm:tracking-[0.24em]">
                   {label}
                 </dd>
               </div>
@@ -171,7 +203,6 @@ export function Hero() {
         </div>
       </motion.div>
 
-      {/* scroll cue */}
       <motion.div
         aria-hidden
         initial={{ opacity: 0 }}
