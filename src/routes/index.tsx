@@ -121,9 +121,9 @@ function Index() {
         <main>
           <Hero />
           <Marquee />
-          <AttentionSystem />
           <Pain />
           <Process />
+          <AttentionSystem />
           <Industries />
           <Stats />
           <Pricing />
