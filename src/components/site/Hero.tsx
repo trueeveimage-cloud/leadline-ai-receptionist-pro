@@ -5,7 +5,7 @@ import { useDialogs } from "./DialogsProvider";
 import { useI18n } from "@/lib/i18n";
 import { WordRotator } from "./WordRotator";
 import { MagneticButton } from "./MagneticButton";
-import { HeroWaveform } from "./HeroWaveform";
+import { HeroOrbs } from "./HeroOrbs";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -70,7 +70,7 @@ export function Hero() {
         className="pointer-events-none absolute left-1/2 top-24 hidden h-[62vh] w-[min(26rem,30vw)] -translate-x-1/2 border-x border-foreground/[0.06] md:block"
       />
 
-      <HeroWaveform />
+      <HeroOrbs />
 
       <motion.div
         style={reduce ? undefined : { y: titleY, opacity: titleOpacity }}
