@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { queueOwnerNotification } from "@/lib/owner-notifications.server";
 
 const schema = z.object({
   name: z.string().trim().min(1).max(100),
@@ -43,6 +42,7 @@ export const Route = createFileRoute("/api/public/messages")({
             );
           }
           try {
+            const { queueOwnerNotification } = await import("@/lib/owner-notifications.server");
             await queueOwnerNotification("owner-message-notification", parsed.data);
           } catch (notificationError) {
             console.error("[leadmap] message notification failed", notificationError);
