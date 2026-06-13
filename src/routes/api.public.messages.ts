@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 const schema = z.object({
   name: z.string().trim().min(1).max(100),
@@ -28,6 +27,7 @@ export const Route = createFileRoute("/api/public/messages")({
               { status: 400, headers: { "Content-Type": "application/json", ...CORS } },
             );
           }
+          const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
           const { error } = await supabaseAdmin.from("messages").insert({
             name: parsed.data.name,
             email: parsed.data.email,
@@ -40,6 +40,12 @@ export const Route = createFileRoute("/api/public/messages")({
               JSON.stringify({ ok: false, error: "Server error." }),
               { status: 500, headers: { "Content-Type": "application/json", ...CORS } },
             );
+          }
+          try {
+            const { queueOwnerNotification } = await import("@/lib/owner-notifications.server");
+            await queueOwnerNotification("owner-message-notification", parsed.data);
+          } catch (notificationError) {
+            console.error("[leadmap] message notification failed", notificationError);
           }
           return new Response(JSON.stringify({ ok: true }), {
             status: 200,
