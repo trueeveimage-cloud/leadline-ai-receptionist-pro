@@ -1,4 +1,6 @@
 import type { ComponentType } from 'react'
+import { template as ownerBookingNotification } from './owner-booking-notification'
+import { template as ownerMessageNotification } from './owner-message-notification'
 
 export interface TemplateEntry {
   component: ComponentType<any>
@@ -18,6 +20,6 @@ export interface TemplateEntry {
  *   // then add to TEMPLATES: 'welcome': welcomeTemplate
  */
 export const TEMPLATES: Record<string, TemplateEntry> = {
-  // Add templates here as they are created, e.g.:
-  // 'welcome': welcomeTemplate,
+  'owner-booking-notification': ownerBookingNotification,
+  'owner-message-notification': ownerMessageNotification,
 }

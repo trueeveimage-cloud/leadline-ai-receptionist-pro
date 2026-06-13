@@ -13,14 +13,16 @@ export async function queueOwnerNotification(templateName: string, templateData:
   const text = await render(element, { plainText: true })
   const subject = typeof template.subject === 'function' ? template.subject(templateData) : template.subject
 
-  await supabaseAdmin.from('email_send_log').insert({
+  const emailDb = supabaseAdmin as any
+
+  await emailDb.from('email_send_log').insert({
     message_id: messageId,
     template_name: templateName,
     recipient_email: template.to,
     status: 'pending',
   })
 
-  const { error } = await supabaseAdmin.rpc('enqueue_email', {
+  const { error } = await emailDb.rpc('enqueue_email', {
     queue_name: 'transactional_emails',
     payload: {
       message_id: messageId,
@@ -38,7 +40,7 @@ export async function queueOwnerNotification(templateName: string, templateData:
   })
 
   if (error) {
-    await supabaseAdmin.from('email_send_log').insert({
+    await emailDb.from('email_send_log').insert({
       message_id: messageId,
       template_name: templateName,
       recipient_email: template.to,

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { queueOwnerNotification } from "@/lib/owner-notifications.server";
 
 const schema = z.object({
   name: z.string().trim().min(1).max(100),
@@ -58,6 +59,17 @@ export const Route = createFileRoute("/api/public/leads")({
               JSON.stringify({ ok: false, error: "Server error." }),
               { status: 500, headers: { "Content-Type": "application/json", ...CORS } },
             );
+          }
+
+          try {
+            await queueOwnerNotification("owner-booking-notification", {
+              name: parsed.data.name,
+              company: parsed.data.company,
+              phone: parsed.data.phone,
+              preferredTime: `${parsed.data.date} ${parsed.data.slot} (${parsed.data.timezone})`,
+            });
+          } catch (notificationError) {
+            console.error("[leadline] booking notification failed", notificationError);
           }
 
           return new Response(JSON.stringify({ ok: true }), {
