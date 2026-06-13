@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 const schema = z.object({
   name: z.string().trim().min(1).max(100),
@@ -42,6 +41,7 @@ export const Route = createFileRoute("/api/public/leads")({
             );
           }
 
+          const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
           const { error: insertError } = await supabaseAdmin
             .from("leads")
             .insert({
