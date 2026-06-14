@@ -35,6 +35,7 @@ const schema = z.object({
   date: z.string().min(1, "Pick a date"),
   slot: z.string().min(1, "Pick a slot"),
   timezone: z.string().min(1),
+  website: z.string().max(0),
 });
 
 const slots = ["09:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
@@ -85,6 +86,7 @@ export function BookingDialog({
     date: dates[0]?.value ?? "",
     slot: "",
     timezone: tz,
+    website: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
@@ -156,6 +158,7 @@ export function BookingDialog({
       date: dates[0]?.value ?? "",
       slot: "",
       timezone: tz,
+      website: "",
     });
     setErrors({});
     setStep(0);
@@ -245,6 +248,17 @@ export function BookingDialog({
 
             {/* Body */}
             <div className="px-6 sm:px-8 py-6 overflow-y-auto flex-1">
+              <div className="hidden" aria-hidden="true">
+                <Label htmlFor="booking-website">Website</Label>
+                <Input
+                  id="booking-website"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={form.website}
+                  onChange={(event) => update("website", event.target.value)}
+                />
+              </div>
               <AnimatePresence mode="wait">
                 {step === 0 && (
                   <motion.div
