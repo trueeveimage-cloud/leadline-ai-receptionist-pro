@@ -32,9 +32,7 @@ function TermsPage() {
         <h1 className="text-3xl md:text-5xl font-medium tracking-[-0.025em]">
           Terms &amp; Conditions
         </h1>
-        <p className="mt-3 text-sm text-muted-foreground">
-          Last updated: {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
-        </p>
+        <p className="mt-3 text-sm text-muted-foreground">Last updated: June 14, 2026</p>
 
         <div className="prose prose-neutral mt-12 max-w-none space-y-10 text-[15px] leading-relaxed text-foreground/90">
           <Section title="1. Agreement">
@@ -68,16 +66,6 @@ function TermsPage() {
             information, prices, opening hours and availability. Leadmap is not
             responsible for missed calls caused by wrong setup information, third-party
             outages, phone provider issues or calendar errors.
-          </Section>
-
-          <Section title="5. Data and privacy">
-            Calls, transcripts and contact details are stored within the EU and
-            encrypted at rest. We sign Data Processing Agreements on request and never
-            train public models on your conversations. See our{" "}
-            <Link to="/privacy" className="underline hover:text-foreground">
-              Privacy Policy
-            </Link>{" "}
-            for the details.
           </Section>
 
           <Section title="6. Data and privacy">

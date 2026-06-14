@@ -30,9 +30,7 @@ function PrivacyPage() {
       <main className="mx-auto max-w-3xl px-6 py-16 md:py-24">
         <p className="text-[11px] uppercase tracking-[0.22em] text-brand mb-4">Legal</p>
         <h1 className="text-3xl md:text-5xl font-medium tracking-[-0.025em]">Privacy Policy</h1>
-        <p className="mt-3 text-sm text-muted-foreground">
-          Last updated: {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
-        </p>
+        <p className="mt-3 text-sm text-muted-foreground">Last updated: June 14, 2026</p>
 
         <div className="mt-12 max-w-none space-y-10 text-[15px] leading-relaxed text-foreground/90">
           <Section title="What we collect">
