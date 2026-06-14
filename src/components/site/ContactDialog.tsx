@@ -16,6 +16,7 @@ const schema = z.object({
   name: z.string().trim().min(1).max(100),
   email: z.string().trim().email().max(160),
   message: z.string().trim().min(5).max(2000),
+  website: z.string().max(0),
 });
 
 export function ContactDialog({
@@ -25,14 +26,14 @@ export function ContactDialog({
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", message: "", website: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
   const reset = () => {
-    setForm({ name: "", email: "", message: "" });
+    setForm({ name: "", email: "", message: "", website: "" });
     setErrors({});
     setSent(false);
     setSending(false);
@@ -115,6 +116,17 @@ export function ContactDialog({
             </div>
 
             <form onSubmit={submit} className="px-6 sm:px-8 py-6 space-y-5">
+              <div className="hidden" aria-hidden="true">
+                <Label htmlFor="contact-website">Website</Label>
+                <Input
+                  id="contact-website"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={form.website}
+                  onChange={(e) => setForm((current) => ({ ...current, website: e.target.value }))}
+                />
+              </div>
               <div>
                 <Label className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground font-medium">
                   Name

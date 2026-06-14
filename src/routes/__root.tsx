@@ -81,7 +81,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Leadmap" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Leadmap — AI Receptionists" },
       { name: "twitter:description", content: "Leadmap provides premium AI receptionists to handle calls, qualify leads, and book appointments." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/df17544f-92aa-495d-bfb9-bf70a620efaf/id-preview-a2ad0a17--db12fc5f-e412-441a-9002-745e2cbf253f.lovable.app-1779668951866.png" },
@@ -123,7 +122,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
   `;
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <HeadContent />

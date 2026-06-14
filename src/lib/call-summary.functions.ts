@@ -5,14 +5,17 @@ import { createLovableAiGatewayProvider } from "./ai-gateway.server";
 
 const TurnSchema = z.object({
   role: z.enum(["agent", "user"]),
-  text: z.string().min(1).max(4000),
+  text: z.string().min(1).max(1000),
 });
 
 const InputSchema = z.object({
   language: z.enum(["en", "sv", "es"]).default("en"),
   businessType: z.string().max(120).optional(),
-  transcript: z.array(TurnSchema).min(1).max(120),
-});
+  transcript: z.array(TurnSchema).min(1).max(80),
+}).refine(
+  (input) => input.transcript.reduce((total, turn) => total + turn.text.length, 0) <= 20000,
+  { message: "Transcript is too long", path: ["transcript"] },
+);
 
 const SummarySchema = z.object({
   caller_name: z.string().describe("Caller's full name, or 'Unknown' if not stated."),
