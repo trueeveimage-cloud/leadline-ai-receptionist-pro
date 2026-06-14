@@ -15,7 +15,6 @@ import { DialogsProvider } from "@/components/site/DialogsProvider";
 import { Marquee } from "@/components/site/Marquee";
 import { TrustStack } from "@/components/site/TrustStack";
 import { StickyDemoNudge } from "@/components/site/StickyDemoNudge";
-import { ProofVisuals } from "@/components/site/ProofVisuals";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -124,7 +123,6 @@ function Index() {
         <main>
           <Hero />
           <Marquee />
-          <ProofVisuals />
           <Process />
           <AttentionSystem />
           <Industries />

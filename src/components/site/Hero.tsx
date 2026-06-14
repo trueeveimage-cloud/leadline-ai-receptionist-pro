@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, CalendarCheck, CheckCircle2, MailCheck, PhoneIncoming, Sparkles } from "lucide-react";
+import { ArrowRight, CalendarCheck, MailCheck, PhoneIncoming, Sparkles } from "lucide-react";
 import { useDialogs } from "./DialogsProvider";
 import { useI18n } from "@/lib/i18n";
 import { WordRotator } from "./WordRotator";
@@ -21,7 +21,6 @@ export function Hero() {
   const lineY = useTransform(scrollYProgress, [0, 1], ["-10%", "18%"]);
   const titleY = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]);
   const titleOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.15]);
-  const signalY = useTransform(scrollYProgress, [0, 1], ["-6%", "12%"]);
 
   const industries =
     lang === "sv"
@@ -76,42 +75,6 @@ export function Hero() {
       />
 
       <HeroOrbs />
-
-      <motion.div
-        aria-hidden
-        style={reduce ? undefined : { y: signalY }}
-        className="pointer-events-none absolute left-6 top-32 hidden w-52 border border-border/70 bg-background/70 p-3 backdrop-blur-md xl:block"
-      >
-        <div className="flex items-center justify-between text-[9px] uppercase tracking-[0.24em] text-muted-foreground">
-          <span>{t("hero.signal")}</span>
-          <span>{t("hero.signal.live")}</span>
-        </div>
-        <div className="mt-4 space-y-3">
-          {[
-            ["00:01", t("hero.signal.1")],
-            [t("hero.signal.2.value"), t("hero.signal.2")],
-            [t("hero.signal.3.value"), t("hero.signal.3")],
-          ].map(([value, label]) => (
-            <div key={label} className="flex items-center justify-between border-t border-border/60 pt-3">
-              <span className="text-lg font-extralight tabular-nums text-foreground">{value}</span>
-              <span className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground">{label}</span>
-            </div>
-          ))}
-        </div>
-      </motion.div>
-
-      <motion.div
-        aria-hidden
-        style={reduce ? undefined : { y: lineY }}
-        className="pointer-events-none absolute right-8 top-36 hidden w-44 border border-border/70 bg-foreground p-3 text-background shadow-[0_30px_90px_-70px_var(--foreground)] xl:block"
-      >
-        <div className="flex items-center gap-2 text-[9px] uppercase tracking-[0.24em] text-background/60">
-          <CheckCircle2 className="h-3 w-3" />
-          {t("hero.saved")}
-        </div>
-        <div className="mt-5 text-3xl font-extralight tabular-nums">0</div>
-        <div className="mt-1 text-[9px] uppercase tracking-[0.22em] text-background/55">{t("hero.saved.meta")}</div>
-      </motion.div>
 
       <motion.div
         style={reduce ? undefined : { y: titleY, opacity: titleOpacity }}
