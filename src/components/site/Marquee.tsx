@@ -1,23 +1,25 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { useI18n } from "@/lib/i18n";
 
 const marks = [
-  "INSTANT PICKUP",
+  "marquee.1",
   "-",
-  "MISSED CALL RESCUE",
+  "marquee.2",
   "-",
-  "QUALIFIED LEADS",
+  "marquee.3",
   "-",
-  "OWNER-READY SUMMARIES",
+  "marquee.4",
   "-",
-  "SWEDISH / ENGLISH / SPANISH",
+  "marquee.5",
   "-",
-  "LIVE IN 7 DAYS",
+  "marquee.6",
   "-",
-  "NO VOICEMAIL DEAD ENDS",
-];
+  "marquee.7",
+] as const;
 
 export function Marquee() {
   const reduce = useReducedMotion();
+  const { t } = useI18n();
   const row = [...marks, ...marks];
   return (
     <section
@@ -37,7 +39,7 @@ export function Marquee() {
             key={`${m}-${i}`}
             className="text-[10px] font-semibold uppercase tracking-[0.34em] text-background/72"
           >
-            {m}
+            {m === "-" ? m : t(m)}
           </span>
         ))}
       </motion.div>

@@ -13,6 +13,8 @@ import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { CursorSpotlight } from "@/components/site/CursorSpotlight";
 import { DialogsProvider } from "@/components/site/DialogsProvider";
 import { Marquee } from "@/components/site/Marquee";
+import { TrustStack } from "@/components/site/TrustStack";
+import { StickyDemoNudge } from "@/components/site/StickyDemoNudge";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -126,11 +128,13 @@ function Index() {
           <AttentionSystem />
           <Industries />
           <Stats />
+          <TrustStack />
           <Pricing />
           <FAQ />
           <FinalCTA />
         </main>
 
+        <StickyDemoNudge />
         <Footer />
       </div>
     </DialogsProvider>

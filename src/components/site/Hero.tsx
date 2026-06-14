@@ -116,7 +116,7 @@ export function Hero() {
             transition={{ duration: 0.75, ease, delay: 0.18 }}
             className="mx-auto mt-5 flex items-center justify-center gap-2 text-base font-light text-muted-foreground md:mt-6 md:text-xl"
           >
-            <span className="font-serif italic text-foreground/70">For&nbsp;</span>
+            <span className="font-serif italic text-foreground/70">{t("hero.for")}&nbsp;</span>
             <WordRotator words={industries} className="font-serif italic text-foreground" />
           </motion.p>
 
@@ -148,6 +148,22 @@ export function Hero() {
               <span>{t("hero.cta.test")}</span>
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </button>
+          </motion.div>
+
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, ease, delay: 0.36 }}
+            className="mx-auto mt-4 flex w-full max-w-2xl flex-wrap items-center justify-center gap-2 text-center"
+          >
+            {[t("hero.trust.1"), t("hero.trust.2"), t("hero.trust.3")].map((item) => (
+              <span
+                key={item}
+                className="border border-border/70 bg-background/70 px-3 py-1.5 text-[10px] uppercase tracking-[0.18em] text-muted-foreground backdrop-blur-sm"
+              >
+                {item}
+              </span>
+            ))}
           </motion.div>
 
           <motion.div
@@ -189,8 +205,8 @@ export function Hero() {
           >
             {[
               ["24/7", t("hero.stat.pickup")],
-              ["7 days", t("hero.stat.setup")],
-              ["Inbox", t("hero.stat.summaries")],
+              [t("hero.stat.setup.value"), t("hero.stat.setup")],
+              [t("hero.stat.summaries.value"), t("hero.stat.summaries")],
             ].map(([value, label]) => (
               <div key={label} className="bg-background px-2 py-4 sm:px-5">
                 <dt className="text-2xl font-extralight tracking-tight">{value}</dt>
@@ -210,7 +226,7 @@ export function Hero() {
         transition={{ delay: 1.1, duration: 0.6 }}
         className="pointer-events-none absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex"
       >
-        <span className="text-[9px] uppercase tracking-[0.4em] text-muted-foreground">scroll</span>
+        <span className="text-[9px] uppercase tracking-[0.4em] text-muted-foreground">{t("hero.scroll")}</span>
         <motion.span
           className="h-8 w-px bg-foreground/30"
           animate={reduce ? undefined : { scaleY: [0.3, 1, 0.3], originY: 0 }}
