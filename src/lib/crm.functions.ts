@@ -1,11 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 export const listLeads = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async () => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await supabaseAdmin
       .from("leads")
       .select("id, name, company, phone, preferred_time, contacted, user_agent, created_at")
@@ -21,6 +21,7 @@ export const listLeads = createServerFn({ method: "GET" })
 export const listMessages = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async () => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await supabaseAdmin
       .from("messages")
       .select("id, name, email, message, contacted, user_agent, created_at")
@@ -42,6 +43,7 @@ export const setLeadContacted = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) => toggleSchema.parse(input))
   .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
       .from("leads")
       .update({ contacted: data.contacted })
@@ -54,6 +56,7 @@ export const setMessageContacted = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) => toggleSchema.parse(input))
   .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
       .from("messages")
       .update({ contacted: data.contacted })
@@ -70,6 +73,7 @@ export const listCustomerNotes = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) => listNotesSchema.parse(input))
   .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: notes, error } = await supabaseAdmin
       .from("customer_notes")
       .select("id, customer_key, body, created_at")
@@ -88,6 +92,7 @@ export const addCustomerNote = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) => addNoteSchema.parse(input))
   .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin.from("customer_notes").insert({
       customer_key: data.customerKey.toLowerCase(),
       body: data.body,
@@ -104,6 +109,7 @@ export const getCustomerHistory = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) => customerSchema.parse(input))
   .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const key = data.customerKey.toLowerCase();
     const [msgsRes, leadsByPhone, leadsByName, notesRes] = await Promise.all([
       supabaseAdmin
