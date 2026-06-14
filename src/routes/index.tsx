@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/site/Nav";
 import { Hero } from "@/components/site/Hero";
 import { AttentionSystem } from "@/components/site/AttentionSystem";
+import { BuyerSafety } from "@/components/site/BuyerSafety";
 import { Stats } from "@/components/site/SocialProof";
 import { Process } from "@/components/site/Process";
-import { Pain } from "@/components/site/Pain";
 import { Industries } from "@/components/site/Industries";
 import { Pricing } from "@/components/site/Pricing";
 import { FAQ } from "@/components/site/FAQ";
@@ -15,6 +15,7 @@ import { DialogsProvider } from "@/components/site/DialogsProvider";
 import { Marquee } from "@/components/site/Marquee";
 import { TrustStack } from "@/components/site/TrustStack";
 import { StickyDemoNudge } from "@/components/site/StickyDemoNudge";
+import { ProofVisuals } from "@/components/site/ProofVisuals";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -123,12 +124,13 @@ function Index() {
         <main>
           <Hero />
           <Marquee />
-          <Pain />
+          <ProofVisuals />
           <Process />
           <AttentionSystem />
           <Industries />
           <Stats />
           <TrustStack />
+          <BuyerSafety />
           <Pricing />
           <FAQ />
           <FinalCTA />
