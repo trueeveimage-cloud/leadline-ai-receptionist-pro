@@ -10,11 +10,9 @@ import { Pricing } from "@/components/site/Pricing";
 import { FAQ } from "@/components/site/FAQ";
 import { FinalCTA, Footer } from "@/components/site/Footer";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
-import { CursorSpotlight } from "@/components/site/CursorSpotlight";
 import { DialogsProvider } from "@/components/site/DialogsProvider";
 import { Marquee } from "@/components/site/Marquee";
 import { TrustStack } from "@/components/site/TrustStack";
-import { StickyDemoNudge } from "@/components/site/StickyDemoNudge";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -118,7 +116,6 @@ function Index() {
     <DialogsProvider>
       <div className="min-h-screen bg-background text-foreground">
         <ScrollProgress />
-        <CursorSpotlight />
         <Nav />
         <main>
           <Hero />
@@ -134,7 +131,6 @@ function Index() {
           <FinalCTA />
         </main>
 
-        <StickyDemoNudge />
         <Footer />
       </div>
     </DialogsProvider>

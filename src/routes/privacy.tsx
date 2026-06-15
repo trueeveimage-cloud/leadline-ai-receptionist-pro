@@ -7,7 +7,11 @@ export const Route = createFileRoute("/privacy")({
       { name: "description", content: "How Leadmap collects, stores and protects call recordings, transcripts and contact details under GDPR." },
       { property: "og:title", content: "Privacy Policy — Leadmap" },
       { property: "og:description", content: "How Leadmap handles your data: EU storage, encryption, GDPR rights and subprocessors." },
+      { property: "og:url", content: "https://www.leadmap.se/privacy" },
+      { name: "twitter:title", content: "Privacy Policy — Leadmap" },
+      { name: "twitter:description", content: "How Leadmap handles your data, privacy rights and security." },
     ],
+    links: [{ rel: "canonical", href: "https://www.leadmap.se/privacy" }],
   }),
   component: PrivacyPage,
 });

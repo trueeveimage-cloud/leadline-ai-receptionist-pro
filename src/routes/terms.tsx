@@ -7,7 +7,11 @@ export const Route = createFileRoute("/terms")({
       { name: "description", content: "Read the Leadmap terms and conditions for our AI receptionist services, pilot program, billing and acceptable use." },
       { property: "og:title", content: "Terms & Conditions — Leadmap" },
       { property: "og:description", content: "The terms that govern your use of Leadmap's AI receptionist services, pilot program and billing." },
+      { property: "og:url", content: "https://www.leadmap.se/terms" },
+      { name: "twitter:title", content: "Terms & Conditions — Leadmap" },
+      { name: "twitter:description", content: "Terms for Leadmap's AI receptionist services, pilots and billing." },
     ],
+    links: [{ rel: "canonical", href: "https://www.leadmap.se/terms" }],
   }),
   component: TermsPage,
 });
