@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { seoPaths, useCasePaths } from "@/lib/marketing-pages";
 
 const BASE_URL = "https://www.leadmap.se";
 
@@ -15,10 +16,13 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         const entries: SitemapEntry[] = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
+          { path: "/missade-samtal-audit", changefreq: "weekly", priority: "0.9" },
           { path: "/experience", changefreq: "weekly", priority: "0.8" },
           { path: "/partners", changefreq: "weekly", priority: "0.75" },
           { path: "/vvs-emergency-trades", changefreq: "weekly", priority: "0.7" },
           { path: "/dental-clinics", changefreq: "weekly", priority: "0.7" },
+          ...useCasePaths.map((path) => ({ path, changefreq: "weekly" as const, priority: "0.72" })),
+          ...seoPaths.map((path) => ({ path, changefreq: "weekly" as const, priority: "0.68" })),
           { path: "/about", changefreq: "monthly", priority: "0.5" },
           { path: "/contact", changefreq: "monthly", priority: "0.5" },
           { path: "/privacy", changefreq: "yearly", priority: "0.3" },

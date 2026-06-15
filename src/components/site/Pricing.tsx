@@ -267,6 +267,12 @@ export function Pricing() {
             </span>
             <span>{t("pricing.testBefore")}</span>
           </button>
+          <a
+            href="/missade-samtal-audit?utm_source=pricing&utm_medium=cta&utm_campaign=free_audit"
+            className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground underline underline-offset-8 transition-colors hover:text-foreground"
+          >
+            Fa gratis missade-samtal audit
+          </a>
           <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground text-center">
             {t("pricing.footer")}
           </p>

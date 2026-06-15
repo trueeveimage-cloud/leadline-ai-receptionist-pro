@@ -12,6 +12,7 @@ import { DialogsProvider } from "@/components/site/DialogsProvider";
 import { Marquee } from "@/components/site/Marquee";
 import { TrustStack } from "@/components/site/TrustStack";
 import { ExperienceBridge } from "@/components/site/ExperienceBridge";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -119,6 +120,7 @@ function Index() {
         <main>
           <Hero />
           <Marquee />
+          <AuditStrip />
           <Process />
           <ExperienceBridge />
           <Stats />
@@ -132,5 +134,25 @@ function Index() {
         <Footer />
       </div>
     </DialogsProvider>
+  );
+}
+
+function AuditStrip() {
+  return (
+    <section className="border-y border-border/60 bg-card/35 py-8">
+      <div className="mx-auto flex max-w-6xl flex-col gap-5 px-6 md:flex-row md:items-center md:justify-between">
+        <div>
+          <p className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground">Gratis missade-samtal audit</p>
+          <h2 className="mt-2 text-2xl font-extralight tracking-normal md:text-3xl">
+            Se hur Leadmap skulle svara at ditt foretag innan du bokar.
+          </h2>
+        </div>
+        <Button asChild variant="outline" className="rounded-none px-6 text-[11px] font-semibold uppercase tracking-[0.18em]">
+          <a href="/missade-samtal-audit?utm_source=homepage&utm_medium=cta&utm_campaign=free_audit">
+            Fa gratis audit
+          </a>
+        </Button>
+      </div>
+    </section>
   );
 }
