@@ -9,11 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VvsEmergencyTradesRouteImport } from './routes/vvs-emergency-trades'
 import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as ExperienceRouteImport } from './routes/experience'
+import { Route as DentalClinicsRouteImport } from './routes/dental-clinics'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
@@ -28,6 +31,11 @@ import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lova
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 
+const VvsEmergencyTradesRoute = VvsEmergencyTradesRouteImport.update({
+  id: '/vvs-emergency-trades',
+  path: '/vvs-emergency-trades',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UnsubscribeRoute = UnsubscribeRouteImport.update({
   id: '/unsubscribe',
   path: '/unsubscribe',
@@ -48,9 +56,19 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PartnersRoute = PartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExperienceRoute = ExperienceRouteImport.update({
   id: '/experience',
   path: '/experience',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DentalClinicsRoute = DentalClinicsRouteImport.update({
+  id: '/dental-clinics',
+  path: '/dental-clinics',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -127,11 +145,14 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/dental-clinics': typeof DentalClinicsRoute
   '/experience': typeof ExperienceRoute
+  '/partners': typeof PartnersRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/vvs-emergency-trades': typeof VvsEmergencyTradesRoute
   '/LeadLineNoti': typeof AuthenticatedLeadLineNotiRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
@@ -146,11 +167,14 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/dental-clinics': typeof DentalClinicsRoute
   '/experience': typeof ExperienceRoute
+  '/partners': typeof PartnersRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/vvs-emergency-trades': typeof VvsEmergencyTradesRoute
   '/LeadLineNoti': typeof AuthenticatedLeadLineNotiRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
@@ -167,11 +191,14 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/dental-clinics': typeof DentalClinicsRoute
   '/experience': typeof ExperienceRoute
+  '/partners': typeof PartnersRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/vvs-emergency-trades': typeof VvsEmergencyTradesRoute
   '/_authenticated/LeadLineNoti': typeof AuthenticatedLeadLineNotiRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
@@ -188,11 +215,14 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/contact'
+    | '/dental-clinics'
     | '/experience'
+    | '/partners'
     | '/privacy'
     | '/sitemap.xml'
     | '/terms'
     | '/unsubscribe'
+    | '/vvs-emergency-trades'
     | '/LeadLineNoti'
     | '/email/unsubscribe'
     | '/api/public/leads'
@@ -207,11 +237,14 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/contact'
+    | '/dental-clinics'
     | '/experience'
+    | '/partners'
     | '/privacy'
     | '/sitemap.xml'
     | '/terms'
     | '/unsubscribe'
+    | '/vvs-emergency-trades'
     | '/LeadLineNoti'
     | '/email/unsubscribe'
     | '/api/public/leads'
@@ -227,11 +260,14 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/contact'
+    | '/dental-clinics'
     | '/experience'
+    | '/partners'
     | '/privacy'
     | '/sitemap.xml'
     | '/terms'
     | '/unsubscribe'
+    | '/vvs-emergency-trades'
     | '/_authenticated/LeadLineNoti'
     | '/email/unsubscribe'
     | '/api/public/leads'
@@ -248,11 +284,14 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
+  DentalClinicsRoute: typeof DentalClinicsRoute
   ExperienceRoute: typeof ExperienceRoute
+  PartnersRoute: typeof PartnersRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
+  VvsEmergencyTradesRoute: typeof VvsEmergencyTradesRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   ApiPublicLeadsRoute: typeof ApiPublicLeadsRoute
   ApiPublicMessagesRoute: typeof ApiPublicMessagesRoute
@@ -264,6 +303,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vvs-emergency-trades': {
+      id: '/vvs-emergency-trades'
+      path: '/vvs-emergency-trades'
+      fullPath: '/vvs-emergency-trades'
+      preLoaderRoute: typeof VvsEmergencyTradesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/unsubscribe': {
       id: '/unsubscribe'
       path: '/unsubscribe'
@@ -292,11 +338,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/partners': {
+      id: '/partners'
+      path: '/partners'
+      fullPath: '/partners'
+      preLoaderRoute: typeof PartnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/experience': {
       id: '/experience'
       path: '/experience'
       fullPath: '/experience'
       preLoaderRoute: typeof ExperienceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dental-clinics': {
+      id: '/dental-clinics'
+      path: '/dental-clinics'
+      fullPath: '/dental-clinics'
+      preLoaderRoute: typeof DentalClinicsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -410,11 +470,14 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
+  DentalClinicsRoute: DentalClinicsRoute,
   ExperienceRoute: ExperienceRoute,
+  PartnersRoute: PartnersRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   UnsubscribeRoute: UnsubscribeRoute,
+  VvsEmergencyTradesRoute: VvsEmergencyTradesRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   ApiPublicLeadsRoute: ApiPublicLeadsRoute,
   ApiPublicMessagesRoute: ApiPublicMessagesRoute,

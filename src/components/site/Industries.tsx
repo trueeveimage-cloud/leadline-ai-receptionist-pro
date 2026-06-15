@@ -8,10 +8,12 @@ const segments = [
   {
     key: "industries.1",
     icon: AlertTriangle,
+    href: "/vvs-emergency-trades",
   },
   {
     key: "industries.2",
     icon: CalendarDays,
+    href: "/dental-clinics",
   },
   {
     key: "industries.3",
@@ -58,7 +60,7 @@ export function Industries() {
         <div className="mt-12 grid gap-px overflow-hidden border border-border/70 bg-border/70 md:grid-cols-4">
           {segments.map((segment, index) => {
             const Icon = segment.icon;
-            return (
+            const content = (
               <motion.article
                 key={segment.key}
                 initial={{ opacity: 0, y: 18 }}
@@ -79,6 +81,11 @@ export function Industries() {
                 </p>
               </motion.article>
             );
+            return "href" in segment ? (
+              <a key={segment.key} href={segment.href} className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                {content}
+              </a>
+            ) : content;
           })}
         </div>
       </div>
