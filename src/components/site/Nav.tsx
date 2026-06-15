@@ -38,25 +38,25 @@ export function Nav() {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-200 ${
           scrolled || open
-            ? "backdrop-blur-xl bg-background/86 border-b border-border/60 shadow-[0_12px_36px_-32px_var(--foreground)]"
+            ? "border-b border-border bg-background/95 backdrop-blur-md"
             : "bg-transparent"
         }`}
       >
-        <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <a href="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
             <span className="h-2 w-2 rounded-full bg-brand" />
             <span className="font-semibold tracking-tight">Leadmap</span>
 
           </a>
 
-          <nav className="hidden md:flex items-center gap-1 text-[13px] font-medium text-muted-foreground">
+          <nav className="hidden items-center gap-7 text-[12px] font-medium text-muted-foreground md:flex">
             {links.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
-                className="px-3.5 py-2 rounded-full tracking-tight hover:text-foreground hover:bg-secondary/70 transition-colors"
+                className="py-2 tracking-tight transition-colors hover:text-foreground"
               >
                 {l.label}
               </a>
@@ -68,7 +68,7 @@ export function Nav() {
             <Button
               size="sm"
               variant="ghost"
-              className="hidden md:inline-flex rounded-full px-4 text-muted-foreground hover:text-foreground"
+              className="hidden px-3 text-muted-foreground hover:bg-transparent hover:text-foreground md:inline-flex"
               onClick={openContact}
             >
               {t("nav.contact")}
@@ -76,18 +76,20 @@ export function Nav() {
             <Button
               size="sm"
               variant="brand"
-              className="hidden md:inline-flex rounded-full px-5"
+              className="hidden px-5 md:inline-flex"
               onClick={openBooking}
             >
               {t("nav.bookDemo")}
             </Button>
-            <button
+            <Button
+              variant="outline"
+              size="icon"
               aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
               onClick={() => setOpen((v) => !v)}
-              className="md:hidden h-10 w-10 grid place-items-center rounded-full border border-border bg-background text-foreground shadow-sm"
+              className="h-10 w-10 bg-background md:hidden"
             >
               {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-            </button>
+            </Button>
           </div>
         </div>
       </motion.header>
@@ -109,7 +111,7 @@ export function Nav() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed top-16 inset-x-0 z-40 md:hidden bg-background border-b border-border shadow-[0_20px_70px_-45px_var(--foreground)]"
+              className="fixed inset-x-0 top-16 z-40 border-b border-border bg-background md:hidden"
             >
               <nav className="px-6 py-6 flex flex-col">
                 {links.map((l, i) => (
@@ -125,15 +127,16 @@ export function Nav() {
                     {l.label}
                   </motion.a>
                 ))}
-                <button
+                <Button
+                  variant="ghost"
                   onClick={() => {
                     setOpen(false);
                     openContact();
                   }}
-                  className="py-4 text-xl font-medium tracking-tight border-b border-border/60 text-left text-muted-foreground hover:text-foreground transition-colors"
+                  className="h-auto justify-start border-b border-border/60 px-0 py-4 text-left text-xl font-medium tracking-tight text-muted-foreground hover:bg-transparent hover:text-foreground"
                 >
                   {t("nav.contact")}
-                </button>
+                </Button>
                 <div className="pt-5">
                   <LanguageSwitcher />
                 </div>
