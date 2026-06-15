@@ -43,7 +43,12 @@ const copy = {
     body: "Leadmap helps service businesses answer missed calls, qualify buyers and send clean summaries. Partners use it as a simple add-on for clients who already need more calls, bookings and follow-up.",
     primary: "Book partner call",
     secondary: "Apply to partner",
-    proof: ["7-day pilot", "AI receptionist", "EU data handling", "Partner-ready handoff"],
+    proof: [
+      { value: "7 days", label: "pilot setup" },
+      { value: "24/7", label: "missed-call cover" },
+      { value: "3 languages", label: "SE / EN / ES" },
+      { value: "EU-based", label: "data handling" },
+    ],
     fitEyebrow: "Best-fit partners",
     fitTitle: "Built for teams already close to local businesses.",
     fit: [
@@ -72,7 +77,12 @@ const copy = {
     body: "Leadmap hjälper serviceföretag att svara på missade samtal, kvalificera köpare och skicka tydliga sammanfattningar. Partners kan erbjuda det som ett enkelt tillägg till kunder som redan vill ha fler samtal, bokningar och uppföljning.",
     primary: "Boka partnersamtal",
     secondary: "Ansök som partner",
-    proof: ["7 dagars pilot", "AI-telefonist", "EU-datahantering", "Partnerklar överlämning"],
+    proof: [
+      { value: "7 dagar", label: "till pilotstart" },
+      { value: "24/7", label: "missade samtal" },
+      { value: "3 språk", label: "SE / EN / ES" },
+      { value: "EU-baserat", label: "datahantering" },
+    ],
     fitEyebrow: "Bäst passande partners",
     fitTitle: "Byggt för team som redan hjälper lokala företag.",
     fit: [
@@ -161,10 +171,10 @@ function PartnerHero() {
               <span className="h-2 w-2 rounded-full bg-brand" />
             </div>
             <div className="grid gap-px bg-border md:grid-cols-2">
-              {c.proof.map((item, index) => (
-                <div key={item} className="bg-background p-5">
-                  <div className="text-2xl font-extralight tabular-nums">0{index + 1}</div>
-                  <div className="mt-3 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">{item}</div>
+              {c.proof.map((item) => (
+                <div key={item.label} className="bg-background p-5">
+                  <div className="text-lg font-medium tracking-tight text-foreground md:text-xl">{item.value}</div>
+                  <div className="mt-2 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">{item.label}</div>
                 </div>
               ))}
             </div>
