@@ -74,6 +74,7 @@ export function Footer() {
           </div>
           <ul className="mt-4 space-y-2.5 text-sm font-light">
             <li><a href="/#how" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.how")}</a></li>
+            <li><a href="/experience" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.experience")}</a></li>
             <li><a href="/#pricing" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.pricing")}</a></li>
             <li><a href="/#faq" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.faq")}</a></li>
           </ul>
