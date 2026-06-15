@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   CalendarCheck,
@@ -10,6 +9,7 @@ import {
 } from "lucide-react";
 import { useDialogs } from "./DialogsProvider";
 import { useI18n } from "@/lib/i18n";
+import { Button } from "@/components/ui/button";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -24,97 +24,66 @@ export function AttentionSystem() {
   const { t } = useI18n();
   const { openTestAI } = useDialogs();
   const reduce = useReducedMotion();
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const panelY = useTransform(scrollYProgress, [0, 1], ["9%", "-9%"]);
-  const railY = useTransform(scrollYProgress, [0, 1], ["-4%", "8%"]);
-
   return (
-    <section ref={ref} className="relative overflow-hidden border-b border-border/60 bg-background">
+    <section className="relative overflow-hidden border-b border-border bg-background py-20 md:py-28">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.035]"
+        className="pointer-events-none absolute inset-0 opacity-[0.018]"
         style={{
           backgroundImage:
             "linear-gradient(to right, var(--foreground) 1px, transparent 1px), linear-gradient(to bottom, var(--foreground) 1px, transparent 1px)",
-          backgroundSize: "44px 44px",
+          backgroundSize: "48px 48px",
         }}
       />
-      <motion.div
-        aria-hidden
-        style={reduce ? undefined : { y: railY }}
-        className="pointer-events-none absolute left-6 top-0 hidden h-full w-px bg-foreground/10 md:block"
-      />
-
-      <div className="relative mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-[0.86fr_1.14fr] md:items-center md:py-24">
+      <div className="relative mx-auto grid max-w-6xl gap-14 px-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:gap-20">
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease }}
-          className="md:sticky md:top-24"
         >
-          <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
+          <p className="font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
             {t("attention.eyebrow")}
           </p>
-          <h2 className="mt-5 max-w-xl text-3xl font-extralight tracking-normal md:text-6xl">
+          <h2 className="mt-5 max-w-xl text-4xl font-light tracking-tight md:text-5xl">
             {t("attention.title")}
           </h2>
           <p className="mt-5 max-w-md text-sm font-light leading-relaxed text-muted-foreground md:text-base">
             {t("attention.body")}
           </p>
 
-          <button
+          <Button
+            variant="link"
             onClick={openTestAI}
-            className="group mt-8 inline-flex items-center gap-3 border-b border-foreground pb-2 text-[11px] font-semibold uppercase tracking-[0.2em] transition-opacity hover:opacity-70"
+            className="group mt-8 h-auto border-b border-foreground px-0 pb-1 text-[11px] font-semibold uppercase tracking-[0.16em] hover:no-underline hover:opacity-60"
           >
             <span>{t("attention.cta")}</span>
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-          </button>
+          </Button>
         </motion.div>
 
         <motion.div
-          style={reduce ? undefined : { y: panelY }}
           initial={reduce ? false : { opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.8, ease, delay: 0.08 }}
-          className="relative"
+          className="overflow-hidden border border-border bg-card shadow-[0_12px_40px_-32px_var(--foreground)]"
         >
-          <div className="absolute -inset-4 border border-foreground/10" aria-hidden />
-          <div className="relative overflow-hidden border border-border bg-card shadow-[0_40px_120px_-80px_var(--foreground)]">
-            <div className="flex items-center justify-between border-b border-border/70 px-4 py-3 sm:px-5">
+            <div className="flex items-center justify-between border-b border-border px-5 py-3.5 sm:px-6">
               <div className="flex items-center gap-2">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-brand opacity-60 animate-ping" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-brand" />
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
+                <span className="h-2 w-2 rounded-full bg-brand" />
+                <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
                   {t("attention.console")}
                 </span>
               </div>
-              <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
                 {t("attention.live")}
               </span>
             </div>
 
-            <div className="grid gap-px bg-border/70 md:grid-cols-[0.9fr_1.1fr]">
-              <div className="bg-background p-4 sm:p-6">
-                <div className="relative min-h-[340px] overflow-hidden border border-border bg-surface/40 p-4">
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 opacity-[0.07]"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(var(--foreground) 1px, transparent 1px)",
-                      backgroundSize: "100% 18px",
-                    }}
-                  />
-
-                  <div className="relative flex h-full min-h-[300px] flex-col justify-between">
+            <div className="grid md:grid-cols-[0.92fr_1.08fr]">
+              <div className="border-b border-border bg-card p-5 sm:p-6 md:border-r md:border-b-0">
+                  <div className="flex flex-col gap-6">
                     {flow.map((item, index) => {
                       const Icon = item.icon;
                       return (
@@ -124,29 +93,28 @@ export function AttentionSystem() {
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true, margin: "-80px" }}
                           transition={{ duration: 0.55, ease, delay: 0.12 + index * 0.08 }}
-                          className="group flex items-center gap-3"
+                          className="flex items-center gap-3"
                         >
-                          <div className="grid h-12 w-12 shrink-0 place-items-center border border-foreground/15 bg-background transition-colors group-hover:border-foreground/50">
+                           <div className="grid h-10 w-10 shrink-0 place-items-center border border-border bg-surface/45">
                             <Icon className="h-4 w-4" />
                           </div>
                           <div className="min-w-0">
                             <div className="text-sm font-medium">{t(item.label)}</div>
-                            <div className="mt-1 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                             <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.08em] text-muted-foreground">
                               {t(item.meta)}
                             </div>
                           </div>
                         </motion.div>
                       );
                     })}
-                  </div>
                 </div>
               </div>
 
-              <div className="bg-background p-4 sm:p-6">
-                <div className="grid gap-4">
-                  <div className="border border-border bg-card p-4">
+              <div className="bg-card p-5 sm:p-6">
+                <div className="grid gap-6">
+                  <div>
                     <div className="flex items-center justify-between gap-3">
-                      <span className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
+                       <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
                         {t("attention.intent")}
                       </span>
                       <span className="text-xs font-medium text-foreground">{t("attention.hot")}</span>
@@ -158,7 +126,7 @@ export function AttentionSystem() {
                             <span>{t(`attention.bar.${index + 1}` as Parameters<typeof t>[0])}</span>
                             <span>{width}%</span>
                           </div>
-                          <div className="h-1.5 overflow-hidden bg-secondary">
+                           <div className="h-0.5 overflow-hidden bg-secondary">
                             <motion.div
                               initial={reduce ? false : { width: 0 }}
                               whileInView={{ width: `${width}%` }}
@@ -172,33 +140,26 @@ export function AttentionSystem() {
                     </div>
                   </div>
 
-                  <div className="border border-border bg-foreground p-4 text-background">
-                    <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.28em] text-background/60">
+                  <div className="bg-foreground p-5 text-background">
+                    <div className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.16em] text-background/60">
                       <MessageSquareText className="h-3.5 w-3.5" />
                       {t("attention.summary")}
                     </div>
-                    <p className="mt-4 text-xl font-light leading-snug">
+                    <p className="mt-3 text-base font-light leading-relaxed">
                       {t("attention.summaryText")}
                     </p>
-                    <div className="mt-5 grid grid-cols-3 gap-px bg-background/20 text-center">
-                      {[t("attention.tag.1"), t("attention.tag.2"), t("attention.tag.3")].map((tag) => (
-                        <span key={tag} className="bg-foreground px-2 py-3 text-[10px] uppercase tracking-[0.18em] text-background/70">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-px bg-border/70 text-center">
-                    <div className="bg-background p-4">
+                  <div className="grid grid-cols-2 border-t border-border text-center">
+                    <div className="border-r border-border pt-4">
                       <div className="text-2xl font-extralight tabular-nums">00:01</div>
-                      <div className="mt-1 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                       <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.12em] text-muted-foreground">
                         {t("attention.metric.1")}
                       </div>
                     </div>
-                    <div className="bg-background p-4">
+                    <div className="pt-4">
                       <div className="text-2xl font-extralight tabular-nums">04</div>
-                      <div className="mt-1 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                       <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.12em] text-muted-foreground">
                         {t("attention.metric.2")}
                       </div>
                     </div>
@@ -206,7 +167,6 @@ export function AttentionSystem() {
                 </div>
               </div>
             </div>
-          </div>
         </motion.div>
       </div>
     </section>
