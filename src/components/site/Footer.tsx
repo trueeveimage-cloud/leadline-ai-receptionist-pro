@@ -137,7 +137,7 @@ export function Footer() {
         className="fixed inset-x-4 bottom-4 z-40 inline-flex items-center justify-center gap-2 border border-foreground bg-foreground px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-background shadow-2xl md:hidden"
       >
         <ClipboardCheck className="h-4 w-4" />
-        Fa gratis audit
+        {t("nav.audit")}
       </a>
     </footer>
   );
