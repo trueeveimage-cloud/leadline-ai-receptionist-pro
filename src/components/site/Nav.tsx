@@ -14,7 +14,7 @@ export function Nav() {
   const links = [
     { href: "/#how", label: t("nav.how") },
     { href: "/experience", label: t("nav.experience") },
-    { href: "/missade-samtal-audit", label: "Gratis audit" },
+    { href: "/missade-samtal-audit", label: t("nav.audit") },
     { href: "/partners", label: t("nav.partners") },
     { href: "/#pricing", label: t("nav.pricing") },
   ];
