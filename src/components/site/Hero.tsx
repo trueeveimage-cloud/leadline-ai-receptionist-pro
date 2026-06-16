@@ -29,10 +29,6 @@ export function Hero() {
         ? ["fontaneros.", "dentistas.", "electricistas.", "talleres.", "techadores."]
         : ["plumbers.", "dentists.", "electricians.", "detailers.", "roofers."];
 
-  const liveLabel =
-    lang === "sv" ? "Live · just nu" : lang === "es" ? "En vivo · ahora" : "Live · right now";
-  const ringingLabel =
-    lang === "sv" ? "Ett samtal kommer in..." : lang === "es" ? "Entra una llamada..." : "A call is coming in...";
 
   const rescue = [
     { icon: PhoneIncoming, label: t("hero.rescue.1"), meta: t("hero.rescue.1.meta") },
