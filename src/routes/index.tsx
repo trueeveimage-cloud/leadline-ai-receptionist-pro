@@ -2,17 +2,19 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/site/Nav";
 import { Hero } from "@/components/site/Hero";
 import { BuyerSafety } from "@/components/site/BuyerSafety";
-import { Stats } from "@/components/site/SocialProof";
 import { Process } from "@/components/site/Process";
 import { Pricing } from "@/components/site/Pricing";
 import { FAQ } from "@/components/site/FAQ";
 import { FinalCTA, Footer } from "@/components/site/Footer";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { DialogsProvider } from "@/components/site/DialogsProvider";
-import { Marquee } from "@/components/site/Marquee";
-import { TrustStack } from "@/components/site/TrustStack";
-import { ExperienceBridge } from "@/components/site/ExperienceBridge";
 import { Button } from "@/components/ui/button";
+import {
+  FounderTrust,
+  MissedCallEconomics,
+  SampleCallProof,
+} from "@/components/site/ConversionSections";
+import { StickyDemoNudge } from "@/components/site/StickyDemoNudge";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -21,7 +23,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Leadmap is an AI receptionist for service businesses. Answer missed calls, qualify leads, capture appointment requests and send owner-ready summaries.",
+          "Leadmap is an AI phone assistant for Swedish service businesses. It answers missed calls, captures customer details and sends qualified booking requests.",
       },
       {
         name: "keywords",
@@ -29,10 +31,11 @@ export const Route = createFileRoute("/")({
           "AI receptionist, missed call answering, lead generation, lead discovery, business lead mapping, email outreach, service business calls",
       },
       { name: "robots", content: "index,follow" },
-      { property: "og:title", content: "Leadmap - AI Receptionist for Service Businesses" },
+      { property: "og:title", content: "Leadmap - Missed calls become booking requests" },
       {
         property: "og:description",
-        content: "Answer calls, qualify leads and send summaries when your team is busy or closed.",
+        content:
+          "When you are busy or closed, Leadmap answers, qualifies the caller and sends a clear booking request.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.leadmap.se/" },
@@ -67,12 +70,12 @@ export const Route = createFileRoute("/")({
             },
             {
               "@type": "Service",
-              name: "Leadmap AI receptionist",
+              name: "Leadmap phone assistant",
               provider: { "@type": "Organization", name: "Leadmap" },
-              areaServed: ["SE", "NO", "DK", "GB", "ES"],
-              serviceType: "AI receptionist and lead capture",
+              areaServed: ["SE"],
+              serviceType: "AI phone assistant and missed-call capture",
               description:
-                "AI call answering, appointment request capture, lead qualification and owner summaries for service businesses.",
+                "AI call answering, customer detail capture and qualified booking request summaries for Swedish service businesses.",
             },
             {
               "@type": "FAQPage",
@@ -82,7 +85,7 @@ export const Route = createFileRoute("/")({
                   name: "Does it confirm bookings automatically?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "In the pilot, it collects qualified booking requests and sends them to you for confirmation. Full calendar booking can be added later.",
+                    text: "Leadmap sends qualified booking requests. You always confirm the customer yourself.",
                   },
                 },
                 {
@@ -119,19 +122,19 @@ function Index() {
         <Nav />
         <main>
           <Hero />
-          <Marquee />
           <AuditStrip />
           <Process />
-          <ExperienceBridge />
-          <Stats />
-          <TrustStack />
+          <SampleCallProof />
+          <MissedCallEconomics />
           <BuyerSafety />
           <Pricing />
           <FAQ />
+          <FounderTrust />
           <FinalCTA />
         </main>
 
         <Footer />
+        <StickyDemoNudge />
       </div>
     </DialogsProvider>
   );
@@ -142,14 +145,23 @@ function AuditStrip() {
     <section className="border-y border-border/60 bg-card/35 py-8">
       <div className="mx-auto flex max-w-6xl flex-col gap-5 px-6 md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground">Gratis missade-samtal audit</p>
+          <p className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
+            Gratis missade-samtal audit
+          </p>
           <h2 className="mt-2 text-2xl font-extralight tracking-normal md:text-3xl">
-            Se hur Leadmap skulle svara at ditt foretag innan du bokar.
+            Se hur Leadmap skulle svara åt ert företag innan ni bokar.
           </h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Tar under 45 sekunder. Ingen bindning. Ingen spam.
+          </p>
         </div>
-        <Button asChild variant="outline" className="rounded-none px-6 text-[11px] font-semibold uppercase tracking-[0.18em]">
+        <Button
+          asChild
+          variant="outline"
+          className="rounded-none px-6 text-[11px] font-semibold uppercase tracking-[0.18em]"
+        >
           <a href="/missade-samtal-audit?utm_source=homepage&utm_medium=cta&utm_campaign=free_audit">
-            Fa gratis audit
+            Få gratis audit
           </a>
         </Button>
       </div>

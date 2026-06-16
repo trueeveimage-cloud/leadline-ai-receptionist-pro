@@ -1,242 +1,297 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, CalendarCheck, MailCheck, PhoneIncoming, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  ClipboardCheck,
+  MailCheck,
+  MessageSquareText,
+  PhoneIncoming,
+  Sparkles,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { useDialogs } from "./DialogsProvider";
-import { useI18n } from "@/lib/i18n";
-import { WordRotator } from "./WordRotator";
-import { MagneticButton } from "./MagneticButton";
-import { HeroOrbs } from "./HeroOrbs";
+import { useI18n, type Lang } from "@/lib/i18n";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
+const copy: Record<
+  Lang,
+  {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    hear: string;
+    audit: string;
+    chips: string[];
+    visualTitle: string;
+    visualStatus: string;
+    stages: { title: string; meta: string }[];
+    summary: string;
+  }
+> = {
+  sv: {
+    eyebrow: "AI-telefonist för svenska serviceföretag",
+    title: "Missade samtal blir tappade jobb. Leadmap svarar direkt.",
+    subtitle:
+      "När ni är upptagna, ute på jobb eller har stängt tar Leadmap samtalet, samlar kundens uppgifter och skickar en tydlig bokningsförfrågan till er.",
+    hear: "Hör hur Leadmap svarar",
+    audit: "Få gratis missade-samtal audit",
+    chips: [
+      "Svensk AI-telefonist",
+      "Från 2 900 kr/mån",
+      "Setup ingår",
+      "Ingen bindning första månaden",
+      "Ni bekräftar själva varje bokning",
+    ],
+    visualTitle: "Inkommande samtal",
+    visualStatus: "Lead skickat till ägaren",
+    stages: [
+      { title: "AI svarar", meta: "innan kunden går vidare" },
+      { title: "Frågor ställs", meta: "namn, behov, brådska" },
+      { title: "Uppgifter fångas", meta: "nummer och önskad tid" },
+      { title: "Lead skickas", meta: "tydlig bokningsförfrågan" },
+    ],
+    summary: "Akut vattenläcka under diskbänk. Kunden vill bli uppringd så snart som möjligt.",
+  },
+  en: {
+    eyebrow: "AI phone assistant for Swedish service businesses",
+    title: "Missed calls become lost jobs. Leadmap answers instantly.",
+    subtitle:
+      "When you are busy, on the road, on a job or closed, Leadmap answers, collects the customer details and sends you a clear booking request.",
+    hear: "Hear Leadmap answer",
+    audit: "Get a free missed-call audit",
+    chips: [
+      "Swedish AI receptionist",
+      "From 2,900 kr/month",
+      "Setup included",
+      "No commitment first month",
+      "You confirm every booking",
+    ],
+    visualTitle: "Incoming call",
+    visualStatus: "Lead sent to owner",
+    stages: [
+      { title: "AI answers", meta: "before the caller moves on" },
+      { title: "Asks questions", meta: "name, need, urgency" },
+      { title: "Captures details", meta: "number and preferred time" },
+      { title: "Sends the lead", meta: "clear booking request" },
+    ],
+    summary: "Urgent leak under the sink. Customer wants a callback as soon as possible.",
+  },
+  es: {
+    eyebrow: "Recepcionista de IA para empresas de servicios en Suecia",
+    title:
+      "Las llamadas perdidas se convierten en trabajos perdidos. Leadmap responde al instante.",
+    subtitle:
+      "Cuando estás ocupado, en ruta, trabajando o cerrado, Leadmap contesta, recoge los datos del cliente y te envía una solicitud clara.",
+    hear: "Escuchar cómo responde Leadmap",
+    audit: "Recibir auditoría gratis",
+    chips: [
+      "Recepcionista de IA sueca",
+      "Desde 2.900 kr/mes",
+      "Setup incluido",
+      "Sin permanencia el primer mes",
+      "Tú confirmas cada reserva",
+    ],
+    visualTitle: "Llamada entrante",
+    visualStatus: "Lead enviado al dueño",
+    stages: [
+      { title: "La IA responde", meta: "antes de que llamen a otro" },
+      { title: "Hace preguntas", meta: "nombre, necesidad, urgencia" },
+      { title: "Captura datos", meta: "número y hora preferida" },
+      { title: "Envía el lead", meta: "solicitud clara" },
+    ],
+    summary: "Fuga urgente bajo el fregadero. El cliente quiere llamada cuanto antes.",
+  },
+};
+
 export function Hero() {
-  const { openBooking, openTestAI } = useDialogs();
+  const { openTestAI } = useDialogs();
+  const { lang } = useI18n();
+  const c = copy[lang];
   const reduce = useReducedMotion();
-  const { t, lang } = useI18n();
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-  const lineY = useTransform(scrollYProgress, [0, 1], ["-10%", "18%"]);
-  const titleY = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]);
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.15]);
-
-  const industries =
-    lang === "sv"
-      ? ["rörmokare.", "tandläkare.", "elektriker.", "bilrekond.", "takläggare."]
-      : lang === "es"
-        ? ["fontaneros.", "dentistas.", "electricistas.", "talleres.", "techadores."]
-        : ["plumbers.", "dentists.", "electricians.", "detailers.", "roofers."];
-
-  const liveLabel =
-    lang === "sv" ? "Live · just nu" : lang === "es" ? "En vivo · ahora" : "Live · right now";
-  const ringingLabel =
-    lang === "sv" ? "Ett samtal kommer in..." : lang === "es" ? "Entra una llamada..." : "A call is coming in...";
-
-  const rescue = [
-    { icon: PhoneIncoming, label: t("hero.rescue.1"), meta: t("hero.rescue.1.meta") },
-    { icon: Sparkles, label: t("hero.rescue.2"), meta: t("hero.rescue.2.meta") },
-    { icon: CalendarCheck, label: t("hero.rescue.3"), meta: t("hero.rescue.3.meta") },
-    { icon: MailCheck, label: t("hero.rescue.4"), meta: t("hero.rescue.4.meta") },
-  ];
+  const glowY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+  const visualY = useTransform(scrollYProgress, [0, 1], ["0%", "-7%"]);
 
   return (
     <section
       id="top"
       ref={sectionRef}
-      className="relative flex min-h-[92svh] items-center overflow-hidden border-b border-border/60 pt-24 pb-12 md:pt-28 md:pb-20"
+      className="relative overflow-hidden border-b border-border/60 pt-24 md:pt-28"
     >
       <motion.div
         aria-hidden
-        style={reduce ? undefined : { y: lineY }}
-        className="pointer-events-none absolute inset-y-0 right-[8vw] hidden w-px bg-foreground/10 md:block"
+        style={reduce ? undefined : { y: glowY }}
+        className="pointer-events-none absolute inset-x-0 top-0 h-[42rem] bg-[radial-gradient(60%_48%_at_50%_0%,var(--hero-glow),transparent_72%)]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-44 bg-[radial-gradient(60%_50%_at_50%_0%,var(--hero-glow),transparent_72%)]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(to_top,color-mix(in_oklch,var(--foreground)_5%,transparent),transparent_75%)]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        className="pointer-events-none absolute inset-0 opacity-[0.035]"
         style={{
-          backgroundImage: "radial-gradient(var(--foreground) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
+          backgroundImage:
+            "linear-gradient(to right, var(--foreground) 1px, transparent 1px), linear-gradient(to bottom, var(--foreground) 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
         }}
       />
-      <motion.div
-        aria-hidden
-        style={reduce ? undefined : { y: lineY }}
-        className="pointer-events-none absolute left-1/2 top-24 hidden h-[62vh] w-[min(26rem,30vw)] -translate-x-1/2 border-x border-foreground/[0.06] md:block"
-      />
-
-      <HeroOrbs />
-
-      <motion.div
-        style={reduce ? undefined : { y: titleY, opacity: titleOpacity }}
-        className="relative mx-auto flex max-w-4xl flex-col items-center px-6 text-center"
-      >
-        <div className="w-full">
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 10 }}
+      <div className="relative mx-auto grid min-h-[calc(100svh-6rem)] max-w-6xl content-center gap-12 px-6 py-12 md:grid-cols-[0.96fr_1.04fr] md:items-center md:gap-14 md:py-20">
+        <div>
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease }}
-            className="mx-auto inline-flex items-center gap-2.5 border border-border bg-background/60 px-3 py-1.5 backdrop-blur-sm"
+            className="text-[10px] font-medium uppercase tracking-[0.34em] text-muted-foreground"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inset-0 inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-70" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
-            </span>
-            <span className="text-[10px] uppercase tracking-[0.32em] text-foreground/80">
-              {liveLabel}
-            </span>
-            <span className="hidden h-3 w-px bg-border sm:inline-block" />
-            <span className="hidden items-center gap-1.5 text-[10px] uppercase tracking-[0.28em] text-muted-foreground sm:inline-flex">
-              <PhoneIncoming className="h-3 w-3" />
-              {ringingLabel}
-            </span>
-          </motion.div>
-
+            {c.eyebrow}
+          </motion.p>
           <motion.h1
             initial={reduce ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, ease, delay: 0.05 }}
-            className="mx-auto mt-6 max-w-4xl text-5xl font-extralight leading-[0.98] tracking-tight md:mt-7 md:text-7xl lg:text-[5.4rem]"
+            transition={{ duration: 0.8, ease, delay: 0.04 }}
+            className="mt-5 max-w-3xl text-5xl font-extralight leading-[0.98] tracking-normal md:text-7xl lg:text-[5.25rem]"
           >
-            <span>
-              {t("hero.title.l1")}{" "}
-              <span className="font-serif italic">{t("hero.title.l2")}</span>
-            </span>{" "}
-            <span className="block">{t("hero.title.l3")}</span>
+            {c.title}
           </motion.h1>
-
           <motion.p
-            initial={reduce ? false : { opacity: 0, y: 12 }}
+            initial={reduce ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease, delay: 0.18 }}
-            className="mx-auto mt-5 flex items-center justify-center gap-2 text-base font-light text-muted-foreground md:mt-6 md:text-xl"
+            transition={{ duration: 0.75, ease, delay: 0.12 }}
+            className="mt-6 max-w-xl text-base font-light leading-relaxed text-muted-foreground md:text-lg"
           >
-            <span className="font-serif italic text-foreground/70">{t("hero.for")}&nbsp;</span>
-            <WordRotator words={industries} className="font-serif italic text-foreground" />
-          </motion.p>
-
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease, delay: 0.24 }}
-            className="mx-auto mt-5 max-w-xl text-sm font-light leading-relaxed text-muted-foreground md:text-base"
-          >
-            {t("hero.subtitle")}
+            {c.subtitle}
           </motion.p>
 
           <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
+            initial={reduce ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease, delay: 0.32 }}
-            className="mx-auto mt-8 flex w-full max-w-xl flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-center"
+            transition={{ duration: 0.7, ease, delay: 0.18 }}
+            className="mt-8 grid gap-3 sm:max-w-xl sm:grid-cols-2"
           >
-            <MagneticButton
-              onClick={openBooking}
-              className="relative inline-flex h-12 w-full items-center justify-center rounded-none bg-brand px-9 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-foreground shadow-[0_20px_60px_-20px_color-mix(in_oklch,var(--brand)_55%,transparent)] transition-colors hover:bg-brand/90 sm:w-auto"
-            >
-              <span>{t("hero.cta.book")}</span>
-            </MagneticButton>
-            <button
+            <Button
               onClick={openTestAI}
-              className="group inline-flex items-center justify-center gap-2 border border-border bg-secondary px-6 py-3 text-[11px] font-medium uppercase tracking-[0.22em] text-foreground transition-colors hover:bg-background sm:justify-start"
+              size="lg"
+              variant="brand"
+              className="rounded-none px-7 text-[11px] font-semibold uppercase tracking-[0.18em]"
             >
-              <span>{t("hero.cta.test")}</span>
-              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-            </button>
+              <PhoneIncoming className="mr-2 h-4 w-4" />
+              {c.hear}
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="rounded-none px-7 text-[11px] font-semibold uppercase tracking-[0.18em]"
+            >
+              <a href="/missade-samtal-audit?utm_source=homepage&utm_medium=hero&utm_campaign=free_audit">
+                <ClipboardCheck className="mr-2 h-4 w-4" />
+                {c.audit}
+              </a>
+            </Button>
           </motion.div>
 
-          <motion.div
+          <motion.ul
             initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, ease, delay: 0.36 }}
-            className="mx-auto mt-4 flex w-full max-w-2xl flex-wrap items-center justify-center gap-2 text-center"
+            transition={{ duration: 0.65, ease, delay: 0.24 }}
+            className="mt-6 flex max-w-2xl flex-wrap gap-2"
           >
-            {[t("hero.trust.1"), t("hero.trust.2"), t("hero.trust.3")].map((item) => (
-              <span
-                key={item}
-                className="border border-border/70 bg-background/70 px-3 py-1.5 text-[10px] uppercase tracking-[0.18em] text-muted-foreground backdrop-blur-sm"
+            {c.chips.map((chip) => (
+              <li
+                key={chip}
+                className="border border-border bg-background/75 px-3 py-2 text-[10px] uppercase tracking-[0.15em] text-muted-foreground backdrop-blur"
               >
-                {item}
-              </span>
+                {chip}
+              </li>
             ))}
-          </motion.div>
-
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease, delay: 0.38 }}
-            className="mx-auto mt-7 grid w-full max-w-3xl grid-cols-2 gap-px overflow-hidden border border-border/70 bg-border/70 text-left sm:mt-9 lg:grid-cols-4"
-          >
-            {rescue.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.label}
-                  className="group relative bg-background p-3 transition-colors hover:bg-card sm:p-4"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="grid h-8 w-8 shrink-0 place-items-center border border-foreground/15 transition-colors group-hover:border-foreground/45 sm:h-9 sm:w-9">
-                      <Icon className="h-4 w-4" />
-                    </span>
-                    <span className="text-sm font-medium leading-tight">{item.label}</span>
-                  </div>
-                  <div className="mt-2.5 flex items-center gap-2 sm:mt-3">
-                    <span className="text-[10px] tabular-nums text-muted-foreground">0{index + 1}</span>
-                    <span className="h-px flex-1 bg-foreground/15" />
-                  </div>
-                  <p className="mt-2 text-[9px] uppercase tracking-[0.16em] text-muted-foreground sm:text-[10px] sm:tracking-[0.2em]">
-                    {item.meta}
-                  </p>
-                </div>
-              );
-            })}
-          </motion.div>
-
-          <motion.dl
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease, delay: 0.46 }}
-            className="mx-auto mt-6 grid w-full max-w-2xl grid-cols-3 gap-px bg-border/70 text-center sm:mt-8"
-          >
-            {[
-              ["24/7", t("hero.stat.pickup")],
-              [t("hero.stat.setup.value"), t("hero.stat.setup")],
-              [t("hero.stat.summaries.value"), t("hero.stat.summaries")],
-            ].map(([value, label]) => (
-              <div key={label} className="bg-background px-2 py-4 sm:px-5">
-                <dt className="text-2xl font-extralight tracking-tight">{value}</dt>
-                <dd className="mt-1 break-words text-[9px] uppercase tracking-widest text-muted-foreground hyphens-auto sm:text-[10px] sm:tracking-[0.24em]">
-                  {label}
-                </dd>
-              </div>
-            ))}
-          </motion.dl>
+          </motion.ul>
         </div>
-      </motion.div>
 
-      <motion.div
-        aria-hidden
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.1, duration: 0.6 }}
-        className="pointer-events-none absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex"
-      >
-        <span className="text-[9px] uppercase tracking-[0.4em] text-muted-foreground">{t("hero.scroll")}</span>
-        <motion.span
-          className="h-8 w-px bg-foreground/30"
-          animate={reduce ? undefined : { scaleY: [0.3, 1, 0.3], originY: 0 }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </motion.div>
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 24, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.9, ease, delay: 0.08 }}
+          style={reduce ? undefined : { y: visualY }}
+          className="relative mx-auto w-full max-w-[34rem]"
+        >
+          <div className="absolute -inset-4 border border-foreground/10 md:-inset-6" />
+          <div className="relative overflow-hidden border border-border bg-card shadow-[0_50px_140px_-90px_var(--foreground)]">
+            <div className="flex items-center justify-between border-b border-border/70 p-4">
+              <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.26em] text-muted-foreground">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inset-0 animate-ping rounded-full bg-brand opacity-70" />
+                  <span className="relative h-2 w-2 rounded-full bg-brand" />
+                </span>
+                {c.visualTitle}
+              </div>
+              <span className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                00:01
+              </span>
+            </div>
+            <div className="grid gap-px bg-border/70 sm:grid-cols-[0.72fr_1fr]">
+              <div className="bg-background p-5">
+                <div className="grid h-14 w-14 place-items-center border border-foreground/15 bg-card">
+                  <PhoneIncoming className="h-5 w-5" />
+                </div>
+                <div className="mt-8 space-y-3">
+                  {c.stages.map((stage, index) => {
+                    const Icon =
+                      index === 0
+                        ? PhoneIncoming
+                        : index === 1
+                          ? Sparkles
+                          : index === 2
+                            ? MessageSquareText
+                            : MailCheck;
+                    return (
+                      <motion.div
+                        key={stage.title}
+                        initial={reduce ? false : { opacity: 0, x: -12 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.55, ease, delay: 0.35 + index * 0.08 }}
+                        className="grid grid-cols-[2rem_1fr] gap-3"
+                      >
+                        <span className="grid h-8 w-8 place-items-center border border-border bg-card">
+                          <Icon className="h-3.5 w-3.5" />
+                        </span>
+                        <span>
+                          <span className="block text-sm font-medium">{stage.title}</span>
+                          <span className="block text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                            {stage.meta}
+                          </span>
+                        </span>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="flex flex-col bg-background p-5">
+                <div className="border border-border bg-foreground p-5 text-background">
+                  <p className="text-[10px] uppercase tracking-[0.24em] text-background/55">
+                    {c.visualStatus}
+                  </p>
+                  <p className="mt-5 text-2xl font-light leading-tight">{c.summary}</p>
+                </div>
+                <div className="mt-4 grid gap-px bg-border/70 text-sm">
+                  {["Namn: Johan Andersson", "Telefon: 07X XXX XX XX", "Status: skickad"].map(
+                    (row) => (
+                      <div
+                        key={row}
+                        className="flex items-center justify-between bg-card px-3 py-3"
+                      >
+                        <span>{row}</span>
+                        <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
+                      </div>
+                    ),
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }

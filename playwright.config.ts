@@ -17,9 +17,9 @@ export default defineConfig({
         timeout: 120_000,
       },
   projects: [
-    { name: "mobile-small", use: { ...devices["iPhone SE"] } },
-    { name: "mobile", use: { ...devices["iPhone 13"] } },
-    { name: "tablet", use: { ...devices["iPad Mini"] } },
+    { name: "mobile-small", use: { ...devices["iPhone SE"], browserName: "chromium" } },
+    { name: "mobile", use: { ...devices["iPhone 13"], browserName: "chromium" } },
+    { name: "tablet", use: { ...devices["iPad Mini"], browserName: "chromium" } },
     { name: "desktop", use: { ...devices["Desktop Chrome"] } },
   ],
 });

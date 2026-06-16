@@ -1,7 +1,14 @@
 import { FormEvent, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { CheckCircle2, ClipboardCheck, Loader2, ShieldCheck } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  CheckCircle2,
+  ClipboardCheck,
+  Loader2,
+  ShieldCheck,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DialogsProvider } from "@/components/site/DialogsProvider";
@@ -17,11 +24,11 @@ export const Route = createFileRoute("/missade-samtal-audit")({
       {
         name: "description",
         content:
-          "Fa en gratis missade-samtal audit och se hur Leadmap skulle svara at ditt foretag. For VVS, kliniker, tandlakare, bilverkstader och serviceforetag.",
+          "Få en gratis missade-samtal audit och se hur Leadmap skulle svara åt ditt företag. För VVS, kliniker, tandläkare, bilverkstäder och serviceföretag.",
       },
       { name: "robots", content: "index,follow" },
       { property: "og:title", content: "Gratis missade-samtal audit" },
-      { property: "og:description", content: "Se hur Leadmap skulle svara at ditt foretag." },
+      { property: "og:description", content: "Se hur Leadmap skulle svara åt ditt företag." },
       { property: "og:url", content: `${SITE_URL}/missade-samtal-audit` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -31,11 +38,21 @@ export const Route = createFileRoute("/missade-samtal-audit")({
 });
 
 const contactMethods = ["SMS", "E-post", "Samtal"];
-const niches = ["VVS / rormokare", "Taklaggare", "Tandlakare", "Klinik", "Bilverkstad", "Bargning", "Elektriker jour", "Annat"];
+const niches = [
+  "VVS / rörmokare",
+  "Takläggare",
+  "Tandläkare",
+  "Klinik",
+  "Bilverkstad",
+  "Bärgning",
+  "Elektriker jour",
+  "Annat",
+];
 
 function MissedCallAuditPage() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [step, setStep] = useState(1);
   const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({
     businessName: "",
@@ -70,6 +87,15 @@ function MissedCallAuditPage() {
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
+    if (step === 1) {
+      if (!form.businessName || !form.niche || !form.city || (!form.phone && !form.email)) {
+        setError("Fyll i företagsnamn, bransch, stad och telefon eller e-post.");
+        return;
+      }
+      setError(null);
+      setStep(2);
+      return;
+    }
     setSubmitting(true);
     setError(null);
     try {
@@ -79,10 +105,10 @@ function MissedCallAuditPage() {
         body: JSON.stringify({ ...form, ...tracking }),
       });
       const data = (await response.json().catch(() => null)) as { error?: string } | null;
-      if (!response.ok) throw new Error(data?.error || "Kunde inte skicka audit-forfragan.");
+      if (!response.ok) throw new Error(data?.error || "Kunde inte skicka audit-förfrågan.");
       setSubmitted(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Kunde inte skicka audit-forfragan.");
+      setError(err instanceof Error ? err.message : "Kunde inte skicka audit-förfrågan.");
     } finally {
       setSubmitting(false);
     }
@@ -99,19 +125,26 @@ function MissedCallAuditPage() {
               <div className="h-full w-full bg-[linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)] bg-[size:42px_42px]" />
             </div>
             <div className="relative mx-auto grid max-w-6xl gap-12 px-6 pb-20 md:grid-cols-[0.9fr_1fr] md:pb-28">
-              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
-                <p className="text-[10px] uppercase tracking-[0.34em] text-muted-foreground">Gratis audit</p>
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65 }}
+              >
+                <p className="text-[10px] uppercase tracking-[0.34em] text-muted-foreground">
+                  Gratis audit
+                </p>
                 <h1 className="mt-5 max-w-3xl text-4xl font-extralight leading-[1.02] tracking-normal md:text-7xl">
-                  Se hur Leadmap skulle svara at ditt foretag.
+                  Se hur Leadmap skulle svara åt ditt företag.
                 </h1>
                 <p className="mt-6 max-w-xl text-base font-light leading-relaxed text-muted-foreground md:text-lg">
-                  Skicka dina uppgifter sa gor vi en kort missade-samtal audit. Du far en konkret demo eller uppfoljning fran Leadmap, utan bindning.
+                  Skicka dina uppgifter så gör vi en kort missade-samtal audit. Du får en konkret
+                  demo eller uppföljning från Leadmap, utan bindning.
                 </p>
                 <div className="mt-8 grid gap-3 text-sm text-muted-foreground">
                   {[
-                    "Vi tittar pa bransch, stad och hur samtalen brukar komma in.",
-                    "Du far se vilka fragor AI-telefonisten skulle stalla.",
-                    "Pilot fran 2 900 kr/man. Setup ingar for forsta kunder.",
+                    "Vi tittar på bransch, stad och hur samtalen brukar komma in.",
+                    "Du får se vilka frågor AI-telefonisten skulle ställa.",
+                    "Pilot från 2 900 kr/mån. Setup ingår för första kunder.",
                   ].map((item) => (
                     <div key={item} className="flex gap-3">
                       <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
@@ -121,48 +154,145 @@ function MissedCallAuditPage() {
                 </div>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.08 }}>
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.08 }}
+              >
                 {submitted ? (
                   <div className="border border-border bg-card p-8 md:p-10">
                     <CheckCircle2 className="h-10 w-10 text-brand" />
-                    <h2 className="mt-6 text-3xl font-extralight">Audit-forfragan mottagen.</h2>
+                    <h2 className="mt-6 text-3xl font-extralight">
+                      Tack — vi kollar på ert företag.
+                    </h2>
                     <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                      Leadmap/Maged skickar en kort demo eller uppfoljning via vald kanal. Vi markerar detta som en website audit lead i CRM nar Supabase-kopplingen ar aktiv.
+                      Vi skickar en kort demo eller ett konkret förslag via vald kanal. Ingen spam,
+                      ingen bindning.
                     </p>
                     <Button asChild variant="outline" className="mt-8 rounded-none">
                       <a href="/">Till startsidan</a>
                     </Button>
                   </div>
                 ) : (
-                  <form onSubmit={submit} className="border border-border bg-card p-5 shadow-2xl shadow-foreground/5 md:p-8">
+                  <form
+                    onSubmit={submit}
+                    className="border border-border bg-card p-5 shadow-2xl shadow-foreground/5 md:p-8"
+                  >
                     <div className="flex items-center gap-3 border-b border-border/70 pb-5">
                       <ClipboardCheck className="h-5 w-5" />
                       <div>
-                        <h2 className="text-xl font-light">Fa gratis missade-samtal audit</h2>
-                        <p className="text-xs text-muted-foreground">Alla falt hjalper oss gora demon mer relevant.</p>
+                        <h2 className="text-xl font-light">Få gratis missade-samtal audit</h2>
+                        <p className="text-xs text-muted-foreground">
+                          Steg {step} av 2. Tar under 45 sekunder.
+                        </p>
                       </div>
                     </div>
 
-                    <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                      <Field label="Foretagsnamn" value={form.businessName} onChange={(v) => update("businessName", v)} required />
-                      <Field label="Namn" value={form.ownerName} onChange={(v) => update("ownerName", v)} required />
-                      <Field label="Telefonnummer" value={form.phone} onChange={(v) => update("phone", v)} required />
-                      <Field label="E-post" value={form.email} onChange={(v) => update("email", v)} type="email" required />
-                      <SelectField label="Bransch" value={form.niche} onChange={(v) => update("niche", v)} options={niches} />
-                      <Field label="Stad" value={form.city} onChange={(v) => update("city", v)} required />
-                      <Field label="Webbplats" value={form.website} onChange={(v) => update("website", v)} />
-                      <Field label="Missade samtal/vecka" value={form.missedCallsPerWeek} onChange={(v) => update("missedCallsPerWeek", v)} placeholder="t.ex. 5-10" />
-                      <SelectField label="Demo via" value={form.preferredContactMethod} onChange={(v) => update("preferredContactMethod", v)} options={contactMethods} className="sm:col-span-2" />
+                    <div className="mt-6 h-1 bg-border">
+                      <div
+                        className="h-full bg-foreground transition-all"
+                        style={{ width: step === 1 ? "50%" : "100%" }}
+                      />
                     </div>
 
-                    {error && <p className="mt-5 border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">{error}</p>}
+                    {step === 1 ? (
+                      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                        <Field
+                          label="Företagsnamn"
+                          value={form.businessName}
+                          onChange={(v) => update("businessName", v)}
+                          required
+                        />
+                        <SelectField
+                          label="Bransch"
+                          value={form.niche}
+                          onChange={(v) => update("niche", v)}
+                          options={niches}
+                        />
+                        <Field
+                          label="Stad"
+                          value={form.city}
+                          onChange={(v) => update("city", v)}
+                          required
+                        />
+                        <Field
+                          label="Telefon"
+                          value={form.phone}
+                          onChange={(v) => update("phone", v)}
+                        />
+                        <Field
+                          label="E-post"
+                          value={form.email}
+                          onChange={(v) => update("email", v)}
+                          type="email"
+                          className="sm:col-span-2"
+                        />
+                        <Field
+                          label="Namn"
+                          value={form.ownerName}
+                          onChange={(v) => update("ownerName", v)}
+                          placeholder="Valfritt"
+                          className="sm:col-span-2"
+                        />
+                      </div>
+                    ) : (
+                      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                        <Field
+                          label="Webbplats"
+                          value={form.website}
+                          onChange={(v) => update("website", v)}
+                          placeholder="https://..."
+                          className="sm:col-span-2"
+                        />
+                        <Field
+                          label="Missade samtal/vecka"
+                          value={form.missedCallsPerWeek}
+                          onChange={(v) => update("missedCallsPerWeek", v)}
+                          placeholder="t.ex. 5-10"
+                        />
+                        <SelectField
+                          label="Föredragen kontakt"
+                          value={form.preferredContactMethod}
+                          onChange={(v) => update("preferredContactMethod", v)}
+                          options={contactMethods}
+                        />
+                      </div>
+                    )}
 
-                    <Button type="submit" variant="brand" size="lg" disabled={submitting} className="mt-6 w-full rounded-none text-[11px] font-semibold uppercase tracking-[0.2em]">
-                      {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                      Skicka audit-forfragan
-                    </Button>
+                    {error && (
+                      <p className="mt-5 border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">
+                        {error}
+                      </p>
+                    )}
+
+                    <div className="mt-6 flex gap-3">
+                      {step === 2 && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="lg"
+                          onClick={() => setStep(1)}
+                          className="rounded-none text-[11px] font-semibold uppercase tracking-[0.2em]"
+                        >
+                          <ArrowLeft className="mr-2 h-4 w-4" />
+                          Tillbaka
+                        </Button>
+                      )}
+                      <Button
+                        type="submit"
+                        variant="brand"
+                        size="lg"
+                        disabled={submitting}
+                        className="flex-1 rounded-none text-[11px] font-semibold uppercase tracking-[0.2em]"
+                      >
+                        {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                        {step === 1 ? "Nästa" : "Få gratis audit"}
+                        {!submitting && <ArrowRight className="ml-2 h-4 w-4" />}
+                      </Button>
+                    </div>
                     <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
-                      Ingen spam. Du far bara uppfoljning om audit/demo och kan be oss ta bort dina uppgifter.
+                      Ingen bindning. Ingen spam. Vi skickar bara en kort demo/förslag och du kan be
+                      oss ta bort dina uppgifter.
                     </p>
                   </form>
                 )}
@@ -183,6 +313,7 @@ function Field({
   required,
   type = "text",
   placeholder,
+  className,
 }: {
   label: string;
   value: string;
@@ -190,9 +321,10 @@ function Field({
   required?: boolean;
   type?: string;
   placeholder?: string;
+  className?: string;
 }) {
   return (
-    <label className="block">
+    <label className={className ?? "block"}>
       <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">{label}</span>
       <Input
         className="mt-2 rounded-none"

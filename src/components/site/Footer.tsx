@@ -2,14 +2,38 @@ import { motion } from "framer-motion";
 import { ClipboardCheck, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDialogs } from "./DialogsProvider";
-import { useI18n } from "@/lib/i18n";
+import { useI18n, type Lang } from "@/lib/i18n";
 import { ThemeToggle } from "./ThemeToggle";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function FinalCTA() {
-  const { openBooking, openContact } = useDialogs();
-  const { t } = useI18n();
+  const { openBooking } = useDialogs();
+  const { lang } = useI18n();
+  const c = {
+    sv: {
+      eyebrow: "Redo när ni är",
+      title: "Vill du se hur Leadmap skulle svara åt ditt företag?",
+      body: "Ingen bindning. Setup ingår för första kunder.",
+      audit: "Få gratis audit",
+      demo: "Boka 10 min demo",
+    },
+    en: {
+      eyebrow: "Ready when you are",
+      title: "Want to see how Leadmap would answer for your business?",
+      body: "No commitment. Setup included for first customers.",
+      audit: "Get free audit",
+      demo: "Book 10 min demo",
+    },
+    es: {
+      eyebrow: "Cuando quieras empezar",
+      title: "¿Quieres ver cómo Leadmap respondería por tu empresa?",
+      body: "Sin permanencia. Setup incluido para primeros clientes.",
+      audit: "Recibir auditoría gratis",
+      demo: "Reservar demo de 10 min",
+    },
+  } satisfies Record<Lang, Record<string, string>>;
+  const text = c[lang];
   return (
     <section className="py-20 md:py-32 border-t border-border/60">
       <div className="mx-auto max-w-2xl px-6 text-center">
@@ -20,31 +44,35 @@ export function FinalCTA() {
           transition={{ duration: 0.7, ease }}
         >
           <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
-            {t("cta.eyebrow")}
+            {text.eyebrow}
           </p>
           <h2 className="mt-5 text-3xl md:text-5xl font-extralight tracking-normal leading-[1.1]">
-            {t("cta.title")}
+            {text.title}
           </h2>
           <p className="mt-5 text-sm md:text-base text-muted-foreground max-w-md mx-auto leading-relaxed font-light">
-            {t("cta.body")}
+            {text.body}
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
             <Button
+              asChild
               size="lg"
               variant="brand"
+              className="rounded-none uppercase tracking-[0.2em] text-[11px] font-semibold px-8"
+            >
+              <a href="/missade-samtal-audit?utm_source=final_cta&utm_medium=button&utm_campaign=free_audit">
+                <ClipboardCheck className="mr-2 h-4 w-4" />
+                {text.audit}
+              </a>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
               onClick={openBooking}
               className="rounded-none uppercase tracking-[0.2em] text-[11px] font-semibold px-8"
             >
-              {t("cta.book")}
+              {text.demo}
             </Button>
-            <button
-              onClick={openContact}
-              className="group inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Mail className="h-3.5 w-3.5" />
-              <span>{t("cta.contact")}</span>
-            </button>
           </div>
         </motion.div>
       </div>
@@ -54,7 +82,12 @@ export function FinalCTA() {
 
 export function Footer() {
   const { openContact } = useDialogs();
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const footerCopy = {
+    sv: "AI-telefonist för svenska serviceföretag.",
+    en: "AI phone assistant for Swedish service businesses.",
+    es: "Recepcionista de IA para empresas de servicios en Suecia.",
+  }[lang];
   return (
     <footer className="border-t border-border">
       <div className="mx-auto max-w-6xl px-6 py-14 grid gap-10 md:grid-cols-3">
@@ -64,7 +97,9 @@ export function Footer() {
             <span className="font-semibold tracking-tight">Leadmap</span>
           </div>
           <p className="mt-3 text-sm text-muted-foreground max-w-xs leading-relaxed font-light">
-            {t("footer.tagline")}
+            {footerCopy}
+            <br />
+            Göteborg, Sverige.
           </p>
         </div>
 
@@ -73,16 +108,94 @@ export function Footer() {
             {t("footer.explore")}
           </div>
           <ul className="mt-4 space-y-2.5 text-sm font-light">
-            <li><a href="/#how" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.how")}</a></li>
-            <li><a href="/experience" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.experience")}</a></li>
-            <li><a href="/missade-samtal-audit" className="hover:text-foreground transition-colors text-muted-foreground">Gratis audit</a></li>
-            <li><a href="/partners" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.partners")}</a></li>
-            <li><a href="/anvandningsfall/vvs" className="hover:text-foreground transition-colors text-muted-foreground">Anvandningsfall VVS</a></li>
-            <li><a href="/anvandningsfall/tandlakare" className="hover:text-foreground transition-colors text-muted-foreground">Anvandningsfall tandlakare</a></li>
-            <li><a href="/vvs-emergency-trades" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.vvs")}</a></li>
-            <li><a href="/dental-clinics" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.dental")}</a></li>
-            <li><a href="/#pricing" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.pricing")}</a></li>
-            <li><a href="/#faq" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.faq")}</a></li>
+            <li>
+              <a
+                href="/#how"
+                className="hover:text-foreground transition-colors text-muted-foreground"
+              >
+                {t("nav.how")}
+              </a>
+            </li>
+            <li>
+              <a
+                href="/experience"
+                className="hover:text-foreground transition-colors text-muted-foreground"
+              >
+                {t("nav.experience")}
+              </a>
+            </li>
+            <li>
+              <a
+                href="/missade-samtal-audit"
+                className="hover:text-foreground transition-colors text-muted-foreground"
+              >
+                Gratis audit
+              </a>
+            </li>
+            <li>
+              <a
+                href="/#demo"
+                className="hover:text-foreground transition-colors text-muted-foreground"
+              >
+                Sample call demo
+              </a>
+            </li>
+            <li>
+              <a
+                href="/partners"
+                className="hover:text-foreground transition-colors text-muted-foreground"
+              >
+                {t("nav.partners")}
+              </a>
+            </li>
+            <li>
+              <a
+                href="/anvandningsfall/vvs"
+                className="hover:text-foreground transition-colors text-muted-foreground"
+              >
+                Anvandningsfall VVS
+              </a>
+            </li>
+            <li>
+              <a
+                href="/anvandningsfall/tandlakare"
+                className="hover:text-foreground transition-colors text-muted-foreground"
+              >
+                Anvandningsfall tandlakare
+              </a>
+            </li>
+            <li>
+              <a
+                href="/vvs-emergency-trades"
+                className="hover:text-foreground transition-colors text-muted-foreground"
+              >
+                {t("nav.vvs")}
+              </a>
+            </li>
+            <li>
+              <a
+                href="/dental-clinics"
+                className="hover:text-foreground transition-colors text-muted-foreground"
+              >
+                {t("nav.dental")}
+              </a>
+            </li>
+            <li>
+              <a
+                href="/#pricing"
+                className="hover:text-foreground transition-colors text-muted-foreground"
+              >
+                {t("nav.pricing")}
+              </a>
+            </li>
+            <li>
+              <a
+                href="/#faq"
+                className="hover:text-foreground transition-colors text-muted-foreground"
+              >
+                {t("nav.faq")}
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -98,7 +211,10 @@ export function Footer() {
             {t("cta.contact")}
           </button>
           <p className="mt-3 text-xs text-muted-foreground leading-relaxed font-light">
-            leadmapai.se@gmail.com<br />
+            leadmapai.se@gmail.com
+            <br />
+            Göteborg, Sverige
+            <br />
             {t("footer.replies")}
           </p>
         </div>
@@ -107,7 +223,9 @@ export function Footer() {
       <div className="border-t border-border/60">
         <div className="mx-auto max-w-6xl px-6 py-6 flex flex-col-reverse lg:flex-row items-center justify-between gap-5 text-xs text-muted-foreground">
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-            <span>© {new Date().getFullYear()} Leadmap · {t("footer.rights")}</span>
+            <span>
+              © {new Date().getFullYear()} Leadmap · {t("footer.rights")}
+            </span>
             <span className="hidden sm:inline opacity-40">·</span>
             <span>
               {t("footer.partners")}{" "}
@@ -137,7 +255,7 @@ export function Footer() {
         className="fixed inset-x-4 bottom-4 z-40 inline-flex items-center justify-center gap-2 border border-foreground bg-foreground px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-background shadow-2xl md:hidden"
       >
         <ClipboardCheck className="h-4 w-4" />
-        Fa gratis audit
+        Få gratis audit
       </a>
     </footer>
   );

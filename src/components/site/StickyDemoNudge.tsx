@@ -17,7 +17,7 @@ export function StickyDemoNudge() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 18, scale: 0.98 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: 0.7 }}
-          className="fixed inset-x-3 bottom-3 z-40 border border-border/80 bg-background/92 p-2 shadow-[0_24px_90px_-55px_var(--foreground)] backdrop-blur-xl sm:left-auto sm:right-5 sm:bottom-5 sm:w-[25rem]"
+          className="fixed inset-x-3 bottom-3 z-40 hidden border border-border/80 bg-background/92 p-2 shadow-[0_24px_90px_-55px_var(--foreground)] backdrop-blur-xl md:block sm:left-auto sm:right-5 sm:bottom-5 sm:w-[25rem]"
         >
           <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3">
             <div className="grid h-10 w-10 place-items-center border border-foreground/15 bg-foreground text-background">

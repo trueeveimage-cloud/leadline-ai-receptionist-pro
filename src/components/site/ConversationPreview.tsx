@@ -1,21 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import {
-  Phone,
-  Sparkles,
-  CheckCircle2,
-  CalendarCheck,
-  Mail,
-  PhoneIncoming,
-} from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { CalendarCheck, CheckCircle2, Mail, Phone, PhoneIncoming, Sparkles } from "lucide-react";
 
-const stages = [
-  { key: "incoming", label: "Ring", icon: PhoneIncoming },
-  { key: "answered", label: "Answer", icon: Phone },
-  { key: "qualifying", label: "Qualify", icon: Sparkles },
-  { key: "booking", label: "Book", icon: CalendarCheck },
-  { key: "summary", label: "Send", icon: Mail },
+const stageIcons = [
+  { key: "incoming", icon: PhoneIncoming },
+  { key: "answered", icon: Phone },
+  { key: "qualifying", icon: Sparkles },
+  { key: "booking", icon: CalendarCheck },
+  { key: "summary", icon: Mail },
 ] as const;
+
+const stageLabels: Record<string, string[]> = {
+  sv: ["Ring", "Svar", "Frågor", "Lead", "Skickat"],
+  en: ["Ring", "Answer", "Questions", "Lead", "Sent"],
+  es: ["Ring", "Contesta", "Preguntas", "Lead", "Enviado"],
+};
 
 const turnStage = [1, 1, 2, 2, 2, 3, 3, 4];
 
@@ -29,45 +28,93 @@ type Script = { code: string; label: string; turns: Turn[] };
 
 const scripts: Script[] = [
   {
-    code: "en",
-    label: "EN",
-    turns: [
-      { who: "ai", text: "Thanks for calling Aurora Clinic. This is Ada — how can I help?", meta: { icon: Sparkles, label: "Answered · 0.4s" } },
-      { who: "caller", text: "Hi, I'd like to book a consultation this week." },
-      { who: "ai", text: "Of course. May I ask what you're looking for?" },
-      { who: "caller", text: "The premium skin package." },
-      { who: "ai", text: "Lovely. Tuesday 10:30 or Thursday 14:00?", meta: { icon: CheckCircle2, label: "High intent" } },
-      { who: "caller", text: "Tuesday works." },
-      { who: "ai", text: "Got it — I'll pass this to the owner to confirm.", meta: { icon: CalendarCheck, label: "Booking · Tue 10:30" } },
-      { who: "ai", text: "Summary sent to the owner. Have a lovely day.", meta: { icon: Mail, label: "Summary delivered" } },
-    ],
-  },
-  {
     code: "sv",
     label: "SV",
     turns: [
-      { who: "ai", text: "Tack för att du ringer Aurora Klinik. Det är Ada — hur kan jag hjälpa till?", meta: { icon: Sparkles, label: "Svarade · 0,4s" } },
-      { who: "caller", text: "Hej, jag vill boka en konsultation i veckan." },
-      { who: "ai", text: "Självklart. Vad är du intresserad av?" },
-      { who: "caller", text: "Premium-hudpaketet." },
-      { who: "ai", text: "Härligt. Tisdag 10:30 eller torsdag 14:00?", meta: { icon: CheckCircle2, label: "Kvalificerad" } },
-      { who: "caller", text: "Tisdag funkar." },
-      { who: "ai", text: "Tack — jag skickar förfrågan till ägaren.", meta: { icon: CalendarCheck, label: "Bokning · tis 10:30" } },
-      { who: "ai", text: "Sammanfattning skickad. Ha en fin dag.", meta: { icon: Mail, label: "Sammanfattning skickad" } },
+      {
+        who: "ai",
+        text: "Hej, vad behöver du hjälp med?",
+        meta: { icon: Sparkles, label: "Svarade - 0,4s" },
+      },
+      { who: "caller", text: "Det läcker vatten under diskbänken och jag behöver hjälp snabbt." },
+      { who: "ai", text: "Jag förstår. Kan jag ta ditt namn, telefonnummer och adress?" },
+      { who: "caller", text: "Johan Andersson, 07X XXX XX XX, centrala Göteborg." },
+      {
+        who: "ai",
+        text: "Tack. När vill du helst bli uppringd?",
+        meta: { icon: CheckCircle2, label: "Akut intent" },
+      },
+      { who: "caller", text: "Så snart som möjligt." },
+      {
+        who: "ai",
+        text: "Då skickar jag detta till ägaren för bekräftelse.",
+        meta: { icon: CalendarCheck, label: "Förfrågan fångad" },
+      },
+      {
+        who: "ai",
+        text: "Sammanfattningen är skickad. Ha en fin dag.",
+        meta: { icon: Mail, label: "Sammanfattning skickad" },
+      },
+    ],
+  },
+  {
+    code: "en",
+    label: "EN",
+    turns: [
+      {
+        who: "ai",
+        text: "Thanks for calling. What do you need help with?",
+        meta: { icon: Sparkles, label: "Answered - 0.4s" },
+      },
+      { who: "caller", text: "There is water leaking under the sink. I need help fast." },
+      { who: "ai", text: "I understand. Can I take your name, phone number and address?" },
+      { who: "caller", text: "Johan Andersson, 07X XXX XX XX, central Gothenburg." },
+      {
+        who: "ai",
+        text: "Thank you. When would you like to be called back?",
+        meta: { icon: CheckCircle2, label: "Urgent intent" },
+      },
+      { who: "caller", text: "As soon as possible." },
+      {
+        who: "ai",
+        text: "Got it. I will send this to the owner for confirmation.",
+        meta: { icon: CalendarCheck, label: "Request captured" },
+      },
+      {
+        who: "ai",
+        text: "Summary sent to the owner. Have a lovely day.",
+        meta: { icon: Mail, label: "Summary delivered" },
+      },
     ],
   },
   {
     code: "es",
     label: "ES",
     turns: [
-      { who: "ai", text: "Gracias por llamar a Aurora Clinic. Soy Ada — ¿en qué puedo ayudarle?", meta: { icon: Sparkles, label: "Atendido · 0,4s" } },
-      { who: "caller", text: "Hola, quisiera reservar una consulta esta semana." },
-      { who: "ai", text: "Por supuesto. ¿Qué le interesa?" },
-      { who: "caller", text: "El paquete premium de piel." },
-      { who: "ai", text: "Encantada. ¿Martes 10:30 o jueves 14:00?", meta: { icon: CheckCircle2, label: "Calificado" } },
-      { who: "caller", text: "El martes me va bien." },
-      { who: "ai", text: "Perfecto — paso la solicitud al propietario.", meta: { icon: CalendarCheck, label: "Reserva · mar 10:30" } },
-      { who: "ai", text: "Resumen enviado. Buen día.", meta: { icon: Mail, label: "Resumen enviado" } },
+      {
+        who: "ai",
+        text: "Hola, ¿en qué puedo ayudarle?",
+        meta: { icon: Sparkles, label: "Atendido - 0,4s" },
+      },
+      { who: "caller", text: "Hay una fuga de agua bajo el fregadero y necesito ayuda rápido." },
+      { who: "ai", text: "Entiendo. ¿Puedo tomar su nombre, teléfono y dirección?" },
+      { who: "caller", text: "Johan Andersson, 07X XXX XX XX, centro de Gotemburgo." },
+      {
+        who: "ai",
+        text: "Gracias. ¿Cuándo prefiere que le llamen?",
+        meta: { icon: CheckCircle2, label: "Intención urgente" },
+      },
+      { who: "caller", text: "Lo antes posible." },
+      {
+        who: "ai",
+        text: "Perfecto. Envío esto al dueño para confirmar.",
+        meta: { icon: CalendarCheck, label: "Solicitud capturada" },
+      },
+      {
+        who: "ai",
+        text: "Resumen enviado. Que tenga buen día.",
+        meta: { icon: Mail, label: "Resumen enviado" },
+      },
     ],
   },
 ];
@@ -76,13 +123,13 @@ const STEP_MS = 1900;
 const RESET_PAUSE_MS = 2600;
 
 export function ConversationPreview() {
-  const [langCode, setLangCode] = useState("en");
+  const [langCode, setLangCode] = useState("sv");
   const [step, setStep] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const reduce = useReducedMotion();
   const script = useMemo(
-    () => scripts.find((s) => s.code === langCode) ?? scripts[0],
-    [langCode]
+    () => scripts.find((item) => item.code === langCode) ?? scripts[0],
+    [langCode],
   );
 
   useEffect(() => {
@@ -91,35 +138,36 @@ export function ConversationPreview() {
   }, [langCode]);
 
   useEffect(() => {
-    const total = script.turns.length;
-    const done = step >= total;
+    if (reduce) {
+      setStep(script.turns.length);
+      return;
+    }
+    const done = step >= script.turns.length;
     const delay = done ? RESET_PAUSE_MS : STEP_MS;
-    const t = setTimeout(() => {
-      setStep((s) => (s >= total ? 0 : s + 1));
+    const timer = window.setTimeout(() => {
+      setStep((current) => (current >= script.turns.length ? 0 : current + 1));
     }, delay);
-    return () => clearTimeout(t);
-  }, [step, script]);
+    return () => window.clearTimeout(timer);
+  }, [reduce, script.turns.length, step]);
 
   useEffect(() => {
-    const id = setInterval(() => setSeconds((s) => s + 1), 1000);
-    return () => clearInterval(id);
-  }, [langCode]);
+    const id = window.setInterval(() => setSeconds((current) => current + 1), 1000);
+    return () => window.clearInterval(id);
+  }, []);
 
   const visible = script.turns.slice(0, step);
-  const currentStage =
-    step === 0 ? 0 : turnStage[Math.min(step - 1, turnStage.length - 1)];
+  const currentStage = step === 0 ? 0 : turnStage[Math.min(step - 1, turnStage.length - 1)];
   const mm = String(Math.floor(seconds / 60)).padStart(2, "0");
   const ss = String(seconds % 60).padStart(2, "0");
 
   return (
     <motion.div
-      initial={reduce ? false : { opacity: 0, y: 30 }}
+      initial={reduce ? false : { opacity: 0, y: 26 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className="relative mx-auto w-full max-w-md"
     >
-      {/* Spotlight glow */}
       <div
         aria-hidden
         className="absolute -inset-16 -z-10 opacity-70"
@@ -128,27 +176,9 @@ export function ConversationPreview() {
             "radial-gradient(ellipse 60% 60% at 50% 30%, rgba(255,255,255,0.15), transparent 70%)",
         }}
       />
-      {/* Pulsing rings behind */}
-      <div className="pointer-events-none absolute left-1/2 top-12 -z-10 -translate-x-1/2">
-        {[0, 1, 2].map((i) => (
-          <motion.span
-            key={i}
-            className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10"
-            style={{ width: 80, height: 80 }}
-            animate={{ scale: [1, 4], opacity: [0.6, 0] }}
-            transition={{
-              duration: 3.5,
-              repeat: Infinity,
-              delay: i * 1.1,
-              ease: "easeOut",
-            }}
-          />
-        ))}
-      </div>
 
-      <div className="relative border border-white/10 bg-[#0f0f0f] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)] overflow-hidden">
-        {/* Top status bar */}
-        <div className="flex items-center justify-between px-5 py-2.5 border-b border-white/[0.06] bg-black/40 text-[10px] uppercase tracking-[0.2em] text-white/40 font-mono">
+      <div className="relative overflow-hidden border border-white/10 bg-[#0f0f0f] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)]">
+        <div className="flex items-center justify-between border-b border-white/[0.06] bg-black/40 px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
           <span>● REC</span>
           <span className="tabular-nums text-white/70">
             {mm}:{ss}
@@ -156,51 +186,45 @@ export function ConversationPreview() {
           <LanguagePicker value={langCode} onChange={setLangCode} />
         </div>
 
-        {/* Caller card */}
-        <div className="px-5 pt-5 pb-4 flex items-center gap-4 border-b border-white/[0.06]">
+        <div className="flex items-center gap-4 border-b border-white/[0.06] px-5 pb-4 pt-5">
           <div className="relative">
-            <div className="h-12 w-12 rounded-full bg-gradient-to-br from-white/20 to-white/5 grid place-items-center border border-white/15">
+            <div className="grid h-12 w-12 place-items-center rounded-full border border-white/15 bg-gradient-to-br from-white/20 to-white/5">
               <Phone className="h-4 w-4 text-white" />
             </div>
-            <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-emerald-400 border-2 border-[#0f0f0f] shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+            <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[#0f0f0f] bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-[13px] font-medium text-white">Aurora Clinic</p>
-            <p className="text-[11px] text-white/40 font-mono">
-              +46 ·· ··· ·· 47
-            </p>
+          <div className="min-w-0 flex-1">
+            <p className="text-[13px] font-medium text-white">Leadmap sample call</p>
+            <p className="font-mono text-[11px] text-white/40">+46 07X XXX XX XX</p>
           </div>
-          <Waveform />
+          <Waveform paused={Boolean(reduce)} />
         </div>
 
-        <StageTracker current={currentStage} />
+        <StageTracker current={currentStage} langCode={langCode} />
 
-        {/* Conversation */}
-        <div className="px-4 py-4 h-[320px] overflow-hidden bg-gradient-to-b from-black/30 to-black/60 flex flex-col justify-end">
+        <div className="flex h-[320px] flex-col justify-end overflow-hidden bg-gradient-to-b from-black/30 to-black/60 px-4 py-4">
           <AnimatePresence initial={false} mode="popLayout">
-            {visible.map((turn, i) => (
+            {visible.map((turn, index) => (
               <motion.div
-                key={`${script.code}-${i}`}
+                key={`${script.code}-${index}`}
                 layout
                 initial={
-                  reduce
-                    ? { opacity: 0 }
-                    : { opacity: 0, y: 18, scale: 0.96, filter: "blur(4px)" }
+                  reduce ? { opacity: 0 } : { opacity: 0, y: 18, scale: 0.96, filter: "blur(4px)" }
                 }
                 animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 260, damping: 22 }}
-                className={`flex mb-2.5 ${turn.who === "ai" ? "justify-start" : "justify-end"}`}
+                className={`mb-2.5 flex ${turn.who === "ai" ? "justify-start" : "justify-end"}`}
               >
                 <div className={`max-w-[82%] ${turn.who === "ai" ? "" : "text-right"}`}>
-                  <div className="text-[9px] uppercase tracking-[0.2em] text-white/30 mb-1 px-1">
-                    {turn.who === "ai" ? "Ada · AI" : "Caller"}
+                  <div className="mb-1 px-1 text-[9px] uppercase tracking-[0.2em] text-white/30">
+                    {turn.who === "ai" ? "Leadmap AI" : "Caller"}
                   </div>
                   <div
                     className={`rounded-2xl px-3.5 py-2.5 text-[13px] leading-snug ${
                       turn.who === "ai"
-                        ? "bg-white/[0.06] border border-white/10 text-white/90 rounded-tl-sm"
-                        : "bg-white text-black rounded-tr-sm shadow-lg"
+                        ? "rounded-tl-sm border border-white/10 bg-white/[0.06] text-white/90"
+                        : "rounded-tr-sm bg-white text-black shadow-lg"
                     }`}
                   >
                     {turn.text}
@@ -214,7 +238,7 @@ export function ConversationPreview() {
                 </div>
               </motion.div>
             ))}
-            {step < script.turns.length && (
+            {step < script.turns.length && !reduce && (
               <motion.div
                 key={`${script.code}-typing`}
                 initial={{ opacity: 0 }}
@@ -223,9 +247,9 @@ export function ConversationPreview() {
                 className={`flex ${script.turns[step].who === "ai" ? "justify-start" : "justify-end"}`}
               >
                 <div
-                  className={`rounded-2xl px-3.5 py-2.5 flex gap-1 ${
+                  className={`flex gap-1 rounded-2xl px-3.5 py-2.5 ${
                     script.turns[step].who === "ai"
-                      ? "bg-white/[0.06] border border-white/10"
+                      ? "border border-white/10 bg-white/[0.06]"
                       : "bg-white"
                   }`}
                 >
@@ -238,13 +262,12 @@ export function ConversationPreview() {
           </AnimatePresence>
         </div>
 
-        {/* Footer */}
-        <div className="px-5 py-3 border-t border-white/[0.06] flex items-center justify-between bg-black/50">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40">
-            Simulated · No audio
+        <div className="flex items-center justify-between border-t border-white/[0.06] bg-black/50 px-5 py-3">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+            Sample call - no audio
           </span>
-          <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold text-red-400 uppercase tracking-[0.2em]">
-            <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
+          <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-red-400">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
             Live
           </span>
         </div>
@@ -253,23 +276,19 @@ export function ConversationPreview() {
   );
 }
 
-function Waveform() {
-  // 12 animated bars
-  const bars = Array.from({ length: 14 });
+function Waveform({ paused }: { paused: boolean }) {
   return (
-    <div className="flex items-center gap-0.5 h-8">
-      {bars.map((_, i) => (
+    <div className="flex h-8 items-center gap-0.5">
+      {Array.from({ length: 14 }).map((_, index) => (
         <motion.span
-          key={i}
+          key={index}
           className="w-0.5 rounded-full bg-white/60"
-          animate={{
-            height: ["20%", "90%", "40%", "70%", "25%"],
-          }}
+          animate={paused ? undefined : { height: ["20%", "90%", "40%", "70%", "25%"] }}
           transition={{
-            duration: 1.2 + (i % 4) * 0.2,
+            duration: 1.2 + (index % 4) * 0.2,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: i * 0.07,
+            delay: index * 0.07,
           }}
           style={{ height: "30%" }}
         />
@@ -288,34 +307,26 @@ function Dot({ delay, dark }: { delay: number; dark?: boolean }) {
   );
 }
 
-function LanguagePicker({
-  value,
-  onChange,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-}) {
+function LanguagePicker({ value, onChange }: { value: string; onChange: (value: string) => void }) {
   return (
     <div
       role="tablist"
       aria-label="Language"
-      className="flex items-center gap-0.5 rounded-full bg-white/[0.05] border border-white/10 p-0.5"
+      className="flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.05] p-0.5"
     >
-      {scripts.map((s) => {
-        const active = s.code === value;
+      {scripts.map((script) => {
+        const active = script.code === value;
         return (
           <button
-            key={s.code}
+            key={script.code}
             role="tab"
             aria-selected={active}
-            onClick={() => onChange(s.code)}
-            className={`px-2 h-5 rounded-full text-[9px] font-semibold tracking-[0.15em] transition-colors ${
-              active
-                ? "bg-white text-black"
-                : "text-white/50 hover:text-white"
+            onClick={() => onChange(script.code)}
+            className={`h-5 rounded-full px-2 text-[9px] font-semibold tracking-[0.15em] transition-colors ${
+              active ? "bg-white text-black" : "text-white/50 hover:text-white"
             }`}
           >
-            {s.label}
+            {script.label}
           </button>
         );
       })}
@@ -323,37 +334,34 @@ function LanguagePicker({
   );
 }
 
-function StageTracker({ current }: { current: number }) {
+function StageTracker({ current, langCode }: { current: number; langCode: string }) {
+  const labels = stageLabels[langCode] ?? stageLabels.sv;
   return (
-    <div className="px-4 py-3 border-b border-white/[0.06] bg-black/30">
+    <div className="border-b border-white/[0.06] bg-black/30 px-4 py-3">
       <div className="flex items-center justify-between gap-1">
-        {stages.map((s, i) => {
-          const active = i <= current;
-          const isCurrent = i === current;
-          const Icon = s.icon;
+        {stageIcons.map((stage, index) => {
+          const active = index <= current;
+          const isCurrent = index === current;
+          const Icon = stage.icon;
           return (
-            <div key={s.key} className="flex-1 flex flex-col items-center gap-1.5">
+            <div key={stage.key} className="flex flex-1 flex-col items-center gap-1.5">
               <motion.div
                 animate={{
                   scale: isCurrent ? 1.1 : 1,
                   backgroundColor: active ? "rgba(255,255,255,0.95)" : "transparent",
                   color: active ? "#000" : "rgba(255,255,255,0.4)",
                   borderColor: active ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.15)",
-                  boxShadow: isCurrent
-                    ? "0 0 16px rgba(255,255,255,0.5)"
-                    : "0 0 0 rgba(0,0,0,0)",
+                  boxShadow: isCurrent ? "0 0 16px rgba(255,255,255,0.5)" : "0 0 0 rgba(0,0,0,0)",
                 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="h-6 w-6 rounded-full grid place-items-center border"
+                className="grid h-6 w-6 place-items-center rounded-full border"
               >
                 <Icon className="h-3 w-3" />
               </motion.div>
               <span
-                className={`text-[8.5px] uppercase tracking-[0.18em] font-medium transition-colors ${
-                  active ? "text-white/80" : "text-white/30"
-                }`}
+                className={`text-[8.5px] font-medium uppercase tracking-[0.18em] transition-colors ${active ? "text-white/80" : "text-white/30"}`}
               >
-                {s.label}
+                {labels[index]}
               </span>
             </div>
           );

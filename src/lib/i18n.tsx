@@ -21,7 +21,8 @@ const dict = {
     "hero.title.l1": "Never miss a",
     "hero.title.l2": "valuable lead",
     "hero.title.l3": "again.",
-    "hero.subtitle": "Leadmap answers missed calls, qualifies urgent buyers and sends you the next step before they try the next business.",
+    "hero.subtitle":
+      "Leadmap answers missed calls, qualifies urgent buyers and sends you the next step before they try the next business.",
     "hero.cta.book": "Book demo",
     "hero.cta.how": "How it works",
     "hero.cta.test": "Test the AI",
@@ -49,12 +50,14 @@ const dict = {
 
     "bridge.eyebrow": "Deeper walkthrough",
     "bridge.title": "See the call engine without crowding the homepage.",
-    "bridge.body": "A focused, cinematic page shows how Leadmap moves a caller from first ring to qualified handoff.",
+    "bridge.body":
+      "A focused, cinematic page shows how Leadmap moves a caller from first ring to qualified handoff.",
     "bridge.cta": "Open experience",
 
     "experience.eyebrow": "Leadmap experience",
     "experience.title": "From first ring to ready-to-act lead.",
-    "experience.body": "A slower, sharper walkthrough of what happens when a customer calls, why the AI keeps them engaged, and which businesses get the strongest lift.",
+    "experience.body":
+      "A slower, sharper walkthrough of what happens when a customer calls, why the AI keeps them engaged, and which businesses get the strongest lift.",
     "experience.book": "Book demo",
     "experience.test": "Test the AI",
     "experience.radar": "Live signal map",
@@ -64,44 +67,59 @@ const dict = {
     "experience.radar.4": "coverage",
     "experience.journey.eyebrow": "Signal chain",
     "experience.journey.title": "The caller never hits a dead end.",
-    "experience.journey.body": "Each step is designed to keep momentum: answer fast, calm the caller, capture the need, shape the next step, and send a clean brief.",
+    "experience.journey.body":
+      "Each step is designed to keep momentum: answer fast, calm the caller, capture the need, shape the next step, and send a clean brief.",
     "experience.step.1": "Answer before voicemail wins",
-    "experience.step.1.meta": "The AI picks up when the team is busy, closed, driving, or on a job.",
+    "experience.step.1.meta":
+      "The AI picks up when the team is busy, closed, driving, or on a job.",
     "experience.step.2": "Find the real buying signal",
-    "experience.step.2.meta": "It asks for the service, urgency, location, budget cues and preferred callback time.",
+    "experience.step.2.meta":
+      "It asks for the service, urgency, location, budget cues and preferred callback time.",
     "experience.step.3": "Score the opportunity",
-    "experience.step.3.meta": "Leadmap separates urgent work from low-intent noise so owners know what to handle first.",
+    "experience.step.3.meta":
+      "Leadmap separates urgent work from low-intent noise so owners know what to handle first.",
     "experience.step.4": "Shape the next step",
-    "experience.step.4.meta": "The customer leaves with a clear expectation instead of wondering if anyone heard them.",
+    "experience.step.4.meta":
+      "The customer leaves with a clear expectation instead of wondering if anyone heard them.",
     "experience.step.5": "Send the owner a usable brief",
-    "experience.step.5.meta": "Name, number, problem, urgency and next action arrive in one clean summary.",
+    "experience.step.5.meta":
+      "Name, number, problem, urgency and next action arrive in one clean summary.",
     "experience.focus.eyebrow": "Focus without clutter",
     "experience.focus.title": "The best niches are where silence costs real money.",
     "experience.track.1": "Urgent service calls",
-    "experience.track.1.meta": "Plumbers, electricians, roofers and damage teams win when they answer before the next company.",
+    "experience.track.1.meta":
+      "Plumbers, electricians, roofers and damage teams win when they answer before the next company.",
     "experience.track.2": "Appointment businesses",
-    "experience.track.2.meta": "Clinics and consult-heavy teams protect empty slots by capturing requests while staff are occupied.",
+    "experience.track.2.meta":
+      "Clinics and consult-heavy teams protect empty slots by capturing requests while staff are occupied.",
     "experience.track.3": "Mobile operators",
-    "experience.track.3.meta": "Detailers, repair crews and installers can keep working while the AI keeps the pipeline warm.",
+    "experience.track.3.meta":
+      "Detailers, repair crews and installers can keep working while the AI keeps the pipeline warm.",
     "experience.close.title": "Less noise on the homepage. More depth when they ask for it.",
-    "experience.close.body": "The main site now stays focused on booking, while this page gives serious buyers the proof journey.",
+    "experience.close.body":
+      "The main site now stays focused on booking, while this page gives serious buyers the proof journey.",
     "experience.close.cta": "Book the demo",
 
     "trust.eyebrow": "Trust the handoff",
     "trust.title": "Not a chatbot. A controlled front desk system.",
-    "trust.body": "The demo is simple: hear how Leadmap handles a real caller, then decide if tomorrow's missed calls should keep going to voicemail.",
+    "trust.body":
+      "The demo is simple: hear how Leadmap handles a real caller, then decide if tomorrow's missed calls should keep going to voicemail.",
     "trust.day.1": "Day 1",
     "trust.day.2": "Day 2-3",
     "trust.day.3": "Day 4-5",
     "trust.day.4": "Day 6-7",
     "trust.setup.1.title": "Map your calls",
-    "trust.setup.1.detail": "We capture your services, prices, areas, common questions and handoff rules.",
+    "trust.setup.1.detail":
+      "We capture your services, prices, areas, common questions and handoff rules.",
     "trust.setup.2.title": "Train the voice",
-    "trust.setup.2.detail": "Leadmap gets your tone, caller flow and qualification logic before it speaks to customers.",
+    "trust.setup.2.detail":
+      "Leadmap gets your tone, caller flow and qualification logic before it speaks to customers.",
     "trust.setup.3.title": "Connect forwarding",
-    "trust.setup.3.detail": "You keep your number. Missed or after-hours calls route to the AI receptionist.",
+    "trust.setup.3.detail":
+      "You keep your number. Missed or after-hours calls route to the AI receptionist.",
     "trust.setup.4.title": "Go live softly",
-    "trust.setup.4.detail": "Summaries, fallback rules and booking requests are checked before volume increases.",
+    "trust.setup.4.detail":
+      "Summaries, fallback rules and booking requests are checked before volume increases.",
     "trust.safe.1": "Keep your current number",
     "trust.safe.2": "Call summaries after every lead",
     "trust.safe.3": "EU data handling",
@@ -109,10 +127,10 @@ const dict = {
     "trust.safe.5": "Custom script and fallback rules",
     "trust.safe.6": "You approve booking confirmations",
 
-
     "safety.eyebrow": "Buy safely",
     "safety.title": "Try the system before you trust it with volume.",
-    "safety.body": "Start with a controlled pilot. Keep your number, approve the flow, and see the summaries before Leadmap handles more calls.",
+    "safety.body":
+      "Start with a controlled pilot. Keep your number, approve the flow, and see the summaries before Leadmap handles more calls.",
     "safety.book": "Book demo",
     "safety.test": "Test the AI",
     "safety.panel": "Pilot guardrails",
@@ -121,15 +139,19 @@ const dict = {
     "safety.metric.2": "long contracts",
     "safety.metric.3": "data region",
     "safety.item.1": "Keep your number",
-    "safety.item.1.detail": "Forward missed or after-hours calls only when you want Leadmap to answer.",
+    "safety.item.1.detail":
+      "Forward missed or after-hours calls only when you want Leadmap to answer.",
     "safety.item.2": "Approve before scaling",
-    "safety.item.2.detail": "You hear the voice, check the script and review summaries before volume increases.",
+    "safety.item.2.detail":
+      "You hear the voice, check the script and review summaries before volume increases.",
     "safety.item.3": "EU data handling",
-    "safety.item.3.detail": "Call details are handled with deletion rights, clear summaries and controlled access.",
+    "safety.item.3.detail":
+      "Call details are handled with deletion rights, clear summaries and controlled access.",
 
     "attention.eyebrow": "Attention system",
     "attention.title": "A missed call becomes a finished handoff.",
-    "attention.body": "The page should feel like the product: calm, fast and impossible to ignore. Leadmap keeps the caller moving from first ring to qualified summary.",
+    "attention.body":
+      "The page should feel like the product: calm, fast and impossible to ignore. Leadmap keeps the caller moving from first ring to qualified summary.",
     "attention.cta": "Run the demo",
     "attention.console": "Leadmap call engine",
     "attention.live": "Live loop",
@@ -147,7 +169,8 @@ const dict = {
     "attention.bar.2": "Needs callback",
     "attention.bar.3": "Price shopper",
     "attention.summary": "Owner summary",
-    "attention.summaryText": "New caller wants help this week. High intent. Prefers a callback after 14:00.",
+    "attention.summaryText":
+      "New caller wants help this week. High intent. Prefers a callback after 14:00.",
     "attention.tag.1": "Name",
     "attention.tag.2": "Need",
     "attention.tag.3": "Time",
@@ -166,12 +189,14 @@ const dict = {
 
     "pain.eyebrow": "The problem",
     "pain.title": "Every missed call is a lost job.",
-    "pain.body": "If you do not answer, they often call the next business. Leadmap gives serious callers a calm answer while their intent is still hot.",
+    "pain.body":
+      "If you do not answer, they often call the next business. Leadmap gives serious callers a calm answer while their intent is still hot.",
     "pain.built": "For plumbers, roofers, dentists, detailers and emergency trades.",
 
     "industries.eyebrow": "Best-fit customers",
     "industries.title": "Built for businesses where one call can pay for the month.",
-    "industries.body": "Leadmap is strongest when calls are urgent, appointment-driven, or arrive while the owner is busy doing the work. The AI qualifies the intent before it reaches your inbox.",
+    "industries.body":
+      "Leadmap is strongest when calls are urgent, appointment-driven, or arrive while the owner is busy doing the work. The AI qualifies the intent before it reaches your inbox.",
     "industries.1.name": "Emergency trades",
     "industries.1.examples": "Plumbers, roofers, electricians",
     "industries.1.signal": "High-value callers choose whoever answers first.",
@@ -227,23 +252,28 @@ const dict = {
     "faq.eyebrow": "FAQ",
     "faq.title": "Answers, before you ask.",
     "faq.1.q": "Will it sound robotic?",
-    "faq.1.a": "No. The voice is calm and natural in Swedish, English or Spanish. Most callers don't realize it's AI.",
+    "faq.1.a":
+      "No. The voice is calm and natural in Swedish, English or Spanish. Most callers don't realize it's AI.",
     "faq.2.q": "Does it work with my current number?",
-    "faq.2.a": "Yes. You keep your number. We set up forwarding so Leadmap only answers when you can't.",
+    "faq.2.a":
+      "Yes. You keep your number. We set up forwarding so Leadmap only answers when you can't.",
     "faq.3.q": "What if the AI can't answer?",
     "faq.3.a": "It takes their details and reason for the call, then sends you an instant summary.",
     "faq.4.q": "How fast can we go live?",
-    "faq.4.a": "Most setups go live within 7 days. We handle voice training, script and forwarding.",
+    "faq.4.a":
+      "Most setups go live within 7 days. We handle voice training, script and forwarding.",
     "faq.5.q": "Does it confirm bookings?",
     "faq.5.a": "It collects qualified booking requests and sends them to you for confirmation.",
     "faq.6.q": "How is my data handled?",
-    "faq.6.a": "Calls and summaries are stored securely in the EU. You can request deletion at any time.",
+    "faq.6.a":
+      "Calls and summaries are stored securely in the EU. You can request deletion at any time.",
     "faq.7.q": "What if it's not worth it?",
     "faq.7.a": "Cancel anytime after the first month — no long contract, no termination fee.",
 
     "cta.eyebrow": "Ready when you are",
     "cta.title": "Hear it answer a real call for your business.",
-    "cta.body": "A focused 15-minute demo. We show the voice, the questions and the summary before you decide.",
+    "cta.body":
+      "A focused 15-minute demo. We show the voice, the questions and the summary before you decide.",
     "cta.book": "Book demo",
     "cta.contact": "Contact us",
 
@@ -307,7 +337,8 @@ const dict = {
     "hero.title.l1": "Missa aldrig ett",
     "hero.title.l2": "viktigt samtal",
     "hero.title.l3": "igen.",
-    "hero.subtitle": "Leadmap svarar på missade samtal, kvalificerar köpsugna kunder och skickar nästa steg innan de testar nästa företag.",
+    "hero.subtitle":
+      "Leadmap svarar på missade samtal, kvalificerar köpsugna kunder och skickar nästa steg innan de testar nästa företag.",
     "hero.cta.book": "Boka demo",
     "hero.cta.how": "Så fungerar det",
     "hero.cta.test": "Testa AI:n",
@@ -335,12 +366,14 @@ const dict = {
 
     "bridge.eyebrow": "Djupare genomgång",
     "bridge.title": "Se samtalsmotorn utan att tynga ner startsidan.",
-    "bridge.body": "En fokuserad, mer filmisk sida visar hur Leadmap tar kunden från första signal till färdig överlämning.",
+    "bridge.body":
+      "En fokuserad, mer filmisk sida visar hur Leadmap tar kunden från första signal till färdig överlämning.",
     "bridge.cta": "Öppna upplevelsen",
 
     "experience.eyebrow": "Leadmap-upplevelsen",
     "experience.title": "Från första signal till lead du kan agera på.",
-    "experience.body": "En lugnare och skarpare genomgång av vad som händer när kunden ringer, hur AI:n håller intresset vid liv och vilka företag som får mest effekt.",
+    "experience.body":
+      "En lugnare och skarpare genomgång av vad som händer när kunden ringer, hur AI:n håller intresset vid liv och vilka företag som får mest effekt.",
     "experience.book": "Boka demo",
     "experience.test": "Testa AI:n",
     "experience.radar": "Live signalkarta",
@@ -350,44 +383,59 @@ const dict = {
     "experience.radar.4": "täckning",
     "experience.journey.eyebrow": "Signalkedja",
     "experience.journey.title": "Kunden hamnar aldrig i en återvändsgränd.",
-    "experience.journey.body": "Varje steg är byggt för att behålla momentum: svara snabbt, lugna kunden, fånga behovet, forma nästa steg och skicka en ren sammanfattning.",
+    "experience.journey.body":
+      "Varje steg är byggt för att behålla momentum: svara snabbt, lugna kunden, fånga behovet, forma nästa steg och skicka en ren sammanfattning.",
     "experience.step.1": "Svara innan voicemail vinner",
-    "experience.step.1.meta": "AI:n svarar när teamet är upptaget, stängt, kör bil eller är ute på jobb.",
+    "experience.step.1.meta":
+      "AI:n svarar när teamet är upptaget, stängt, kör bil eller är ute på jobb.",
     "experience.step.2": "Hitta den riktiga köpsignalen",
-    "experience.step.2.meta": "Den frågar efter tjänst, brådska, plats, budgetsignaler och önskad tid för återkoppling.",
+    "experience.step.2.meta":
+      "Den frågar efter tjänst, brådska, plats, budgetsignaler och önskad tid för återkoppling.",
     "experience.step.3": "Poängsätt möjligheten",
-    "experience.step.3.meta": "Leadmap skiljer brådskande jobb från lågintent brus så ägaren vet vad som ska tas först.",
+    "experience.step.3.meta":
+      "Leadmap skiljer brådskande jobb från lågintent brus så ägaren vet vad som ska tas först.",
     "experience.step.4": "Forma nästa steg",
-    "experience.step.4.meta": "Kunden lämnar samtalet med en tydlig förväntan istället för att undra om någon hörde dem.",
+    "experience.step.4.meta":
+      "Kunden lämnar samtalet med en tydlig förväntan istället för att undra om någon hörde dem.",
     "experience.step.5": "Skicka en användbar brief",
-    "experience.step.5.meta": "Namn, nummer, problem, brådska och nästa åtgärd landar i en ren sammanfattning.",
+    "experience.step.5.meta":
+      "Namn, nummer, problem, brådska och nästa åtgärd landar i en ren sammanfattning.",
     "experience.focus.eyebrow": "Fokus utan stök",
     "experience.focus.title": "De bästa nischerna är där tystnad kostar riktiga pengar.",
     "experience.track.1": "Akuta servicesamtal",
-    "experience.track.1.meta": "Rörmokare, elektriker, takläggare och skadeteam vinner när de svarar före nästa företag.",
+    "experience.track.1.meta":
+      "Rörmokare, elektriker, takläggare och skadeteam vinner när de svarar före nästa företag.",
     "experience.track.2": "Bokningsdrivna företag",
-    "experience.track.2.meta": "Kliniker och konsulttunga team skyddar tomma tider genom att fånga förfrågningar när personalen är upptagen.",
+    "experience.track.2.meta":
+      "Kliniker och konsulttunga team skyddar tomma tider genom att fånga förfrågningar när personalen är upptagen.",
     "experience.track.3": "Mobila operatörer",
-    "experience.track.3.meta": "Bilrekond, reparatörer och installatörer kan fortsätta jobba medan AI:n håller pipelinen varm.",
+    "experience.track.3.meta":
+      "Bilrekond, reparatörer och installatörer kan fortsätta jobba medan AI:n håller pipelinen varm.",
     "experience.close.title": "Mindre brus på startsidan. Mer djup när kunden vill se det.",
-    "experience.close.body": "Huvudsidan håller nu fokus på bokning, medan den här sidan ger seriösa köpare hela bevisresan.",
+    "experience.close.body":
+      "Huvudsidan håller nu fokus på bokning, medan den här sidan ger seriösa köpare hela bevisresan.",
     "experience.close.cta": "Boka demon",
 
     "trust.eyebrow": "Trygg överlämning",
     "trust.title": "Inte en chatbot. Ett kontrollerat front desk-system.",
-    "trust.body": "Demon är enkel: hör hur Leadmap hanterar en riktig kund och bestäm sedan om morgondagens missade samtal ska fortsätta hamna i voicemail.",
+    "trust.body":
+      "Demon är enkel: hör hur Leadmap hanterar en riktig kund och bestäm sedan om morgondagens missade samtal ska fortsätta hamna i voicemail.",
     "trust.day.1": "Dag 1",
     "trust.day.2": "Dag 2-3",
     "trust.day.3": "Dag 4-5",
     "trust.day.4": "Dag 6-7",
     "trust.setup.1.title": "Kartlägg samtalen",
-    "trust.setup.1.detail": "Vi fångar era tjänster, priser, områden, vanliga frågor och överlämningsregler.",
+    "trust.setup.1.detail":
+      "Vi fångar era tjänster, priser, områden, vanliga frågor och överlämningsregler.",
     "trust.setup.2.title": "Träna rösten",
-    "trust.setup.2.detail": "Leadmap får er ton, samtalsflödet och kvalificeringen innan den pratar med kunder.",
+    "trust.setup.2.detail":
+      "Leadmap får er ton, samtalsflödet och kvalificeringen innan den pratar med kunder.",
     "trust.setup.3.title": "Koppla vidare",
-    "trust.setup.3.detail": "Ni behåller ert nummer. Missade samtal och samtal efter stängning går till AI-receptionisten.",
+    "trust.setup.3.detail":
+      "Ni behåller ert nummer. Missade samtal och samtal efter stängning går till AI-receptionisten.",
     "trust.setup.4.title": "Gå live mjukt",
-    "trust.setup.4.detail": "Sammanfattningar, fallback-regler och bokningsförfrågningar kontrolleras innan volymen ökar.",
+    "trust.setup.4.detail":
+      "Sammanfattningar, fallback-regler och bokningsförfrågningar kontrolleras innan volymen ökar.",
     "trust.safe.1": "Behåll ert nuvarande nummer",
     "trust.safe.2": "Sammanfattning efter varje lead",
     "trust.safe.3": "Datahantering inom EU",
@@ -395,10 +443,10 @@ const dict = {
     "trust.safe.5": "Eget manus och fallback-regler",
     "trust.safe.6": "Ni godkänner bokningsbekräftelser",
 
-
     "safety.eyebrow": "Köp tryggt",
     "safety.title": "Testa systemet innan du litar på det med volym.",
-    "safety.body": "Börja med en kontrollerad pilot. Behåll numret, godkänn flödet och se sammanfattningarna innan Leadmap hanterar fler samtal.",
+    "safety.body":
+      "Börja med en kontrollerad pilot. Behåll numret, godkänn flödet och se sammanfattningarna innan Leadmap hanterar fler samtal.",
     "safety.book": "Boka demo",
     "safety.test": "Testa AI:n",
     "safety.panel": "Pilot-skydd",
@@ -407,15 +455,19 @@ const dict = {
     "safety.metric.2": "bindningstid",
     "safety.metric.3": "dataregion",
     "safety.item.1": "Behåll numret",
-    "safety.item.1.detail": "Vidarekoppla missade samtal eller samtal efter stängning bara när du vill att Leadmap ska svara.",
+    "safety.item.1.detail":
+      "Vidarekoppla missade samtal eller samtal efter stängning bara när du vill att Leadmap ska svara.",
     "safety.item.2": "Godkänn innan volym",
-    "safety.item.2.detail": "Du hör rösten, kontrollerar manuset och ser sammanfattningarna innan volymen ökar.",
+    "safety.item.2.detail":
+      "Du hör rösten, kontrollerar manuset och ser sammanfattningarna innan volymen ökar.",
     "safety.item.3": "Datahantering inom EU",
-    "safety.item.3.detail": "Samtalsdetaljer hanteras med raderingsrätt, tydliga sammanfattningar och kontrollerad åtkomst.",
+    "safety.item.3.detail":
+      "Samtalsdetaljer hanteras med raderingsrätt, tydliga sammanfattningar och kontrollerad åtkomst.",
 
     "attention.eyebrow": "Attention-system",
     "attention.title": "Ett missat samtal blir en färdig överlämning.",
-    "attention.body": "Sidan ska kännas som produkten: lugn, snabb och omöjlig att ignorera. Leadmap håller kunden i rörelse från första signal till tydlig sammanfattning.",
+    "attention.body":
+      "Sidan ska kännas som produkten: lugn, snabb och omöjlig att ignorera. Leadmap håller kunden i rörelse från första signal till tydlig sammanfattning.",
     "attention.cta": "Kör demon",
     "attention.console": "Leadmap call engine",
     "attention.live": "Live-loop",
@@ -433,7 +485,8 @@ const dict = {
     "attention.bar.2": "Behöver samtal",
     "attention.bar.3": "Jämför pris",
     "attention.summary": "Sammanfattning",
-    "attention.summaryText": "Ny kund vill ha hjälp denna vecka. Hög intent. Vill bli uppringd efter 14:00.",
+    "attention.summaryText":
+      "Ny kund vill ha hjälp denna vecka. Hög intent. Vill bli uppringd efter 14:00.",
     "attention.tag.1": "Namn",
     "attention.tag.2": "Behov",
     "attention.tag.3": "Tid",
@@ -452,12 +505,14 @@ const dict = {
 
     "pain.eyebrow": "Problemet",
     "pain.title": "Varje missat samtal är ett förlorat jobb.",
-    "pain.body": "Svarar du inte testar de ofta nästa företag. Leadmap ger seriösa kunder ett lugnt svar medan köpintentionen fortfarande är varm.",
+    "pain.body":
+      "Svarar du inte testar de ofta nästa företag. Leadmap ger seriösa kunder ett lugnt svar medan köpintentionen fortfarande är varm.",
     "pain.built": "För rörmokare, takläggare, tandläkare, bilrekond och akuta hantverkare.",
 
     "industries.eyebrow": "Bäst passande kunder",
     "industries.title": "Byggt för företag där ett samtal kan betala hela månaden.",
-    "industries.body": "Leadmap är som starkast när samtal är brådskande, bokningsdrivna eller kommer medan ägaren är upptagen med jobbet. AI:n kvalificerar ärendet innan det når din inkorg.",
+    "industries.body":
+      "Leadmap är som starkast när samtal är brådskande, bokningsdrivna eller kommer medan ägaren är upptagen med jobbet. AI:n kvalificerar ärendet innan det når din inkorg.",
     "industries.1.name": "Akuta hantverkare",
     "industries.1.examples": "Rörmokare, takläggare, elektriker",
     "industries.1.signal": "Kunder med högt värde väljer den som svarar först.",
@@ -513,23 +568,30 @@ const dict = {
     "faq.eyebrow": "FAQ",
     "faq.title": "Svar, innan du hinner fråga.",
     "faq.1.q": "Låter den robotaktig?",
-    "faq.1.a": "Nej. Rösten är lugn och naturlig på svenska, engelska eller spanska. De flesta märker inte ens att det är en AI.",
+    "faq.1.a":
+      "Nej. Rösten är lugn och naturlig på svenska, engelska eller spanska. De flesta märker inte ens att det är en AI.",
     "faq.2.q": "Fungerar det med mitt nuvarande nummer?",
-    "faq.2.a": "Ja. Du behåller ditt nummer. Vi sätter upp vidarekoppling så Leadmap bara svarar när du själv inte hinner.",
+    "faq.2.a":
+      "Ja. Du behåller ditt nummer. Vi sätter upp vidarekoppling så Leadmap bara svarar när du själv inte hinner.",
     "faq.3.q": "Vad händer om AI:n inte kan svara?",
     "faq.3.a": "Den tar uppringarens uppgifter och ärende och skickar en sammanfattning direkt.",
     "faq.4.q": "Hur snabbt kan vi komma igång?",
-    "faq.4.a": "De flesta är igång inom 7 dagar. Vi sköter rösten, manuset och vidarekopplingen åt dig.",
+    "faq.4.a":
+      "De flesta är igång inom 7 dagar. Vi sköter rösten, manuset och vidarekopplingen åt dig.",
     "faq.5.q": "Bekräftar den bokningar?",
-    "faq.5.a": "Den samlar in kvalificerade bokningsförfrågningar och skickar dem till dig för bekräftelse.",
+    "faq.5.a":
+      "Den samlar in kvalificerade bokningsförfrågningar och skickar dem till dig för bekräftelse.",
     "faq.6.q": "Hur hanteras min data?",
-    "faq.6.a": "Samtal och sammanfattningar lagras säkert inom EU. Du kan begära radering när du vill.",
+    "faq.6.a":
+      "Samtal och sammanfattningar lagras säkert inom EU. Du kan begära radering när du vill.",
     "faq.7.q": "Tänk om det inte är värt pengarna?",
-    "faq.7.a": "Säg upp när du vill efter första månaden — inga bindningstider, ingen uppsägningsavgift.",
+    "faq.7.a":
+      "Säg upp när du vill efter första månaden — inga bindningstider, ingen uppsägningsavgift.",
 
     "cta.eyebrow": "Redo när du är",
     "cta.title": "Hör hur den svarar på ett riktigt samtal till ditt företag.",
-    "cta.body": "En fokuserad 15-minuters demo. Vi visar rösten, frågorna och sammanfattningen innan du bestämmer dig.",
+    "cta.body":
+      "En fokuserad 15-minuters demo. Vi visar rösten, frågorna och sammanfattningen innan du bestämmer dig.",
     "cta.book": "Boka demo",
     "cta.contact": "Kontakta oss",
 
@@ -593,7 +655,8 @@ const dict = {
     "hero.title.l1": "Nunca pierdas una",
     "hero.title.l2": "llamada importante",
     "hero.title.l3": "más.",
-    "hero.subtitle": "Leadmap atiende llamadas perdidas, califica compradores urgentes y te envía el siguiente paso antes de que prueben con otra empresa.",
+    "hero.subtitle":
+      "Leadmap atiende llamadas perdidas, califica compradores urgentes y te envía el siguiente paso antes de que prueben con otra empresa.",
     "hero.cta.book": "Reservar demo",
     "hero.cta.how": "Cómo funciona",
     "hero.cta.test": "Probar la IA",
@@ -621,12 +684,14 @@ const dict = {
 
     "bridge.eyebrow": "Recorrido completo",
     "bridge.title": "Ve el motor de llamadas sin saturar la página principal.",
-    "bridge.body": "Una página enfocada y más cinematográfica muestra cómo Leadmap lleva al cliente desde el primer tono hasta un traspaso listo.",
+    "bridge.body":
+      "Una página enfocada y más cinematográfica muestra cómo Leadmap lleva al cliente desde el primer tono hasta un traspaso listo.",
     "bridge.cta": "Abrir experiencia",
 
     "experience.eyebrow": "Experiencia Leadmap",
     "experience.title": "Del primer tono a un lead accionable.",
-    "experience.body": "Un recorrido más pausado y claro de lo que ocurre cuando llama un cliente, cómo la IA mantiene su interés y qué negocios obtienen más impacto.",
+    "experience.body":
+      "Un recorrido más pausado y claro de lo que ocurre cuando llama un cliente, cómo la IA mantiene su interés y qué negocios obtienen más impacto.",
     "experience.book": "Reservar demo",
     "experience.test": "Probar la IA",
     "experience.radar": "Mapa de señales",
@@ -636,44 +701,60 @@ const dict = {
     "experience.radar.4": "cobertura",
     "experience.journey.eyebrow": "Cadena de señal",
     "experience.journey.title": "El cliente nunca llega a un callejón sin salida.",
-    "experience.journey.body": "Cada paso mantiene el impulso: responder rápido, calmar al cliente, captar la necesidad, definir el siguiente paso y enviar un resumen limpio.",
+    "experience.journey.body":
+      "Cada paso mantiene el impulso: responder rápido, calmar al cliente, captar la necesidad, definir el siguiente paso y enviar un resumen limpio.",
     "experience.step.1": "Responder antes de que gane el buzón",
-    "experience.step.1.meta": "La IA contesta cuando el equipo está ocupado, cerrado, conduciendo o trabajando en campo.",
+    "experience.step.1.meta":
+      "La IA contesta cuando el equipo está ocupado, cerrado, conduciendo o trabajando en campo.",
     "experience.step.2": "Encontrar la señal de compra real",
-    "experience.step.2.meta": "Pregunta por servicio, urgencia, ubicación, señales de presupuesto y hora preferida de llamada.",
+    "experience.step.2.meta":
+      "Pregunta por servicio, urgencia, ubicación, señales de presupuesto y hora preferida de llamada.",
     "experience.step.3": "Puntuar la oportunidad",
-    "experience.step.3.meta": "Leadmap separa trabajo urgente del ruido de baja intención para que el dueño priorice bien.",
+    "experience.step.3.meta":
+      "Leadmap separa trabajo urgente del ruido de baja intención para que el dueño priorice bien.",
     "experience.step.4": "Definir el siguiente paso",
-    "experience.step.4.meta": "El cliente termina con una expectativa clara en vez de preguntarse si alguien lo escuchó.",
+    "experience.step.4.meta":
+      "El cliente termina con una expectativa clara en vez de preguntarse si alguien lo escuchó.",
     "experience.step.5": "Enviar un resumen útil",
-    "experience.step.5.meta": "Nombre, número, problema, urgencia y siguiente acción llegan en un resumen limpio.",
+    "experience.step.5.meta":
+      "Nombre, número, problema, urgencia y siguiente acción llegan en un resumen limpio.",
     "experience.focus.eyebrow": "Foco sin ruido",
     "experience.focus.title": "Los mejores nichos son donde el silencio cuesta dinero real.",
     "experience.track.1": "Servicios urgentes",
-    "experience.track.1.meta": "Fontaneros, electricistas, techadores y equipos de daños ganan cuando responden antes que la siguiente empresa.",
+    "experience.track.1.meta":
+      "Fontaneros, electricistas, techadores y equipos de daños ganan cuando responden antes que la siguiente empresa.",
     "experience.track.2": "Negocios con citas",
-    "experience.track.2.meta": "Clínicas y equipos de consulta protegen huecos libres capturando solicitudes mientras el personal está ocupado.",
+    "experience.track.2.meta":
+      "Clínicas y equipos de consulta protegen huecos libres capturando solicitudes mientras el personal está ocupado.",
     "experience.track.3": "Operadores móviles",
-    "experience.track.3.meta": "Detailers, reparadores e instaladores pueden seguir trabajando mientras la IA mantiene caliente el pipeline.",
-    "experience.close.title": "Menos ruido en la página principal. Más profundidad cuando la piden.",
-    "experience.close.body": "La página principal ahora mantiene el foco en reservar, mientras esta página da a compradores serios todo el recorrido de prueba.",
+    "experience.track.3.meta":
+      "Detailers, reparadores e instaladores pueden seguir trabajando mientras la IA mantiene caliente el pipeline.",
+    "experience.close.title":
+      "Menos ruido en la página principal. Más profundidad cuando la piden.",
+    "experience.close.body":
+      "La página principal ahora mantiene el foco en reservar, mientras esta página da a compradores serios todo el recorrido de prueba.",
     "experience.close.cta": "Reservar la demo",
 
     "trust.eyebrow": "Confianza en el traspaso",
     "trust.title": "No es un chatbot. Es un sistema de recepción controlado.",
-    "trust.body": "La demo es simple: escucha cómo Leadmap atiende a un cliente real y decide si las llamadas perdidas de mañana deben seguir yendo al buzón.",
+    "trust.body":
+      "La demo es simple: escucha cómo Leadmap atiende a un cliente real y decide si las llamadas perdidas de mañana deben seguir yendo al buzón.",
     "trust.day.1": "Día 1",
     "trust.day.2": "Día 2-3",
     "trust.day.3": "Día 4-5",
     "trust.day.4": "Día 6-7",
     "trust.setup.1.title": "Mapeamos tus llamadas",
-    "trust.setup.1.detail": "Capturamos servicios, precios, zonas, preguntas frecuentes y reglas de traspaso.",
+    "trust.setup.1.detail":
+      "Capturamos servicios, precios, zonas, preguntas frecuentes y reglas de traspaso.",
     "trust.setup.2.title": "Entrenamos la voz",
-    "trust.setup.2.detail": "Leadmap aprende tu tono, el flujo de llamada y la lógica de calificación antes de hablar con clientes.",
+    "trust.setup.2.detail":
+      "Leadmap aprende tu tono, el flujo de llamada y la lógica de calificación antes de hablar con clientes.",
     "trust.setup.3.title": "Conectamos el desvío",
-    "trust.setup.3.detail": "Conservas tu número. Las llamadas perdidas o fuera de horario se dirigen a la recepcionista de IA.",
+    "trust.setup.3.detail":
+      "Conservas tu número. Las llamadas perdidas o fuera de horario se dirigen a la recepcionista de IA.",
     "trust.setup.4.title": "Salida suave",
-    "trust.setup.4.detail": "Revisamos resúmenes, reglas de respaldo y solicitudes de reserva antes de aumentar el volumen.",
+    "trust.setup.4.detail":
+      "Revisamos resúmenes, reglas de respaldo y solicitudes de reserva antes de aumentar el volumen.",
     "trust.safe.1": "Conserva tu número actual",
     "trust.safe.2": "Resumen después de cada lead",
     "trust.safe.3": "Gestión de datos en la UE",
@@ -681,10 +762,10 @@ const dict = {
     "trust.safe.5": "Guion y reglas de respaldo a medida",
     "trust.safe.6": "Tú apruebas las confirmaciones",
 
-
     "safety.eyebrow": "Compra con seguridad",
     "safety.title": "Prueba el sistema antes de confiarle volumen.",
-    "safety.body": "Empieza con un piloto controlado. Conserva tu número, aprueba el flujo y revisa los resúmenes antes de que Leadmap atienda más llamadas.",
+    "safety.body":
+      "Empieza con un piloto controlado. Conserva tu número, aprueba el flujo y revisa los resúmenes antes de que Leadmap atienda más llamadas.",
     "safety.book": "Reservar demo",
     "safety.test": "Probar la IA",
     "safety.panel": "Protecciones del piloto",
@@ -693,15 +774,19 @@ const dict = {
     "safety.metric.2": "permanencia",
     "safety.metric.3": "región de datos",
     "safety.item.1": "Conserva tu número",
-    "safety.item.1.detail": "Desvía llamadas perdidas o fuera de horario solo cuando quieras que Leadmap conteste.",
+    "safety.item.1.detail":
+      "Desvía llamadas perdidas o fuera de horario solo cuando quieras que Leadmap conteste.",
     "safety.item.2": "Aprueba antes de escalar",
-    "safety.item.2.detail": "Escuchas la voz, revisas el guion y ves los resúmenes antes de aumentar volumen.",
+    "safety.item.2.detail":
+      "Escuchas la voz, revisas el guion y ves los resúmenes antes de aumentar volumen.",
     "safety.item.3": "Datos gestionados en la UE",
-    "safety.item.3.detail": "Los detalles de llamadas se manejan con derecho de borrado, resúmenes claros y acceso controlado.",
+    "safety.item.3.detail":
+      "Los detalles de llamadas se manejan con derecho de borrado, resúmenes claros y acceso controlado.",
 
     "attention.eyebrow": "Sistema de atención",
     "attention.title": "Una llamada perdida se convierte en un traspaso claro.",
-    "attention.body": "La página debe sentirse como el producto: tranquila, rápida e imposible de ignorar. Leadmap lleva al cliente desde el primer tono hasta un resumen calificado.",
+    "attention.body":
+      "La página debe sentirse como el producto: tranquila, rápida e imposible de ignorar. Leadmap lleva al cliente desde el primer tono hasta un resumen calificado.",
     "attention.cta": "Probar la demo",
     "attention.console": "Motor de llamadas Leadmap",
     "attention.live": "Loop en vivo",
@@ -719,7 +804,8 @@ const dict = {
     "attention.bar.2": "Necesita llamada",
     "attention.bar.3": "Compara precio",
     "attention.summary": "Resumen",
-    "attention.summaryText": "Nuevo cliente quiere ayuda esta semana. Alta intención. Prefiere llamada después de las 14:00.",
+    "attention.summaryText":
+      "Nuevo cliente quiere ayuda esta semana. Alta intención. Prefiere llamada después de las 14:00.",
     "attention.tag.1": "Nombre",
     "attention.tag.2": "Necesidad",
     "attention.tag.3": "Hora",
@@ -738,12 +824,14 @@ const dict = {
 
     "pain.eyebrow": "El problema",
     "pain.title": "Cada llamada perdida es un trabajo perdido.",
-    "pain.body": "Si no contestas, suelen llamar al siguiente negocio. Leadmap da una respuesta tranquila mientras la intención de compra sigue caliente.",
+    "pain.body":
+      "Si no contestas, suelen llamar al siguiente negocio. Leadmap da una respuesta tranquila mientras la intención de compra sigue caliente.",
     "pain.built": "Para fontaneros, techadores, dentistas, detallistas y oficios de urgencia.",
 
     "industries.eyebrow": "Clientes ideales",
     "industries.title": "Hecho para negocios donde una llamada puede pagar el mes.",
-    "industries.body": "Leadmap funciona mejor cuando las llamadas son urgentes, dependen de citas o llegan mientras el dueño está trabajando. La IA califica la intención antes de enviártela.",
+    "industries.body":
+      "Leadmap funciona mejor cuando las llamadas son urgentes, dependen de citas o llegan mientras el dueño está trabajando. La IA califica la intención antes de enviártela.",
     "industries.1.name": "Oficios urgentes",
     "industries.1.examples": "Fontaneros, techadores, electricistas",
     "industries.1.signal": "Los clientes de alto valor eligen a quien responde primero.",
@@ -799,23 +887,29 @@ const dict = {
     "faq.eyebrow": "FAQ",
     "faq.title": "Respuestas, antes de que preguntes.",
     "faq.1.q": "¿Va a sonar robótica?",
-    "faq.1.a": "No. La voz es calmada y natural en español, inglés o sueco. La mayoría ni se da cuenta de que es IA.",
+    "faq.1.a":
+      "No. La voz es calmada y natural en español, inglés o sueco. La mayoría ni se da cuenta de que es IA.",
     "faq.2.q": "¿Funciona con mi número actual?",
-    "faq.2.a": "Sí. Tú conservas tu número. Configuramos el desvío para que Leadmap solo conteste cuando tú no puedas.",
+    "faq.2.a":
+      "Sí. Tú conservas tu número. Configuramos el desvío para que Leadmap solo conteste cuando tú no puedas.",
     "faq.3.q": "¿Y si la IA no sabe responder?",
     "faq.3.a": "Toma los datos y el motivo de la llamada, y te envía un resumen al instante.",
     "faq.4.q": "¿En cuánto tiempo está en marcha?",
-    "faq.4.a": "Casi todos estamos en directo en 7 días. Nos encargamos de la voz, el guion y el desvío.",
+    "faq.4.a":
+      "Casi todos estamos en directo en 7 días. Nos encargamos de la voz, el guion y el desvío.",
     "faq.5.q": "¿Confirma las reservas?",
-    "faq.5.a": "Recoge solicitudes de reserva ya calificadas y te las pasa para que las confirmes tú.",
+    "faq.5.a":
+      "Recoge solicitudes de reserva ya calificadas y te las pasa para que las confirmes tú.",
     "faq.6.q": "¿Cómo se gestionan mis datos?",
-    "faq.6.a": "Las llamadas y los resúmenes se guardan de forma segura en la UE. Puedes pedir su eliminación cuando quieras.",
+    "faq.6.a":
+      "Las llamadas y los resúmenes se guardan de forma segura en la UE. Puedes pedir su eliminación cuando quieras.",
     "faq.7.q": "¿Y si no me merece la pena?",
     "faq.7.a": "Cancela cuando quieras tras el primer mes — sin permanencia, sin penalización.",
 
     "cta.eyebrow": "Cuando quieras empezar",
     "cta.title": "Escucha cómo atiende una llamada real de tu negocio.",
-    "cta.body": "Una demo enfocada de 15 minutos. Te mostramos la voz, las preguntas y el resumen antes de decidir.",
+    "cta.body":
+      "Una demo enfocada de 15 minutos. Te mostramos la voz, las preguntas y el resumen antes de decidir.",
     "cta.book": "Reservar demo",
     "cta.contact": "Contáctanos",
 
@@ -874,29 +968,48 @@ type Ctx = {
 const I18nContext = createContext<Ctx | null>(null);
 
 const SPANISH_REGIONS = new Set([
-  "ES", "MX", "AR", "CO", "CL", "PE", "VE", "EC", "GT", "CU", "BO",
-  "DO", "HN", "PY", "SV", "NI", "CR", "PR", "PA", "UY", "US",
+  "ES",
+  "MX",
+  "AR",
+  "CO",
+  "CL",
+  "PE",
+  "VE",
+  "EC",
+  "GT",
+  "CU",
+  "BO",
+  "DO",
+  "HN",
+  "PY",
+  "SV",
+  "NI",
+  "CR",
+  "PR",
+  "PA",
+  "UY",
+  "US",
 ]);
 
 function detectLang(): Lang {
-  if (typeof navigator === "undefined") return "en";
-  const candidates = [
-    ...(navigator.languages ?? []),
-    navigator.language,
-  ].filter(Boolean) as string[];
+  if (typeof navigator === "undefined") return "sv";
+  const candidates = [...(navigator.languages ?? []), navigator.language].filter(
+    Boolean,
+  ) as string[];
   for (const raw of candidates) {
     const [langPart, regionPart] = raw.toLowerCase().split("-");
     const region = regionPart?.toUpperCase();
     if (langPart === "sv" || region === "SE") return "sv";
-    if (langPart === "es" || (region && SPANISH_REGIONS.has(region) && langPart === "es")) return "es";
+    if (langPart === "es" || (region && SPANISH_REGIONS.has(region) && langPart === "es"))
+      return "es";
     if (langPart === "es") return "es";
     if (langPart === "en") return "en";
   }
-  return "en";
+  return "sv";
 }
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
+  const [lang, setLangState] = useState<Lang>("sv");
 
   useEffect(() => {
     try {
@@ -921,7 +1034,10 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   };
 
   const t = (key: Key, vars?: Record<string, string>) => {
-    let s: string = (dict[lang] as Record<string, string>)[key] ?? (dict.en as Record<string, string>)[key] ?? key;
+    let s: string =
+      (dict[lang] as Record<string, string>)[key] ??
+      (dict.en as Record<string, string>)[key] ??
+      key;
     if (vars) for (const [k, v] of Object.entries(vars)) s = s.replaceAll(`{${k}}`, v);
     return s;
   };

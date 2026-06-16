@@ -1,281 +1,256 @@
-import { useRef, useState } from "react";
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-  useSpring,
-  useMotionValue,
-} from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDialogs } from "./DialogsProvider";
-import { useI18n } from "@/lib/i18n";
+import { useI18n, type Lang } from "@/lib/i18n";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-function TiltCard({
-  children,
-  className,
-  enabled,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  enabled: boolean;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const rx = useSpring(useTransform(y, [-0.5, 0.5], [5, -5]), { stiffness: 150, damping: 18 });
-  const ry = useSpring(useTransform(x, [-0.5, 0.5], [-5, 5]), { stiffness: 150, damping: 18 });
-  const glareX = useTransform(x, [-0.5, 0.5], ["20%", "80%"]);
-  const glareY = useTransform(y, [-0.5, 0.5], ["20%", "80%"]);
-  const glareBg = useTransform(
-    [glareX, glareY],
-    ([gx, gy]) =>
-      `radial-gradient(40% 40% at ${gx} ${gy}, color-mix(in oklch, var(--background) 62%, transparent), transparent 70%)`,
-  );
-
-  return (
-    <motion.div
-      ref={ref}
-      onMouseMove={(e) => {
-        if (!enabled || !ref.current) return;
-        const r = ref.current.getBoundingClientRect();
-        x.set((e.clientX - r.left) / r.width - 0.5);
-        y.set((e.clientY - r.top) / r.height - 0.5);
-      }}
-      onMouseLeave={() => {
-        x.set(0);
-        y.set(0);
-      }}
-      style={
-        enabled
-          ? { rotateX: rx, rotateY: ry, transformPerspective: 1200, transformStyle: "preserve-3d" }
-          : undefined
-      }
-      className={className}
-    >
-      {enabled && (
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-30 mix-blend-overlay"
-          style={{ background: glareBg }}
-        />
-      )}
-      {children}
-    </motion.div>
-  );
-}
+const copy: Record<
+  Lang,
+  {
+    eyebrow: string;
+    title: string;
+    body: string;
+    popular: string;
+    book: string;
+    audit: string;
+    risk: string;
+    confirm: string;
+    plans: {
+      name: string;
+      price: string;
+      note: string;
+      features: string[];
+      featured?: boolean;
+    }[];
+  }
+> = {
+  sv: {
+    eyebrow: "Priser",
+    title: "Börja smått. Rädda samtalen som annars försvinner.",
+    body: "Ni får en kontrollerad pilot först. Leadmap skickar kvalificerade bokningsförfrågningar, men ni bekräftar alltid själva kunden.",
+    popular: "Mest vald",
+    book: "Boka 10 min demo",
+    audit: "Få gratis audit",
+    risk: "Testa första månaden utan bindning.",
+    confirm: "Setup ingår för första kunder. Ingen bindning första månaden.",
+    plans: [
+      {
+        name: "Pilot",
+        price: "från 2 900 kr/mån",
+        note: "För företag som vill sluta tappa missade samtal.",
+        features: [
+          "AI svarar när ni inte hinner",
+          "Samlar namn, nummer, ärende och önskad tid",
+          "Skickar tydlig bokningsförfrågan",
+          "Setup ingår för första kunder",
+          "Ingen bindning första månaden",
+        ],
+      },
+      {
+        name: "Pro",
+        price: "4 900 kr/mån",
+        note: "För jour, kliniker och högre samtalsvolym.",
+        featured: true,
+        features: [
+          "Allt i Pilot",
+          "Mer anpassade samtalsflöden",
+          "Passar jour/kliniker/högre volym",
+          "Prioriterad setup/support",
+          "Mer avancerade sammanfattningar och regler",
+        ],
+      },
+    ],
+  },
+  en: {
+    eyebrow: "Pricing",
+    title: "Start small. Rescue the calls that would disappear.",
+    body: "Begin with a controlled pilot. Leadmap sends qualified booking requests, and you always confirm the customer yourself.",
+    popular: "Most chosen",
+    book: "Book 10 min demo",
+    audit: "Get free audit",
+    risk: "Try the first month with no commitment.",
+    confirm: "Setup included for first customers. No commitment first month.",
+    plans: [
+      {
+        name: "Pilot",
+        price: "from 2,900 kr/month",
+        note: "For companies that want to stop losing missed calls.",
+        features: [
+          "AI answers when you cannot",
+          "Captures name, number, need and preferred time",
+          "Sends a clear booking request",
+          "Setup included for first customers",
+          "No commitment first month",
+        ],
+      },
+      {
+        name: "Pro",
+        price: "4,900 kr/month",
+        note: "For emergency teams, clinics and higher call volume.",
+        featured: true,
+        features: [
+          "Everything in Pilot",
+          "More customized call flows",
+          "Fits emergency teams, clinics and higher volume",
+          "Priority setup/support",
+          "More advanced summaries and rules",
+        ],
+      },
+    ],
+  },
+  es: {
+    eyebrow: "Precios",
+    title: "Empieza pequeño. Recupera las llamadas que se perderían.",
+    body: "Comienza con un piloto controlado. Leadmap envía solicitudes calificadas y tú siempre confirmas al cliente.",
+    popular: "Más elegido",
+    book: "Reservar demo de 10 min",
+    audit: "Recibir auditoría gratis",
+    risk: "Prueba el primer mes sin permanencia.",
+    confirm: "Setup incluido para primeros clientes. Sin permanencia el primer mes.",
+    plans: [
+      {
+        name: "Piloto",
+        price: "desde 2.900 kr/mes",
+        note: "Para empresas que quieren dejar de perder llamadas.",
+        features: [
+          "La IA responde cuando no puedes",
+          "Captura nombre, número, necesidad y hora preferida",
+          "Envía una solicitud clara",
+          "Setup incluido para primeros clientes",
+          "Sin permanencia el primer mes",
+        ],
+      },
+      {
+        name: "Pro",
+        price: "4.900 kr/mes",
+        note: "Para urgencias, clínicas y más volumen.",
+        featured: true,
+        features: [
+          "Todo en Piloto",
+          "Flujos de llamada más personalizados",
+          "Para urgencias, clínicas y alto volumen",
+          "Setup/support prioritario",
+          "Resúmenes y reglas más avanzadas",
+        ],
+      },
+    ],
+  },
+};
 
 export function Pricing() {
-  const { openBooking, openTestAI } = useDialogs();
+  const { openBooking } = useDialogs();
+  const { lang } = useI18n();
   const reduce = useReducedMotion();
-  const { t } = useI18n();
-  const noParallax = reduce;
-  const sectionRef = useRef<HTMLElement>(null);
-  const [hoverDesktop, setHoverDesktop] = useState(false);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  const gridY = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
-
-  const plans = [
-    {
-      key: "pilot" as const,
-      name: t("pricing.pilot.name"),
-      price: "2,900",
-      currency: "kr",
-      note: t("pricing.pilot.note"),
-      sub: t("pricing.pilot.sub"),
-      features: [
-        t("pricing.pilot.f1"),
-        t("pricing.pilot.f2"),
-        t("pricing.pilot.f3"),
-        t("pricing.pilot.f4"),
-      ],
-      featured: false,
-    },
-    {
-      key: "premium" as const,
-      name: t("pricing.premium.name"),
-      price: "4,900",
-      currency: "kr",
-      note: t("pricing.premium.note"),
-      sub: t("pricing.premium.sub"),
-      features: [
-        t("pricing.premium.f1"),
-        t("pricing.premium.f2"),
-        t("pricing.premium.f3"),
-        t("pricing.premium.f4"),
-        t("pricing.premium.f5"),
-      ],
-      featured: true,
-    },
-  ];
+  const c = copy[lang];
 
   return (
     <section
       id="pricing"
-      ref={sectionRef}
-      onMouseEnter={() => setHoverDesktop(true)}
-      onMouseLeave={() => setHoverDesktop(false)}
-      className="relative py-16 md:py-32 overflow-hidden border-t border-border/60"
+      className="relative overflow-hidden border-b border-border/60 py-16 md:py-28"
     >
-      <motion.div
-        aria-hidden
-        style={noParallax ? undefined : { y: gridY }}
-        className="pointer-events-none absolute inset-x-0 -inset-y-1/3 hidden opacity-[0.04] md:block"
-      >
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, var(--foreground) 1px, transparent 1px), linear-gradient(to bottom, var(--foreground) 1px, transparent 1px)",
-            backgroundSize: "80px 80px",
-          }}
-        />
-      </motion.div>
+      <div className="pointer-events-none absolute inset-0 opacity-[0.03]" aria-hidden>
+        <div className="h-full w-full bg-[linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)] bg-[size:58px_58px]" />
+      </div>
 
-      <div className="relative mx-auto max-w-5xl px-6">
-        <div className="flex items-center gap-3 mb-6 md:mb-12">
-          <span className="h-px w-8 bg-foreground/30" />
-          <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground font-medium">
-            {t("pricing.eyebrow")}
-          </span>
-        </div>
+      <div className="relative mx-auto max-w-6xl px-6">
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease }}
+          className="grid gap-6 md:grid-cols-[0.9fr_1.1fr] md:items-end"
+        >
+          <div>
+            <p className="text-[10px] font-medium uppercase tracking-[0.34em] text-muted-foreground">
+              {c.eyebrow}
+            </p>
+            <h2 className="mt-5 max-w-2xl text-4xl font-extralight tracking-normal md:text-6xl">
+              {c.title}
+            </h2>
+          </div>
+          <p className="max-w-xl text-sm font-light leading-relaxed text-muted-foreground md:text-base">
+            {c.body}
+          </p>
+        </motion.div>
 
-        <h2 className="text-3xl md:text-5xl font-extralight tracking-normal max-w-2xl leading-[1.05]">
-          {t("pricing.title.l1")}
-          <br />
-          <span className="italic font-extralight text-foreground/40">
-            {t("pricing.title.l2")}
-          </span>
-        </h2>
-
-        <div className="mt-6 md:mt-10 flex flex-wrap gap-x-5 gap-y-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-          <span>{t("pricing.bullet.1")}</span>
-          <span className="opacity-30">·</span>
-          <span>{t("pricing.bullet.3")}</span>
-          <span className="opacity-30">·</span>
-          <span>{t("pricing.bullet.4")}</span>
-        </div>
-
-        <div className="mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-px md:bg-border/60 [perspective:1200px]">
-          {plans.map((p) => (
-            <TiltCard
-              key={p.key}
-              enabled={!noParallax && p.featured && hoverDesktop}
-              className={`relative overflow-hidden p-6 md:p-10 border border-border/70 md:border-0 transition-colors duration-500 h-full flex flex-col ${
-                p.featured
-                  ? "bg-background md:bg-foreground md:text-background"
-                  : "bg-background hover:bg-card"
+        <div className="mt-10 grid gap-4 md:grid-cols-2">
+          {c.plans.map((plan, index) => (
+            <motion.article
+              key={plan.name}
+              initial={reduce ? false : { opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, ease, delay: index * 0.08 }}
+              className={`relative flex min-h-[33rem] flex-col border p-6 md:p-8 ${
+                plan.featured
+                  ? "border-foreground bg-foreground text-background"
+                  : "border-border bg-card"
               }`}
             >
-              {p.featured && (
-                <>
-                  <span aria-hidden className="absolute inset-x-0 top-0 h-px bg-brand" />
-                  <span className="absolute top-4 right-4 md:top-8 md:right-8 text-[9px] uppercase tracking-[0.3em] md:tracking-[0.4em] bg-brand text-background px-2 py-0.5 md:px-2.5 md:py-1">
-                    {t("pricing.popular")}
-                  </span>
-                </>
+              {plan.featured && (
+                <span className="absolute right-4 top-4 border border-background/20 px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.2em] text-background/70">
+                  {c.popular}
+                </span>
               )}
-
-              <div className="flex items-center gap-3 relative">
-                <span className="h-px w-5 md:w-6 bg-current opacity-40" />
-                <h3 className="text-[10px] uppercase tracking-[0.4em] font-medium">
-                  {p.name}
+              <div className="flex items-center gap-3">
+                <span
+                  className={`h-px w-8 ${plan.featured ? "bg-background/45" : "bg-foreground/30"}`}
+                />
+                <h3 className="text-[10px] font-semibold uppercase tracking-[0.34em]">
+                  {plan.name}
                 </h3>
               </div>
-
-              <div className="mt-6 md:mt-10 flex items-baseline gap-2 relative flex-wrap">
-                <span className="text-4xl md:text-6xl font-extralight tracking-tight tabular-nums">
-                  {p.price}
-                </span>
-                <span
-                  className={`text-xs md:text-sm font-light ${
-                    p.featured ? "text-muted-foreground md:text-background/60" : "text-muted-foreground"
-                  }`}
-                >
-                  {p.currency}{t("pricing.month")}
-                </span>
+              <div className="mt-8 text-4xl font-extralight tracking-normal md:text-5xl">
+                {plan.price}
               </div>
               <p
-                className={`mt-2 text-[11px] md:text-xs relative leading-snug ${
-                  p.featured ? "text-muted-foreground md:text-background/55" : "text-muted-foreground"
-                }`}
+                className={`mt-4 max-w-sm text-sm leading-relaxed ${plan.featured ? "text-background/65" : "text-muted-foreground"}`}
               >
-                {p.note}
+                {plan.note}
               </p>
-              <p
-                className={`mt-1 text-[11px] md:text-[12px] italic relative leading-snug ${
-                  p.featured ? "text-foreground/60 md:text-background/65" : "text-foreground/60"
-                }`}
-              >
-                {p.sub}
-              </p>
-
-              <div
-                className={`my-6 md:my-10 h-px ${
-                  p.featured ? "bg-border md:bg-background/15" : "bg-border"
-                }`}
-              />
-
-              <ul className="space-y-2.5 md:space-y-4 relative flex-1">
-                {p.features.map((f) => (
-                  <li
-                    key={f}
-                    className="flex items-start gap-3 md:gap-4 text-[13px] md:text-sm font-light leading-snug"
-                  >
-                    <span
-                      className={`mt-2 h-px w-3 md:w-4 shrink-0 ${
-                        p.featured ? "bg-foreground/30 md:bg-background/40" : "bg-foreground/30"
-                      }`}
+              <div className={`my-8 h-px ${plan.featured ? "bg-background/15" : "bg-border"}`} />
+              <ul className="flex-1 space-y-4">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex gap-3 text-sm leading-relaxed">
+                    <CheckCircle2
+                      className={`mt-0.5 h-4 w-4 shrink-0 ${plan.featured ? "text-background/70" : "text-foreground/70"}`}
                     />
-                    <span>{f}</span>
+                    <span>{feature}</span>
                   </li>
                 ))}
               </ul>
-
-              <div className="mt-8 md:mt-12 relative">
-                <Button
-                  size="lg"
-                  onClick={openBooking}
-                  className={`w-full rounded-none uppercase tracking-[0.2em] text-[11px] font-semibold h-11 md:h-12 ${
-                    p.featured
-                      ? "bg-foreground text-background hover:bg-foreground/90 md:bg-background md:text-foreground md:hover:bg-background/90"
-                      : "bg-foreground text-background hover:bg-foreground/90"
-                  }`}
-                >
-                  {t("pricing.book")}
-                </Button>
-              </div>
-            </TiltCard>
+              <Button
+                onClick={openBooking}
+                size="lg"
+                className={`mt-8 rounded-none text-[11px] font-semibold uppercase tracking-[0.18em] ${
+                  plan.featured
+                    ? "bg-background text-foreground hover:bg-background/90"
+                    : "bg-foreground text-background hover:bg-foreground/90"
+                }`}
+              >
+                {c.book}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </motion.article>
           ))}
         </div>
 
-        <div className="mt-10 md:mt-14 flex flex-col items-center gap-4">
-          <button
-            onClick={openTestAI}
-            className="group inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] font-medium text-foreground hover:opacity-70 transition-opacity"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-brand opacity-60 animate-ping" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
-            </span>
-            <span>{t("pricing.testBefore")}</span>
-          </button>
+        <div className="mt-8 grid gap-3 border border-border bg-card p-5 text-sm text-muted-foreground md:grid-cols-[1fr_auto] md:items-center">
+          <div className="flex gap-3">
+            <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-foreground" />
+            <p>
+              <span className="text-foreground">{c.risk}</span> {c.confirm}
+            </p>
+          </div>
           <a
             href="/missade-samtal-audit?utm_source=pricing&utm_medium=cta&utm_campaign=free_audit"
-            className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground underline underline-offset-8 transition-colors hover:text-foreground"
+            className="inline-flex items-center justify-start gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground hover:opacity-70"
           >
-            Fa gratis missade-samtal audit
+            {c.audit}
+            <ArrowRight className="h-3.5 w-3.5" />
           </a>
-          <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground text-center">
-            {t("pricing.footer")}
-          </p>
         </div>
       </div>
     </section>
