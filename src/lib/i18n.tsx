@@ -88,9 +88,9 @@ const dict = {
     "experience.track.2.meta": "Clinics and consult-heavy teams protect empty slots by capturing requests while staff are occupied.",
     "experience.track.3": "Mobile operators",
     "experience.track.3.meta": "Detailers, repair crews and installers can keep working while the AI keeps the pipeline warm.",
-    "experience.close.title": "Less noise on the homepage. More depth when they ask for it.",
-    "experience.close.body": "The main site now stays focused on booking, while this page gives serious buyers the proof journey.",
-    "experience.close.cta": "Book the demo",
+    "experience.close.title": "Focused homepage. Full proof here.",
+    "experience.close.body": "We keep the homepage simple. This page is for buyers who want the full picture before booking.",
+    "experience.close.cta": "Book a demo",
 
     "trust.eyebrow": "Trust the handoff",
     "trust.title": "Not a chatbot. A controlled front desk system.",
