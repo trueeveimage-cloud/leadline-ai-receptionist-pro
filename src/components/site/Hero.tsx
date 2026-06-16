@@ -29,10 +29,6 @@ export function Hero() {
         ? ["fontaneros.", "dentistas.", "electricistas.", "talleres.", "techadores."]
         : ["plumbers.", "dentists.", "electricians.", "detailers.", "roofers."];
 
-  const liveLabel =
-    lang === "sv" ? "Live · just nu" : lang === "es" ? "En vivo · ahora" : "Live · right now";
-  const ringingLabel =
-    lang === "sv" ? "Ett samtal kommer in..." : lang === "es" ? "Entra una llamada..." : "A call is coming in...";
 
   const rescue = [
     { icon: PhoneIncoming, label: t("hero.rescue.1"), meta: t("hero.rescue.1.meta") },
@@ -85,20 +81,13 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease }}
-            className="mx-auto inline-flex items-center gap-2.5 border border-border bg-background/60 px-3 py-1.5 backdrop-blur-sm"
+            className="mx-auto inline-flex items-center gap-3 border-b border-foreground/15 px-1 py-1.5"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inset-0 inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-70" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
+            <span className="h-px w-6 bg-foreground/30" />
+            <span className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
+              {t("hero.eyebrow")}
             </span>
-            <span className="text-[10px] uppercase tracking-[0.32em] text-foreground/80">
-              {liveLabel}
-            </span>
-            <span className="hidden h-3 w-px bg-border sm:inline-block" />
-            <span className="hidden items-center gap-1.5 text-[10px] uppercase tracking-[0.28em] text-muted-foreground sm:inline-flex">
-              <PhoneIncoming className="h-3 w-3" />
-              {ringingLabel}
-            </span>
+            <span className="h-px w-6 bg-foreground/30" />
           </motion.div>
 
           <motion.h1
