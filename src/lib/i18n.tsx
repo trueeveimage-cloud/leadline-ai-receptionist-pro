@@ -379,9 +379,9 @@ const dict = {
     "experience.track.2.meta": "Kliniker och konsulttunga team skyddar tomma tider genom att fånga förfrågningar när personalen är upptagen.",
     "experience.track.3": "Mobila operatörer",
     "experience.track.3.meta": "Bilrekond, reparatörer och installatörer kan fortsätta jobba medan AI:n håller pipelinen varm.",
-    "experience.close.title": "Mindre brus på startsidan. Mer djup när kunden vill se det.",
-    "experience.close.body": "Huvudsidan håller nu fokus på bokning, medan den här sidan ger seriösa köpare hela bevisresan.",
-    "experience.close.cta": "Boka demon",
+    "experience.close.title": "Fokuserad startsida. Hela beviset här.",
+    "experience.close.body": "Vi håller startsidan enkel. Den här sidan är för köpare som vill se hela bilden innan de bokar.",
+    "experience.close.cta": "Boka demo",
 
     "trust.eyebrow": "Trygg överlämning",
     "trust.title": "Inte en chatbot. Ett kontrollerat front desk-system.",
