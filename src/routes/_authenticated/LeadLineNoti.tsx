@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -12,6 +12,7 @@ import {
 } from "@/lib/crm.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/LeadLineNoti")({
   head: () => ({
@@ -34,8 +35,23 @@ function NotiPage() {
   const fetchLeads = useServerFn(listLeads);
   const fetchMessages = useServerFn(listMessages);
 
-  const leadsQ = useQuery({ queryKey: ["crm-leads"], queryFn: () => fetchLeads() });
-  const msgsQ = useQuery({ queryKey: ["crm-messages"], queryFn: () => fetchMessages() });
+  const [hasSession, setHasSession] = useState(false);
+  useEffect(() => {
+    let mounted = true;
+    supabase.auth.getSession().then(({ data }) => {
+      if (mounted) setHasSession(!!data.session?.access_token);
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      setHasSession(!!session?.access_token);
+    });
+    return () => {
+      mounted = false;
+      sub.subscription.unsubscribe();
+    };
+  }, []);
+
+  const leadsQ = useQuery({ queryKey: ["crm-leads"], queryFn: () => fetchLeads(), enabled: hasSession });
+  const msgsQ = useQuery({ queryKey: ["crm-messages"], queryFn: () => fetchMessages(), enabled: hasSession });
 
   const openBookings = leadsQ.data?.leads.filter((l) => !l.contacted).length ?? 0;
   const openMessages = msgsQ.data?.messages.filter((m) => !m.contacted).length ?? 0;
