@@ -670,9 +670,9 @@ const dict = {
     "experience.track.2.meta": "Clínicas y equipos de consulta protegen huecos libres capturando solicitudes mientras el personal está ocupado.",
     "experience.track.3": "Operadores móviles",
     "experience.track.3.meta": "Detailers, reparadores e instaladores pueden seguir trabajando mientras la IA mantiene caliente el pipeline.",
-    "experience.close.title": "Menos ruido en la página principal. Más profundidad cuando la piden.",
-    "experience.close.body": "La página principal ahora mantiene el foco en reservar, mientras esta página da a compradores serios todo el recorrido de prueba.",
-    "experience.close.cta": "Reservar la demo",
+    "experience.close.title": "Portada enfocada. Toda la prueba aquí.",
+    "experience.close.body": "Mantenemos la portada simple. Esta página es para compradores que quieren ver todo antes de reservar.",
+    "experience.close.cta": "Reservar demo",
 
     "trust.eyebrow": "Confianza en el traspaso",
     "trust.title": "No es un chatbot. Es un sistema de recepción controlado.",
