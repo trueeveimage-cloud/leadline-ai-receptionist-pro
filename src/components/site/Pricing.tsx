@@ -86,8 +86,8 @@ export function Pricing() {
     {
       key: "pilot" as const,
       name: t("pricing.pilot.name"),
-      price: "2,900",
-      currency: "kr",
+      price: t("pricing.pilot.price"),
+      currency: t("pricing.pilot.currency"),
       note: t("pricing.pilot.note"),
       sub: t("pricing.pilot.sub"),
       features: [
@@ -95,14 +95,15 @@ export function Pricing() {
         t("pricing.pilot.f2"),
         t("pricing.pilot.f3"),
         t("pricing.pilot.f4"),
+        t("pricing.pilot.f5"),
       ],
       featured: false,
     },
     {
       key: "premium" as const,
       name: t("pricing.premium.name"),
-      price: "4,900",
-      currency: "kr",
+      price: t("pricing.premium.price"),
+      currency: t("pricing.premium.currency"),
       note: t("pricing.premium.note"),
       sub: t("pricing.premium.sub"),
       features: [
@@ -111,6 +112,7 @@ export function Pricing() {
         t("pricing.premium.f3"),
         t("pricing.premium.f4"),
         t("pricing.premium.f5"),
+        t("pricing.premium.f6"),
       ],
       featured: true,
     },
