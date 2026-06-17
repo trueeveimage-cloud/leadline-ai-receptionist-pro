@@ -10,6 +10,7 @@ import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { DialogsProvider } from "@/components/site/DialogsProvider";
 import { Button } from "@/components/ui/button";
 import {
+  CallerEngagement,
   FounderTrust,
   MissedCallEconomics,
   SampleCallProof,
@@ -124,6 +125,7 @@ function Index() {
           <Hero />
           <AuditStrip />
           <Process />
+          <CallerEngagement />
           <SampleCallProof />
           <MissedCallEconomics />
           <BuyerSafety />
@@ -141,10 +143,25 @@ function Index() {
 }
 
 function AuditStrip() {
+  const proof = [
+    ["45 sek", "tar audit"],
+    ["0 kr", "första kontroll"],
+    ["ingen", "bindning"],
+  ];
+
   return (
-    <section className="border-y border-border/60 bg-card/35 py-8">
-      <div className="mx-auto flex max-w-6xl flex-col gap-5 px-6 md:flex-row md:items-center md:justify-between">
-        <div>
+    <section className="relative overflow-hidden border-y border-border/60 bg-card/35 py-8">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.025]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, var(--foreground) 1px, transparent 1px), linear-gradient(to bottom, var(--foreground) 1px, transparent 1px)",
+          backgroundSize: "36px 36px",
+        }}
+      />
+      <div className="relative mx-auto grid max-w-6xl gap-5 px-6 lg:grid-cols-[1fr_auto_auto] lg:items-center">
+        <div className="max-w-2xl">
           <p className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
             Gratis missade-samtal audit
           </p>
@@ -155,10 +172,20 @@ function AuditStrip() {
             Tar under 45 sekunder. Ingen bindning. Ingen spam.
           </p>
         </div>
+        <div className="grid grid-cols-3 gap-px border border-border bg-border">
+          {proof.map(([value, label]) => (
+            <div key={label} className="min-w-24 bg-background px-4 py-3 text-center">
+              <div className="text-xl font-extralight tabular-nums">{value}</div>
+              <div className="mt-1 text-[9px] uppercase tracking-[0.18em] text-muted-foreground">
+                {label}
+              </div>
+            </div>
+          ))}
+        </div>
         <Button
           asChild
           variant="outline"
-          className="rounded-none px-6 text-[11px] font-semibold uppercase tracking-[0.18em]"
+          className="rounded-none px-6 text-[11px] font-semibold uppercase tracking-[0.18em] lg:justify-self-end"
         >
           <a href="/missade-samtal-audit?utm_source=homepage&utm_medium=cta&utm_campaign=free_audit">
             Få gratis audit

@@ -5,7 +5,10 @@ import {
   CalendarClock,
   CheckCircle2,
   ClipboardList,
+  Clock3,
+  Eye,
   MailCheck,
+  MousePointerClick,
   PhoneOff,
   PhoneOutgoing,
   ShieldCheck,
@@ -421,6 +424,205 @@ export function MissedCallEconomics() {
                 ))}
               </div>
             </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const engagementCopy = {
+  sv: {
+    eyebrow: "Varför kunden stannar",
+    title: "Leadmap håller samtalet levande när ni inte kan svara.",
+    body: "De flesta hemsidor säger att ni är pålitliga. Leadmap bevisar det i ögonblicket kunden ringer: snabbt svar, lugna frågor och en tydlig väg vidare.",
+    cta: "Hör hur det låter",
+    audit: "Få gratis audit",
+    stages: [
+      ["00:01", "Svar direkt", "Kunden slipper tystnad och går inte vidare till nästa företag."],
+      ["00:18", "Behov fångas", "AI:n frågar efter ärende, brådska, plats och kontaktuppgifter."],
+      [
+        "00:42",
+        "Ägaren får lead",
+        "Ni får en sammanfattning som går att agera på utan att lyssna igenom samtal.",
+      ],
+    ],
+    signals: [
+      ["Förtroende", "Kunden får svar även när ni är upptagna."],
+      ["Momentum", "Samtalet blir en bokningsförfrågan, inte voicemail."],
+      ["Kontroll", "Ni bekräftar själva innan något lovas."],
+    ],
+  },
+  en: {
+    eyebrow: "Why the caller stays",
+    title: "Leadmap keeps the call alive when you cannot answer.",
+    body: "Most websites say you are reliable. Leadmap proves it at the moment the customer calls: fast pickup, calm questions and a clear next step.",
+    cta: "Hear the call",
+    audit: "Get free audit",
+    stages: [
+      [
+        "00:01",
+        "Instant answer",
+        "The caller avoids silence and does not move to the next company.",
+      ],
+      ["00:18", "Need captured", "The AI asks for problem, urgency, location and contact details."],
+      ["00:42", "Owner gets the lead", "You receive a usable summary without replaying the call."],
+    ],
+    signals: [
+      ["Trust", "The customer gets an answer while you are busy."],
+      ["Momentum", "The call becomes a booking request, not voicemail."],
+      ["Control", "You confirm the customer before anything is promised."],
+    ],
+  },
+  es: {
+    eyebrow: "Por qué el cliente se queda",
+    title: "Leadmap mantiene viva la llamada cuando no puedes responder.",
+    body: "Muchas webs dicen que eres fiable. Leadmap lo demuestra cuando el cliente llama: respuesta rápida, preguntas claras y siguiente paso.",
+    cta: "Escuchar la llamada",
+    audit: "Recibir auditoría gratis",
+    stages: [
+      ["00:01", "Respuesta inmediata", "El cliente no oye silencio ni llama a otra empresa."],
+      ["00:18", "Necesidad capturada", "La IA pregunta problema, urgencia, ubicación y contacto."],
+      ["00:42", "Lead para el dueño", "Recibes un resumen útil sin escuchar toda la llamada."],
+    ],
+    signals: [
+      ["Confianza", "El cliente recibe respuesta aunque estés ocupado."],
+      ["Momentum", "La llamada se convierte en solicitud, no en buzón."],
+      ["Control", "Tú confirmas antes de prometer nada."],
+    ],
+  },
+} satisfies Record<
+  Lang,
+  {
+    eyebrow: string;
+    title: string;
+    body: string;
+    cta: string;
+    audit: string;
+    stages: string[][];
+    signals: string[][];
+  }
+>;
+
+export function CallerEngagement() {
+  const { lang } = useI18n();
+  const { openTestAI } = useDialogs();
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const pulseY = useTransform(scrollYProgress, [0, 1], ["10%", "-12%"]);
+  const c = engagementCopy[lang];
+
+  return (
+    <section
+      ref={ref}
+      className="relative overflow-hidden border-b border-border/60 py-16 md:py-28"
+    >
+      <motion.div
+        aria-hidden
+        style={reduce ? undefined : { y: pulseY }}
+        className="pointer-events-none absolute right-0 top-10 h-72 w-72 rounded-full bg-[radial-gradient(circle,var(--hero-glow),transparent_70%)] opacity-60 blur-3xl"
+      />
+      <div className="relative mx-auto grid max-w-6xl gap-10 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease }}
+          className="lg:sticky lg:top-28"
+        >
+          <p className="text-[10px] font-medium uppercase tracking-[0.34em] text-muted-foreground">
+            {c.eyebrow}
+          </p>
+          <h2 className="mt-5 max-w-2xl text-4xl font-extralight tracking-normal md:text-6xl">
+            {c.title}
+          </h2>
+          <p className="mt-5 max-w-lg text-sm font-light leading-relaxed text-muted-foreground md:text-base">
+            {c.body}
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button
+              onClick={openTestAI}
+              variant="brand"
+              className="rounded-none text-[11px] font-semibold uppercase tracking-[0.18em]"
+            >
+              {c.cta}
+              <MousePointerClick className="ml-2 h-4 w-4" />
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              className="rounded-none text-[11px] font-semibold uppercase tracking-[0.18em]"
+            >
+              <a href="/missade-samtal-audit?utm_source=homepage&utm_medium=engagement&utm_campaign=free_audit">
+                {c.audit}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </a>
+            </Button>
+          </div>
+        </motion.div>
+
+        <div className="grid gap-4">
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease }}
+            className="border border-border bg-card p-4 md:p-6"
+          >
+            <div className="mb-6 flex items-center justify-between gap-4 border-b border-border/70 pb-4">
+              <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inset-0 animate-ping rounded-full bg-brand opacity-60" />
+                  <span className="relative h-2 w-2 rounded-full bg-brand" />
+                </span>
+                Live signal
+              </div>
+              <Clock3 className="h-4 w-4 text-muted-foreground" />
+            </div>
+            <ol className="space-y-3">
+              {c.stages.map(([time, title, detail], index) => (
+                <motion.li
+                  key={title}
+                  initial={reduce ? false : { opacity: 0, x: 18 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.55, ease, delay: index * 0.08 }}
+                  className="grid gap-4 border border-border bg-background p-4 sm:grid-cols-[4.5rem_1fr]"
+                >
+                  <div className="text-2xl font-extralight tabular-nums">{time}</div>
+                  <div>
+                    <h3 className="text-base font-medium">{title}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{detail}</p>
+                  </div>
+                </motion.li>
+              ))}
+            </ol>
+          </motion.div>
+
+          <div className="grid gap-px overflow-hidden border border-border bg-border md:grid-cols-3">
+            {c.signals.map(([label, detail], index) => {
+              const Icon = index === 0 ? Eye : index === 1 ? Sparkles : ShieldCheck;
+              return (
+                <motion.div
+                  key={label}
+                  initial={reduce ? false : { opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.55, ease, delay: index * 0.06 }}
+                  className="bg-background p-5"
+                >
+                  <Icon className="h-4 w-4" />
+                  <div className="mt-5 text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                    {label}
+                  </div>
+                  <p className="mt-2 text-sm leading-relaxed">{detail}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>
