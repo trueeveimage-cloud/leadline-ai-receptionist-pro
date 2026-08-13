@@ -117,8 +117,9 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="underline underline-offset-4 hover:text-foreground transition-colors"
               >
-                Nomia.se
+                Nomia
               </a>
+              .
             </span>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-5">

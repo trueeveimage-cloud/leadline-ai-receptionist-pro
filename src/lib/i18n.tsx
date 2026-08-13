@@ -276,7 +276,7 @@ const dict = {
     "footer.contact": "Get in touch",
     "footer.replies": "Replies within 1 business day",
     "footer.rights": "All rights reserved",
-    "footer.partners": "Partners with",
+    "footer.partners": "Need a better website? Visit",
     "footer.terms": "Terms & Conditions",
     "footer.privacy": "Privacy",
 
@@ -573,7 +573,7 @@ const dict = {
     "footer.contact": "Kontakt",
     "footer.replies": "Svar inom en arbetsdag",
     "footer.rights": "Alla rättigheter förbehållna",
-    "footer.partners": "Samarbetar med",
+    "footer.partners": "Behöver du en bättre webbplats? Besök",
     "footer.terms": "Villkor",
     "footer.privacy": "Integritet",
 
@@ -870,7 +870,7 @@ const dict = {
     "footer.contact": "Contacto",
     "footer.replies": "Respuesta en menos de un día hábil",
     "footer.rights": "Todos los derechos reservados",
-    "footer.partners": "Colabora con",
+    "footer.partners": "¿Necesitas una web mejor? Visita",
     "footer.terms": "Términos y Condiciones",
     "footer.privacy": "Privacidad",
 
