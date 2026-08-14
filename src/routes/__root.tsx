@@ -73,16 +73,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Leadmap — AI Receptionists" },
-      { name: "description", content: "Leadmap provides premium AI receptionists to handle calls, qualify leads, and book appointments." },
+      { title: "Leadmap — AI-receptionist för VVS-företag och elektriker" },
+      { name: "description", content: "Leadmap svarar när du inte kan, kvalificerar kunden och skickar nästa steg direkt till dig." },
       { name: "author", content: "Leadmap" },
-      { property: "og:title", content: "Leadmap — AI Receptionists" },
-      { property: "og:description", content: "Leadmap provides premium AI receptionists to handle calls, qualify leads, and book appointments." },
+      { property: "og:title", content: "Leadmap — AI-receptionist för VVS-företag och elektriker" },
+      { property: "og:description", content: "Svensktalande AI-receptionist för VVS-företag och elektriker." },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Leadmap" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "Leadmap — AI Receptionists" },
-      { name: "twitter:description", content: "Leadmap provides premium AI receptionists to handle calls, qualify leads, and book appointments." },
+      { name: "twitter:title", content: "Leadmap — Svensktalande AI-receptionist" },
+      { name: "twitter:description", content: "AI-receptionist för svenska VVS-företag och elektriker." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/df17544f-92aa-495d-bfb9-bf70a620efaf/id-preview-a2ad0a17--db12fc5f-e412-441a-9002-745e2cbf253f.lovable.app-1779668951866.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/df17544f-92aa-495d-bfb9-bf70a620efaf/id-preview-a2ad0a17--db12fc5f-e412-441a-9002-745e2cbf253f.lovable.app-1779668951866.png" },
     ],
@@ -122,7 +122,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
   `;
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="sv" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <HeadContent />

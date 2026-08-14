@@ -111,7 +111,7 @@ function ExperienceHero() {
             <Button
               size="lg"
               variant="brand"
-              onClick={openBooking}
+              onClick={() => openBooking()}
               className="rounded-none px-8 text-[11px] font-semibold uppercase tracking-[0.2em]"
             >
               {t("experience.book")}
@@ -144,10 +144,10 @@ function ExperienceHero() {
             </div>
             <div className="grid gap-px bg-border/70 md:grid-cols-2">
               {[
-                ["00:01", "experience.radar.1"],
-                ["92%", "experience.radar.2"],
+                ["Demo", "experience.radar.1"],
+                ["Akut", "experience.radar.2"],
                 ["04", "experience.radar.3"],
-                ["24/7", "experience.radar.4"],
+                ["SE", "experience.radar.4"],
               ].map(([value, label], index) => (
                 <motion.div
                   key={label}
@@ -236,9 +236,9 @@ function IndustrySequence() {
   const { t } = useI18n();
   const reduce = useReducedMotion();
   const tracks = [
-    ["experience.track.1", "experience.track.1.meta", "92%"],
-    ["experience.track.2", "experience.track.2.meta", "74%"],
-    ["experience.track.3", "experience.track.3.meta", "58%"],
+    ["experience.track.1", "experience.track.1.meta"],
+    ["experience.track.2", "experience.track.2.meta"],
+    ["experience.track.3", "experience.track.3.meta"],
   ] as const;
 
   return (
@@ -262,7 +262,7 @@ function IndustrySequence() {
         </motion.div>
 
         <div className="space-y-4">
-          {tracks.map(([label, meta, score], index) => (
+          {tracks.map(([label, meta], index) => (
             <motion.div
               key={label}
               initial={reduce ? false : { opacity: 0, x: 22 }}
@@ -276,7 +276,6 @@ function IndustrySequence() {
                   <Zap className="h-4 w-4 text-brand" />
                   <h3 className="text-lg font-light tracking-normal">{t(label as Parameters<typeof t>[0])}</h3>
                 </div>
-                <span className="text-sm tabular-nums text-background/70">{score}</span>
               </div>
               <p className="mt-3 text-sm font-light leading-relaxed text-background/62">
                 {t(meta as Parameters<typeof t>[0])}
@@ -306,7 +305,7 @@ function ExperienceClose() {
           {t("experience.close.body")}
         </p>
         <button
-          onClick={openBooking}
+          onClick={() => openBooking()}
           className="group mt-10 inline-flex items-center gap-3 border-b border-foreground pb-2 text-[11px] font-semibold uppercase tracking-[0.22em] transition-opacity hover:opacity-70"
         >
           {t("experience.close.cta")}

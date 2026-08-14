@@ -90,7 +90,7 @@ export function Demo() {
           >
             <Button
               size="lg"
-              onClick={openBooking}
+              onClick={() => openBooking()}
               className="rounded-none bg-white text-black hover:bg-white/90 px-8 text-[11px] font-semibold uppercase tracking-[0.2em]"
             >
               Book setup call

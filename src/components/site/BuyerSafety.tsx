@@ -38,7 +38,7 @@ export function BuyerSafety() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button
-              onClick={openBooking}
+              onClick={() => openBooking()}
               className="h-11 bg-background px-6 text-[10px] font-semibold uppercase tracking-[0.16em] text-foreground hover:bg-background/90"
             >
               {t("safety.book")}

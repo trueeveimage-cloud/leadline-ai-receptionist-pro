@@ -89,6 +89,7 @@ export function Pricing() {
       price: t("pricing.pilot.price"),
       currency: t("pricing.pilot.currency"),
       note: t("pricing.pilot.note"),
+      cta: t("pricing.pilot.cta"),
       sub: t("pricing.pilot.sub"),
       features: [
         t("pricing.pilot.f1"),
@@ -105,6 +106,7 @@ export function Pricing() {
       price: t("pricing.premium.price"),
       currency: t("pricing.premium.currency"),
       note: t("pricing.premium.note"),
+      cta: t("pricing.premium.cta"),
       sub: t("pricing.premium.sub"),
       features: [
         t("pricing.premium.f1"),
@@ -244,14 +246,14 @@ export function Pricing() {
               <div className="mt-8 md:mt-12 relative">
                 <Button
                   size="lg"
-                  onClick={openBooking}
+                  onClick={() => openBooking(p.key === "pilot" ? "pilot" : "demo")}
                   className={`w-full rounded-none uppercase tracking-[0.2em] text-[11px] font-semibold h-11 md:h-12 ${
                     p.featured
                       ? "bg-foreground text-background hover:bg-foreground/90 md:bg-background md:text-foreground md:hover:bg-background/90"
                       : "bg-foreground text-background hover:bg-foreground/90"
                   }`}
                 >
-                  {t("pricing.book")}
+                  {p.cta}
                 </Button>
               </div>
             </TiltCard>

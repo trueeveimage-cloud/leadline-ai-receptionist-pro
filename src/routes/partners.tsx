@@ -153,7 +153,7 @@ function PartnerHero() {
           <h1 className="mt-5 max-w-3xl text-5xl font-extralight leading-[0.98] tracking-normal md:text-7xl">{c.title}</h1>
           <p className="mt-6 max-w-2xl text-base font-light leading-relaxed text-muted-foreground md:text-lg">{c.body}</p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Button variant="brand" size="lg" onClick={openBooking} className="rounded-none px-8 text-[11px] font-semibold uppercase tracking-[0.2em]">
+            <Button variant="brand" size="lg" onClick={() => openBooking()} className="rounded-none px-8 text-[11px] font-semibold uppercase tracking-[0.2em]">
               {c.primary}
             </Button>
             <Button variant="outline" size="lg" onClick={openContact} className="rounded-none px-8 text-[11px] font-semibold uppercase tracking-[0.2em]">
@@ -253,7 +253,7 @@ function TrustAndFaq() {
           <h2 className="mt-7 text-4xl font-extralight tracking-normal md:text-5xl">{c.trustTitle}</h2>
           <p className="mt-5 text-sm font-light leading-relaxed text-muted-foreground">{c.trustBody}</p>
           <div className="mt-8 flex flex-col gap-3">
-            <Button variant="brand" onClick={openBooking} className="rounded-none text-[11px] font-semibold uppercase tracking-[0.2em]">
+            <Button variant="brand" onClick={() => openBooking()} className="rounded-none text-[11px] font-semibold uppercase tracking-[0.2em]">
               {c.primary}
             </Button>
             <button onClick={openContact} className="inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground">

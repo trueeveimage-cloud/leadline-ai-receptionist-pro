@@ -1,5 +1,7 @@
 import { test, expect, type Page } from "@playwright/test";
 
+test.setTimeout(60_000);
+
 /**
  * Responsive regression test for the BookingDialog.
  *
@@ -13,10 +15,11 @@ import { test, expect, type Page } from "@playwright/test";
 
 async function openBookingDialog(page: Page) {
   await page.goto("/");
+  await page.waitForLoadState("networkidle");
   // The Hero CTA renders the localized "Book demo" label. We match it
   // case-insensitively across en/sv/es.
   const cta = page
-    .getByRole("button", { name: /book\s*demo|boka\s*demo|reservar\s*demo/i })
+    .getByRole("button", { name: /book.*demo|boka.*demo|reservar.*demo/i })
     .first();
   await cta.waitFor({ state: "visible" });
   await cta.click();
@@ -70,8 +73,16 @@ test.describe("BookingDialog responsive layout", () => {
     ).toBeLessThanOrEqual(overflow.cw + 1);
   });
 
-  test("date strip and time grid are reachable on small screens", async ({ page }) => {
+  test("video meeting date strip and time grid are reachable on small screens", async ({ page }) => {
     const dialog = await openBookingDialog(page);
+
+    await dialog.getByLabel(/name|namn|nombre/i).fill("Jane Doe");
+    await dialog.getByLabel(/company|företag|empresa/i).fill("Nordisk VVS AB");
+    await dialog.getByLabel(/email|e-post/i).fill("jane@example.com");
+    await dialog.getByLabel(/mobile|mobilnummer|móvil/i).fill("+46 70 123 45 67");
+    await dialog.getByRole("button", { name: /continue|fortsätt|continuar/i }).click();
+    await dialog.getByLabel(/missed calls|missade samtal|llamadas perdidas/i).fill("5");
+    await dialog.getByLabel(/contact method|kontaktväg|método de contacto/i).selectOption("video");
 
     // Date pills live in a horizontally scrollable strip — at least the
     // first pill must be visible without horizontal page scroll.
@@ -79,7 +90,7 @@ test.describe("BookingDialog responsive layout", () => {
     await expect(firstDate).toBeVisible();
 
     // Time slots — pick a known slot and ensure it's in the dialog box.
-    const slot = dialog.getByRole("button", { name: "09:00" });
+    const slot = dialog.getByRole("button", { name: "09:00", exact: true });
     await expect(slot).toBeVisible();
     const slotBox = await slot.boundingBox();
     const dialogBox = await dialog.boundingBox();

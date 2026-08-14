@@ -32,7 +32,7 @@ export function StickyDemoNudge() {
             <div className="flex items-center gap-1">
               <button
                 type="button"
-                onClick={openBooking}
+                onClick={() => openBooking()}
                 className="group inline-flex h-10 items-center gap-2 bg-brand px-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-foreground transition-colors hover:bg-brand/90"
               >
                 <span className="hidden sm:inline">{t("sticky.cta")}</span>

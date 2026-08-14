@@ -101,7 +101,7 @@ function PageActions({ cta }: { cta: string }) {
       <Button
         size="lg"
         variant="brand"
-        onClick={openBooking}
+        onClick={() => openBooking()}
         className="rounded-none px-8 text-[11px] font-semibold uppercase tracking-[0.2em]"
       >
         {cta}

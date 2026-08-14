@@ -24,7 +24,7 @@ export function Hero() {
 
   const industries =
     lang === "sv"
-      ? ["rörmokare.", "tandläkare.", "elektriker.", "bilrekond.", "takläggare."]
+      ? ["VVS-företag.", "elektriker."]
       : lang === "es"
         ? ["fontaneros.", "dentistas.", "electricistas.", "talleres.", "techadores."]
         : ["plumbers.", "dentists.", "electricians.", "detailers.", "roofers."];
@@ -129,16 +129,16 @@ export function Hero() {
             className="mx-auto mt-8 flex w-full max-w-xl flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-center"
           >
             <MagneticButton
-              onClick={openBooking}
+              onClick={openTestAI}
               className="relative inline-flex h-12 w-full items-center justify-center rounded-none bg-brand px-9 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-foreground shadow-[0_20px_60px_-20px_color-mix(in_oklch,var(--brand)_55%,transparent)] transition-colors hover:bg-brand/90 sm:w-auto"
             >
-              <span>{t("hero.cta.book")}</span>
+              <span>{t("hero.cta.test")}</span>
             </MagneticButton>
             <button
-              onClick={openTestAI}
+              onClick={() => openBooking()}
               className="group inline-flex items-center justify-center gap-2 border border-border bg-secondary px-6 py-3 text-[11px] font-medium uppercase tracking-[0.22em] text-foreground transition-colors hover:bg-background sm:justify-start"
             >
-              <span>{t("hero.cta.test")}</span>
+              <span>{t("hero.cta.book")}</span>
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </button>
           </motion.div>
@@ -149,7 +149,7 @@ export function Hero() {
             transition={{ duration: 0.65, ease, delay: 0.36 }}
             className="mx-auto mt-4 flex w-full max-w-2xl flex-wrap items-center justify-center gap-2 text-center"
           >
-            {[t("hero.trust.1"), t("hero.trust.2"), t("hero.trust.3")].map((item) => (
+            {[t("hero.trust.1"), t("hero.trust.2"), t("hero.trust.3"), t("hero.trust.4")].map((item) => (
               <span
                 key={item}
                 className="border border-border/70 bg-background/70 px-3 py-1.5 text-[10px] uppercase tracking-[0.18em] text-muted-foreground backdrop-blur-sm"

@@ -132,7 +132,7 @@ function UseCasePage() {
                 <p className="text-[10px] uppercase tracking-[0.34em] text-muted-foreground">Ekonomi</p>
                 <h2 className="mt-4 text-3xl font-extralight md:text-5xl">{page.value}</h2>
                 <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-                  Pilot fran 2 900 kr/man. Setup ingar for forsta kunder och forsta manaden har ingen bindning.
+                  Pilot 2 900 kr/mån plus 2 000 kr i startavgift. Extra användning kostar 2,50 kr/min och det finns ingen bindningstid.
                 </p>
               </div>
               <div className="space-y-3">

@@ -78,7 +78,7 @@ export function Nav() {
               size="sm"
               variant="brand"
               className="hidden px-5 md:inline-flex"
-              onClick={openBooking}
+              onClick={() => openBooking()}
             >
               {t("nav.bookDemo")}
             </Button>

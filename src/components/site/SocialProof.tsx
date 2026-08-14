@@ -5,10 +5,10 @@ import { useI18n } from "@/lib/i18n";
 export function Stats() {
   const { t } = useI18n();
   const stats = [
-    { value: "87%", label: t("stats.voicemail") },
-    { value: "<1s", label: t("stats.pickup") },
-    { value: "24/7", label: t("stats.coverage") },
-    { value: "7 days", label: t("stats.live") },
+    { value: t("stats.value.language"), label: t("stats.voicemail") },
+    { value: "SEK", label: t("stats.pickup") },
+    { value: t("stats.value.pilot"), label: t("stats.coverage") },
+    { value: "3", label: t("stats.live") },
   ];
 
   return (
@@ -40,21 +40,21 @@ export function Stats() {
 const quotes = [
   {
     quote:
-      "We were losing two consults a week to voicemail. Within a month of going live, Leadmap captured 11 qualified booking requests we would have missed.",
-    name: "Dr. Lina Holm",
-    role: "Founder, Aurora Dental",
+      "When the team is on a job, the AI can collect the caller's details and prepare a clear follow-up.",
+    name: "VVS call example",
+    role: "Simulated scenario",
   },
   {
     quote:
-      "It sounds like a calm receptionist, not a robot. Clients hang up impressed — half don't even realise it's AI.",
-    name: "Markus Berg",
-    role: "Partner, Berg & Lind Advokater",
+      "The caller hears a clear AI disclosure and can explain the issue without waiting for voicemail.",
+    name: "Electrician call example",
+    role: "Simulated scenario",
   },
   {
     quote:
-      "Setup took less than a week. Now every after-hours call gets answered, qualified, and on my calendar by morning.",
-    name: "Sofia Ek",
-    role: "Owner, Ek Interiors",
+      "The owner receives the name, number, need and preferred next step in one summary.",
+    name: "Handoff example",
+    role: "Simulated scenario",
   },
 ];
 

@@ -18,31 +18,31 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Leadmap - AI Receptionist for Missed Calls and Lead Capture" },
+      { title: "AI-receptionist för VVS-företag och elektriker | Leadmap" },
       {
         name: "description",
         content:
-          "Leadmap is an AI receptionist for service businesses. Answer missed calls, qualify leads, capture appointment requests and send owner-ready summaries.",
+          "Leadmap är en svensktalande AI-receptionist för VVS-företag och elektriker. Missa aldrig en värdefull kund när du är ute på jobb.",
       },
       {
         name: "keywords",
         content:
-          "AI receptionist, missed call answering, lead generation, lead discovery, business lead mapping, email outreach, service business calls",
+          "AI-receptionist, VVS-företag, elektriker, missade samtal, telefonpassning, svarstjänst",
       },
       { name: "robots", content: "index,follow" },
-      { property: "og:title", content: "Leadmap - AI Receptionist for Service Businesses" },
+      { property: "og:title", content: "Leadmap — AI-receptionist för VVS-företag och elektriker" },
       {
         property: "og:description",
-        content: "Answer calls, qualify leads and send summaries when your team is busy or closed.",
+        content: "Leadmap svarar när du inte kan, kvalificerar kunden och skickar nästa steg direkt till dig.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.leadmap.se/" },
       { property: "og:site_name", content: "Leadmap" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Leadmap - AI Receptionist for Missed Calls" },
+      { name: "twitter:title", content: "Leadmap — Svensktalande AI-receptionist" },
       {
         name: "twitter:description",
-        content: "AI call answering and lead capture for phone-first service businesses.",
+        content: "Svensktalande AI-receptionist för VVS-företag och elektriker.",
       },
     ],
     links: [{ rel: "canonical", href: "https://www.leadmap.se/" }],
@@ -63,43 +63,60 @@ export const Route = createFileRoute("/")({
               "@type": "WebSite",
               name: "Leadmap",
               url: "https://www.leadmap.se",
+              inLanguage: "sv-SE",
               description:
-                "AI receptionist, missed call answering, lead qualification and lead capture for service businesses.",
+                "Svensktalande AI-receptionist för VVS-företag och elektriker.",
             },
             {
               "@type": "Service",
               name: "Leadmap AI receptionist",
               provider: { "@type": "Organization", name: "Leadmap" },
-              areaServed: ["SE", "NO", "DK", "GB", "ES"],
-              serviceType: "AI receptionist and lead capture",
+              areaServed: "SE",
+              serviceType: "AI-receptionist och kvalificering av inkommande samtal",
               description:
-                "AI call answering, appointment request capture, lead qualification and owner summaries for service businesses.",
+                "Leadmap svarar när du inte kan, kvalificerar kunden och skickar nästa steg direkt till dig.",
+              offers: [
+                {
+                  "@type": "Offer",
+                  name: "Pilot",
+                  price: "2900",
+                  priceCurrency: "SEK",
+                  description: "7-dagars pilot. 500 minuter ingår. Startavgift 2 000 kr. Extra användning 2,50 kr/min.",
+                },
+                {
+                  "@type": "Offer",
+                  name: "Premium",
+                  price: "4900",
+                  priceCurrency: "SEK",
+                  description: "1 500 minuter ingår. Startavgift ingår. Extra användning 2,50 kr/min.",
+                },
+              ],
             },
             {
               "@type": "FAQPage",
               mainEntity: [
                 {
                   "@type": "Question",
-                  name: "Does it confirm bookings automatically?",
+                  name: "Bekräftar AI:n bokningar automatiskt?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "In the pilot, it collects qualified booking requests and sends them to you for confirmation. Full calendar booking can be added later.",
+                    text: "I piloten samlar den in kvalificerade bokningsförfrågningar och skickar dem till dig för bekräftelse.",
                   },
                 },
                 {
                   "@type": "Question",
-                  name: "Do we need to change phone system?",
+                  name: "Behöver vi byta telefonsystem?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "No, we help set it up with your current number or a forwarding number.",
+                    text: "Nej. Du behåller ditt nuvarande nummer och vi hjälper till med vidarekopplingen.",
                   },
                 },
                 {
                   "@type": "Question",
-                  name: "Who is this best for?",
+                  name: "Vilka företag passar Leadmap bäst för?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Businesses that get valuable calls but are often busy, driving, with customers, or closed.",
+                    text: "Svenska VVS-företag och elektriker som får värdefulla samtal medan teamet arbetar, kör eller har stängt.",
                   },
                 },
               ],

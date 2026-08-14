@@ -33,7 +33,7 @@ export function FinalCTA() {
             <Button
               size="lg"
               variant="brand"
-              onClick={openBooking}
+              onClick={() => openBooking()}
               className="rounded-none uppercase tracking-[0.2em] text-[11px] font-semibold px-8"
             >
               {t("cta.book")}

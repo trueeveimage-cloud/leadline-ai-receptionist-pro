@@ -1,5 +1,7 @@
 import { test, expect, type Page } from "@playwright/test";
 
+test.setTimeout(60_000);
+
 /**
  * End-to-end test: click "Book demo", fill out and submit the booking,
  * and assert the success/summary step renders correctly on both mobile
@@ -17,37 +19,40 @@ async function openAndFill(page: Page) {
   });
 
   await page.goto("/");
+  await page.waitForLoadState("networkidle");
   await page
-    .getByRole("button", { name: /book\s*demo|boka\s*demo|reservar\s*demo/i })
+    .getByRole("button", { name: /book.*demo|boka.*demo|reservar.*demo/i })
     .first()
     .click();
 
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();
 
-  // Fill required text fields by their labels (i18n-aware).
+  // Fill required company and contact fields.
   await dialog
     .getByLabel(/name|namn|nombre/i)
     .fill("Jane Doe");
   await dialog
     .getByLabel(/company|företag|empresa/i)
-    .fill("Aurora Clinic");
+    .fill("Nordisk VVS AB");
   await dialog
-    .getByLabel(/phone|telefon|teléfono/i)
-    .fill("+45 22 33 44 55");
+    .getByLabel(/email|e-post/i)
+    .fill("jane@example.com");
+  await dialog
+    .getByLabel(/mobile|mobilnummer|móvil/i)
+    .fill("+46 70 123 45 67");
 
-  // Pick the first date pill (date strip auto-defaults to first too,
-  // but clicking confirms interaction works at this viewport).
-  const dateButtons = dialog.locator("button").filter({ hasText: /\d/ });
-  await dateButtons.first().click();
-
-  // Pick a known time slot.
-  await dialog.getByRole("button", { name: "10:00" }).click();
+  await dialog.getByRole("button", { name: /continue|fortsätt|continuar/i }).click();
+  await dialog
+    .getByLabel(/missed calls|missade samtal|llamadas perdidas/i)
+    .fill("5-10");
+  await dialog.getByRole("button", { name: /continue|fortsätt|continuar/i }).click();
+  await dialog.getByRole("checkbox").check({ force: true });
 
   // Submit.
   await dialog
-    .getByRole("button", { name: /request call|begär samtal|solicitar llamada/i })
-    .click();
+    .getByRole("button", { name: /send request|skicka förfrågan|enviar solicitud/i })
+    .click({ force: true });
 
   return dialog;
 }

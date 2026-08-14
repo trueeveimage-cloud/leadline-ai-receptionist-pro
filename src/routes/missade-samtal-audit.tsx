@@ -17,11 +17,11 @@ export const Route = createFileRoute("/missade-samtal-audit")({
       {
         name: "description",
         content:
-          "Fa en gratis missade-samtal audit och se hur Leadmap skulle svara at ditt foretag. For VVS, kliniker, tandlakare, bilverkstader och serviceforetag.",
+          "Få en gratis missade-samtal-audit och se hur Leadmap skulle svara åt ditt VVS-företag eller elföretag.",
       },
       { name: "robots", content: "index,follow" },
       { property: "og:title", content: "Gratis missade-samtal audit" },
-      { property: "og:description", content: "Se hur Leadmap skulle svara at ditt foretag." },
+      { property: "og:description", content: "Se hur Leadmap skulle svara åt ditt VVS-företag eller elföretag." },
       { property: "og:url", content: `${SITE_URL}/missade-samtal-audit` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -30,8 +30,8 @@ export const Route = createFileRoute("/missade-samtal-audit")({
   component: MissedCallAuditPage,
 });
 
-const contactMethods = ["SMS", "E-post", "Samtal"];
-const niches = ["VVS / rormokare", "Taklaggare", "Tandlakare", "Klinik", "Bilverkstad", "Bargning", "Elektriker jour", "Annat"];
+const contactMethods = ["E-post", "SMS", "Videomöte"];
+const niches = ["VVS-företag", "Elektriker", "Annan bransch"];
 
 function MissedCallAuditPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -46,7 +46,7 @@ function MissedCallAuditPage() {
     city: "",
     website: "",
     missedCallsPerWeek: "",
-    preferredContactMethod: contactMethods[1],
+    preferredContactMethod: contactMethods[0],
   });
 
   const tracking = useMemo(() => {
@@ -102,16 +102,16 @@ function MissedCallAuditPage() {
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
                 <p className="text-[10px] uppercase tracking-[0.34em] text-muted-foreground">Gratis audit</p>
                 <h1 className="mt-5 max-w-3xl text-4xl font-extralight leading-[1.02] tracking-normal md:text-7xl">
-                  Se hur Leadmap skulle svara at ditt foretag.
+                  Se hur Leadmap skulle svara åt ditt företag.
                 </h1>
                 <p className="mt-6 max-w-xl text-base font-light leading-relaxed text-muted-foreground md:text-lg">
-                  Skicka dina uppgifter sa gor vi en kort missade-samtal audit. Du far en konkret demo eller uppfoljning fran Leadmap, utan bindning.
+                  Skicka dina uppgifter så gör vi en kort missade-samtal-audit. Du får en konkret demo eller uppföljning från Leadmap, utan bindningstid.
                 </p>
                 <div className="mt-8 grid gap-3 text-sm text-muted-foreground">
                   {[
-                    "Vi tittar pa bransch, stad och hur samtalen brukar komma in.",
-                    "Du far se vilka fragor AI-telefonisten skulle stalla.",
-                    "Pilot fran 2 900 kr/man. Setup ingar for forsta kunder.",
+                    "Vi tittar på bransch, ort och hur samtalen brukar komma in.",
+                    "Du får se vilka frågor AI-receptionisten skulle ställa.",
+                    "Pilot 2 900 kr/mån + 2 000 kr startavgift. Extra användning 2,50 kr/min.",
                   ].map((item) => (
                     <div key={item} className="flex gap-3">
                       <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
@@ -125,9 +125,9 @@ function MissedCallAuditPage() {
                 {submitted ? (
                   <div className="border border-border bg-card p-8 md:p-10">
                     <CheckCircle2 className="h-10 w-10 text-brand" />
-                    <h2 className="mt-6 text-3xl font-extralight">Audit-forfragan mottagen.</h2>
+                    <h2 className="mt-6 text-3xl font-extralight">Auditförfrågan mottagen.</h2>
                     <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                      Leadmap/Maged skickar en kort demo eller uppfoljning via vald kanal. Vi markerar detta som en website audit lead i CRM nar Supabase-kopplingen ar aktiv.
+                      Tack! Vi återkommer via din valda kontaktväg med nästa steg för din kostnadsfria audit.
                     </p>
                     <Button asChild variant="outline" className="mt-8 rounded-none">
                       <a href="/">Till startsidan</a>
@@ -138,31 +138,31 @@ function MissedCallAuditPage() {
                     <div className="flex items-center gap-3 border-b border-border/70 pb-5">
                       <ClipboardCheck className="h-5 w-5" />
                       <div>
-                        <h2 className="text-xl font-light">Fa gratis missade-samtal audit</h2>
-                        <p className="text-xs text-muted-foreground">Alla falt hjalper oss gora demon mer relevant.</p>
+                        <h2 className="text-xl font-light">Få en gratis missade-samtal-audit</h2>
+                        <p className="text-xs text-muted-foreground">Uppgifterna hjälper oss att göra demon relevant.</p>
                       </div>
                     </div>
 
                     <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                      <Field label="Foretagsnamn" value={form.businessName} onChange={(v) => update("businessName", v)} required />
+                      <Field label="Företagsnamn" value={form.businessName} onChange={(v) => update("businessName", v)} required />
                       <Field label="Namn" value={form.ownerName} onChange={(v) => update("ownerName", v)} required />
                       <Field label="Telefonnummer" value={form.phone} onChange={(v) => update("phone", v)} required />
                       <Field label="E-post" value={form.email} onChange={(v) => update("email", v)} type="email" required />
                       <SelectField label="Bransch" value={form.niche} onChange={(v) => update("niche", v)} options={niches} />
                       <Field label="Stad" value={form.city} onChange={(v) => update("city", v)} required />
                       <Field label="Webbplats" value={form.website} onChange={(v) => update("website", v)} />
-                      <Field label="Missade samtal/vecka" value={form.missedCallsPerWeek} onChange={(v) => update("missedCallsPerWeek", v)} placeholder="t.ex. 5-10" />
-                      <SelectField label="Demo via" value={form.preferredContactMethod} onChange={(v) => update("preferredContactMethod", v)} options={contactMethods} className="sm:col-span-2" />
+                      <Field label="Ungefärligt antal missade samtal/vecka" value={form.missedCallsPerWeek} onChange={(v) => update("missedCallsPerWeek", v)} placeholder="t.ex. 5–10" required />
+                      <SelectField label="Önskad kontaktväg" value={form.preferredContactMethod} onChange={(v) => update("preferredContactMethod", v)} options={contactMethods} className="sm:col-span-2" />
                     </div>
 
                     {error && <p className="mt-5 border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">{error}</p>}
 
                     <Button type="submit" variant="brand" size="lg" disabled={submitting} className="mt-6 w-full rounded-none text-[11px] font-semibold uppercase tracking-[0.2em]">
                       {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                      Skicka audit-forfragan
+                      Skicka auditförfrågan
                     </Button>
                     <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
-                      Ingen spam. Du far bara uppfoljning om audit/demo och kan be oss ta bort dina uppgifter.
+                      Genom att skicka formuläret godkänner du att Leadmap behandlar uppgifterna för att följa upp din audit eller demo. Läs vår <a href="/privacy" className="underline hover:text-foreground">integritetspolicy</a>.
                     </p>
                   </form>
                 )}

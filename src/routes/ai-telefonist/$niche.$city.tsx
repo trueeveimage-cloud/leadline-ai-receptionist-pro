@@ -46,7 +46,7 @@ export const Route = createFileRoute("/ai-telefonist/$niche/$city")({
                   "@type": "Offer",
                   priceCurrency: "SEK",
                   price: "2900",
-                  description: "Pilot fran 2 900 kr/man. Setup ingar for forsta kunder.",
+                  description: "Pilot 2 900 kr/mån. Startavgift 2 000 kr. Extra användning 2,50 kr/min.",
                 },
                 description: page.description,
               }),
@@ -128,7 +128,7 @@ function SeoLandingPage() {
                 </div>
                 <p className="mt-5 text-2xl font-light leading-snug">{page.niche.scenario}</p>
                 <div className="mt-6 grid gap-3 text-sm text-muted-foreground">
-                  {[page.niche.pain, page.niche.benefit, "Pilot fran 2 900 kr/man. Setup ingar for forsta kunder."].map((item) => (
+                  {[page.niche.pain, page.niche.benefit, "Pilot 2 900 kr/mån. Startavgift 2 000 kr. Extra användning 2,50 kr/min."].map((item) => (
                     <div key={item} className="flex gap-3">
                       <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
                       <span>{item}</span>

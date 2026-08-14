@@ -199,7 +199,7 @@ export function getSeoPage(nicheSlug: string, citySlug: string) {
     city,
     path: `/ai-telefonist/${niche.slug}/${city.slug}`,
     title: `${niche.service} i ${city.name} | Leadmap`,
-    description: `${niche.label} i ${city.name}: fa AI-telefonist som svarar pa missade samtal, kvalificerar leads och skickar sammanfattningar. Fran 2 900 kr/man.`,
+    description: `${niche.label} i ${city.name}: få en AI-telefonist som svarar på missade samtal, kvalificerar kunden och skickar nästa steg. Pilot 2 900 kr/mån plus 2 000 kr startavgift.`,
     h1: `${niche.service} i ${city.name}`,
     auditHref: utm("/missade-samtal-audit", {
       utm_source: "seo",
