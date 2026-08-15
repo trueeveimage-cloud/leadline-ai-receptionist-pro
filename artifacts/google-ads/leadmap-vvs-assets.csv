@@ -1,9 +1,9 @@
 Campaign,Ad group,Link text,Description line 1,Description line 2,Final URL,Callout text,Status
-SE | Search | VVS | Gratis samtalsaudit | 30D,,Gratis samtalsaudit,Se ert första VVS-flöde,Använd era egna siffror,https://www.leadmap.se/missade-samtal-audit,,Paused
-SE | Search | VVS | Gratis samtalsaudit | 30D,,Simulerat VVS-samtal,Se frågor och prioritering,Tydligt märkt exempel,https://www.leadmap.se/anvandningsfall/vvs#samtal,,Paused
-SE | Search | VVS | Gratis samtalsaudit | 30D,,Så startar piloten,Kartlägg och godkänn flödet,Mjuk start på sju dagar,https://www.leadmap.se/anvandningsfall/vvs#start,,Paused
-SE | Search | VVS | Gratis samtalsaudit | 30D,,Priser och villkor,Se minuter och startavgift,Alla priser exkl. moms,https://www.leadmap.se/anvandningsfall/vvs#priser,,Paused
-SE | Search | VVS | Gratis samtalsaudit | 30D,,,,,Behåll ert nummer,Paused
-SE | Search | VVS | Gratis samtalsaudit | 30D,,,,,Svensktalande AI,Paused
-SE | Search | VVS | Gratis samtalsaudit | 30D,,,,,Pilot på 7 dagar,Paused
-SE | Search | VVS | Gratis samtalsaudit | 30D,,,,,30 dagars uppsägning,Paused
+SE | Search | VVS | Missade samtal | 14D,,Gratis samtalsaudit,Se ert första VVS-flöde,Använd era egna siffror,https://www.leadmap.se/missade-samtal-audit,,Paused
+SE | Search | VVS | Missade samtal | 14D,,Simulerat VVS-samtal,Se frågor och prioritering,Tydligt märkt exempel,https://www.leadmap.se/anvandningsfall/vvs#samtal,,Paused
+SE | Search | VVS | Missade samtal | 14D,,Så startar piloten,Kartlägg och godkänn flödet,Mjuk start på sju dagar,https://www.leadmap.se/anvandningsfall/vvs#start,,Paused
+SE | Search | VVS | Missade samtal | 14D,,Priser och villkor,Se minuter och startavgift,Alla priser exkl. moms,https://www.leadmap.se/anvandningsfall/vvs#priser,,Paused
+SE | Search | VVS | Missade samtal | 14D,,,,,Behåll ert nummer,Paused
+SE | Search | VVS | Missade samtal | 14D,,,,,Svensktalande AI,Paused
+SE | Search | VVS | Missade samtal | 14D,,,,,Pilot på 7 dagar,Paused
+SE | Search | VVS | Missade samtal | 14D,,,,,30 dagars uppsägning,Paused

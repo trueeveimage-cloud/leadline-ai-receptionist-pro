@@ -115,10 +115,9 @@ This is a start-safety promise, not a revenue guarantee. Operational evidence mu
 ## Stop and scale rules
 
 - Pause immediately if tracking, form submission, or confirmed booking fails.
-- Add negatives if irrelevant searches exceed 20% of the latest 20 clicks.
-- Pause a keyword/theme after 600 SEK with no audit.
-- Pause all spend at 2,000 SEK with no qualified leads.
-- Stop at 4,000 SEK.
-- One pilot at CAC <= 4,000 SEK permits a 6,000 SEK second month.
-- Two pilots at CAC <= 2,000 SEK permit an 8,000 SEK second month.
-- Stop acquisition at five paid pilots in a rolling 30-day period.
+- Review search terms daily and add irrelevant queries as negatives before more spend.
+- Pause the campaign at 500 SEK if there are no completed audits.
+- Hard stop at 1,000 SEK after 14 days.
+- Keep Nomia paused while Leadmap is running.
+- Unlock the 1,250 SEK reserve only after two qualified leads, one attended sales conversation, and qualified-lead cost at or below 500 SEK.
+- Release reserve only in two 625 SEK tranches; stop if lead quality or acquisition cost deteriorates.

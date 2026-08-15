@@ -1,6 +1,6 @@
 {
   "campaign": {
-    "name": "SE | Search | VVS | Gratis samtalsaudit | 30D",
+    "name": "SE | Search | VVS | Missade samtal | 14D",
     "status": "PAUSED",
     "channel": "SEARCH",
     "country": "Sweden",
@@ -8,19 +8,18 @@
     "languages": ["sv", "en"],
     "network": "GOOGLE_SEARCH_ONLY",
     "schedule": "06:00-23:00 daily",
-    "totalBudgetSek": 4000,
-    "durationDays": 30,
-    "dailyPlaceholderSek": 131.5,
+    "totalBudgetSek": 1000,
+    "durationDays": 14,
+    "dailyPlaceholderSek": 71.43,
     "bidding": "MAXIMIZE_CLICKS",
-    "initialCpcRule": "min(60, max(25, Keyword Planner median low-range top-of-page bid))",
-    "minimumForecastClicks": 50
+    "initialCpcRule": "20 SEK hard ceiling",
+    "minimumForecastClicks": 25
   },
   "goals": {
-    "qualifiedLeads": 4,
-    "completedDemos": 2,
-    "paidPilots": 1,
-    "maximumWonPilotCacSek": 4000,
-    "evaluationWindowDays": 45
+    "qualifiedLeads": 2,
+    "attendedSalesConversations": 1,
+    "maximumQualifiedLeadCostSek": 500,
+    "evaluationWindowDays": 14
   },
   "conversionActions": {
     "primary": ["audit_submit", "demo_booked"],
@@ -30,13 +29,13 @@
   "stopRules": [
     "Pause immediately if tracking, form, or calendar confirmation breaks",
     "Add negatives if irrelevant searches exceed 20% of the latest 20 clicks",
-    "Pause a keyword or search theme after 600 SEK with no audit submission",
-    "Pause the campaign at 2,000 SEK with no qualified leads",
-    "Stop at 4,000 SEK regardless of unfinished learning",
-    "Stop acquisition at five paid pilots in a rolling 30-day period"
+    "Pause the campaign at 500 SEK with no completed audit",
+    "Stop at 1,000 SEK regardless of unfinished learning",
+    "Do not run Leadmap and Nomia simultaneously"
   ],
   "scaleRules": [
-    "One pilot and CAC <= 4,000 SEK allows a 6,000 SEK month-two cap",
-    "Two pilots and CAC <= 2,000 SEK allows an 8,000 SEK month-two cap"
+    "Unlock reserve only after two qualified leads and one attended sales conversation",
+    "Qualified-lead cost must be 500 SEK or less",
+    "Release reserve in two 625 SEK tranches and stop if quality or cost deteriorates"
   ]
 }
