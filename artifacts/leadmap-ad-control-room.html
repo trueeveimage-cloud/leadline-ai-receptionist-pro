@@ -1,0 +1,1129 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Leadmap · Advertising Control Room</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #080a09;
+        --panel: #101311;
+        --line: #283029;
+        --muted: #9ca59e;
+        --lime: #c7ff6b;
+        --amber: #ffc96b;
+        --red: #ff7d72;
+        --white: #f5f7f3;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: radial-gradient(circle at 20% 0, #182019 0, transparent 32%), var(--bg);
+        color: var(--white);
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          sans-serif;
+      }
+      .shell {
+        max-width: 1320px;
+        margin: auto;
+        padding: 30px;
+      }
+      .top {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        align-items: flex-start;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 24px;
+      }
+      .eyebrow {
+        font:
+          600 11px/1.2 ui-monospace,
+          monospace;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--lime);
+      }
+      h1 {
+        font-size: clamp(36px, 6vw, 76px);
+        line-height: 0.95;
+        letter-spacing: -0.055em;
+        margin: 15px 0 12px;
+        max-width: 850px;
+      }
+      .lede {
+        max-width: 720px;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.6;
+      }
+      .badge {
+        border: 1px solid var(--line);
+        padding: 10px 14px;
+        font:
+          600 11px ui-monospace,
+          monospace;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+      .badge.paused {
+        color: var(--amber);
+        border-color: #6b5429;
+        background: #231b0d;
+      }
+      .nav {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 26px 0;
+      }
+      .nav button {
+        background: transparent;
+        border: 1px solid var(--line);
+        color: var(--muted);
+        padding: 10px 14px;
+        cursor: pointer;
+      }
+      .nav button.active {
+        background: var(--white);
+        color: #0a0c0a;
+        border-color: var(--white);
+      }
+      .view {
+        display: none;
+      }
+      .view.active {
+        display: block;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 14px;
+      }
+      .card {
+        grid-column: span 4;
+        background: linear-gradient(155deg, #141815, #0d100e);
+        border: 1px solid var(--line);
+        padding: 20px;
+        min-height: 150px;
+      }
+      .card.wide {
+        grid-column: span 8;
+      }
+      .card.full {
+        grid-column: 1/-1;
+      }
+      .label {
+        font:
+          600 10px ui-monospace,
+          monospace;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .big {
+        font-size: 38px;
+        letter-spacing: -0.04em;
+        margin: 14px 0 4px;
+      }
+      .sub {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.55;
+      }
+      .status {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        margin-top: 14px;
+        font:
+          600 11px ui-monospace,
+          monospace;
+        text-transform: uppercase;
+      }
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--lime);
+      }
+      .blocked .dot {
+        background: var(--amber);
+      }
+      .google {
+        max-width: 660px;
+        background: #fff;
+        color: #202124;
+        border-radius: 12px;
+        padding: 22px;
+        font-family: Arial, sans-serif;
+      }
+      .google .sponsored {
+        font-size: 12px;
+      }
+      .google .url {
+        font-size: 12px;
+        color: #3c4043;
+        margin-top: 4px;
+      }
+      .google h3 {
+        color: #1a0dab;
+        font-size: 21px;
+        font-weight: 400;
+        margin: 10px 0 5px;
+      }
+      .google p {
+        color: #4d5156;
+        font-size: 14px;
+        line-height: 1.45;
+        margin: 0;
+      }
+      .chips {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+      }
+      .chip {
+        border: 1px solid #dadce0;
+        color: #3c4043;
+        border-radius: 14px;
+        padding: 5px 9px;
+        font-size: 12px;
+      }
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+        font-size: 13px;
+      }
+      .table th,
+      .table td {
+        text-align: left;
+        padding: 12px;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+      }
+      .table th {
+        font:
+          600 10px ui-monospace,
+          monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+      }
+      .ok {
+        color: var(--lime);
+      }
+      .warn {
+        color: var(--amber);
+      }
+      .danger {
+        color: var(--red);
+      }
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+        margin-top: 18px;
+      }
+      .step {
+        border: 1px solid var(--line);
+        padding: 15px;
+        position: relative;
+      }
+      .step:not(:last-child):after {
+        content: "→";
+        position: absolute;
+        right: -11px;
+        top: 50%;
+        z-index: 2;
+        color: var(--lime);
+      }
+      .step b {
+        display: block;
+        margin-bottom: 7px;
+      }
+      .step span {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+      .controls {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin: 18px 0;
+      }
+      .control label {
+        display: block;
+        font:
+          600 10px ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+      .control input {
+        width: 100%;
+        accent-color: var(--lime);
+      }
+      .scenario {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      .metric {
+        border: 1px solid var(--line);
+        padding: 14px;
+      }
+      .metric strong {
+        display: block;
+        font-size: 28px;
+      }
+      .metric span {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .gate {
+        display: flex;
+        gap: 14px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .gate .n {
+        width: 30px;
+        height: 30px;
+        border: 1px solid var(--line);
+        display: grid;
+        place-items: center;
+        font:
+          600 12px ui-monospace,
+          monospace;
+      }
+      .gate b {
+        display: block;
+      }
+      .gate p {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+      .links a {
+        color: var(--white);
+        border-bottom: 1px solid var(--lime);
+        text-decoration: none;
+        padding: 4px 0;
+        font-size: 13px;
+      }
+      code {
+        color: var(--lime);
+      }
+      .preview-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 18px;
+        margin-top: 22px;
+      }
+      .device {
+        grid-column: span 6;
+        min-width: 0;
+      }
+      .device.desktop {
+        grid-column: 1/-1;
+      }
+      .device-label {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font:
+          600 11px ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .device-label span {
+        color: var(--muted);
+      }
+      .viewport {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: #fff;
+      }
+      .device.mobile .viewport {
+        width: 390px;
+        max-width: 100%;
+      }
+      .device.tablet .viewport {
+        width: 553px;
+        max-width: 100%;
+      }
+      .device.desktop .viewport {
+        width: 100%;
+      }
+      .preview-image {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      @media (max-width: 900px) {
+        .card,
+        .card.wide {
+          grid-column: 1/-1;
+        }
+        .flow {
+          grid-template-columns: 1fr;
+        }
+        .step:not(:last-child):after {
+          content: "↓";
+          right: auto;
+          left: 20px;
+          bottom: -15px;
+          top: auto;
+        }
+        .controls,
+        .scenario,
+        .preview-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .device,
+        .device.desktop {
+          grid-column: 1/-1;
+        }
+        .top {
+          display: block;
+        }
+        .badge {
+          display: inline-block;
+          margin-top: 18px;
+        }
+      }
+      @media (max-width: 560px) {
+        .shell {
+          padding: 18px;
+        }
+        .controls,
+        .scenario {
+          grid-template-columns: 1fr;
+        }
+        .card {
+          padding: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="top">
+        <div>
+          <div class="eyebrow">Leadmap / Swedish VVS / approval preview</div>
+          <h1>Advertising control room.</h1>
+          <p class="lede">
+            The full 30-day launch system, visible before deployment. Campaigns remain paused,
+            payment remains owner-controlled, and every missing external credential is shown as a
+            gate—not hidden behind optimistic status.
+          </p>
+        </div>
+        <div class="badge paused">● PAUSED · 0 SEK SPENT</div>
+      </header>
+      <nav class="nav" aria-label="Control room views">
+        <button class="active" data-view="overview">Overview</button
+        ><button data-view="campaign">Campaign</button><button data-view="funnel">Funnel</button
+        ><button data-view="previews">Landing renders</button
+        ><button data-view="pilot">Close first pilot</button
+        ><button data-view="operations">Business readiness</button
+        ><button data-view="forecast">Forecast</button
+        ><button data-view="gates">Approval gates</button>
+      </nav>
+
+      <section id="overview" class="view active">
+        <div class="grid">
+          <article class="card">
+            <div class="label">Media budget</div>
+            <div class="big">4,000 SEK</div>
+            <div class="sub">
+              Hard 30-day ceiling. Campaign package is paused and has not been imported.
+            </div>
+            <div class="status blocked"><span class="dot"></span>Approval B required</div>
+          </article>
+          <article class="card">
+            <div class="label">Primary outcome</div>
+            <div class="big">1 pilot</div>
+            <div class="sub">
+              Target within 45 days. Clicks and form fills do not count as business success.
+            </div>
+            <div class="status"><span class="dot"></span>Outcome-first</div>
+          </article>
+          <article class="card">
+            <div class="label">Maximum acquisition cost</div>
+            <div class="big">4,000 SEK</div>
+            <div class="sub">
+              Scale is blocked unless at least one paid pilot is won at or below this CAC.
+            </div>
+            <div class="status"><span class="dot"></span>Hard rule</div>
+          </article>
+          <article class="card wide">
+            <div class="label">Research-backed position</div>
+            <h2>Managed VVS implementation—not generic cheap AI.</h2>
+            <p class="sub">
+              Leadmap leads with missed jobs, controlled handoffs, approved scripts, a free audit, a
+              Swedish proof flow, and transparent commercial terms. No unsupported percentages,
+              testimonials, or “pays for itself” claims.
+            </p>
+            <div class="chips">
+              <span class="chip">Keep your number</span><span class="chip">7-day pilot</span
+              ><span class="chip">30-day cancellation</span
+              ><span class="chip">Done-for-you setup</span
+              ><span class="chip">No live traffic before approval</span
+              ><span class="chip">From 2,900 SEK/mo</span>
+            </div>
+          </article>
+          <article class="card">
+            <div class="label">Local implementation</div>
+            <div class="big">Ready</div>
+            <div class="sub">
+              Audit result, qualification, Calendar-safe booking, Retell token endpoint, conversion
+              outbox, consent, first-pilot safety promise, managed onboarding, and campaign files.
+            </div>
+            <div class="status"><span class="dot"></span>Build verified</div>
+          </article>
+          <article class="card full">
+            <div class="label">End-to-end acquisition flow</div>
+            <div class="flow">
+              <div class="step">
+                <b>1 · Search</b><span>Exact and phrase intent in Sweden.</span>
+              </div>
+              <div class="step">
+                <b>2 · VVS page</b><span>Specialized proof and transparent pricing.</span>
+              </div>
+              <div class="step">
+                <b>3 · Audit</b><span>Immediate call flow plus editable calculator.</span>
+              </div>
+              <div class="step">
+                <b>4 · Qualify</b><span>VVS + decision-maker + real missed-call need.</span>
+              </div>
+              <div class="step">
+                <b>5 · Meet</b><span>Calendar-confirmed 30-minute Google Meet.</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="campaign" class="view">
+        <div class="grid">
+          <article class="card full">
+            <div class="label">Responsive Search Ad · Missade samtal</div>
+            <div class="google">
+              <div class="sponsored">Sponsored · leadmap.se</div>
+              <div class="url">https://www.leadmap.se/missade-samtal-audit</div>
+              <h3>Missa inte nästa VVS-jobb | Gratis samtalsaudit | Behåll ert telefonnummer</h3>
+              <p>
+                Leadmap svarar när ni är ute på jobb eller har stängt. Få en gratis samtalsaudit.
+              </p>
+              <div class="chips">
+                <span class="chip">Gratis samtalsaudit</span
+                ><span class="chip">Så startar piloten</span
+                ><span class="chip">Priser och villkor</span>
+              </div>
+            </div>
+          </article>
+          <article class="card full">
+            <div class="label">Responsive Search Ad · AI-telefonist</div>
+            <div class="google">
+              <div class="sponsored">Sponsored · leadmap.se</div>
+              <div class="url">https://www.leadmap.se/anvandningsfall/vvs</div>
+              <h3>AI-telefonist för VVS | Svensktalande AI | Pilot på 7 dagar</h3>
+              <p>Kvalificera VVS-samtal och få nästa steg direkt. Ni behåller ert telefonnummer.</p>
+              <div class="chips">
+                <span class="chip">Simulerat VVS-samtal</span
+                ><span class="chip">Så startar piloten</span
+                ><span class="chip">Priser och villkor</span>
+              </div>
+            </div>
+          </article>
+          <article class="card full">
+            <div class="label">Campaign settings</div>
+            <table class="table">
+              <tr>
+                <th>Setting</th>
+                <th>Value</th>
+                <th>Status</th>
+              </tr>
+              <tr>
+                <td>Network</td>
+                <td>Google Search only</td>
+                <td class="ok">Prepared</td>
+              </tr>
+              <tr>
+                <td>Geography</td>
+                <td>Sweden · Presence only</td>
+                <td class="warn">Verify in account</td>
+              </tr>
+              <tr>
+                <td>Languages</td>
+                <td>Swedish + English</td>
+                <td class="ok">Prepared</td>
+              </tr>
+              <tr>
+                <td>Match types</td>
+                <td>Exact + phrase only</td>
+                <td class="ok">Prepared</td>
+              </tr>
+              <tr>
+                <td>Bidding</td>
+                <td>Maximize Clicks · 25–60 SEK formula</td>
+                <td class="warn">Keyword Planner required</td>
+              </tr>
+              <tr>
+                <td>Budget</td>
+                <td>4,000 SEK total / 30 days</td>
+                <td class="warn">Owner approval required</td>
+              </tr>
+            </table>
+          </article>
+        </div>
+      </section>
+
+      <section id="funnel" class="view">
+        <div class="grid">
+          <article class="card full">
+            <div class="label">Conversion truth table</div>
+            <table class="table">
+              <tr>
+                <th>Event</th>
+                <th>When it fires</th>
+                <th>Google role</th>
+              </tr>
+              <tr>
+                <td><code>landing_view</code></td>
+                <td>Marketing page view</td>
+                <td>Diagnostic</td>
+              </tr>
+              <tr>
+                <td><code>audit_start</code></td>
+                <td>First audit field interaction</td>
+                <td>Diagnostic</td>
+              </tr>
+              <tr>
+                <td><code>audit_submit</code></td>
+                <td>Server accepted deduplicated audit</td>
+                <td class="ok">Primary</td>
+              </tr>
+              <tr>
+                <td><code>demo_open</code></td>
+                <td>Booking or voice proof opened</td>
+                <td>Diagnostic</td>
+              </tr>
+              <tr>
+                <td><code>qualified_lead</code></td>
+                <td>All three VVS criteria are true</td>
+                <td>Offline outbox</td>
+              </tr>
+              <tr>
+                <td><code>demo_booked</code></td>
+                <td>Google event + Meet link created</td>
+                <td class="ok">Primary</td>
+              </tr>
+              <tr>
+                <td><code>pilot_won</code></td>
+                <td>CRM records signed pilot and positive first-invoice amount</td>
+                <td class="ok">Validated offline value</td>
+              </tr>
+            </table>
+          </article>
+          <article class="card wide">
+            <div class="label">Booking rules</div>
+            <h2>Only calendar-confirmed meetings count.</h2>
+            <p class="sub">
+              Monday–Thursday 10:00–16:00 Europe/Stockholm · 30 minutes · maximum two/day ·
+              15-minute buffers · 12 hours' notice · attendee email required.
+            </p>
+          </article>
+          <article class="card">
+            <div class="label">Voice proof</div>
+            <div class="big">2:00</div>
+            <p class="sub">
+              Maximum session. Three attempts/device/day and 50 sessions/month. API key remains
+              server-side.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="previews" class="view">
+        <div class="grid">
+          <article class="card full">
+            <div class="label">Live local landing renders</div>
+            <h2>One VVS message across the three release widths.</h2>
+            <p class="sub">
+              Browser captures from the local advertising landing page. They are not production and
+              create no advertising spend.
+            </p>
+            <div class="preview-grid">
+              <div class="device mobile">
+                <div class="device-label"><b>Mobile</b><span>390 px</span></div>
+                <div class="viewport">
+                  <img
+                    class="preview-image"
+                    src="screenshots/vvs-mobile-390.png"
+                    alt="VVS landing at 390 pixels"
+                  />
+                </div>
+              </div>
+              <div class="device tablet">
+                <div class="device-label"><b>Tablet</b><span>768 px</span></div>
+                <div class="viewport">
+                  <img
+                    class="preview-image"
+                    src="screenshots/vvs-tablet-768.png"
+                    alt="VVS landing at 768 pixels"
+                  />
+                </div>
+              </div>
+              <div class="device desktop">
+                <div class="device-label"><b>Desktop</b><span>1440 px</span></div>
+                <div class="viewport">
+                  <img
+                    class="preview-image"
+                    src="screenshots/vvs-desktop-1440.png"
+                    alt="VVS landing at 1440 pixels"
+                  />
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="pilot" class="view">
+        <div class="grid">
+          <article class="card">
+            <div class="label">Modeled business score</div>
+            <div class="big">8.0 / 10</div>
+            <div class="sub">
+              Subjective pre-launch model after the local offer upgrades. Real proof and production
+              integrations are still excluded.
+            </div>
+            <div class="status"><span class="dot"></span>Up from 7.2</div>
+          </article>
+          <article class="card">
+            <div class="label">Next score unlock</div>
+            <div class="big">1 real pilot</div>
+            <div class="sub">
+              The first buyer supplies the only proof that code and copy cannot manufacture.
+            </div>
+            <div class="status blocked"><span class="dot"></span>Customer required</div>
+          </article>
+          <article class="card">
+            <div class="label">Production voice proof</div>
+            <div class="big">Local-ready</div>
+            <div class="sub">
+              Two-minute Swedish flow, disclosure, quotas, and simulation fallback are built.
+            </div>
+            <div class="status blocked"><span class="dot"></span>Retell credentials required</div>
+          </article>
+
+          <article class="card full">
+            <div class="label">Score-raising work completed locally</div>
+            <table class="table">
+              <tr>
+                <th>Lever</th>
+                <th>What is now concrete</th>
+                <th>Status</th>
+              </tr>
+              <tr>
+                <td>Done-for-you offer</td>
+                <td>
+                  Leadmap maps, writes, configures, helps forward, and manually reviews the seven
+                  pilot days.
+                </td>
+                <td class="ok">Built</td>
+              </tr>
+              <tr>
+                <td>Pilot safety promise</td>
+                <td>
+                  No customer traffic before written approval of voice, script, fallback, and
+                  handoff.
+                </td>
+                <td class="ok">Built + terms aligned</td>
+              </tr>
+              <tr>
+                <td>Owner clarity</td>
+                <td>
+                  Landing preview shows volume, qualified cases, manual-review flags, and weekly
+                  scorecard structure.
+                </td>
+                <td class="ok">Built · labeled example</td>
+              </tr>
+              <tr>
+                <td>Manual monitoring</td>
+                <td>
+                  Daily pilot QA, correction thresholds, safety escalation, and end-of-pilot
+                  decision rules.
+                </td>
+                <td class="ok">Playbook ready</td>
+              </tr>
+              <tr>
+                <td>Narrow first buyer</td>
+                <td>
+                  Owner-led Swedish VVS firms missing calls on jobs, while driving, or after
+                  closing.
+                </td>
+                <td class="ok">Defined</td>
+              </tr>
+              <tr>
+                <td>Real proof</td>
+                <td>
+                  Evidence checklist is ready; publishing waits for buyer approval and real pilot
+                  facts.
+                </td>
+                <td class="warn">Blocked by first pilot</td>
+              </tr>
+            </table>
+          </article>
+
+          <article class="card wide">
+            <div class="label">30-minute close sequence</div>
+            <div class="flow" style="grid-template-columns: repeat(3, 1fr)">
+              <div class="step">
+                <b>1 · Diagnose</b
+                ><span>When calls are missed and what voicemail costs operationally.</span>
+              </div>
+              <div class="step">
+                <b>2 · Demonstrate</b><span>Swedish VVS call plus the exact owner handoff.</span>
+              </div>
+              <div class="step">
+                <b>3 · Scope</b
+                ><span>Missed calls, after-hours calls, fallback, and human control.</span>
+              </div>
+              <div class="step">
+                <b>4 · Price</b
+                ><span>One clean explanation of setup, minutes, pilot, and cancellation.</span>
+              </div>
+              <div class="step">
+                <b>5 · Ask</b><span>Set a pilot start date and name the script approver.</span>
+              </div>
+              <div class="step">
+                <b>6 · Prove</b
+                ><span>Capture real operational evidence with written buyer approval.</span>
+              </div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="label">Direct close</div>
+            <p class="sub" style="margin-top: 14px">
+              “Vi bygger VVS-flödet, ni godkänner testsamtalet och överlämningen, och först därefter
+              startar de sju pilotdagarna. Ska vi sätta startdatumet nu?”
+            </p>
+          </article>
+          <article class="card full">
+            <div class="label">What counts as first-pilot proof</div>
+            <div class="chips">
+              <span class="chip">Handled calls</span><span class="chip">Qualified callbacks</span
+              ><span class="chip">Manual-review flags</span
+              ><span class="chip">Owner response time</span
+              ><span class="chip">Approved buyer feedback</span
+              ><span class="chip">Continued or stopped</span>
+            </div>
+            <p class="sub" style="margin-top: 14px">
+              No customer identity, audio, transcript excerpt, percentage, revenue, or testimonial
+              is published without explicit written approval and a traceable source.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="operations" class="view">
+        <div class="grid">
+          <article class="card">
+            <div class="label">Pilot commercial status</div>
+            <div class="big">Cost required</div>
+            <div class="sub">
+              Enter the real blended voice, model, and telephony cost before signing the first
+              order.
+            </div>
+            <div class="status blocked"><span class="dot"></span>Margin gate open</div>
+          </article>
+          <article class="card">
+            <div class="label">Premium commercial status</div>
+            <div class="big">HOLD</div>
+            <div class="sub">
+              1,500 included minutes may destroy margin. Premium remains internally blocked until
+              the configured full-usage margin passes.
+            </div>
+            <div class="status blocked"><span class="dot"></span>Do not sign yet</div>
+          </article>
+          <article class="card">
+            <div class="label">Live-call status</div>
+            <div class="big">Approval first</div>
+            <div class="sub">
+              No customer traffic before written approval of disclosure, script, fallback, handoff,
+              retention, and tests.
+            </div>
+            <div class="status"><span class="dot"></span>Gate defined</div>
+          </article>
+          <article class="card full">
+            <div class="label">Executable checks</div>
+            <table class="table">
+              <tr>
+                <th>Command</th>
+                <th>Decision</th>
+              </tr>
+              <tr>
+                <td><code>npm run preflight:prod</code></td>
+                <td>
+                  Production secrets, legal identity, voice/tag settings, Calendar access, Data
+                  Manager scope, and anonymous Supabase isolation.
+                </td>
+              </tr>
+              <tr>
+                <td><code>npm run preflight:business</code></td>
+                <td>Required documents, unresolved legal placeholders, and plan margins.</td>
+              </tr>
+              <tr>
+                <td><code>npm run preflight:domain</code></td>
+                <td>Website DNS, mailbox MX, SPF, DMARC, sender domain, and DKIM readiness.</td>
+              </tr>
+              <tr>
+                <td><code>npm run conversions:check</code></td>
+                <td>
+                  Read-only review of consented qualified-lead and paid-pilot outbox rows. Sends
+                  nothing to Google.
+                </td>
+              </tr>
+              <tr>
+                <td><code>npm run conversions:validate</code></td>
+                <td>Google Data Manager validation only; outbox rows remain unchanged.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code
+                    >npm run economics -- --plan pilot --cost 1.20 --shared 300 --minutes 500</code
+                  >
+                </td>
+                <td>Gross margin, contribution, CAC recovery, and overage viability.</td>
+              </tr>
+            </table>
+          </article>
+          <article class="card wide">
+            <div class="label">First-customer operating pack</div>
+            <div class="gate">
+              <div class="n">1</div>
+              <div>
+                <b>Order form</b>
+                <p>Scope, price, approval gate, term, and human-control limits.</p>
+              </div>
+            </div>
+            <div class="gate">
+              <div class="n">2</div>
+              <div>
+                <b>Data-processing draft</b>
+                <p>Article 28 structure with intentional retention and subprocessor blockers.</p>
+              </div>
+            </div>
+            <div class="gate">
+              <div class="n">3</div>
+              <div>
+                <b>VVS onboarding</b>
+                <p>Services, areas, hours, safety rules, handoff, privacy, and test cases.</p>
+              </div>
+            </div>
+            <div class="gate">
+              <div class="n">4</div>
+              <div>
+                <b>Written call-flow approval</b>
+                <p>Opening, hard prohibitions, fallback language, and eight acceptance tests.</p>
+              </div>
+            </div>
+            <div class="gate">
+              <div class="n">5</div>
+              <div>
+                <b>Pilot scorecard</b>
+                <p>
+                  Operational facts, safety checks, customer usefulness, economics, and
+                  continue/stop decision.
+                </p>
+              </div>
+            </div>
+            <div class="gate">
+              <div class="n">6</div>
+              <div>
+                <b>Invoice checklist</b>
+                <p>Supplier, customer, VAT, line-item, payment, and numbering fields.</p>
+              </div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="label">Source index</div>
+            <p class="sub" style="margin-top: 14px">
+              Start at <code>docs/first-customer-readiness.md</code>. It links the complete pack and
+              current IMY, European Commission, and Skatteverket review sources.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="forecast" class="view">
+        <div class="grid">
+          <article class="card full">
+            <div class="label">Scenario model · not a promise</div>
+            <div class="controls">
+              <div class="control">
+                <label for="cpc">Average CPC · <span id="cpcv">40</span> SEK</label
+                ><input id="cpc" type="range" min="25" max="60" value="40" />
+              </div>
+              <div class="control">
+                <label for="cvr">Audit conversion · <span id="cvrv">5</span>%</label
+                ><input id="cvr" type="range" min="3" max="8" value="5" />
+              </div>
+              <div class="control">
+                <label for="qual">Qualified rate · <span id="qualv">50</span>%</label
+                ><input id="qual" type="range" min="25" max="75" step="5" value="50" />
+              </div>
+            </div>
+            <div class="scenario">
+              <div class="metric">
+                <strong id="clicks">100</strong><span>estimated clicks</span>
+              </div>
+              <div class="metric"><strong id="audits">5</strong><span>audit submissions</span></div>
+              <div class="metric">
+                <strong id="qualified">3</strong><span>qualified leads</span>
+              </div>
+              <div class="metric">
+                <strong id="qCPA">1,600</strong><span>SEK / qualified lead</span>
+              </div>
+            </div>
+            <p class="sub" style="margin-top: 18px">
+              Replace this scenario with the real Google Keyword Planner forecast. If the account
+              forecast is below 50 clicks at 4,000 SEK, the campaign remains paused.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="gates" class="view">
+        <div class="grid">
+          <article class="card wide">
+            <div class="label">Approval sequence</div>
+            <div class="gate">
+              <div class="n">1</div>
+              <div>
+                <b>Local review</b>
+                <p>
+                  Review site, ads, keywords, budget model, calendar behavior, and all costs here.
+                </p>
+              </div>
+            </div>
+            <div class="gate">
+              <div class="n">A</div>
+              <div>
+                <b>Approval A · site/backend only</b>
+                <p>
+                  Authorizes deployment and the Supabase migration. It does not authorize ad spend.
+                </p>
+              </div>
+            </div>
+            <div class="gate">
+              <div class="n">2</div>
+              <div>
+                <b>Live verification</b>
+                <p>
+                  Tag Assistant, consent, Calendar, Retell, RLS, route, policy, and conversion
+                  diagnostics.
+                </p>
+              </div>
+            </div>
+            <div class="gate">
+              <div class="n">B</div>
+              <div>
+                <b>Approval B · campaign activation</b>
+                <p>The only action that may expose the 4,000 SEK budget.</p>
+              </div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="label">External prerequisites</div>
+            <p class="sub">
+              <span class="warn">●</span> Legal identity<br /><span class="warn">●</span>
+              hello@leadmap.se<br /><span class="warn">●</span> Google Ads billing + verification<br /><span
+                class="warn"
+                >●</span
+              >
+              Calendar OAuth<br /><span class="warn">●</span> Retell API + Swedish agent<br /><span
+                class="warn"
+                >●</span
+              >
+              Google tag IDs<br /><span class="warn">●</span> Production Supabase secrets
+            </p>
+          </article>
+          <article class="card full">
+            <div class="label">Local artifacts</div>
+            <div class="links">
+              <a href="http://localhost:3000/" target="_blank">Homepage</a
+              ><a href="http://localhost:3000/anvandningsfall/vvs" target="_blank">VVS landing</a
+              ><a href="http://localhost:3000/missade-samtal-audit" target="_blank">Audit funnel</a
+              ><a href="google-ads/leadmap-vvs-search-build.csv">Ads Editor CSV</a
+              ><a href="google-ads/leadmap-vvs-assets.csv">Assets CSV</a
+              ><a href="google-ads/campaign-spec.json">Campaign spec</a
+              ><a href="google-ads/README.md">Import checklist</a
+              ><a href="first-vvs-pilot-sales-playbook.html" target="_blank"
+                >First-pilot sales playbook</a
+              >
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+    <script>
+      const buttons = [...document.querySelectorAll("[data-view]")],
+        views = [...document.querySelectorAll(".view")];
+      buttons.forEach((b) =>
+        b.addEventListener("click", () => {
+          buttons.forEach((x) => x.classList.toggle("active", x === b));
+          views.forEach((v) => v.classList.toggle("active", v.id === b.dataset.view));
+        }),
+      );
+      const cpc = document.querySelector("#cpc"),
+        cvr = document.querySelector("#cvr"),
+        qual = document.querySelector("#qual");
+      function update() {
+        const budget = 4000,
+          c = +cpc.value,
+          v = +cvr.value / 100,
+          q = +qual.value / 100,
+          clicks = Math.floor(budget / c),
+          audits = Math.round(clicks * v),
+          qualified = Math.max(0, Math.round(audits * q));
+        document.querySelector("#cpcv").textContent = c;
+        document.querySelector("#cvrv").textContent = cvr.value;
+        document.querySelector("#qualv").textContent = qual.value;
+        document.querySelector("#clicks").textContent = clicks.toLocaleString("sv-SE");
+        document.querySelector("#audits").textContent = audits.toLocaleString("sv-SE");
+        document.querySelector("#qualified").textContent = qualified.toLocaleString("sv-SE");
+        document.querySelector("#qCPA").textContent = qualified
+          ? Math.round(budget / qualified).toLocaleString("sv-SE")
+          : "—";
+      }
+      [cpc, cvr, qual].forEach((x) => x.addEventListener("input", update));
+      update();
+    </script>
+  </body>
+</html>

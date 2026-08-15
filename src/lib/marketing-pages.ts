@@ -1,10 +1,6 @@
 export const SITE_URL = "https://www.leadmap.se";
 
-export type City = {
-  slug: string;
-  name: string;
-};
-
+export type City = { slug: string; name: string };
 export type SeoNiche = {
   slug: string;
   label: string;
@@ -15,7 +11,6 @@ export type SeoNiche = {
   scenario: string;
   cta: string;
 };
-
 export type UseCase = {
   slug: string;
   label: string;
@@ -28,15 +23,15 @@ export type UseCase = {
 };
 
 export const cities: City[] = [
-  { slug: "goteborg", name: "Goteborg" },
+  { slug: "goteborg", name: "Göteborg" },
   { slug: "stockholm", name: "Stockholm" },
-  { slug: "malmo", name: "Malmo" },
+  { slug: "malmo", name: "Malmö" },
   { slug: "uppsala", name: "Uppsala" },
-  { slug: "vasteras", name: "Vasteras" },
-  { slug: "orebro", name: "Orebro" },
-  { slug: "linkoping", name: "Linkoping" },
+  { slug: "vasteras", name: "Västerås" },
+  { slug: "orebro", name: "Örebro" },
+  { slug: "linkoping", name: "Linköping" },
   { slug: "helsingborg", name: "Helsingborg" },
-  { slug: "jonkoping", name: "Jonkoping" },
+  { slug: "jonkoping", name: "Jönköping" },
   { slug: "lund", name: "Lund" },
 ];
 
@@ -44,82 +39,89 @@ export const seoNiches: SeoNiche[] = [
   {
     slug: "vvs",
     label: "VVS",
-    plural: "VVS-foretag",
-    service: "AI-telefonist for VVS",
+    plural: "VVS-företag",
+    service: "AI-telefonist för VVS",
     pain: "Akuta kunder ringer ofta vidare direkt om ingen svarar.",
-    benefit: "Leadmap svarar, fangar arendet och skickar en tydlig forfragan till agaren.",
-    scenario: "En kund har en lacka efter stangning. Leadmap tar namn, nummer, plats, problem och onskad tid for aterkoppling.",
-    cta: "Fa gratis VVS-audit",
+    benefit: "Leadmap svarar, fångar ärendet och skickar en tydlig förfrågan till ägaren.",
+    scenario:
+      "En kund har en läcka efter stängning. Leadmap tar namn, nummer, plats, problem och önskad tid för återkoppling.",
+    cta: "Få gratis VVS-audit",
   },
   {
     slug: "rormokare",
-    label: "Rormokare",
-    plural: "rormokare",
-    service: "AI-telefonist for rormokare",
-    pain: "Nar du ar ute pa jobb kan varje missat samtal bli ett tappat akutjobb.",
-    benefit: "Leadmap haller kunden kvar tills du kan ringa tillbaka.",
-    scenario: "En kund behover jourhjalp. AI:n fragar vad som hant, var kunden finns och hur bradskande det ar.",
+    label: "Rörmokare",
+    plural: "rörmokare",
+    service: "AI-telefonist för rörmokare",
+    pain: "När du är ute på jobb kan varje missat samtal bli ett tappat akutjobb.",
+    benefit: "Leadmap håller kunden kvar tills du kan ringa tillbaka.",
+    scenario:
+      "En kund behöver jourhjälp. AI:n frågar vad som hänt, var kunden finns och hur brådskande det är.",
     cta: "Se hur Leadmap svarar",
   },
   {
     slug: "taklaggare",
-    label: "Taklaggare",
-    plural: "takforetag",
-    service: "AI-telefonist for taklaggare",
-    pain: "Takskador och offertforfragningar tappar fart nar samtal gar till voicemail.",
-    benefit: "Leadmap samlar kundens behov, adress och tidshorisont medan intresset ar varmt.",
-    scenario: "En fastighetsagare ringer om lackage. Leadmap fangar taktyp, plats, bradska och kontaktuppgifter.",
-    cta: "Fa gratis tak-audit",
+    label: "Takläggare",
+    plural: "takföretag",
+    service: "AI-telefonist för takläggare",
+    pain: "Takskador och offertförfrågningar tappar fart när samtal går till röstbrevlådan.",
+    benefit: "Leadmap samlar kundens behov, adress och tidshorisont medan intresset är varmt.",
+    scenario:
+      "En fastighetsägare ringer om läckage. Leadmap fångar taktyp, plats, brådska och kontaktuppgifter.",
+    cta: "Få gratis tak-audit",
   },
   {
     slug: "tandlakare",
-    label: "Tandlakare",
+    label: "Tandläkare",
     plural: "tandkliniker",
-    service: "AI-telefonist for tandlakare",
-    pain: "Receptionen kan inte alltid svara nar personalen ar med patienter.",
-    benefit: "Leadmap fangar nya patienter, akuta arenden och onskade tider.",
-    scenario: "En ny patient ringer om tandvark. AI:n tar namn, telefon, arende och nar patienten vill bli uppringd.",
-    cta: "Fa gratis klinik-audit",
+    service: "AI-telefonist för tandläkare",
+    pain: "Receptionen kan inte alltid svara när personalen är med patienter.",
+    benefit: "Leadmap fångar nya patienter, akuta ärenden och önskade tider.",
+    scenario:
+      "En ny patient ringer om tandvärk. AI:n tar namn, telefon, ärende och när patienten vill bli uppringd.",
+    cta: "Få gratis klinik-audit",
   },
   {
     slug: "kliniker",
     label: "Kliniker",
     plural: "kliniker",
-    service: "AI-telefonist for kliniker",
-    pain: "Missade bokningsforfragningar kan skapa tomma tider i kalendern.",
-    benefit: "Leadmap ger ett lugnt svar och skickar en strukturerad bokningsforfragan.",
-    scenario: "En kund vill boka behandling. AI:n fangar behandling, tid, namn och kontaktuppgifter.",
-    cta: "Se demo for klinik",
+    service: "AI-telefonist för kliniker",
+    pain: "Missade bokningsförfrågningar kan skapa tomma tider i kalendern.",
+    benefit: "Leadmap ger ett lugnt svar och skickar en strukturerad bokningsförfrågan.",
+    scenario:
+      "En kund vill boka behandling. AI:n fångar behandling, tid, namn och kontaktuppgifter.",
+    cta: "Se demo för klinik",
   },
   {
     slug: "bilverkstader",
-    label: "Bilverkstader",
-    plural: "bilverkstader",
-    service: "AI-telefonist for bilverkstader",
-    pain: "Verkstader missar samtal nar teamet star med kunder eller bilar.",
-    benefit: "Leadmap samlar registreringsinfo, problem och onskad bokningstid.",
-    scenario: "En bilagare ringer om service. AI:n tar problem, bilmodell, kontakt och passande tid.",
-    cta: "Fa gratis verkstads-audit",
+    label: "Bilverkstäder",
+    plural: "bilverkstäder",
+    service: "AI-telefonist för bilverkstäder",
+    pain: "Verkstäder missar samtal när teamet står med kunder eller bilar.",
+    benefit: "Leadmap samlar registreringsinfo, problem och önskad bokningstid.",
+    scenario:
+      "En bilägare ringer om service. AI:n tar problem, bilmodell, kontakt och passande tid.",
+    cta: "Få gratis verkstads-audit",
   },
   {
     slug: "bargning",
-    label: "Bargning",
-    plural: "bargningsforetag",
-    service: "AI-telefonist for bargning",
-    pain: "Vid bradska vinner ofta den aktor som svarar forst.",
-    benefit: "Leadmap plockar upp snabbt och skickar plats, problem och telefonnummer.",
-    scenario: "En forare star stilla vid vagen. AI:n fangar position, fordon, behov och bradska.",
-    cta: "Testa missade-samtal audit",
+    label: "Bärgning",
+    plural: "bärgningsföretag",
+    service: "AI-telefonist för bärgning",
+    pain: "Vid brådska vinner ofta den aktör som svarar först.",
+    benefit: "Leadmap svarar och skickar plats, problem och telefonnummer.",
+    scenario: "En förare står stilla vid vägen. AI:n fångar position, fordon, behov och brådska.",
+    cta: "Testa samtalsaudit",
   },
   {
     slug: "elektriker-jour",
-    label: "Elektriker jour",
+    label: "Elektrikerjour",
     plural: "elektrikerjourer",
-    service: "AI-telefonist for elektriker jour",
-    pain: "Elproblem ar ofta akuta och kunder ringer vidare snabbt.",
-    benefit: "Leadmap kvalificerar arendet och skickar ett kort underlag for snabb aterkoppling.",
-    scenario: "En kund saknar el i delar av huset. AI:n fragar plats, symptom, risk och nar kunden kan bli uppringd.",
-    cta: "Fa gratis jour-audit",
+    service: "AI-telefonist för elektrikerjour",
+    pain: "Elproblem är ofta akuta och kunder ringer vidare snabbt.",
+    benefit: "Leadmap kvalificerar ärendet och skickar ett kort underlag för snabb återkoppling.",
+    scenario:
+      "En kund saknar el i delar av huset. AI:n frågar plats, symptom, risk och när kunden kan bli uppringd.",
+    cta: "Få gratis jour-audit",
   },
 ];
 
@@ -127,65 +129,100 @@ export const useCases: UseCase[] = [
   {
     slug: "vvs",
     label: "VVS",
-    pain: "VVS-kunder ringer ofta nar problemet redan ar akut.",
-    scenario: "En kund far lackage nar foretaget ar ute pa jobb. Samtalet besvaras direkt i stallet for att ga till voicemail.",
-    response: "Leadmap forklarar att teamet ar upptaget, tar arendet lugnt och samlar detaljer for snabb aterkoppling.",
-    collects: ["Namn", "Telefonnummer", "Adress", "Problem", "Bradska", "Onskad tid"],
-    value: "Ett akutjobb kan ofta betala en stor del av manadskostnaden.",
+    pain: "VVS-kunder ringer ofta när problemet redan är akut.",
+    scenario:
+      "En kund får läckage när företaget är ute på jobb. Samtalet besvaras direkt i stället för att gå till röstbrevlådan.",
+    response:
+      "Leadmap förklarar att teamet är upptaget, tar ärendet lugnt och samlar detaljer för snabb återkoppling.",
+    collects: ["Namn", "Telefonnummer", "Adress", "Problem", "Brådska", "Önskad tid"],
+    value: "Använd era egna siffror för att bedöma värdet av missade samtal.",
     faq: [
-      ["Fungerar det efter stangning?", "Ja, Leadmap kan svara pa missade samtal och efter-stangning samtal."],
-      ["Bekraftar AI:n bokningen?", "I piloten skickas en kvalificerad forfragan sa agaren kan bekrafta manuellt."],
+      [
+        "Fungerar det efter stängning?",
+        "Ja, Leadmap kan svara på missade samtal och samtal efter stängning.",
+      ],
+      [
+        "Bekräftar AI:n bokningen?",
+        "Nej. I piloten skickas en kvalificerad förfrågan som ägaren bekräftar manuellt.",
+      ],
     ],
   },
   {
     slug: "taklaggare",
-    label: "Taklaggare",
-    pain: "Takforfragningar behover snabb kontakt innan kunden ringer nasta aktor.",
-    scenario: "En villaagare ringer om lackage och vill veta om nagon kan titta pa taket.",
-    response: "Leadmap fangar takproblem, plats, tidslinje och kontaktuppgifter.",
-    collects: ["Namn", "Telefon", "Fastighetstyp", "Problem", "Stad", "Onskad tid"],
-    value: "En missad offertforfragan kan vara vard langt mer an en hel pilotmanad.",
-    faq: [["Kan den hantera offertforfragningar?", "Ja, den samlar underlag och skickar det till dig for manuell uppfoljning."]],
+    label: "Takläggare",
+    pain: "Takförfrågningar behöver snabb kontakt innan kunden ringer nästa aktör.",
+    scenario: "En villaägare ringer om läckage och vill veta om någon kan titta på taket.",
+    response: "Leadmap fångar takproblem, plats, tidslinje och kontaktuppgifter.",
+    collects: ["Namn", "Telefon", "Fastighetstyp", "Problem", "Stad", "Önskad tid"],
+    value: "Bedöm värdet med er egen offertstorlek och konverteringsgrad.",
+    faq: [
+      [
+        "Kan den hantera offertförfrågningar?",
+        "Ja, den samlar underlag och skickar det för manuell uppföljning.",
+      ],
+    ],
   },
   {
     slug: "tandlakare",
-    label: "Tandlakare",
-    pain: "Nya patienter och akuta tider forsvinner nar receptionen inte hinner svara.",
-    scenario: "En patient ringer under behandlingstid och vill boka akut tandvarkstid.",
-    response: "Leadmap svarar professionellt, tar patientens behov och skickar vidare till kliniken.",
-    collects: ["Namn", "Telefon", "Arende", "Ny eller befintlig patient", "Bradska", "Onskad tid"],
-    value: "Att fylla en tom tid kan snabbt gora systemet lonsamt.",
-    faq: [["Ar det en medicinsk radgivare?", "Nej, Leadmap samlar kontakt- och bokningsinformation for klinikens uppfoljning."]],
+    label: "Tandläkare",
+    pain: "Nya patienter och akuta tider kan missas när receptionen inte hinner svara.",
+    scenario: "En patient ringer under behandlingstid och vill boka en tid för akut tandvärk.",
+    response:
+      "Leadmap svarar professionellt, tar patientens behov och skickar vidare till kliniken.",
+    collects: ["Namn", "Telefon", "Ärende", "Ny eller befintlig patient", "Brådska", "Önskad tid"],
+    value: "Använd klinikens egna siffror för att bedöma värdet av fångade förfrågningar.",
+    faq: [
+      [
+        "Är det medicinsk rådgivning?",
+        "Nej. Leadmap samlar kontakt- och bokningsinformation för klinikens uppföljning.",
+      ],
+    ],
   },
   {
     slug: "kliniker",
     label: "Kliniker",
-    pain: "Kliniker tappar bokningar nar personalen ar med kunder eller patienter.",
-    scenario: "En kund vill boka behandling men receptionen ar upptagen.",
-    response: "Leadmap tar behandling, kontaktuppgifter och onskad tid utan att lova en slutlig bokning.",
-    collects: ["Namn", "E-post", "Telefon", "Behandling", "Stad", "Onskad tid"],
-    value: "Fler fangade forfragningar betyder farre tomma luckor.",
-    faq: [["Kan den kopplas till kalender?", "Forst samlar den forfragningar. Kalenderkoppling kan laggas till senare."]],
+    pain: "Kliniker kan missa bokningsförfrågningar när personalen är med kunder eller patienter.",
+    scenario: "En kund vill boka behandling men receptionen är upptagen.",
+    response:
+      "Leadmap tar behandling, kontaktuppgifter och önskad tid utan att lova en slutlig bokning.",
+    collects: ["Namn", "E-post", "Telefon", "Behandling", "Stad", "Önskad tid"],
+    value: "Fångade förfrågningar kan minska risken för tomma luckor.",
+    faq: [
+      [
+        "Kan den kopplas till kalender?",
+        "Först samlar den förfrågningar. Kalenderkoppling kan läggas till enligt separat scope.",
+      ],
+    ],
   },
   {
     slug: "bilverkstad",
     label: "Bilverkstad",
-    pain: "Verkstader missar service- och reparationsforfragningar nar telefonen inte hinns med.",
-    scenario: "En bilagare ringer om service och vill veta nasta lediga tid.",
-    response: "Leadmap samlar bilmodell, problem, kontaktuppgifter och onskad tid.",
-    collects: ["Namn", "Telefon", "Bilmodell", "Problem", "Onskad tid", "Stad"],
-    value: "En extra servicebokning kan racka langt.",
-    faq: [["Kan den fraga om registreringsnummer?", "Ja, flodet kan anpassas efter hur verkstaden vill ta emot arenden."]],
+    pain: "Verkstäder kan missa service- och reparationsförfrågningar när telefonen inte hinns med.",
+    scenario: "En bilägare ringer om service och vill veta nästa lediga tid.",
+    response: "Leadmap samlar bilmodell, problem, kontaktuppgifter och önskad tid.",
+    collects: ["Namn", "Telefon", "Bilmodell", "Problem", "Önskad tid", "Stad"],
+    value: "Bedöm värdet med verkstadens egna ordervärden.",
+    faq: [
+      [
+        "Kan den fråga om registreringsnummer?",
+        "Ja, flödet kan anpassas efter hur verkstaden vill ta emot ärenden.",
+      ],
+    ],
   },
   {
     slug: "bargning",
-    label: "Bargning",
-    pain: "Bargningskunder behover snabb respons och tydliga nasta steg.",
-    scenario: "En forare ringer fran vagkanten och behover hjalp snabbt.",
-    response: "Leadmap tar plats, fordon, situation och kontakt sa teamet kan prioritera.",
-    collects: ["Namn", "Telefon", "Plats", "Fordon", "Situation", "Bradska"],
-    value: "Snabbt svar kan vara skillnaden mellan vunnet och tappat arende.",
-    faq: [["Ringer AI:n ut till foraren?", "Nej, den tar emot samtalet och skickar en tydlig sammanfattning till agaren."]],
+    label: "Bärgning",
+    pain: "Bärgningskunder behöver snabb respons och tydliga nästa steg.",
+    scenario: "En förare ringer från vägkanten och behöver hjälp snabbt.",
+    response: "Leadmap tar plats, fordon, situation och kontakt så teamet kan prioritera.",
+    collects: ["Namn", "Telefon", "Plats", "Fordon", "Situation", "Brådska"],
+    value: "Snabbt svar kan hjälpa teamet att prioritera inkommande ärenden.",
+    faq: [
+      [
+        "Ringer AI:n ut till föraren?",
+        "Nej, den tar emot samtalet och skickar en tydlig sammanfattning till ägaren.",
+      ],
+    ],
   },
 ];
 
@@ -199,7 +236,7 @@ export function getSeoPage(nicheSlug: string, citySlug: string) {
     city,
     path: `/ai-telefonist/${niche.slug}/${city.slug}`,
     title: `${niche.service} i ${city.name} | Leadmap`,
-    description: `${niche.label} i ${city.name}: fa AI-telefonist som svarar pa missade samtal, kvalificerar leads och skickar sammanfattningar. Fran 2 900 kr/man.`,
+    description: `${niche.label} i ${city.name}: AI-telefonist som svarar på missade samtal och skickar tydliga sammanfattningar. Från 2 900 kr/mån exkl. moms.`,
     h1: `${niche.service} i ${city.name}`,
     auditHref: utm("/missade-samtal-audit", {
       utm_source: "seo",
@@ -213,16 +250,14 @@ export function getSeoPage(nicheSlug: string, citySlug: string) {
 }
 
 export function getUseCase(slug: string) {
-  return useCases.find((item) => item.slug === slug) ?? null;
+  return useCases.find((item) => item.slug === slug) || null;
 }
 
 export function utm(path: string, params: Record<string, string>) {
-  const search = new URLSearchParams(params);
-  return `${path}?${search.toString()}`;
+  return `${path}?${new URLSearchParams(params).toString()}`;
 }
 
 export const seoPaths = seoNiches.flatMap((niche) =>
   cities.map((city) => `/ai-telefonist/${niche.slug}/${city.slug}`),
 );
-
 export const useCasePaths = useCases.map((useCase) => `/anvandningsfall/${useCase.slug}`);

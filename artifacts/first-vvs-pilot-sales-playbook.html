@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Leadmap · Första VVS-piloten</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #080a09;
+        --panel: #111411;
+        --line: #293029;
+        --text: #f5f7f3;
+        --muted: #9da69f;
+        --lime: #c7ff6b;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: radial-gradient(circle at 10% 0, #1b261c 0, transparent 30%), var(--bg);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      }
+      main {
+        width: min(1040px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 44px 0 80px;
+      }
+      .eyebrow {
+        color: var(--lime);
+        font:
+          600 11px ui-monospace,
+          monospace;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      h1 {
+        max-width: 850px;
+        margin: 14px 0;
+        font-size: clamp(42px, 8vw, 88px);
+        line-height: 0.94;
+        letter-spacing: -0.055em;
+      }
+      .lede {
+        max-width: 720px;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.65;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 14px;
+        margin-top: 34px;
+      }
+      .card {
+        grid-column: span 6;
+        border: 1px solid var(--line);
+        background: linear-gradient(150deg, #141815, #0d100e);
+        padding: 24px;
+      }
+      .card.full {
+        grid-column: 1 / -1;
+      }
+      h2 {
+        margin: 8px 0 16px;
+        font-size: 28px;
+        letter-spacing: -0.025em;
+      }
+      h3 {
+        margin: 20px 0 6px;
+        font-size: 16px;
+      }
+      p,
+      li {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.65;
+      }
+      ul,
+      ol {
+        padding-left: 20px;
+      }
+      blockquote {
+        margin: 18px 0 0;
+        border-left: 2px solid var(--lime);
+        padding: 4px 0 4px 18px;
+        font-size: 18px;
+        line-height: 1.55;
+      }
+      .price {
+        font-size: 36px;
+        margin: 12px 0 2px;
+      }
+      .chip {
+        display: inline-block;
+        margin: 5px 5px 0 0;
+        border: 1px solid var(--line);
+        padding: 7px 10px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .checklist label {
+        display: flex;
+        gap: 10px;
+        border-top: 1px solid var(--line);
+        padding: 13px 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      input {
+        accent-color: var(--lime);
+      }
+      a {
+        color: var(--text);
+        text-decoration-color: var(--lime);
+        text-underline-offset: 4px;
+      }
+      .topline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
+      button {
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--text);
+        padding: 10px 14px;
+        cursor: pointer;
+      }
+      @media (max-width: 720px) {
+        .card {
+          grid-column: 1 / -1;
+        }
+        main {
+          padding-top: 24px;
+        }
+        .topline {
+          align-items: flex-start;
+        }
+      }
+      @media print {
+        body {
+          background: white;
+          color: black;
+        }
+        .card {
+          break-inside: avoid;
+          background: white;
+          border-color: #ccc;
+        }
+        p,
+        li {
+          color: #333;
+        }
+        button {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="topline">
+        <div class="eyebrow">Leadmap / Close the first VVS pilot</div>
+        <button onclick="window.print()">Skriv ut / PDF</button>
+      </div>
+      <h1>Sälj en trygg pilot. Bevisa resten.</h1>
+      <p class="lede">
+        Det här är arbetsbladet för första affären: rätt köpare, 30-minutersdemo, direkt stängning,
+        invändningar och exakt bevisinsamling. Inga påhittade resultat.
+      </p>
+
+      <div class="grid">
+        <section class="card">
+          <div class="eyebrow">Erbjudandet</div>
+          <div class="price">2 900 kr/mån</div>
+          <p>+ 2 000 kr startavgift · 500 minuter · 2,50 kr/min övervolym · exkl. moms</p>
+          <span class="chip">7 pilotdagar</span><span class="chip">30 dagars uppsägning</span
+          ><span class="chip">Behåll numret</span>
+          <h3>Pilotlöftet</h3>
+          <p>
+            Ingen kundtrafik kopplas på innan köparen skriftligen har godkänt röst, manus, fallback
+            och överlämning. Det är ett säkerhetslöfte, inte en intäktsgaranti.
+          </p>
+        </section>
+
+        <section class="card">
+          <div class="eyebrow">Rätt första köpare</div>
+          <ul>
+            <li>Svenskt VVS-företag där ägare eller arbetsledare fortfarande svarar.</li>
+            <li>Samtal missas under jobb, körning, lunch eller efter stängning.</li>
+            <li>Beslutsfattaren kan godkänna ett testflöde inom en vecka.</li>
+            <li>Företaget ringer tillbaka på kvalificerade handoffs snabbt.</li>
+          </ul>
+        </section>
+
+        <section class="card full">
+          <div class="eyebrow">30-minutersdemo</div>
+          <ol>
+            <li>
+              <strong>0–5:</strong> När missas samtal, vem svarar nu och vad händer efter voicemail?
+            </li>
+            <li><strong>5–10:</strong> Visa svensk VVS-röstdemo eller tydligt märkt simulering.</li>
+            <li>
+              <strong>10–15:</strong> Visa handoff med namn, telefon, ort, ärende, prioritet och
+              nästa steg.
+            </li>
+            <li>
+              <strong>15–20:</strong> Välj missade samtal, efter stängning eller båda. Sätt
+              fallback.
+            </li>
+            <li>
+              <strong>20–25:</strong> Förklara pris, minuter, startavgift, pilot och uppsägning en
+              gång.
+            </li>
+            <li>
+              <strong>25–30:</strong> Be om startdatum och namnet på personen som godkänner manuset.
+            </li>
+          </ol>
+          <blockquote>
+            Det här verkar passa eftersom ni tappar samtal när ni är ute på jobb. Vi bygger
+            VVS-flödet, ni godkänner testsamtalet och överlämningen, och först därefter startar de
+            sju pilotdagarna. Ska vi sätta startdatumet nu?
+          </blockquote>
+        </section>
+
+        <section class="card">
+          <div class="eyebrow">Invändningar</div>
+          <h3>“Det låter robotiskt”</h3>
+          <p>Köparen godkänner den riktiga rösten innan någon kundtrafik kopplas på.</p>
+          <h3>“Vi svarar själva”</h3>
+          <p>Bra. Leadmap tar bara samtalen de redan missar eller inte kan ta efter stängning.</p>
+          <h3>“Kan den boka automatiskt?”</h3>
+          <p>Inte i första piloten. Företaget bekräftar tid, pris, prioritet och utförande.</p>
+          <h3>“Kan ni garantera jobb?”</h3>
+          <p>Nej. Vi garanterar en kontrollerad startprocess och utvärderar verkliga pilotdata.</p>
+        </section>
+
+        <section class="card checklist">
+          <div class="eyebrow">Bevis att samla</div>
+          <label><input type="checkbox" /> Antal samtal Leadmap hanterade</label>
+          <label><input type="checkbox" /> Kvalificerade återkopplingsförfrågningar</label>
+          <label><input type="checkbox" /> Ärenden som krävde manuell kontroll</label>
+          <label><input type="checkbox" /> Ägarens återkopplingstid, när den går att mäta</label>
+          <label><input type="checkbox" /> Skriftligt godkänd kvalitativ feedback</label>
+          <label><input type="checkbox" /> Fortsatte eller stoppade efter piloten</label>
+        </section>
+
+        <section class="card full checklist">
+          <div class="eyebrow">Daglig QA under pilotveckan</div>
+          <label><input type="checkbox" /> Granska varje sammanfattning och fallback-flagga.</label>
+          <label
+            ><input type="checkbox" /> Kontrollera att ingen tid, bokning eller pris lovades utan
+            mandat.</label
+          >
+          <label
+            ><input type="checkbox" /> Justera manuset när samma missförstånd uppstår två
+            gånger.</label
+          >
+          <label><input type="checkbox" /> Eskalera säkerhets- eller routingfel direkt.</label>
+          <label
+            ><input type="checkbox" /> Skicka ett slutscorecard med fakta, begränsningar och
+            fortsätt/stoppa-rekommendation.</label
+          >
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

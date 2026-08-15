@@ -1,20 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SimpleMarketingPage } from "@/components/site/SimpleMarketingPage";
+import { CONTACT_EMAIL } from "@/lib/site-config";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact Leadmap - Book an AI Receptionist Demo" },
+      { title: "Kontakta Leadmap | AI-telefonist för VVS" },
       {
         name: "description",
         content:
-          "Contact Leadmap to book an AI receptionist demo for call answering, lead qualification and business lead follow-up.",
+          "Kontakta Leadmap för en samtalsaudit eller demo av en svensk AI-telefonist för VVS.",
       },
-      { property: "og:title", content: "Contact Leadmap" },
-      { property: "og:description", content: "Book a Leadmap demo or ask a question." },
+      { property: "og:title", content: "Kontakta Leadmap" },
+      {
+        property: "og:description",
+        content: "Be om en samtalsaudit eller ställ en fråga om Leadmap.",
+      },
       { property: "og:url", content: "https://www.leadmap.se/contact" },
-      { name: "twitter:title", content: "Contact Leadmap" },
-      { name: "twitter:description", content: "Book a Leadmap demo or ask a question." },
+      { name: "twitter:title", content: "Kontakta Leadmap" },
+      {
+        name: "twitter:description",
+        content: "Be om en samtalsaudit eller ställ en fråga om Leadmap.",
+      },
     ],
     links: [{ rel: "canonical", href: "https://www.leadmap.se/contact" }],
   }),
@@ -24,24 +31,24 @@ export const Route = createFileRoute("/contact")({
 function ContactPage() {
   return (
     <SimpleMarketingPage
-      eyebrow="Contact"
-      title="See how Leadmap would answer your next call."
-      intro="Share your business type, call flow, and what happens when calls are missed. Leadmap can be scoped around that workflow."
+      eyebrow="Kontakt"
+      title="Se hur Leadmap skulle svara på nästa VVS-samtal."
+      intro="Berätta hur era samtal ser ut och vad som händer när ni inte kan svara. Vi visar ett avgränsat flöde innan ni bestämmer er."
       blocks={[
         {
           eyebrow: "Demo",
-          title: "Walk through the call flow",
-          body: "Review how an AI receptionist would answer, qualify, and summarize your customer calls.",
+          title: "Gå igenom samtalsflödet",
+          body: "Se hur AI-receptionisten svarar, ställer frågor och skickar en tydlig sammanfattning.",
         },
         {
-          eyebrow: "Setup",
-          title: "Keep your number",
-          body: "The pilot can usually start with forwarding instead of a full phone-system migration.",
+          eyebrow: "Start",
+          title: "Behåll ert nummer",
+          body: "Piloten kan börja med vidarekoppling av missade samtal utan ett fullständigt byte av telefonsystem.",
         },
         {
           eyebrow: "Email",
-          title: "leadmapai.se@gmail.com",
-          body: "Send a short note with your company name, phone setup, and the call problem you want fixed.",
+          title: CONTACT_EMAIL,
+          body: "Skicka företagsnamn, nuvarande telefonupplägg och vilket samtalsproblem ni vill lösa.",
         },
       ]}
     />

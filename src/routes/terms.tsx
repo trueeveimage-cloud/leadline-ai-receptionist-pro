@@ -1,17 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { CONTACT_EMAIL, LEGAL_ENTITY, SITE_URL } from "@/lib/site-config";
 
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms & Conditions — Leadmap" },
-      { name: "description", content: "Read the Leadmap terms and conditions for our AI receptionist services, pilot program, billing and acceptable use." },
-      { property: "og:title", content: "Terms & Conditions — Leadmap" },
-      { property: "og:description", content: "The terms that govern your use of Leadmap's AI receptionist services, pilot program and billing." },
-      { property: "og:url", content: "https://www.leadmap.se/terms" },
-      { name: "twitter:title", content: "Terms & Conditions — Leadmap" },
-      { name: "twitter:description", content: "Terms for Leadmap's AI receptionist services, pilots and billing." },
+      { title: "Allmänna villkor | Leadmap" },
+      {
+        name: "description",
+        content:
+          "Villkor för Leadmaps AI-telefonist, pilot, priser, manuell bokningsbekräftelse och uppsägning.",
+      },
+      { property: "og:title", content: "Allmänna villkor | Leadmap" },
+      { property: "og:url", content: `${SITE_URL}/terms` },
     ],
-    links: [{ rel: "canonical", href: "https://www.leadmap.se/terms" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/terms` }],
   }),
   component: TermsPage,
 });
@@ -20,108 +22,104 @@ function TermsPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border">
-        <div className="mx-auto max-w-3xl px-6 h-16 flex items-center justify-between">
+        <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-6">
           <Link to="/" className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-brand" />
             <span className="font-semibold tracking-tight">Leadmap</span>
           </Link>
           <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">
-            ← Back
+            ← Tillbaka
           </Link>
         </div>
       </header>
 
       <main className="mx-auto max-w-3xl px-6 py-16 md:py-24">
-        <p className="text-[11px] uppercase tracking-[0.22em] text-brand mb-4">Legal</p>
-        <h1 className="text-3xl md:text-5xl font-medium tracking-[-0.025em]">
-          Terms &amp; Conditions
-        </h1>
-        <p className="mt-3 text-sm text-muted-foreground">Last updated: June 14, 2026</p>
+        <p className="mb-4 text-[11px] uppercase tracking-[0.22em] text-brand">Juridik</p>
+        <h1 className="text-3xl font-medium tracking-[-0.025em] md:text-5xl">Allmänna villkor</h1>
+        <p className="mt-3 text-sm text-muted-foreground">Senast uppdaterade: 13 juli 2026</p>
 
-        <div className="prose prose-neutral mt-12 max-w-none space-y-10 text-[15px] leading-relaxed text-foreground/90">
-          <Section title="1. Agreement">
-            By booking a demo or using Leadmap ("we", "us", "the service"), you agree
-            to these terms. If you don't agree, please don't use the service.
+        <div className="mt-12 max-w-none space-y-10 text-[15px] leading-relaxed text-foreground/90">
+          <Section title="1. Avtalspart">
+            Leadmap tillhandahålls av {LEGAL_ENTITY.name}
+            {LEGAL_ENTITY.organizationNumber ? `, org.nr ${LEGAL_ENTITY.organizationNumber}` : ""}
+            {LEGAL_ENTITY.address ? `, ${LEGAL_ENTITY.address}` : ""}. Dessa villkor gäller om inget
+            annat uttryckligen avtalats skriftligt.
           </Section>
 
-          <Section title="2. The service">
-            Leadmap provides AI-powered phone receptionists that answer, qualify, book
-            and send call summaries on your behalf. Availability and feature scope is
-            described on this website and may evolve over time.
+          <Section title="2. Tjänsten">
+            Leadmap är en AI-telefonist som kan svara, ställa godkända frågor och skicka
+            sammanfattningar och återkopplingsförfrågningar. Under piloten bekräftar kunden själv
+            bokning, tid, pris, prioritet och utförande. Funktioner som kalenderbokning eller direkt
+            vidarekoppling ingår endast när de står i det skriftliga kundavtalet.
           </Section>
 
-          <Section title="3. Your responsibilities">
-            You're responsible for the information you provide, for telling your callers
-            that calls may be answered and processed by AI where required by law, and for
-            keeping your account credentials safe.
+          <Section title="3. Pilot och godkännande">
+            Piloten är sju dagar och startar först när kunden har godkänt röst, manus,
+            verksamhetsuppgifter, fallback-regler och vidarekoppling. Kunden behåller sitt
+            befintliga nummer och bestämmer vilka samtal Leadmap får hantera. Ingen kundtrafik
+            kopplas på före kundens skriftliga godkännande. Om testflödet inte uppfyller den
+            skriftligt överenskomna startchecklistan hålls det pausat tills avvikelsen är åtgärdad
+            eller parterna skriftligen avtalar annat.
           </Section>
 
-          <Section title="4. Pricing and billing">
-            Prices listed are starting prices and may vary depending on call volume,
-            setup needs and integrations. Setup is included for selected partners during
-            the pilot period. Minimum term is 1 month. You can cancel anytime after the
-            first month with 30 days notice. Payment is monthly in advance. Extra call
-            volume, custom integrations or advanced workflows may cost extra.
+          <Section title="4. Priser och betalning">
+            Pilot kostar 2 900 kr per månad plus 2 000 kr i startavgift och omfattar 500 minuter.
+            Premium kostar 4 900 kr per månad, startavgift ingår och 1 500 minuter ingår. Övervolym
+            kostar 2,50 kr per minut. Alla priser anges exklusive moms. Betalning sker månadsvis i
+            förskott om inget annat avtalas.
           </Section>
 
-          <Section title="5. Calendar bookings & client information">
-            Calendar bookings are only confirmed if the connected calendar availability
-            is correct. The client is responsible for providing correct business
-            information, prices, opening hours and availability. Leadmap is not
-            responsible for missed calls caused by wrong setup information, third-party
-            outages, phone provider issues or calendar errors.
+          <Section title="5. Avtalstid och uppsägning">
+            Den första avtalsperioden är en månad. Därefter gäller 30 dagars uppsägning utan längre
+            bindningstid. Uppsägning skickas skriftligt till <EmailLink />. Redan påbörjad
+            betalningsperiod återbetalas inte om inget annat följer av tvingande lag eller
+            skriftligt avtal.
           </Section>
 
-          <Section title="6. Data and privacy">
-            Call summaries and customer details are handled only for business follow-up
-            purposes. All customer data is handled according to GDPR. Calls, transcripts
-            and contact details are stored within the EU and encrypted at rest. We sign
-            Data Processing Agreements on request and never train public models on your
-            conversations. See our{" "}
-            <Link to="/privacy" className="underline hover:text-foreground">
-              Privacy Policy
-            </Link>{" "}
-            for the details.
+          <Section title="6. Kundens ansvar">
+            Kunden ansvarar för att verksamhetsuppgifter, priser, öppettider, riskinstruktioner och
+            kontaktvägar är riktiga. Kunden ansvarar även för nödvändig information till uppringare
+            om AI, inspelning och behandling av personuppgifter samt för att inte använda tjänsten
+            för olagliga, vilseledande eller skadliga ändamål.
           </Section>
 
-          <Section title="7. Acceptable use">
-            You may not use the service for unlawful activity, harassment, fraud, spam,
-            or to impersonate a person without authority. We may suspend accounts that
-            violate these rules.
-          </Section>
-
-          <Section title="8. Availability">
-            We work hard to keep the service running 24/7 but make no uptime guarantees
-            beyond those in a signed enterprise agreement. Scheduled maintenance is
-            communicated in advance where possible.
-          </Section>
-
-          <Section title="9. Liability">
-            To the maximum extent permitted by law, our liability is limited to the
-            amount you paid us in the three months preceding the claim. We are not liable
-            for indirect or consequential losses.
-          </Section>
-
-          <Section title="10. Changes">
-            We may update these terms from time to time. Material changes will be
-            communicated by email or in-product before they take effect.
-          </Section>
-
-          <Section title="11. Contact">
-            Questions? Email{" "}
-            <a href="mailto:leadmapai.se@gmail.com" className="underline hover:text-foreground">
-              leadmapai.se@gmail.com
-            </a>
+          <Section title="7. Personuppgifter">
+            Behandling för kundens räkning regleras i personuppgiftsbiträdesavtal. Kunden är normalt
+            personuppgiftsansvarig för sina uppringares uppgifter och Leadmap agerar biträde enligt
+            dokumenterade instruktioner. Webbplatsens egna demo- och auditförfrågningar regleras av
+            vår{" "}
+            <Link to="/privacy" className="underline underline-offset-4">
+              integritetspolicy
+            </Link>
             .
+          </Section>
+
+          <Section title="8. Tillgänglighet och tredjepart">
+            Tjänsten är beroende av telefoni-, hosting-, AI- och e-postleverantörer. Leadmap
+            eftersträvar hög tillgänglighet men lämnar ingen särskild drifttidsgaranti utan ett
+            separat serviceavtal. Planerat underhåll kommuniceras när det är praktiskt möjligt.
+          </Section>
+
+          <Section title="9. Resultat och ansvar">
+            Leadmap garanterar inte ett visst antal samtal, bokningar, intäkter eller sparad tid.
+            Kunden ansvarar för sin egen återkoppling och leverans till slutkund. I den utsträckning
+            lagen tillåter begränsas Leadmaps sammanlagda ansvar till avgifter som kunden betalat
+            under de tre månader som föregick skadan. Indirekt skada och utebliven vinst ersätts
+            inte.
+          </Section>
+
+          <Section title="10. Ändringar och kontakt">
+            Väsentliga ändringar meddelas innan de börjar gälla för en pågående kundperiod. Frågor
+            skickas till <EmailLink />.
           </Section>
         </div>
       </main>
 
       <footer className="border-t border-border">
-        <div className="mx-auto max-w-3xl px-6 py-10 text-xs text-muted-foreground flex items-center justify-between">
+        <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-10 text-xs text-muted-foreground">
           <span>© {new Date().getFullYear()} Leadmap</span>
           <Link to="/privacy" className="hover:text-foreground">
-            Privacy Policy
+            Integritetspolicy
           </Link>
         </div>
       </footer>
@@ -129,10 +127,18 @@ function TermsPage() {
   );
 }
 
+function EmailLink() {
+  return (
+    <a href={`mailto:${CONTACT_EMAIL}`} className="underline underline-offset-4">
+      {CONTACT_EMAIL}
+    </a>
+  );
+}
+
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h2 className="text-lg font-semibold tracking-tight mb-3">{title}</h2>
+      <h2 className="mb-3 text-lg font-semibold tracking-tight">{title}</h2>
       <p className="text-muted-foreground">{children}</p>
     </section>
   );

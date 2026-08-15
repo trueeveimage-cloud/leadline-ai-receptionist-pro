@@ -8,7 +8,9 @@ export const listLeads = createServerFn({ method: "GET" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await supabaseAdmin
       .from("leads")
-      .select("id, name, company, phone, preferred_time, contacted, user_agent, created_at")
+      .select(
+        "id, name, company, phone, email, preferred_time, contacted, status, first_invoice_value_sek, advertising_consent, is_vvs_company, is_decision_maker, has_missed_call_need, user_agent, created_at",
+      )
       .order("created_at", { ascending: false })
       .limit(500);
     if (error) {
@@ -41,7 +43,7 @@ const toggleSchema = z.object({
 
 export const setLeadContacted = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input) => toggleSchema.parse(input))
+  .validator((input) => toggleSchema.parse(input))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
@@ -52,9 +54,32 @@ export const setLeadContacted = createServerFn({ method: "POST" })
     return { ok: true, error: null as string | null };
   });
 
+const leadLifecycleSchema = z.discriminatedUnion("status", [
+  z.object({ id: z.string().uuid(), status: z.literal("qualified") }),
+  z.object({
+    id: z.string().uuid(),
+    status: z.literal("pilot_won"),
+    firstInvoiceValueSek: z.number().positive().max(10_000_000),
+  }),
+]);
+
+export const setLeadLifecycle = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((input) => leadLifecycleSchema.parse(input))
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const update =
+      data.status === "pilot_won"
+        ? { status: data.status, first_invoice_value_sek: data.firstInvoiceValueSek }
+        : { status: data.status };
+    const { error } = await supabaseAdmin.from("leads").update(update).eq("id", data.id);
+    if (error) return { ok: false, error: error.message };
+    return { ok: true, error: null as string | null };
+  });
+
 export const setMessageContacted = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input) => toggleSchema.parse(input))
+  .validator((input) => toggleSchema.parse(input))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
@@ -66,12 +91,16 @@ export const setMessageContacted = createServerFn({ method: "POST" })
   });
 
 const listNotesSchema = z.object({
-  customerKey: z.string().min(1).max(320).regex(/^[a-zA-Z0-9._@+\- ]+$/),
+  customerKey: z
+    .string()
+    .min(1)
+    .max(320)
+    .regex(/^[a-zA-Z0-9._@+\- ]+$/),
 });
 
 export const listCustomerNotes = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input) => listNotesSchema.parse(input))
+  .validator((input) => listNotesSchema.parse(input))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: notes, error } = await supabaseAdmin
@@ -84,13 +113,17 @@ export const listCustomerNotes = createServerFn({ method: "GET" })
   });
 
 const addNoteSchema = z.object({
-  customerKey: z.string().min(1).max(320).regex(/^[a-zA-Z0-9._@+\- ]+$/),
+  customerKey: z
+    .string()
+    .min(1)
+    .max(320)
+    .regex(/^[a-zA-Z0-9._@+\- ]+$/),
   body: z.string().trim().min(1).max(4000),
 });
 
 export const addCustomerNote = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input) => addNoteSchema.parse(input))
+  .validator((input) => addNoteSchema.parse(input))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin.from("customer_notes").insert({
@@ -102,12 +135,16 @@ export const addCustomerNote = createServerFn({ method: "POST" })
   });
 
 const customerSchema = z.object({
-  customerKey: z.string().min(1).max(320).regex(/^[a-zA-Z0-9._@+\- ]+$/),
+  customerKey: z
+    .string()
+    .min(1)
+    .max(320)
+    .regex(/^[a-zA-Z0-9._@+\- ]+$/),
 });
 
 export const getCustomerHistory = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input) => customerSchema.parse(input))
+  .validator((input) => customerSchema.parse(input))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const key = data.customerKey.toLowerCase();

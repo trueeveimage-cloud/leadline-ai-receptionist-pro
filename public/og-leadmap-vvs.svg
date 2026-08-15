@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Leadmap — missa inte nästa VVS-jobb</title>
+  <desc id="desc">Social delningsbild för Leadmaps svenska AI-telefonist för VVS-företag.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#090b0f"/>
+      <stop offset="1" stop-color="#171b24"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="78%" cy="20%" r="65%">
+      <stop offset="0" stop-color="#f5f1e8" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#f5f1e8" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#ffffff" stroke-opacity=".045"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <circle cx="1080" cy="88" r="260" fill="none" stroke="#ffffff" stroke-opacity=".08"/>
+  <circle cx="1080" cy="88" r="190" fill="none" stroke="#ffffff" stroke-opacity=".06"/>
+  <circle cx="1080" cy="88" r="120" fill="none" stroke="#ffffff" stroke-opacity=".04"/>
+  <g transform="translate(76 72)">
+    <circle cx="8" cy="8" r="8" fill="#e7ff85"/>
+    <text x="32" y="16" fill="#f7f5ef" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" letter-spacing="-0.5">Leadmap</text>
+  </g>
+  <text x="76" y="205" fill="#a9acb5" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600" letter-spacing="5">SVENSK AI-TELEFONIST FÖR VVS</text>
+  <text x="76" y="304" fill="#f7f5ef" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="300" letter-spacing="-2">Missa inte nästa</text>
+  <text x="76" y="388" fill="#f7f5ef" font-family="Georgia, 'Times New Roman', serif" font-size="82" font-style="italic" letter-spacing="-2">VVS-jobb.</text>
+  <text x="76" y="470" fill="#b9bbc3" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="300">Svarar · kvalificerar · skickar nästa steg</text>
+  <line x1="76" y1="530" x2="1124" y2="530" stroke="#ffffff" stroke-opacity=".14"/>
+  <text x="76" y="574" fill="#d9d8d3" font-family="Arial, Helvetica, sans-serif" font-size="18" letter-spacing="2">LEADMAP.SE</text>
+  <text x="1124" y="574" fill="#8d9099" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="18">Byggt i Sverige</text>
+</svg>

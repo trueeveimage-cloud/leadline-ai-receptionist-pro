@@ -14,21 +14,27 @@ export const Route = createFileRoute("/ai-telefonist/$niche/$city")({
     const url = page ? `${SITE_URL}${page.path}` : `${SITE_URL}/ai-telefonist`;
     return {
       meta: [
-        { title: page?.title ?? "AI-telefonist for serviceforetag | Leadmap" },
+        { title: page?.title ?? "AI-telefonist för serviceföretag | Leadmap" },
         {
           name: "description",
           content:
             page?.description ??
-            "Leadmap svarar pa missade samtal, kvalificerar leads och skickar tydliga sammanfattningar till agaren.",
+            "Leadmap svarar på missade samtal, kvalificerar leads och skickar tydliga sammanfattningar till ägaren.",
         },
-        { name: "robots", content: page ? "index,follow" : "noindex,follow" },
+        { name: "robots", content: "noindex,follow" },
         { property: "og:title", content: page?.title ?? "Leadmap AI-telefonist" },
-        { property: "og:description", content: page?.description ?? "AI-telefonist for serviceforetag." },
+        {
+          property: "og:description",
+          content: page?.description ?? "AI-telefonist för serviceföretag.",
+        },
         { property: "og:type", content: "website" },
         { property: "og:url", content: url },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: page?.title ?? "Leadmap AI-telefonist" },
-        { name: "twitter:description", content: page?.description ?? "AI-telefonist for serviceforetag." },
+        {
+          name: "twitter:description",
+          content: page?.description ?? "AI-telefonist för serviceföretag.",
+        },
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: page
@@ -46,7 +52,8 @@ export const Route = createFileRoute("/ai-telefonist/$niche/$city")({
                   "@type": "Offer",
                   priceCurrency: "SEK",
                   price: "2900",
-                  description: "Pilot fran 2 900 kr/man. Setup ingar for forsta kunder.",
+                  description:
+                    "Pilot från 2 900 kr/mån exkl. moms. Efter första månaden gäller 30 dagars uppsägning.",
                 },
                 description: page.description,
               }),
@@ -68,10 +75,15 @@ function SeoLandingPage() {
         <div className="min-h-screen bg-background text-foreground">
           <Nav />
           <main className="mx-auto flex min-h-[70vh] max-w-3xl flex-col justify-center px-6 pt-24">
-            <p className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground">Sidan saknas</p>
+            <p className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
+              Sidan saknas
+            </p>
             <h1 className="mt-4 text-4xl font-extralight">Den lokala sidan finns inte än.</h1>
-            <Link to="/missade-samtal-audit" className="mt-8 text-sm font-medium underline underline-offset-4">
-              Fa gratis audit
+            <Link
+              to="/missade-samtal-audit"
+              className="mt-8 text-sm font-medium underline underline-offset-4"
+            >
+              Få gratis audit
             </Link>
           </main>
           <Footer />
@@ -93,7 +105,11 @@ function SeoLandingPage() {
               <div className="h-full w-full bg-[linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)] bg-[size:44px_44px]" />
             </div>
             <div className="relative mx-auto grid max-w-6xl gap-12 px-6 pb-20 md:grid-cols-[1fr_0.8fr] md:items-end md:pb-28">
-              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7 }}
+              >
                 <p className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.34em] text-muted-foreground">
                   <MapPin className="h-3.5 w-3.5" />
                   {page.city.name} / {page.niche.label}
@@ -102,15 +118,30 @@ function SeoLandingPage() {
                   {page.h1}
                 </h1>
                 <p className="mt-6 max-w-2xl text-base font-light leading-relaxed text-muted-foreground md:text-lg">
-                  Leadmap svarar nar ni ar upptagna, ute pa jobb eller har stangt. Kunden far ett snabbt svar, och ni far en kvalificerad forfragan med namn, nummer, arende och onskad tid.
+                  Leadmap svarar när ni är upptagna, ute på jobb eller har stängt. Kunden får ett
+                  snabbt svar, och ni får en kvalificerad förfrågan med namn, nummer, ärende och
+                  önskad tid.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <Button asChild variant="brand" size="lg" className="rounded-none px-8 text-[11px] font-semibold uppercase tracking-[0.2em]">
+                  <Button
+                    asChild
+                    variant="brand"
+                    size="lg"
+                    className="rounded-none px-8 text-[11px] font-semibold uppercase tracking-[0.2em]"
+                  >
                     <a href={page.auditHref}>{page.niche.cta}</a>
                   </Button>
-                  <Button asChild variant="outline" size="lg" className="rounded-none px-8 text-[11px] font-semibold uppercase tracking-[0.2em]">
-                    <Link to="/anvandningsfall/$niche" params={{ niche: useCaseSlug(page.niche.slug) }}>
-                      Las anvandningsfall
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="lg"
+                    className="rounded-none px-8 text-[11px] font-semibold uppercase tracking-[0.2em]"
+                  >
+                    <Link
+                      to="/anvandningsfall/$niche"
+                      params={{ niche: toUseCaseSlug(page.niche.slug) }}
+                    >
+                      Läs användningsfall
                     </Link>
                   </Button>
                 </div>
@@ -123,12 +154,18 @@ function SeoLandingPage() {
                 className="border border-border bg-card/70 p-5 shadow-2xl shadow-foreground/5 backdrop-blur"
               >
                 <div className="flex items-center justify-between border-b border-border/70 pb-4">
-                  <p className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground">Missat samtal</p>
+                  <p className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
+                    Missat samtal
+                  </p>
                   <PhoneCall className="h-4 w-4" />
                 </div>
                 <p className="mt-5 text-2xl font-light leading-snug">{page.niche.scenario}</p>
                 <div className="mt-6 grid gap-3 text-sm text-muted-foreground">
-                  {[page.niche.pain, page.niche.benefit, "Pilot fran 2 900 kr/man. Setup ingar for forsta kunder."].map((item) => (
+                  {[
+                    page.niche.pain,
+                    page.niche.benefit,
+                    "Pilot från 2 900 kr/mån exkl. moms. Ni bekräftar själva nästa steg.",
+                  ].map((item) => (
                     <div key={item} className="flex gap-3">
                       <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
                       <span>{item}</span>
@@ -142,14 +179,21 @@ function SeoLandingPage() {
           <section className="py-16 md:py-24">
             <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-[0.7fr_1fr]">
               <div>
-                <p className="text-[10px] uppercase tracking-[0.34em] text-muted-foreground">Varfor lokalt</p>
-                <h2 className="mt-4 text-3xl font-extralight md:text-5xl">Kunder i {page.city.name} vill ha svar nu.</h2>
+                <p className="text-[10px] uppercase tracking-[0.34em] text-muted-foreground">
+                  Lokalt scenario
+                </p>
+                <h2 className="mt-4 text-3xl font-extralight md:text-5xl">
+                  Kunder i {page.city.name} vill ha svar nu.
+                </h2>
               </div>
               <div className="grid gap-px bg-border/70 sm:grid-cols-3">
                 {[
-                  ["Svar direkt", "AI:n plockar upp nar teamet inte hinner."],
-                  ["Ratt fragor", "Arende, plats, bradska och kontakt samlas."],
-                  ["Ren handoff", "Agaren far en kort sammanfattning for manuell uppfoljning."],
+                  ["Svar direkt", "AI:n svarar när teamet inte hinner."],
+                  ["Rätt frågor", "Ärende, plats, brådska och kontakt samlas."],
+                  [
+                    "Tydlig överlämning",
+                    "Ägaren får en kort sammanfattning för manuell uppföljning.",
+                  ],
                 ].map(([title, body]) => (
                   <article key={title} className="bg-background p-6">
                     <h3 className="text-xl font-light">{title}</h3>
@@ -164,11 +208,18 @@ function SeoLandingPage() {
             <div className="mx-auto max-w-6xl px-6">
               <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
                 <div>
-                  <p className="text-[10px] uppercase tracking-[0.34em] text-muted-foreground">Fler lokala sidor</p>
-                  <h2 className="mt-3 text-2xl font-extralight md:text-4xl">Jamfor andra branscher i {page.city.name}.</h2>
+                  <p className="text-[10px] uppercase tracking-[0.34em] text-muted-foreground">
+                    Fler lokala sidor
+                  </p>
+                  <h2 className="mt-3 text-2xl font-extralight md:text-4xl">
+                    Jämför andra branscher i {page.city.name}.
+                  </h2>
                 </div>
-                <a href={page.auditHref} className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] underline underline-offset-8">
-                  Fa gratis audit <ArrowRight className="h-3.5 w-3.5" />
+                <a
+                  href={page.auditHref}
+                  className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] underline underline-offset-8"
+                >
+                  Få gratis audit <ArrowRight className="h-3.5 w-3.5" />
                 </a>
               </div>
               <div className="mt-8 flex flex-wrap gap-3">
@@ -192,7 +243,7 @@ function SeoLandingPage() {
   );
 }
 
-function useCaseSlug(slug: string) {
+function toUseCaseSlug(slug: string) {
   if (slug === "rormokare" || slug === "elektriker-jour") return "vvs";
   if (slug === "bilverkstader") return "bilverkstad";
   return slug;

@@ -152,9 +152,7 @@ export function Pricing() {
         <h2 className="text-3xl md:text-5xl font-extralight tracking-normal max-w-2xl leading-[1.05]">
           {t("pricing.title.l1")}
           <br />
-          <span className="italic font-extralight text-foreground/40">
-            {t("pricing.title.l2")}
-          </span>
+          <span className="italic font-extralight text-foreground/40">{t("pricing.title.l2")}</span>
         </h2>
 
         <div className="mt-6 md:mt-10 flex flex-wrap gap-x-5 gap-y-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
@@ -187,9 +185,7 @@ export function Pricing() {
 
               <div className="flex items-center gap-3 relative">
                 <span className="h-px w-5 md:w-6 bg-current opacity-40" />
-                <h3 className="text-[10px] uppercase tracking-[0.4em] font-medium">
-                  {p.name}
-                </h3>
+                <h3 className="text-[10px] uppercase tracking-[0.4em] font-medium">{p.name}</h3>
               </div>
 
               <div className="mt-6 md:mt-10 flex items-baseline gap-2 relative flex-wrap">
@@ -198,15 +194,20 @@ export function Pricing() {
                 </span>
                 <span
                   className={`text-xs md:text-sm font-light ${
-                    p.featured ? "text-muted-foreground md:text-background/60" : "text-muted-foreground"
+                    p.featured
+                      ? "text-muted-foreground md:text-background/60"
+                      : "text-muted-foreground"
                   }`}
                 >
-                  {p.currency}{t("pricing.month")}
+                  {p.currency}
+                  {t("pricing.month")}
                 </span>
               </div>
               <p
                 className={`mt-2 text-[11px] md:text-xs relative leading-snug ${
-                  p.featured ? "text-muted-foreground md:text-background/55" : "text-muted-foreground"
+                  p.featured
+                    ? "text-muted-foreground md:text-background/55"
+                    : "text-muted-foreground"
                 }`}
               >
                 {p.note}
@@ -273,7 +274,7 @@ export function Pricing() {
             href="/missade-samtal-audit?utm_source=pricing&utm_medium=cta&utm_campaign=free_audit"
             className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground underline underline-offset-8 transition-colors hover:text-foreground"
           >
-            Fa gratis missade-samtal audit
+            {t("audit.cta")}
           </a>
           <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground text-center">
             {t("pricing.footer")}

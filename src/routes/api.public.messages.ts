@@ -1,5 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
+import {
+  checkRateLimit,
+  isAllowedPublicOrigin,
+  publicCorsHeaders,
+  readJsonBody,
+} from "@/lib/public-api.server";
 
 const schema = z.object({
   name: z.string().trim().min(1).max(100),
@@ -8,38 +14,38 @@ const schema = z.object({
   website: z.string().max(0).optional().default(""),
 });
 
-const ALLOWED_ORIGINS = new Set([
-  "https://www.leadmap.se",
-  "https://leadmap.se",
-  "https://leadline-ai-receptionist-pro.lovable.app",
-  "https://id-preview--db12fc5f-e412-441a-9002-745e2cbf253f.lovable.app",
-]);
-
-function corsHeaders(request: Request) {
-  const origin = request.headers.get("origin");
-  const allowedOrigin = origin && (ALLOWED_ORIGINS.has(origin) || origin.startsWith("http://localhost:")) ? origin : "https://www.leadmap.se";
-  return {
-  "Access-Control-Allow-Origin": allowedOrigin,
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
-  "Vary": "Origin",
-  } as const;
-}
-
 export const Route = createFileRoute("/api/public/messages")({
   server: {
     handlers: {
-      OPTIONS: async ({ request }) => new Response(null, { status: 204, headers: corsHeaders(request) }),
+      OPTIONS: async ({ request }) =>
+        new Response(null, { status: 204, headers: publicCorsHeaders(request) }),
       POST: async ({ request }) => {
-        const cors = corsHeaders(request);
+        const cors = publicCorsHeaders(request);
+        if (!isAllowedPublicOrigin(request)) {
+          return new Response(JSON.stringify({ ok: false, error: "Forbidden." }), {
+            status: 403,
+            headers: { "Content-Type": "application/json", ...cors },
+          });
+        }
+        const limit = checkRateLimit(request, "contact", { limit: 5, windowMs: 10 * 60_000 });
+        if (!limit.allowed) {
+          return new Response(JSON.stringify({ ok: false, error: "Too many requests." }), {
+            status: 429,
+            headers: {
+              "Content-Type": "application/json",
+              "Retry-After": String(limit.retryAfterSeconds),
+              ...cors,
+            },
+          });
+        }
         try {
-          const body = await request.json().catch(() => null);
+          const body = await readJsonBody(request);
           const parsed = schema.safeParse(body);
           if (!parsed.success) {
-            return new Response(
-              JSON.stringify({ ok: false, error: "Invalid input." }),
-              { status: 400, headers: { "Content-Type": "application/json", ...cors } },
-            );
+            return new Response(JSON.stringify({ ok: false, error: "Invalid input." }), {
+              status: 400,
+              headers: { "Content-Type": "application/json", ...cors },
+            });
           }
           const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
           const { error } = await supabaseAdmin.from("messages").insert({
@@ -50,10 +56,10 @@ export const Route = createFileRoute("/api/public/messages")({
           });
           if (error) {
             console.error("[leadmap] message insert failed", error);
-            return new Response(
-              JSON.stringify({ ok: false, error: "Server error." }),
-              { status: 500, headers: { "Content-Type": "application/json", ...cors } },
-            );
+            return new Response(JSON.stringify({ ok: false, error: "Server error." }), {
+              status: 500,
+              headers: { "Content-Type": "application/json", ...cors },
+            });
           }
           try {
             const { queueOwnerNotification } = await import("@/lib/owner-notifications.server");
@@ -67,10 +73,10 @@ export const Route = createFileRoute("/api/public/messages")({
           });
         } catch (err) {
           console.error("[leadmap] message handler failed", err);
-          return new Response(
-            JSON.stringify({ ok: false, error: "Server error." }),
-            { status: 500, headers: { "Content-Type": "application/json", ...cors } },
-          );
+          return new Response(JSON.stringify({ ok: false, error: "Server error." }), {
+            status: 500,
+            headers: { "Content-Type": "application/json", ...cors },
+          });
         }
       },
     },

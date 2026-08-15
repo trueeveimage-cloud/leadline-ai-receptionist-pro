@@ -4,12 +4,15 @@ import { Button } from "@/components/ui/button";
 import { useDialogs } from "./DialogsProvider";
 import { useI18n } from "@/lib/i18n";
 import { ThemeToggle } from "./ThemeToggle";
+import { CONTACT_EMAIL, LEGAL_ENTITY } from "@/lib/site-config";
+import { openConsentSettings } from "@/lib/consent";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function FinalCTA() {
-  const { openBooking, openContact } = useDialogs();
-  const { t } = useI18n();
+  const { openContact } = useDialogs();
+  const { t, lang } = useI18n();
+  const home = lang === "en" ? "/en" : "/";
   return (
     <section className="py-20 md:py-32 border-t border-border/60">
       <div className="mx-auto max-w-2xl px-6 text-center">
@@ -31,12 +34,14 @@ export function FinalCTA() {
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
             <Button
+              asChild
               size="lg"
               variant="brand"
-              onClick={openBooking}
               className="rounded-none uppercase tracking-[0.2em] text-[11px] font-semibold px-8"
             >
-              {t("cta.book")}
+              <a href="/missade-samtal-audit?utm_source=homepage&utm_medium=cta&utm_campaign=vvs_audit&cta_variant=final">
+                {t("audit.cta")}
+              </a>
             </Button>
             <button
               onClick={openContact}
@@ -54,7 +59,8 @@ export function FinalCTA() {
 
 export function Footer() {
   const { openContact } = useDialogs();
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const home = lang === "en" ? "/en" : "/";
   return (
     <footer className="border-t border-border">
       <div className="mx-auto max-w-6xl px-6 py-14 grid gap-10 md:grid-cols-3">
@@ -73,16 +79,54 @@ export function Footer() {
             {t("footer.explore")}
           </div>
           <ul className="mt-4 space-y-2.5 text-sm font-light">
-            <li><a href="/#how" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.how")}</a></li>
-            <li><a href="/experience" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.experience")}</a></li>
-            <li><a href="/missade-samtal-audit" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.audit")}</a></li>
-            <li><a href="/partners" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.partners")}</a></li>
-            <li><a href="/anvandningsfall/vvs" className="hover:text-foreground transition-colors text-muted-foreground">Anvandningsfall VVS</a></li>
-            <li><a href="/anvandningsfall/tandlakare" className="hover:text-foreground transition-colors text-muted-foreground">Anvandningsfall tandlakare</a></li>
-            <li><a href="/vvs-emergency-trades" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.vvs")}</a></li>
-            <li><a href="/dental-clinics" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.dental")}</a></li>
-            <li><a href="/#pricing" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.pricing")}</a></li>
-            <li><a href="/#faq" className="hover:text-foreground transition-colors text-muted-foreground">{t("nav.faq")}</a></li>
+            <li>
+              <a
+                href={`${home}#how`}
+                className="hover:text-foreground transition-colors text-muted-foreground"
+              >
+                {t("nav.how")}
+              </a>
+            </li>
+            <li>
+              <a
+                href="/anvandningsfall/vvs"
+                className="hover:text-foreground transition-colors text-muted-foreground"
+              >
+                {t("nav.vvs")}
+              </a>
+            </li>
+            <li>
+              <a
+                href="/missade-samtal-audit"
+                className="hover:text-foreground transition-colors text-muted-foreground"
+              >
+                {t("nav.audit")}
+              </a>
+            </li>
+            <li>
+              <a
+                href="/partners"
+                className="hover:text-foreground transition-colors text-muted-foreground"
+              >
+                {t("nav.partners")}
+              </a>
+            </li>
+            <li>
+              <a
+                href={`${home}#pricing`}
+                className="hover:text-foreground transition-colors text-muted-foreground"
+              >
+                {t("nav.pricing")}
+              </a>
+            </li>
+            <li>
+              <a
+                href={`${home}#faq`}
+                className="hover:text-foreground transition-colors text-muted-foreground"
+              >
+                {t("nav.faq")}
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -98,8 +142,22 @@ export function Footer() {
             {t("cta.contact")}
           </button>
           <p className="mt-3 text-xs text-muted-foreground leading-relaxed font-light">
-            leadmapai.se@gmail.com<br />
+            <a href={`mailto:${CONTACT_EMAIL}`} className="underline underline-offset-4">
+              {CONTACT_EMAIL}
+            </a>
+            <br />
             {t("footer.replies")}
+          </p>
+          <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+            {LEGAL_ENTITY.name}
+            <br />
+            {LEGAL_ENTITY.organizationNumber ? (
+              <>
+                Org.nr {LEGAL_ENTITY.organizationNumber}
+                <br />
+              </>
+            ) : null}
+            {LEGAL_ENTITY.address || null}
           </p>
         </div>
       </div>
@@ -107,7 +165,9 @@ export function Footer() {
       <div className="border-t border-border/60">
         <div className="mx-auto max-w-6xl px-6 py-6 flex flex-col-reverse lg:flex-row items-center justify-between gap-5 text-xs text-muted-foreground">
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-            <span>© {new Date().getFullYear()} Leadmap · {t("footer.rights")}</span>
+            <span>
+              © {new Date().getFullYear()} Leadmap · {t("footer.rights")}
+            </span>
             <span className="hidden sm:inline opacity-40">·</span>
             <span>
               {t("footer.partners")}{" "}
@@ -128,6 +188,13 @@ export function Footer() {
             <a href="/privacy" className="hover:text-foreground transition-colors">
               {t("footer.privacy")}
             </a>
+            <button
+              type="button"
+              onClick={openConsentSettings}
+              className="hover:text-foreground transition-colors"
+            >
+              {t("footer.cookies")}
+            </button>
             <ThemeToggle />
           </div>
         </div>

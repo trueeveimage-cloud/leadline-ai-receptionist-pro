@@ -2,15 +2,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, MessageCircle, Check, Send } from "lucide-react";
 import { z } from "zod";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { CONTACT_EMAIL } from "@/lib/site-config";
+import { useI18n } from "@/lib/i18n";
 
 const schema = z.object({
   name: z.string().trim().min(1).max(100),
@@ -26,6 +23,8 @@ export function ContactDialog({
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) {
+  const { lang } = useI18n();
+  const sv = lang === "sv";
   const [form, setForm] = useState({ name: "", email: "", message: "", website: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
@@ -59,13 +58,17 @@ export function ContactDialog({
       });
       const json = await res.json().catch(() => ({ ok: false }));
       if (!res.ok || !json.ok) {
-        setServerError("Couldn't send. Please try again or email us directly.");
+        setServerError(
+          sv
+            ? "Kunde inte skicka. Försök igen eller mejla oss direkt."
+            : "Couldn't send. Please try again or email us directly.",
+        );
         setSending(false);
         return;
       }
       setSent(true);
     } catch {
-      setServerError("Network error. Please try again.");
+      setServerError(sv ? "Nätverksfel. Försök igen." : "Network error. Please try again.");
     } finally {
       setSending(false);
     }
@@ -90,13 +93,15 @@ export function ContactDialog({
               <Check className="h-6 w-6" strokeWidth={2.5} />
             </div>
             <DialogTitle className="mt-6 text-2xl font-semibold tracking-tight">
-              Message received
+              {sv ? "Meddelandet är mottaget" : "Message received"}
             </DialogTitle>
             <DialogDescription className="mt-2 text-sm text-muted-foreground">
-              Thanks — we got it. A real human will reply within one business day.
+              {sv
+                ? "Tack. En person återkommer inom en arbetsdag."
+                : "Thanks. A real person will reply within one business day."}
             </DialogDescription>
             <Button variant="brand" size="lg" className="mt-8" onClick={() => onOpenChange(false)}>
-              Close
+              {sv ? "Stäng" : "Close"}
             </Button>
           </motion.div>
         ) : (
@@ -104,14 +109,15 @@ export function ContactDialog({
             <div className="px-6 sm:px-8 pt-7 pb-5 border-b border-border/60">
               <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                 <MessageCircle className="h-3 w-3 text-brand" />
-                <span>We reply within 1 business day</span>
+                <span>{sv ? "Svar inom en arbetsdag" : "Reply within one business day"}</span>
               </div>
               <DialogTitle className="mt-3 text-2xl font-semibold tracking-tight">
-                Get in touch
+                {sv ? "Kontakta oss" : "Get in touch"}
               </DialogTitle>
               <DialogDescription className="mt-1.5 text-sm text-muted-foreground">
-                Questions about pricing, setup, or integrations — write us a line. A real
-                human reads every message.
+                {sv
+                  ? "Frågor om pris, uppstart eller integrationer? Skriv en rad. En person läser varje meddelande."
+                  : "Questions about pricing, setup or integrations? Write us a line. A real person reads every message."}
               </DialogDescription>
             </div>
 
@@ -129,7 +135,7 @@ export function ContactDialog({
               </div>
               <div>
                 <Label className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground font-medium">
-                  Name
+                  {sv ? "Namn" : "Name"}
                 </Label>
                 <Input
                   value={form.name}
@@ -137,46 +143,70 @@ export function ContactDialog({
                   placeholder="Jane Doe"
                   className="h-12 rounded-xl mt-2"
                 />
-                {errors.name && <p className="mt-1 text-xs text-destructive">Required</p>}
+                {errors.name && (
+                  <p className="mt-1 text-xs text-destructive">
+                    {sv ? "Obligatoriskt" : "Required"}
+                  </p>
+                )}
               </div>
               <div>
                 <Label className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground font-medium">
-                  Email
+                  {sv ? "E-post" : "Email"}
                 </Label>
                 <Input
                   type="email"
                   value={form.email}
                   onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                  placeholder="jane@aurora.com"
+                  placeholder="anna@foretag.se"
                   className="h-12 rounded-xl mt-2"
                 />
-                {errors.email && <p className="mt-1 text-xs text-destructive">Enter a valid email</p>}
+                {errors.email && (
+                  <p className="mt-1 text-xs text-destructive">
+                    {sv ? "Ange en giltig e-postadress" : "Enter a valid email"}
+                  </p>
+                )}
               </div>
               <div>
                 <Label className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground font-medium">
-                  Message
+                  {sv ? "Meddelande" : "Message"}
                 </Label>
                 <textarea
                   value={form.message}
                   onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-                  placeholder="Tell us about your call volume and what you'd like the AI to handle…"
+                  placeholder={
+                    sv
+                      ? "Berätta om samtalsvolymen och vad AI-receptionisten ska hantera…"
+                      : "Tell us about your call volume and what the AI should handle…"
+                  }
                   rows={5}
                   className="mt-2 w-full rounded-xl border border-border bg-background px-3.5 py-3 text-sm leading-relaxed focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring resize-none"
                 />
                 {errors.message && (
-                  <p className="mt-1 text-xs text-destructive">Tell us a bit more</p>
+                  <p className="mt-1 text-xs text-destructive">
+                    {sv ? "Berätta lite mer" : "Tell us a bit more"}
+                  </p>
                 )}
               </div>
 
-              {serverError && (
-                <p className="text-xs text-destructive">{serverError}</p>
-              )}
+              {serverError && <p className="text-xs text-destructive">{serverError}</p>}
 
               <div className="pt-2">
-                <Button type="submit" size="lg" variant="brand" className="w-full" disabled={sending}>
-                  {sending ? "Sending…" : (
+                <Button
+                  type="submit"
+                  size="lg"
+                  variant="brand"
+                  className="w-full"
+                  disabled={sending}
+                >
+                  {sending ? (
+                    sv ? (
+                      "Skickar…"
+                    ) : (
+                      "Sending…"
+                    )
+                  ) : (
                     <>
-                      Send message
+                      {sv ? "Skicka meddelande" : "Send message"}
                       <Send className="h-4 w-4" />
                     </>
                   )}
@@ -184,7 +214,7 @@ export function ContactDialog({
               </div>
 
               <div className="pt-3 border-t border-border/60">
-                <ContactPill icon={Mail} label="Email" value="leadmapai.se@gmail.com" />
+                <ContactPill icon={Mail} label="E-post" value={CONTACT_EMAIL} />
               </div>
             </form>
           </>
@@ -209,9 +239,7 @@ function ContactPill({
         <Icon className="h-4 w-4 text-muted-foreground" />
       </div>
       <div className="min-w-0">
-        <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-          {label}
-        </div>
+        <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">{label}</div>
         <div className="text-xs font-medium truncate">{value}</div>
       </div>
     </div>

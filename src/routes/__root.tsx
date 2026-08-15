@@ -4,12 +4,15 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
 import { I18nProvider } from "@/lib/i18n";
+import { ConsentManager } from "@/components/site/ConsentManager";
+import { MarketingPageTracker } from "@/components/site/MarketingPageTracker";
 
 function NotFoundComponent() {
   return (
@@ -73,18 +76,33 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Leadmap — AI Receptionists" },
-      { name: "description", content: "Leadmap provides premium AI receptionists to handle calls, qualify leads, and book appointments." },
+      { title: "Leadmap — AI-telefonist för VVS" },
+      {
+        name: "description",
+        content:
+          "Leadmap svarar när VVS-företag är ute på jobb eller har stängt, kvalificerar kunden och skickar nästa steg direkt.",
+      },
       { name: "author", content: "Leadmap" },
-      { property: "og:title", content: "Leadmap — AI Receptionists" },
-      { property: "og:description", content: "Leadmap provides premium AI receptionists to handle calls, qualify leads, and book appointments." },
+      { property: "og:title", content: "Leadmap — AI-telefonist för VVS" },
+      {
+        property: "og:description",
+        content: "Missa inte nästa VVS-jobb. Leadmap svarar, kvalificerar och skickar nästa steg.",
+      },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Leadmap" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "Leadmap — AI Receptionists" },
-      { name: "twitter:description", content: "Leadmap provides premium AI receptionists to handle calls, qualify leads, and book appointments." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/df17544f-92aa-495d-bfb9-bf70a620efaf/id-preview-a2ad0a17--db12fc5f-e412-441a-9002-745e2cbf253f.lovable.app-1779668951866.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/df17544f-92aa-495d-bfb9-bf70a620efaf/id-preview-a2ad0a17--db12fc5f-e412-441a-9002-745e2cbf253f.lovable.app-1779668951866.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Leadmap — AI-telefonist för VVS" },
+      {
+        name: "twitter:description",
+        content: "Missa inte nästa VVS-jobb. Leadmap svarar, kvalificerar och skickar nästa steg.",
+      },
+      { property: "og:image", content: "https://www.leadmap.se/og-leadmap-vvs.png" },
+      { property: "og:image:type", content: "image/png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Missa inte nästa VVS-jobb med Leadmap" },
+      { name: "twitter:image", content: "https://www.leadmap.se/og-leadmap-vvs.png" },
+      { name: "twitter:image:alt", content: "Missa inte nästa VVS-jobb med Leadmap" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -106,6 +124,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const htmlLang = pathname === "/en" || pathname.startsWith("/en/") ? "en" : "sv";
   const themeScript = `
     (() => {
       try {
@@ -122,13 +142,14 @@ function RootShell({ children }: { children: React.ReactNode }) {
   `;
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={htmlLang} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <HeadContent />
       </head>
       <body>
         {children}
+        <ConsentManager />
         <Scripts />
       </body>
     </html>
@@ -141,6 +162,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
+        <MarketingPageTracker />
         <Outlet />
       </I18nProvider>
     </QueryClientProvider>

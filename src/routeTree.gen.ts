@@ -17,6 +17,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as MissadeSamtalAuditRouteImport } from './routes/missade-samtal-audit'
 import { Route as ExperienceRouteImport } from './routes/experience'
+import { Route as EnRouteImport } from './routes/en'
 import { Route as DentalClinicsRouteImport } from './routes/dental-clinics'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -27,8 +28,11 @@ import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe
 import { Route as AnvandningsfallNicheRouteImport } from './routes/anvandningsfall/$niche'
 import { Route as AuthenticatedLeadLineNotiRouteImport } from './routes/_authenticated/LeadLineNoti'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
+import { Route as ApiPublicVoiceDemoSessionsRouteImport } from './routes/api.public.voice-demo-sessions'
 import { Route as ApiPublicMessagesRouteImport } from './routes/api.public.messages'
+import { Route as ApiPublicMarketingEventsRouteImport } from './routes/api.public.marketing-events'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api.public.leads'
+import { Route as ApiPublicAvailabilityRouteImport } from './routes/api.public.availability'
 import { Route as ApiPublicAuditSubmissionsRouteImport } from './routes/api.public.audit-submissions'
 import { Route as AiTelefonistNicheCityRouteImport } from './routes/ai-telefonist/$niche.$city'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
@@ -73,6 +77,11 @@ const MissadeSamtalAuditRoute = MissadeSamtalAuditRouteImport.update({
 const ExperienceRoute = ExperienceRouteImport.update({
   id: '/experience',
   path: '/experience',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnRoute = EnRouteImport.update({
+  id: '/en',
+  path: '/en',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DentalClinicsRoute = DentalClinicsRouteImport.update({
@@ -125,14 +134,31 @@ const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   path: '/lovable/email/suppression',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicVoiceDemoSessionsRoute =
+  ApiPublicVoiceDemoSessionsRouteImport.update({
+    id: '/api/public/voice-demo-sessions',
+    path: '/api/public/voice-demo-sessions',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicMessagesRoute = ApiPublicMessagesRouteImport.update({
   id: '/api/public/messages',
   path: '/api/public/messages',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicMarketingEventsRoute =
+  ApiPublicMarketingEventsRouteImport.update({
+    id: '/api/public/marketing-events',
+    path: '/api/public/marketing-events',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
   id: '/api/public/leads',
   path: '/api/public/leads',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicAvailabilityRoute = ApiPublicAvailabilityRouteImport.update({
+  id: '/api/public/availability',
+  path: '/api/public/availability',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicAuditSubmissionsRoute =
@@ -171,6 +197,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/dental-clinics': typeof DentalClinicsRoute
+  '/en': typeof EnRoute
   '/experience': typeof ExperienceRoute
   '/missade-samtal-audit': typeof MissadeSamtalAuditRoute
   '/partners': typeof PartnersRoute
@@ -184,8 +211,11 @@ export interface FileRoutesByFullPath {
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/ai-telefonist/$niche/$city': typeof AiTelefonistNicheCityRoute
   '/api/public/audit-submissions': typeof ApiPublicAuditSubmissionsRoute
+  '/api/public/availability': typeof ApiPublicAvailabilityRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
+  '/api/public/marketing-events': typeof ApiPublicMarketingEventsRoute
   '/api/public/messages': typeof ApiPublicMessagesRoute
+  '/api/public/voice-demo-sessions': typeof ApiPublicVoiceDemoSessionsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -197,6 +227,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/dental-clinics': typeof DentalClinicsRoute
+  '/en': typeof EnRoute
   '/experience': typeof ExperienceRoute
   '/missade-samtal-audit': typeof MissadeSamtalAuditRoute
   '/partners': typeof PartnersRoute
@@ -210,8 +241,11 @@ export interface FileRoutesByTo {
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/ai-telefonist/$niche/$city': typeof AiTelefonistNicheCityRoute
   '/api/public/audit-submissions': typeof ApiPublicAuditSubmissionsRoute
+  '/api/public/availability': typeof ApiPublicAvailabilityRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
+  '/api/public/marketing-events': typeof ApiPublicMarketingEventsRoute
   '/api/public/messages': typeof ApiPublicMessagesRoute
+  '/api/public/voice-demo-sessions': typeof ApiPublicVoiceDemoSessionsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -225,6 +259,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/dental-clinics': typeof DentalClinicsRoute
+  '/en': typeof EnRoute
   '/experience': typeof ExperienceRoute
   '/missade-samtal-audit': typeof MissadeSamtalAuditRoute
   '/partners': typeof PartnersRoute
@@ -238,8 +273,11 @@ export interface FileRoutesById {
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/ai-telefonist/$niche/$city': typeof AiTelefonistNicheCityRoute
   '/api/public/audit-submissions': typeof ApiPublicAuditSubmissionsRoute
+  '/api/public/availability': typeof ApiPublicAvailabilityRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
+  '/api/public/marketing-events': typeof ApiPublicMarketingEventsRoute
   '/api/public/messages': typeof ApiPublicMessagesRoute
+  '/api/public/voice-demo-sessions': typeof ApiPublicVoiceDemoSessionsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -253,6 +291,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/dental-clinics'
+    | '/en'
     | '/experience'
     | '/missade-samtal-audit'
     | '/partners'
@@ -266,8 +305,11 @@ export interface FileRouteTypes {
     | '/email/unsubscribe'
     | '/ai-telefonist/$niche/$city'
     | '/api/public/audit-submissions'
+    | '/api/public/availability'
     | '/api/public/leads'
+    | '/api/public/marketing-events'
     | '/api/public/messages'
+    | '/api/public/voice-demo-sessions'
     | '/lovable/email/suppression'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
@@ -279,6 +321,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/dental-clinics'
+    | '/en'
     | '/experience'
     | '/missade-samtal-audit'
     | '/partners'
@@ -292,8 +335,11 @@ export interface FileRouteTypes {
     | '/email/unsubscribe'
     | '/ai-telefonist/$niche/$city'
     | '/api/public/audit-submissions'
+    | '/api/public/availability'
     | '/api/public/leads'
+    | '/api/public/marketing-events'
     | '/api/public/messages'
+    | '/api/public/voice-demo-sessions'
     | '/lovable/email/suppression'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
@@ -306,6 +352,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/dental-clinics'
+    | '/en'
     | '/experience'
     | '/missade-samtal-audit'
     | '/partners'
@@ -319,8 +366,11 @@ export interface FileRouteTypes {
     | '/email/unsubscribe'
     | '/ai-telefonist/$niche/$city'
     | '/api/public/audit-submissions'
+    | '/api/public/availability'
     | '/api/public/leads'
+    | '/api/public/marketing-events'
     | '/api/public/messages'
+    | '/api/public/voice-demo-sessions'
     | '/lovable/email/suppression'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
@@ -334,6 +384,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   DentalClinicsRoute: typeof DentalClinicsRoute
+  EnRoute: typeof EnRoute
   ExperienceRoute: typeof ExperienceRoute
   MissadeSamtalAuditRoute: typeof MissadeSamtalAuditRoute
   PartnersRoute: typeof PartnersRoute
@@ -346,8 +397,11 @@ export interface RootRouteChildren {
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   AiTelefonistNicheCityRoute: typeof AiTelefonistNicheCityRoute
   ApiPublicAuditSubmissionsRoute: typeof ApiPublicAuditSubmissionsRoute
+  ApiPublicAvailabilityRoute: typeof ApiPublicAvailabilityRoute
   ApiPublicLeadsRoute: typeof ApiPublicLeadsRoute
+  ApiPublicMarketingEventsRoute: typeof ApiPublicMarketingEventsRoute
   ApiPublicMessagesRoute: typeof ApiPublicMessagesRoute
+  ApiPublicVoiceDemoSessionsRoute: typeof ApiPublicVoiceDemoSessionsRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
@@ -410,6 +464,13 @@ declare module '@tanstack/react-router' {
       path: '/experience'
       fullPath: '/experience'
       preLoaderRoute: typeof ExperienceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en': {
+      id: '/en'
+      path: '/en'
+      fullPath: '/en'
+      preLoaderRoute: typeof EnRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dental-clinics': {
@@ -482,6 +543,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailSuppressionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/voice-demo-sessions': {
+      id: '/api/public/voice-demo-sessions'
+      path: '/api/public/voice-demo-sessions'
+      fullPath: '/api/public/voice-demo-sessions'
+      preLoaderRoute: typeof ApiPublicVoiceDemoSessionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/messages': {
       id: '/api/public/messages'
       path: '/api/public/messages'
@@ -489,11 +557,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicMessagesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/marketing-events': {
+      id: '/api/public/marketing-events'
+      path: '/api/public/marketing-events'
+      fullPath: '/api/public/marketing-events'
+      preLoaderRoute: typeof ApiPublicMarketingEventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/leads': {
       id: '/api/public/leads'
       path: '/api/public/leads'
       fullPath: '/api/public/leads'
       preLoaderRoute: typeof ApiPublicLeadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/availability': {
+      id: '/api/public/availability'
+      path: '/api/public/availability'
+      fullPath: '/api/public/availability'
+      preLoaderRoute: typeof ApiPublicAvailabilityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/audit-submissions': {
@@ -552,6 +634,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   DentalClinicsRoute: DentalClinicsRoute,
+  EnRoute: EnRoute,
   ExperienceRoute: ExperienceRoute,
   MissadeSamtalAuditRoute: MissadeSamtalAuditRoute,
   PartnersRoute: PartnersRoute,
@@ -564,8 +647,11 @@ const rootRouteChildren: RootRouteChildren = {
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   AiTelefonistNicheCityRoute: AiTelefonistNicheCityRoute,
   ApiPublicAuditSubmissionsRoute: ApiPublicAuditSubmissionsRoute,
+  ApiPublicAvailabilityRoute: ApiPublicAvailabilityRoute,
   ApiPublicLeadsRoute: ApiPublicLeadsRoute,
+  ApiPublicMarketingEventsRoute: ApiPublicMarketingEventsRoute,
   ApiPublicMessagesRoute: ApiPublicMessagesRoute,
+  ApiPublicVoiceDemoSessionsRoute: ApiPublicVoiceDemoSessionsRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,

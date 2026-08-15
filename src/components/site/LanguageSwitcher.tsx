@@ -25,6 +25,17 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
   const { lang, setLang, t } = useI18n();
   const current = LANGS.find((l) => l.code === lang) ?? LANGS[0];
 
+  const chooseLanguage = (code: (typeof LANGS)[number]["code"]) => {
+    setLang(code);
+    if (typeof window === "undefined") return;
+    const target = code === "en" ? "/en" : "/";
+    const hash =
+      window.location.pathname === "/" || window.location.pathname === "/en"
+        ? window.location.hash
+        : "";
+    window.location.assign(`${target}${hash}`);
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -38,7 +49,7 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
         {LANGS.map((l) => (
           <DropdownMenuItem
             key={l.code}
-            onClick={() => setLang(l.code)}
+            onClick={() => chooseLanguage(l.code)}
             className={`gap-2.5 cursor-pointer ${l.code === lang ? "font-semibold" : ""}`}
           >
             <Flag country={l.country} />

@@ -10,13 +10,13 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { openBooking, openContact } = useDialogs();
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const home = lang === "en" ? "/en" : "/";
   const links = [
-    { href: "/#how", label: t("nav.how") },
-    { href: "/experience", label: t("nav.experience") },
+    { href: `${home}#how`, label: t("nav.how") },
+    { href: "/anvandningsfall/vvs", label: t("nav.vvs") },
     { href: "/missade-samtal-audit", label: t("nav.audit") },
-    { href: "/partners", label: t("nav.partners") },
-    { href: "/#pricing", label: t("nav.pricing") },
+    { href: `${home}#pricing`, label: t("nav.pricing") },
   ];
 
   useEffect(() => {
@@ -46,10 +46,9 @@ export function Nav() {
         }`}
       >
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-          <a href="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
+          <a href={home} className="flex items-center gap-2" onClick={() => setOpen(false)}>
             <span className="h-2 w-2 rounded-full bg-brand" />
             <span className="font-semibold tracking-tight">Leadmap</span>
-
           </a>
 
           <nav className="hidden items-center gap-7 text-[12px] font-medium text-muted-foreground md:flex">
@@ -146,7 +145,6 @@ export function Nav() {
           </>
         )}
       </AnimatePresence>
-
     </>
   );
 }

@@ -1,0 +1,42 @@
+{
+  "campaign": {
+    "name": "SE | Search | VVS | Gratis samtalsaudit | 30D",
+    "status": "PAUSED",
+    "channel": "SEARCH",
+    "country": "Sweden",
+    "locationMode": "PRESENCE",
+    "languages": ["sv", "en"],
+    "network": "GOOGLE_SEARCH_ONLY",
+    "schedule": "06:00-23:00 daily",
+    "totalBudgetSek": 4000,
+    "durationDays": 30,
+    "dailyPlaceholderSek": 131.5,
+    "bidding": "MAXIMIZE_CLICKS",
+    "initialCpcRule": "min(60, max(25, Keyword Planner median low-range top-of-page bid))",
+    "minimumForecastClicks": 50
+  },
+  "goals": {
+    "qualifiedLeads": 4,
+    "completedDemos": 2,
+    "paidPilots": 1,
+    "maximumWonPilotCacSek": 4000,
+    "evaluationWindowDays": 45
+  },
+  "conversionActions": {
+    "primary": ["audit_submit", "demo_booked"],
+    "secondary": ["landing_view", "audit_start", "demo_open"],
+    "offline": ["qualified_lead", "pilot_won"]
+  },
+  "stopRules": [
+    "Pause immediately if tracking, form, or calendar confirmation breaks",
+    "Add negatives if irrelevant searches exceed 20% of the latest 20 clicks",
+    "Pause a keyword or search theme after 600 SEK with no audit submission",
+    "Pause the campaign at 2,000 SEK with no qualified leads",
+    "Stop at 4,000 SEK regardless of unfinished learning",
+    "Stop acquisition at five paid pilots in a rolling 30-day period"
+  ],
+  "scaleRules": [
+    "One pilot and CAC <= 4,000 SEK allows a 6,000 SEK month-two cap",
+    "Two pilots and CAC <= 2,000 SEK allows an 8,000 SEK month-two cap"
+  ]
+}

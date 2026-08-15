@@ -72,14 +72,18 @@ export function BuyerSafety() {
                 </span>
               </div>
               <div className="mt-7 grid grid-cols-3 divide-x divide-background/10 text-center">
-                {[t("safety.metric.1"), t("safety.metric.2"), t("safety.metric.3")].map((metric, index) => (
-                  <div key={metric} className="px-2 py-4">
-                    <div className="text-3xl font-extralight tabular-nums">{index === 0 ? "7" : index === 1 ? "0" : "EU"}</div>
-                    <div className="mt-2 font-mono text-[8px] uppercase tracking-[0.12em] text-background/55">
-                      {metric}
+                {[t("safety.metric.1"), t("safety.metric.2"), t("safety.metric.3")].map(
+                  (metric, index) => (
+                    <div key={metric} className="px-2 py-4">
+                      <div className="text-3xl font-extralight tabular-nums">
+                        {index === 0 ? "7" : index === 1 ? "0" : "1"}
+                      </div>
+                      <div className="mt-2 font-mono text-[8px] uppercase tracking-[0.12em] text-background/55">
+                        {metric}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ),
+                )}
               </div>
             </div>
 
@@ -92,14 +96,16 @@ export function BuyerSafety() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.55, ease, delay: 0.1 + index * 0.08 }}
-                   className="grid gap-4 border-b border-background/10 p-5 last:border-b-0 sm:grid-cols-[2rem_1fr_auto] sm:items-center sm:px-6"
+                  className="grid gap-4 border-b border-background/10 p-5 last:border-b-0 sm:grid-cols-[2rem_1fr_auto] sm:items-center sm:px-6"
                 >
-                   <span className="grid h-8 w-8 place-items-center border border-background/15 text-background/60">
+                  <span className="grid h-8 w-8 place-items-center border border-background/15 text-background/60">
                     <Icon className="h-4 w-4" />
                   </span>
                   <div>
-                     <div className="text-sm font-medium">{t(item.label)}</div>
-                     <div className="mt-1 text-xs leading-relaxed text-background/55">{t(item.detail)}</div>
+                    <div className="text-sm font-medium">{t(item.label)}</div>
+                    <div className="mt-1 text-xs leading-relaxed text-background/55">
+                      {t(item.detail)}
+                    </div>
                   </div>
                   <CheckCircle2 className="hidden h-5 w-5 text-background/55 sm:block" />
                 </motion.div>

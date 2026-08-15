@@ -3,16 +3,15 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { ArrowRight, CalendarCheck, MailCheck, PhoneIncoming, Sparkles } from "lucide-react";
 import { useDialogs } from "./DialogsProvider";
 import { useI18n } from "@/lib/i18n";
-import { WordRotator } from "./WordRotator";
 import { MagneticButton } from "./MagneticButton";
 import { HeroOrbs } from "./HeroOrbs";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
-  const { openBooking, openTestAI } = useDialogs();
+  const { openTestAI } = useDialogs();
   const reduce = useReducedMotion();
-  const { t, lang } = useI18n();
+  const { t } = useI18n();
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -21,14 +20,6 @@ export function Hero() {
   const lineY = useTransform(scrollYProgress, [0, 1], ["-10%", "18%"]);
   const titleY = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]);
   const titleOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.15]);
-
-  const industries =
-    lang === "sv"
-      ? ["rörmokare.", "tandläkare.", "elektriker.", "bilrekond.", "takläggare."]
-      : lang === "es"
-        ? ["fontaneros.", "dentistas.", "electricistas.", "talleres.", "techadores."]
-        : ["plumbers.", "dentists.", "electricians.", "detailers.", "roofers."];
-
 
   const rescue = [
     { icon: PhoneIncoming, label: t("hero.rescue.1"), meta: t("hero.rescue.1.meta") },
@@ -96,28 +87,15 @@ export function Hero() {
             transition={{ duration: 0.85, ease, delay: 0.05 }}
             className="mx-auto mt-6 max-w-4xl text-5xl font-extralight leading-[0.98] tracking-tight md:mt-7 md:text-7xl lg:text-[5.4rem]"
           >
-            <span>
-              {t("hero.title.l1")}{" "}
-              <span className="font-serif italic">{t("hero.title.l2")}</span>
-            </span>{" "}
-            <span className="block">{t("hero.title.l3")}</span>
+            <span>{t("hero.title.l1")} </span>
+            <span className="font-serif italic">{t("hero.title.l2")}</span>
           </motion.h1>
-
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease, delay: 0.18 }}
-            className="mx-auto mt-5 flex items-center justify-center gap-2 text-base font-light text-muted-foreground md:mt-6 md:text-xl"
-          >
-            <span className="font-serif italic text-foreground/70">{t("hero.for")}&nbsp;</span>
-            <WordRotator words={industries} className="font-serif italic text-foreground" />
-          </motion.p>
 
           <motion.p
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease, delay: 0.24 }}
-            className="mx-auto mt-5 max-w-xl text-sm font-light leading-relaxed text-muted-foreground md:text-base"
+            transition={{ duration: 0.75, ease, delay: 0.18 }}
+            className="mx-auto mt-6 max-w-2xl text-base font-light leading-relaxed text-muted-foreground md:text-lg"
           >
             {t("hero.subtitle")}
           </motion.p>
@@ -129,10 +107,14 @@ export function Hero() {
             className="mx-auto mt-8 flex w-full max-w-xl flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-center"
           >
             <MagneticButton
-              onClick={openBooking}
+              onClick={() =>
+                window.location.assign(
+                  "/missade-samtal-audit?utm_source=homepage&utm_medium=cta&utm_campaign=vvs_audit&cta_variant=hero",
+                )
+              }
               className="relative inline-flex h-12 w-full items-center justify-center rounded-none bg-brand px-9 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-foreground shadow-[0_20px_60px_-20px_color-mix(in_oklch,var(--brand)_55%,transparent)] transition-colors hover:bg-brand/90 sm:w-auto"
             >
-              <span>{t("hero.cta.book")}</span>
+              <span>{t("audit.cta")}</span>
             </MagneticButton>
             <button
               onClick={openTestAI}
@@ -179,7 +161,9 @@ export function Hero() {
                     <span className="text-sm font-medium leading-tight">{item.label}</span>
                   </div>
                   <div className="mt-2.5 flex items-center gap-2 sm:mt-3">
-                    <span className="text-[10px] tabular-nums text-muted-foreground">0{index + 1}</span>
+                    <span className="text-[10px] tabular-nums text-muted-foreground">
+                      0{index + 1}
+                    </span>
                     <span className="h-px flex-1 bg-foreground/15" />
                   </div>
                   <p className="mt-2 text-[9px] uppercase tracking-[0.16em] text-muted-foreground sm:text-[10px] sm:tracking-[0.2em]">
@@ -219,7 +203,9 @@ export function Hero() {
         transition={{ delay: 1.1, duration: 0.6 }}
         className="pointer-events-none absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex"
       >
-        <span className="text-[9px] uppercase tracking-[0.4em] text-muted-foreground">{t("hero.scroll")}</span>
+        <span className="text-[9px] uppercase tracking-[0.4em] text-muted-foreground">
+          {t("hero.scroll")}
+        </span>
         <motion.span
           className="h-8 w-px bg-foreground/30"
           animate={reduce ? undefined : { scaleY: [0.3, 1, 0.3], originY: 0 }}

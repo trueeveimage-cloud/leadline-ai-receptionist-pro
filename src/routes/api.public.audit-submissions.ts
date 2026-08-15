@@ -1,161 +1,206 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
+import { recordServerMarketingEvent } from "@/lib/marketing-events.server";
+import {
+  checkRateLimit,
+  isAllowedPublicOrigin,
+  publicCorsHeaders,
+  readJsonBody,
+} from "@/lib/public-api.server";
 
+const contact = z
+  .string()
+  .trim()
+  .min(6)
+  .max(180)
+  .refine(
+    (value) => z.string().email().safeParse(value).success || /^[+0-9\s\-()]{6,32}$/.test(value),
+    "Ange ett giltigt telefonnummer eller en giltig e-postadress.",
+  );
+const optionalText = (max: number) => z.string().trim().max(max).optional().default("");
 const schema = z.object({
+  submissionId: z.string().uuid(),
+  advertisingConsent: z.boolean().optional().default(false),
   businessName: z.string().trim().min(1).max(140),
   ownerName: z.string().trim().min(1).max(100),
-  phone: z.string().trim().min(6).max(32).regex(/^[+0-9\s\-()]+$/),
-  email: z.string().trim().email().max(180),
-  niche: z.string().trim().min(1).max(120),
-  city: z.string().trim().min(1).max(100),
-  website: z.string().trim().max(220).optional().default(""),
-  missedCallsPerWeek: z.string().trim().max(80).optional().default(""),
-  preferredContactMethod: z.string().trim().max(40).optional().default("E-post"),
-  source_page: z.string().trim().max(300).optional().default("/missade-samtal-audit"),
-  city_page: z.string().trim().max(120).optional().default(""),
-  niche_page: z.string().trim().max(120).optional().default(""),
-  case_study_page: z.string().trim().max(120).optional().default(""),
-  utm_source: z.string().trim().max(120).optional().default("website"),
-  utm_medium: z.string().trim().max(120).optional().default("audit_funnel"),
-  utm_campaign: z.string().trim().max(160).optional().default("missade_samtal_audit"),
+  contact,
+  niche: z.literal("VVS").optional().default("VVS"),
+  city: optionalText(100),
+  website: optionalText(220),
+  missedCallsPerWeek: optionalText(80),
+  companyWebsite: z.string().max(0).optional().default(""),
+  source_page: optionalText(300),
+  landing_path: optionalText(300),
+  page_type: optionalText(80),
+  cta_variant: optionalText(80),
+  utm_source: optionalText(120),
+  utm_medium: optionalText(120),
+  utm_campaign: optionalText(160),
+  utm_term: optionalText(200),
+  utm_content: optionalText(200),
+  gclid: optionalText(300),
+  gbraid: optionalText(300),
+  wbraid: optionalText(300),
+  fbclid: optionalText(300),
+  referrer: optionalText(300),
 });
-
-const ALLOWED_ORIGINS = new Set([
-  "https://www.leadmap.se",
-  "https://leadmap.se",
-  "https://leadline-ai-receptionist-pro.lovable.app",
-  "https://id-preview--db12fc5f-e412-441a-9002-745e2cbf253f.lovable.app",
-]);
-
-function corsHeaders(request: Request) {
-  const origin = request.headers.get("origin");
-  const allowedOrigin =
-    origin && (ALLOWED_ORIGINS.has(origin) || origin.startsWith("http://localhost:"))
-      ? origin
-      : "https://www.leadmap.se";
-  return {
-    "Access-Control-Allow-Origin": allowedOrigin,
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
-    Vary: "Origin",
-  } as const;
-}
 
 export const Route = createFileRoute("/api/public/audit-submissions")({
   server: {
     handlers: {
-      OPTIONS: async ({ request }) => new Response(null, { status: 204, headers: corsHeaders(request) }),
+      OPTIONS: async ({ request }) =>
+        new Response(null, { status: 204, headers: publicCorsHeaders(request) }),
       POST: async ({ request }) => {
-        const cors = corsHeaders(request);
+        const cors = publicCorsHeaders(request);
+        if (!isAllowedPublicOrigin(request)) {
+          return json({ ok: false, error: "Forbidden." }, 403, cors);
+        }
+        const limit = checkRateLimit(request, "audit", { limit: 5, windowMs: 10 * 60_000 });
+        if (!limit.allowed) {
+          return json(
+            { ok: false, error: "För många försök. Vänta en stund och försök igen." },
+            429,
+            { ...cors, "Retry-After": String(limit.retryAfterSeconds) },
+          );
+        }
+
         try {
-          const body = await request.json().catch(() => null);
-          const parsed = schema.safeParse(body);
+          const parsed = schema.safeParse(await readJsonBody(request));
           if (!parsed.success) {
-            return new Response(
-              JSON.stringify({ ok: false, error: "Invalid input.", issues: parsed.error.flatten().fieldErrors }),
-              { status: 400, headers: { "Content-Type": "application/json", ...cors } },
+            return json(
+              { ok: false, error: "Kontrollera de obligatoriska uppgifterna." },
+              400,
+              cors,
             );
           }
-
           const input = parsed.data;
-          const auditData = {
-            missed_calls_per_week: input.missedCallsPerWeek,
-            preferred_contact_method: input.preferredContactMethod,
-            website: input.website,
-            source_page: input.source_page,
-            city_page: input.city_page,
-            niche_page: input.niche_page,
-            case_study_page: input.case_study_page,
+          if (input.companyWebsite) return json({ ok: true }, 200, cors);
+
+          const isEmail = z.string().email().safeParse(input.contact).success;
+          const email = isEmail ? input.contact : "";
+          const phone = isEmail ? null : input.contact;
+          const preferredContactMethod = isEmail ? "E-post" : "Samtal";
+          const attribution = {
+            source_page: input.source_page || "/missade-samtal-audit",
+            landing_path: input.landing_path,
+            page_type: input.page_type || "audit",
+            cta_variant: input.cta_variant || "audit_form",
+            niche: "vvs",
+            city: input.city,
             utm_source: input.utm_source,
             utm_medium: input.utm_medium,
             utm_campaign: input.utm_campaign,
+            utm_term: input.utm_term,
+            utm_content: input.utm_content,
+            gclid: input.gclid,
+            gbraid: input.gbraid,
+            wbraid: input.wbraid,
+            fbclid: input.fbclid,
+            referrer: input.referrer,
           };
           const notes = [
             "Website audit submission",
-            `Niche: ${input.niche}`,
-            `City: ${input.city}`,
-            `Preferred contact: ${input.preferredContactMethod}`,
-            input.missedCallsPerWeek ? `Estimated missed calls/week: ${input.missedCallsPerWeek}` : null,
+            "Niche: VVS",
+            input.city ? `City: ${input.city}` : null,
+            `Preferred contact: ${preferredContactMethod}`,
+            input.missedCallsPerWeek
+              ? `Estimated missed calls/week: ${input.missedCallsPerWeek}`
+              : null,
             input.website ? `Website: ${input.website}` : null,
-            `Source page: ${input.source_page}`,
+            `Source page: ${attribution.source_page}`,
             `UTM: ${input.utm_source}/${input.utm_medium}/${input.utm_campaign}`,
           ]
             .filter(Boolean)
             .join("\n");
 
           const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-
           const crmPayload = {
-            name: input.businessName,
-            business_name: input.businessName,
+            name: input.ownerName,
+            company: input.businessName,
             owner_name: input.ownerName,
-            phone: input.phone,
-            email: input.email,
-            city: input.city,
-            category: input.niche,
-            niche_label: input.niche,
+            phone,
+            email: email || null,
+            preferred_time: `Audit via ${preferredContactMethod}`,
+            city: input.city || null,
+            category: "VVS",
+            niche_label: "VVS",
             website: input.website || null,
             status: "interested",
-            section: "both",
+            section: isEmail ? "email" : "phone",
             product: "leadmap",
             lead_source: "website_audit",
-            source_page: input.source_page,
-            source_campaign: input.utm_campaign,
-            utm_source: input.utm_source,
-            utm_medium: input.utm_medium,
-            utm_campaign: input.utm_campaign,
-            preferred_contact_method: input.preferredContactMethod,
-            audit_data: auditData,
+            source_page: attribution.source_page,
+            source_campaign: input.utm_campaign || null,
+            utm_source: input.utm_source || null,
+            utm_medium: input.utm_medium || null,
+            utm_campaign: input.utm_campaign || null,
+            utm_term: input.utm_term || null,
+            utm_content: input.utm_content || null,
+            gclid: input.gclid || null,
+            gbraid: input.gbraid || null,
+            wbraid: input.wbraid || null,
+            fbclid: input.fbclid || null,
+            preferred_contact_method: preferredContactMethod,
+            audit_data: {
+              missed_calls_per_week: input.missedCallsPerWeek,
+              website: input.website,
+              attribution,
+            },
             website_demo_requested: true,
-            seo_landing_page: input.city_page || input.niche_page ? input.source_page : null,
-            case_study_page: input.case_study_page || null,
+            seo_landing_page: attribution.landing_path || null,
             notes,
-            user_agent: request.headers.get("user-agent") ?? null,
+            marketing_submission_id: input.submissionId,
+            advertising_consent: input.advertisingConsent,
+            user_agent: request.headers.get("user-agent") || null,
           };
 
-          const { error: crmError } = await (supabaseAdmin as any).from("leads").insert(crmPayload);
-
-          if (crmError) {
-            const fallbackPayload = {
-              name: input.ownerName,
-              company: input.businessName,
-              phone: input.phone,
-              preferred_time: `Audit via ${input.preferredContactMethod}. ${notes}`,
-              user_agent: request.headers.get("user-agent") ?? null,
-            };
-            const { error: fallbackError } = await supabaseAdmin.from("leads").insert(fallbackPayload);
-            if (fallbackError) {
-              console.error("[leadmap] audit insert failed", { crmError, fallbackError });
-              return new Response(JSON.stringify({ ok: false, error: "Server error." }), {
-                status: 500,
-                headers: { "Content-Type": "application/json", ...cors },
-              });
-            }
+          const { error: crmError } = await supabaseAdmin.from("leads").insert(crmPayload);
+          const duplicate = crmError?.code === "23505";
+          if (crmError && !duplicate) {
+            console.error("[leadmap] audit insert failed", { crmError });
+            return json({ ok: false, error: "Serverfel. Försök igen senare." }, 500, cors);
           }
 
           try {
-            const { queueOwnerNotification } = await import("@/lib/owner-notifications.server");
-            await queueOwnerNotification("owner-message-notification", {
-              name: input.ownerName,
-              email: input.email,
-              message: notes,
+            await recordServerMarketingEvent({
+              eventId: input.submissionId,
+              eventName: "audit_submit",
+              attribution,
+              metadata: {
+                preferred_contact_method: preferredContactMethod,
+                advertising_consent: input.advertisingConsent,
+              },
             });
-          } catch (notificationError) {
-            console.error("[leadmap] audit notification failed", notificationError);
+          } catch (eventError) {
+            console.error("[leadmap] audit event failed", eventError);
           }
 
-          return new Response(JSON.stringify({ ok: true }), {
-            status: 200,
-            headers: { "Content-Type": "application/json", ...cors },
-          });
-        } catch (err) {
-          console.error("[leadmap] audit handler failed", err);
-          return new Response(JSON.stringify({ ok: false, error: "Server error." }), {
-            status: 500,
-            headers: { "Content-Type": "application/json", ...cors },
-          });
+          if (!duplicate) {
+            try {
+              const { queueOwnerNotification } = await import("@/lib/owner-notifications.server");
+              await queueOwnerNotification("owner-message-notification", {
+                name: input.ownerName,
+                email: email || input.contact,
+                message: notes,
+              });
+            } catch (notificationError) {
+              console.error("[leadmap] audit notification failed", notificationError);
+            }
+          }
+
+          return json({ ok: true, duplicate }, 200, cors);
+        } catch (error) {
+          console.error("[leadmap] audit handler failed", error);
+          return json({ ok: false, error: "Serverfel. Försök igen senare." }, 500, cors);
         }
       },
     },
   },
 });
+
+function json(body: unknown, status: number, headers: Record<string, string>) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json", ...headers },
+  });
+}
